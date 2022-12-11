@@ -2,7 +2,8 @@
    <div class="col-md-12">
          <navbar/>
       <span class="d-flex">
-         <div class="col-md-2 border" id="sideMenu" >
+         <div class="col-md-2 border" id="sideBar" >
+            <sidebar/>
          </div>
          <div class="col-md-10">
             <div class="my-3">
@@ -20,12 +21,24 @@
 <script>
 export default {
    components:{
-      'navbar':require("@/components/Dashboard/NavBar.vue").default
+      'navbar':require("@/components/Dashboard/NavBar.vue").default,
+      'sidebar':require("@/components/Dashboard/SideBar.vue").default
    }
 
 }
 </script>
 
-<style>
+<style scoped>
 
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+ #sideBar{
+  min-height: 710px;
+  width: 227px;
+  background: rgb(60, 74, 94);
+}
 </style>
