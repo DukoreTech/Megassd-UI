@@ -44,11 +44,11 @@
          </label>
          <span>{{ errors?.adresse }}</span>
 
-        <label for="Username">
-            <input type="text" id="Username" placeholder="Username" v-model="form.Username">
-            <span>Username</span>
+        <label for="nomDUtilasateur">
+            <input type="text" id="nomDUtilasateur" placeholder="Nom d'Utilasateur" v-model="form.nomDUtilasateur">
+            <span>Nom d'Utilasateur</span>
         </label>
-        <span>{{ errors?.Username }}</span>
+        <span>{{ errors?.nomDUtilasateur }}</span>
 
          <label for="motDePasse">
             <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.motDePasse">
@@ -84,7 +84,7 @@ export default {
         telephone:"",
         mail:"",
         adresse:"",
-        Username:"",
+        nomDUtilasateur:"",
         motDePasse:""      
       },
       errors: {},
@@ -102,7 +102,7 @@ export default {
   methods: {
  
     saveInformation() {
-      if (this.form["Username", "motDePasse", "mail", "nom"]=="") return; 
+      if (this.form["nomDUtilasateur", "motDePasse", "mail", "nom"]=="") return; 
 
        if(this.$store.state.IdEditUser==null){
              
@@ -112,7 +112,7 @@ export default {
         )
         .then((resp) => {
           this.users = resp.data;
-          this.form = { nom:"",prenom:"",dateDenaissance:"", telephone:"",mail:"",adresse:"",Username:"",motDePasse:""} 
+          this.form = { nom:"",prenom:"",dateDenaissance:"", telephone:"",mail:"",adresse:"",nomDUtilasateur:"",motDePasse:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
