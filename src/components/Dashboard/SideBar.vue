@@ -12,7 +12,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">           
+            <li class="nav-item mt-2 ">           
                 <font-awesome-icon icon="fa-solid fa-tachometer-alt" class="icon"/> 
                 <span class="ml-2 label"> Tableau de Bord </span>
             </li>
@@ -65,16 +65,16 @@
                    
                     <div class="collapse" id="collapseClients">
                         <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
+                             <router-link :to="{name:'Client'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                                aria-expanded="true" aria-controls="collapseClient">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Client 
+                             </router-link>          
                            <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
                              aria-expanded="true" aria-controls="collapseClient">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Adresse
                             </router-link>  
-                             <router-link :to="{name:'Role'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
-                                aria-expanded="true" aria-controls="collapseClient">
-                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Role 
-                             </router-link>          
                         </div>
                     </div> 
     

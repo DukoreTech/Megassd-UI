@@ -62,7 +62,7 @@
 
 <script>
 import axios from "axios";
-import ModalComponent from '@/components/Global/ModalComponent.vue';
+import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './AddClientForm.vue';
 
 export default {

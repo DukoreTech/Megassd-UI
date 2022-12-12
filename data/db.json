@@ -62,7 +62,27 @@
   "preterVides": [],
   "receptions": [],
   "ventes": [],
-  "clients": [],
+  "clients": [
+    {
+      "nom": "Elodie",
+      "prenom": "Ishi",
+      "dateDenaissance": "2022-12-13",
+      "telephone": "6788665",
+      "mail": "elo@gmail.com",
+      "adresse": "kibenga",
+      "id": 2
+    },
+    {
+      "nom": "sampras",
+      "prenom": "Kub",
+      "dateDenaissance": "2022-11-28",
+      "telephone": "65566677",
+      "mail": "kub@gmail.com",
+      "addresse": "Kibembe",
+      "id": 3,
+      "adresse": "Mugere"
+    }
+  ],
   "typeClients": [],
   "adresses": [
     {

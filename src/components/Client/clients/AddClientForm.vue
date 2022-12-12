@@ -29,7 +29,7 @@
             </div>
 
              <div class="col-6">
-                 
+
                  <label for="telephone">
                     <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
                     <span>Telephone</span>
@@ -41,13 +41,20 @@
                     <span>Email</span>
                 </label>
                 <span>{{ errors?.mail }}</span>
+                    <br>
 
-                <label for="Adresse">
-                    <input type="text" id="Adresse" placeholder="Adresse" v-model="form.adresse">
-                    <span>Adresse</span>
-                </label>
-                <span>{{ errors?.adresse }}</span>
-        </div>
+                <span>Adresse</span>
+                 <label for="adresse" class="d-block dateWidth">
+                    <select  v-model="form.adresse" aria-placeholder="Adresse" id="adresse">
+                        <option v-for="adresse in adresses" :key="adresse.id" selected>
+                        {{ adresse.zone }}
+                        </option>
+                    </select>
+              
+              </label>
+            <span>{{ errors?.adresse }}</span>
+         </div>
+        </div>  
         <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
@@ -73,8 +80,12 @@ export default {
       },
       errors: {},
       clients:[],
+      adresses:[],
       saveEditBtn:"Enregistrer",
     };
+  },
+    mounted(){
+      this.getAdresse()
   },
   updated(){
     if(this.$store.state.IdEditClient==null){
@@ -88,7 +99,18 @@ export default {
   },
 
   methods: {
- 
+
+    getAdresse() {
+      axios.get(this.$store.state.baseUrl + "/adresses",
+      )
+        .then(resp => {
+          this.adresses = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+    },
     saveInformation() {
       if (this.form["prenom","adateDenaissancege","telephone","nom"]=="") return; 
 
