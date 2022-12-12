@@ -69,8 +69,9 @@
       "dateDenaissance": "2022-12-13",
       "telephone": "6788665",
       "mail": "elo@gmail.com",
-      "adresse": "kibenga",
-      "id": 2
+      "adresse": "Mugere",
+      "id": 2,
+      "typeClient": "Bar"
     },
     {
       "nom": "sampras",
@@ -80,7 +81,8 @@
       "mail": "kub@gmail.com",
       "addresse": "Kibembe",
       "id": 3,
-      "adresse": "Mugere"
+      "adresse": "Mugere",
+      "typeClient": "Client simple"
     }
   ],
   "typeClients": [

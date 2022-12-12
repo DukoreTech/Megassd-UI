@@ -29,6 +29,7 @@
                                 <th scope="col">Date de naissance</th>
                                 <th scope="col">Telephone</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Type de client</th>
                                 <th scope="col">Adresse</th>
                                 <th scope="col">Actions</th>
                              </tr>
@@ -42,6 +43,7 @@
                                 <td>{{ client.dateDenaissance }} </td>
                                 <td>{{ client.telephone }} </td>            
                                 <td>{{ client.mail }} </td>            
+                                <td>{{ client.typeClient }} </td>            
                                 <td>{{ client.adresse }} </td>            
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>

@@ -25,23 +25,32 @@
                     <span>Date de naissance</span>
                 </label>
                 <span>{{ errors?.dateDenaissance }}</span>
-                
-            </div>
-
-             <div class="col-6">
 
                  <label for="telephone">
                     <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
                     <span>Telephone</span>
                 </label>
                 <span>{{ errors?.telephone }}</span>
+                
+            </div>
 
+             <div class="col-6">
                 <label for="mail">
                     <input type="email" id="mail" placeholder="Telephone" v-model="form.mail">
                     <span>Email</span>
                 </label>
                 <span>{{ errors?.mail }}</span>
                     <br>
+                <span>Type de client</span>
+                 <label for="typeClient" class="d-block dateWidth">
+                    <select  v-model="form.typeClient" aria-placeholder="Type de client" id="typeClient">
+                        <option v-for="typeClient in typeClients" :key="typeClient.id" selected>
+                            {{ typeClient.typeClient }}
+                         </option>
+                     </select>             
+                  </label>
+                <span>{{ errors?.typeClient }}</span>
+                <br>
 
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
@@ -49,8 +58,7 @@
                         <option v-for="adresse in adresses" :key="adresse.id" selected>
                         {{ adresse.zone }}
                         </option>
-                    </select>
-              
+                    </select>             
               </label>
             <span>{{ errors?.adresse }}</span>
          </div>
@@ -76,16 +84,19 @@ export default {
         telephone:"",
         mail:"",
         adresse:"",
+        typeClient:""
     
       },
       errors: {},
       clients:[],
       adresses:[],
+      typeClients:[],
       saveEditBtn:"Enregistrer",
     };
   },
     mounted(){
       this.getAdresse()
+      this.getClientType()
   },
   updated(){
     if(this.$store.state.IdEditClient==null){
@@ -105,6 +116,17 @@ export default {
       )
         .then(resp => {
           this.adresses = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+    },
+     getClientType() {
+      axios.get(this.$store.state.baseUrl + "/typeClients",
+      )
+        .then(resp => {
+          this.typeClients = resp.data
         })
         .catch(err => {
           console.log(err)
