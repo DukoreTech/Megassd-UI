@@ -67,7 +67,18 @@
       "id": 5
     }
   ],
-  "stocks": [],
+  "stocks": [
+    {
+      "produit": 1,
+      "Quantite": "23",
+      "id": 1
+    },
+    {
+      "produit": 2,
+      "Quantite": "56",
+      "id": 2
+    }
+  ],
   "typeStock": [],
   "detailReceptions": [],
   "detailVentes": [],

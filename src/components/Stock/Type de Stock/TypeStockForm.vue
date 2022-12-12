@@ -1,30 +1,28 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="d-none">{{$store.state.stocks}}{{$store.state.IdEditStock}}</span>
+<span class="d-none">{{$store.state.typeStocks}}{{$store.state.IdEditTypStock}}</span>
 <!-- retrieve data -->
    
-
   <div class="register">
-    <form action="" @submit.prevent="saveInformation">
+    <form action="" @submit.prevent="saveInformation">     
 
-                <span>Produit</span>
-                 <label for="produit" class="">
-                    <select  v-model="form.produit" aria-placeholder="produit" id="produit">
-                        <option v-for="produit in produits" :key="produit.id" :value="produit.id" selected>
-                            {{ produit.nom }}
-                         </option>
-                     </select>             
-                  </label>
-                 <span>{{ errors?.produit }}</span>
-                <br>
+        <span>Type de Stock</span>
+          <label>
+              <select  v-model="form.typeStock">
+                <option selected="selected">Bar</option>
+                <option>Plein</option>
+                <option>Vide</option>
+              </select>
+          </label>
+         <span>{{ errors?.typeStock }}</span>
 
-                 <label for="Quantite">
-                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.Quantite">
-                    <span>Quantite</span>
-                 </label>
-                <span>{{ errors?.Quantite }}</span>
-                
+        <span>Description</span>
+         <label for="description">
+            <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+        </label>
+        <span>{{ errors?.description }}</span>
+        <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
 </div>
@@ -39,54 +37,39 @@ export default {
   data() {
     return {
       form: {
-        produit:"",
-        Quantite:""
-    
+        typeStock:"",
+        description:"",            
       },
       errors: {},
-      stocks:[],
-      produits:[],
+      typeStocks:[],
       saveEditBtn:"Enregistrer",
     };
   },
-  mounted(){
-    this.getProduits()
-  },
+
   updated(){
-    if(this.$store.state.IdEditStock==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.stocks;
-        this.saveEditBtn="Modifier"
-      }
- 
+    if(this.$store.state.IdEditTypStock==null){
+         this.form={};
+         this.saveEditBtn="Enregistrer"
+        }else{
+            this.form=this.$store.state.typeStocks;
+            this.saveEditBtn="Modifier"
+        }
   },
 
   methods: {
-     getProduits() {
-      axios.get(this.$store.state.baseUrl + "/produits",
-      )
-        .then(resp => {
-          this.produits = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
-    },
+ 
     saveInformation() {
-      if (this.form["produit","Quantite"]=="") return; 
+      if (this.form[ "typeStock"]=="") return; 
 
-       if(this.$store.state.IdEditStock==null){
+       if(this.$store.state.IdEditTypStock==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/stocks",
+          this.$store.state.baseUrl + "/typeStocks",
           this.form
         )
         .then((resp) => {
-          this.stocks = resp.data;
-          this.form = { produit:"",Quantite:""} 
+          this.typeStocks = resp.data;
+          this.form = { typeStock:"",description:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -94,11 +77,12 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/stocks/"+this.$store.state.IdEditStock,
+          this.$store.state.baseUrl+"/typeStocks/"+this.$store.state.IdEditTypStock,
           this.form )
         .then((resp) => {
-          this.stocks = resp.data;
+          this.typeStocks = resp.data.data;
           this.$emit('close')
+          this.$store.state.IdEditTypStock=null
          })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -131,7 +115,6 @@ body{
 form{
     width:90vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
     padding:3vw;
     display:flex;
     flex-direction:column;
@@ -143,7 +126,7 @@ label{
     position:relative;
     border-bottom:1px solid #ddd;
 }
-input,select{
+input,select,textarea{
     width:100%;
     padding:10px 0px;
     margin-top:20px;
@@ -151,6 +134,10 @@ input,select{
     outline:none;
 }
 input::placeholder{
+    opacity:0;
+}
+
+textarea::placeholder{
     opacity:0;
 }
 
@@ -187,8 +174,6 @@ input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
 }
-.dateWidth{
-    width: 60%;
-}
+
 
 </style>

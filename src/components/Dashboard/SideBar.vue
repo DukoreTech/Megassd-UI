@@ -106,12 +106,12 @@
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   Produit 
                              </router-link>          
-                           <!-- <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
                              aria-expanded="true" aria-controls="collapseClient">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Adresse
+                             Stock
                             </router-link>  
-                            <router-link :to="{name:'TyClient'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                           <!-- <router-link :to="{name:'TyClient'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
                              aria-expanded="true" aria-controls="collapseClient">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Type de client
