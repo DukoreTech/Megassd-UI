@@ -14,7 +14,9 @@ export default createStore({
     typeClients:[],
     editTypeClient:null,
     produits:[],
-    IdEditProduit:null
+    IdEditProduit:null,
+    stocks:[],
+    IdEditStock:null
 
   },
   mutations: {
