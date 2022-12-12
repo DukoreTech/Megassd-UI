@@ -4,6 +4,7 @@ import Role from "@/views/RoleView.vue"
 import Adresse from "@/views/AdresseView.vue"
 import Client from "@/views/ClientView.vue"
 import TyClient from "@/views/TypeClientView.vue"
+import Produit from "@/views/ProduitView.vue"
 
 const routes = [
 
@@ -12,6 +13,7 @@ const routes = [
  { path:'/Adresse',name:'Adresse',component:Adresse },
  { path:'/Client',name:'Client',component:Client },
  { path:'/TyClient',name:'TyClient',component:TyClient },
+ { path:'/Produit',name:'Produit',component:Produit },
  
 ]
 
