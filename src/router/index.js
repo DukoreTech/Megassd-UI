@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Dashboard from "@/views/DashboardView.vue"
 import User from "@/views/UserView.vue"
 import Role from "@/views/RoleView.vue"
 import Adresse from "@/views/AdresseView.vue"
@@ -10,6 +11,7 @@ import TypeStock from "@/views/TypeStockView.vue"
 
 const routes = [
 
+ { path:'/',name:'Dashboard',component:Dashboard },
  { path:'/User',name:'User',component:User },
  { path:'/Role',name:'Role',component:Role },
  { path:'/Adresse',name:'Adresse',component:Adresse },
