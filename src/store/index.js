@@ -10,7 +10,9 @@ export default createStore({
     adresses:[],
     IdEditAdresse:null,
     clients:[],
-    IdEditClient:null
+    IdEditClient:null,
+    typeClients:[],
+    editTypeClient:null
 
   },
   mutations: {
