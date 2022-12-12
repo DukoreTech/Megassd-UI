@@ -14,7 +14,7 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">           
                 <font-awesome-icon icon="fa-solid fa-tachometer-alt" class="icon"/> 
-                <span class="ml-2 label"> Dashboard </span>
+                <span class="ml-2 label"> Tableau de Bord </span>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -25,7 +25,7 @@
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-user" class="icon" />
-                            <span class=" ml-2 label "> Users</span>
+                            <span class=" ml-2 label "> Utilisateurs</span>
                          </span>
                         <font-awesome-icon icon="fa-solid fa-angle-right" class=" icon mt-1" />
                      </div>
