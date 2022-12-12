@@ -8,7 +8,9 @@ export default createStore({
     roles:[],
     IdEditRole:null,
     adresses:[],
-    IdEditAdresse:null
+    IdEditAdresse:null,
+    clients:[],
+    IdEditClient:null
 
   },
   mutations: {
