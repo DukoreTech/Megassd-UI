@@ -21,8 +21,23 @@
 
             <!-- Nav Item -User -->
             <li class="nav-item">
-               <font-awesome-icon icon="fa-solid fa-user" class="icon"/> 
-               <span class="ml-2 label"> User </span>  
+                <div class="mb-3" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                     <font-awesome-icon icon="fa-solid fa-user" class="icon" />
+                        <span class=" ml-2 label "> Users</span>
+                    </div>
+                   
+                    <div class="collapse" id="collapseExample">
+                        <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
+                           <router-link :to="{name:'User'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                             aria-expanded="true" aria-controls="collapseTwo">
+                             User
+                            </router-link>  
+                             <!-- <router-link :to="{name:'Categorie'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="true" aria-controls="collapseTwo">
+                                  Categorie 
+                             </router-link>           -->
+                        </div>
+                    </div> 
     
             </li>
             <hr class="sidebar-divider">
@@ -80,6 +95,9 @@ span,.icon{
 }
 #navbar{
     color:white;
+}
+#collapseExample{
+    cursor: pointer;
 }
 li{
     margin: auto 20px;

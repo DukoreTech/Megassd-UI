@@ -3,7 +3,7 @@
         <div>        
                 <button class="btn btn-info m-5" @click="modalActive = true,$store.state.IdEditCateg=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                    Ajouter user
+                    Ajouter utilisateur
                     </button>
                 <div class="m-3 float-end ">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
@@ -16,7 +16,7 @@
          <div class="container-fluid">
             <div class="card  mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-mute">Liste des users</h6>
+                    <h6 class="m-0 font-weight-bold text-mute">Liste des utilisateurs</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -58,7 +58,7 @@
                                 <td>{{ user.telephone }} </td>            
                                 <td>{{ user.mail }} </td>            
                                 <td>{{ user.adresse }} </td>            
-                                <td>{{ user.nomDUtilasateur}} </td>            
+                                <td>{{ user.nomDUtilisateur}} </td>            
                                 <td>{{ user.motDePasse }} </td>            
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteUser(user.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
@@ -79,7 +79,7 @@
 
 <script>
 import axios from "axios";
-import ModalComponent from '../global/ModalComponent.vue';
+import ModalComponent from '@/components/Global/ModalComponent.vue';
 import AddForm from './AddFormUser.vue';
 
 export default {

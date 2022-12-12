@@ -1,5 +1,28 @@
 {
-  "users": [],
+  "users": [
+    {
+      "nom": "Justin",
+      "prenom": "NDAYISHIMIYE",
+      "dateDenaissance": "2021-06-22",
+      "telephone": "68269979",
+      "mail": "Just@gmail.com",
+      "adresse": "Maramvya",
+      "nomDUtilisateur": "justM",
+      "motDePasse": "444444",
+      "id": 2
+    },
+    {
+      "nom": "Patrick",
+      "prenom": "Irakoze",
+      "dateDenaissance": "1999-02-15",
+      "telephone": "68269979",
+      "mail": "irakoz@gm",
+      "adresse": "Maramvya",
+      "nomDUtilisateur": "ir@",
+      "motDePasse": "1111",
+      "id": 3
+    }
+  ],
   "produits": [],
   "roles": [],
   "stocks": [],

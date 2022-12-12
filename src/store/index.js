@@ -4,7 +4,9 @@ export default createStore({
   state:{
     baseUrl: 'http://localhost:3000',
     users:[],
-    IdEditUser:null
+    IdEditUser:null,
+    roles:[],
+    IdEditRole:null
 
   },
   mutations: {

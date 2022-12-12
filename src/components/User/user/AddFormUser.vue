@@ -1,13 +1,14 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="d-none">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
+<span class="">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
 <!-- retrieve data -->
    
 
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
-
+        <div class="d-flex">
+            <div class="col-6">
         <label for="nom">
             <input type="text" id="nom" placeholder="nom" v-model="form.nom">
             <span>Nom</span>
@@ -19,9 +20,8 @@
             <span>Prenom</span>
         </label>
          <span>{{ errors?.prenom }}</span>
-
-          <label for="dateDenaissance">
-            <input type="datetime-local" id="dateDenaissance" placeholder="Date de naissance" v-model="form.dateDenaissance">
+          <label for="dateDenaissance" class="d-block dateWidth">
+            <input type="date" id="dateDenaissance"  v-model="form.dateDenaissance">
             <span>Date de naissance</span>
          </label>
          <span>{{ errors?.dateDenaissance }}</span>
@@ -31,7 +31,8 @@
             <span>Telephone</span>
          </label>
          <span>{{ errors?.telephone }}</span>
-
+            </div>
+             <div class="col-6">
          <label for="mail">
             <input type="email" id="mail" placeholder="Telephone" v-model="form.mail">
             <span>Email</span>
@@ -44,25 +45,20 @@
          </label>
          <span>{{ errors?.adresse }}</span>
 
-        <label for="nomDUtilasateur">
-            <input type="text" id="nomDUtilasateur" placeholder="Nom d'Utilasateur" v-model="form.nomDUtilasateur">
-            <span>Nom d'Utilasateur</span>
+        <label for="nomDUtilisateur">
+            <input type="text" id="nomDUtilisateur" placeholder="Nom d'Utilasateur" v-model="form.nomDUtilisateur">
+            <span>Nom d'Utilisateur</span>
         </label>
-        <span>{{ errors?.nomDUtilasateur }}</span>
+        <span>{{ errors?.nomDUtilisateur }}</span>
 
          <label for="motDePasse">
             <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.motDePasse">
             <span>Mot de passe</span>
         </label>
          <span>{{ errors?.motDePasse }}</span>
+             </div>
 
-<!-- 
-        <label for="usr">
-            <input type="text" id="user" placeholder="User" v-model="form.user_id">
-            <span>User</span>
-        </label>
-         <span>{{ errors?.user_id }}</span> -->
-
+        </div>
         <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
@@ -84,7 +80,7 @@ export default {
         telephone:"",
         mail:"",
         adresse:"",
-        nomDUtilasateur:"",
+        nomDUtilisateur:"",
         motDePasse:""      
       },
       errors: {},
@@ -92,7 +88,11 @@ export default {
       saveEditBtn:"Enregistrer",
     };
   },
-
+  mounted(){
+    if(this.$store.state.IdEditUser==null)return;
+    this.form=this.$store.state.users;
+    this.saveEditBtn="Modifier"   
+  },
   updated(){
     if(this.$store.state.IdEditUser==null)return;
     this.form=this.$store.state.users;
@@ -102,7 +102,7 @@ export default {
   methods: {
  
     saveInformation() {
-      if (this.form["nomDUtilasateur", "motDePasse", "mail", "nom"]=="") return; 
+      if (this.form["nomDUtilisateur", "motDePasse", "mail", "nom"]=="") return; 
 
        if(this.$store.state.IdEditUser==null){
              
@@ -112,7 +112,7 @@ export default {
         )
         .then((resp) => {
           this.users = resp.data;
-          this.form = { nom:"",prenom:"",dateDenaissance:"", telephone:"",mail:"",adresse:"",nomDUtilasateur:"",motDePasse:""} 
+          this.form = { nom:"",prenom:"",dateDenaissance:"", telephone:"",mail:"",adresse:"",nomDUtilisateur:"",motDePasse:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -203,7 +203,6 @@ button{
     margin-top:20px;
     background:rgb(75, 126, 160);
     color:#fff;
-    border:1px solid purple;
     cursor:pointer;
     border-radius:3px;
     width: 100px;
@@ -213,6 +212,9 @@ label:focus-within > span,
 input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
+}
+.dateWidth{
+    width: 60%;
 }
 
 </style>
