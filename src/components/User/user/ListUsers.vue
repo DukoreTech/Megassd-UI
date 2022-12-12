@@ -37,20 +37,7 @@
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>
-                            <tfoot>
-                             <tr> 
-                                <th scope="col">Id</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">Date de naissance</th>
-                                <th scope="col">Telephone</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Adresse</th>
-                                <th scope="col">Nom d'Utilasateur</th>
-                                <th scope="col">Mot de Passe</th>
-                                <th scope="col">Actions</th>
-                              </tr>
-                            </tfoot>
+                            
                             <tbody>
                                <tr v-for="user in users" :key="user.id">
                                 <th scope="row">{{ user.id }}</th>
