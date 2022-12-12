@@ -1,7 +1,7 @@
 <template>
 <div>
         <div>        
-                <button class="btn btn-info m-5" @click="modalActive = true,$store.state.IdEditCateg=null">
+                <button class="btn btn-info m-5" @click="modalActive = true,$store.state.IdEditUser=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter utilisateur
                     </button>
@@ -122,7 +122,7 @@ export default {
         },
 
         editUser(user,id){
-        this.$store.state.IdEditCateg=id
+        this.$store.state.IdEditUser=id
         this.$store.state.users=user
         
         }

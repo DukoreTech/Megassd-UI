@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
+<span class="d-none">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
 <!-- retrieve data -->
    
 
@@ -88,15 +88,15 @@ export default {
       saveEditBtn:"Enregistrer",
     };
   },
-  mounted(){
-    if(this.$store.state.IdEditUser==null)return;
-    this.form=this.$store.state.users;
-    this.saveEditBtn="Modifier"   
-  },
   updated(){
-    if(this.$store.state.IdEditUser==null)return;
-    this.form=this.$store.state.users;
-    this.saveEditBtn="Modifier"
+    if(this.$store.state.IdEditUser==null){
+        this.form={};
+        this.saveEditBtn="Enregistrer"
+      }else{
+         this.form=this.$store.state.users;
+        this.saveEditBtn="Modifier"
+      }
+ 
   },
 
   methods: {
