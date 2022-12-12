@@ -5,7 +5,7 @@
 export default {
 
     components: {
-        'RoleList': require("@/components/User/Role/AddFormRole.vue").default,
+        'RoleList': require("@/components/User/Role/RoleList").default,
     }
 
 }

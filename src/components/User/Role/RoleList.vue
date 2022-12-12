@@ -4,11 +4,11 @@
                 <button class="btn btn-info m-5" @click="modalActive = true,$store.state.IdEditRole=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Role
-                    </button>
+                  </button>
                 <div class="m-3 float-end ">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
                     </div>
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ">
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
@@ -63,7 +63,7 @@ export default {
         return{
             modalActive: false,
             search:'',
-            roles : [ ]
+            roles :[]
         }
     },
     mounted(){

@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="">{{$store.state.roles}}{{$store.state.IdEditRole}}</span>
+<span class="d-none">{{$store.state.roles}}{{$store.state.IdEditRole}}</span>
 <!-- retrieve data -->
    
 
@@ -14,9 +14,9 @@
         </label>
          <span>{{ errors?.role }}</span>
 
-         <label for="description">
-            <textarea  id="description" placeholder="description" v-model="form.description"></textarea>
             <span>Description</span>
+         <label for="description">
+            <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
         </label>
         <span>{{ errors?.description }}</span>
         <!-- <button type="button">Register</button> -->
@@ -42,10 +42,15 @@ export default {
       saveEditBtn:"Enregistrer",
     };
   },
+
   updated(){
-    if(this.$store.state.IdEditRole==null)return;
-    this.form=this.$store.state.roles;
-    this.saveEditBtn="Modifier"
+    if(this.$store.state.IdEditRole==null){
+         this.form={};
+         this.saveEditBtn="Enregistrer"
+        }else{
+            this.form=this.$store.state.roles;
+            this.saveEditBtn="Modifier"
+        }
   },
 
   methods: {
@@ -72,8 +77,9 @@ export default {
           this.$store.state.baseUrl+"/roles/"+this.$store.state.IdEditRole,
           this.form )
         .then((resp) => {
-          this.roles = resp.data;
+          this.roles = resp.data.data;
           this.$emit('close')
+          this.$store.state.IdEditRole=null
          })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -118,7 +124,7 @@ label{
     position:relative;
     border-bottom:1px solid #ddd;
 }
-input,select{
+input,select,textarea{
     width:100%;
     padding:10px 0px;
     margin-top:20px;
@@ -126,6 +132,10 @@ input,select{
     outline:none;
 }
 input::placeholder{
+    opacity:0;
+}
+
+textarea::placeholder{
     opacity:0;
 }
 
@@ -162,8 +172,6 @@ input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
 }
-.dateWidth{
-    width: 60%;
-}
+
 
 </style>

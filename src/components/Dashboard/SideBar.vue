@@ -21,21 +21,29 @@
 
             <!-- Nav Item -User -->
             <li class="nav-item">
-                <div class="mb-3" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                     <font-awesome-icon icon="fa-solid fa-user" class="icon" />
-                        <span class=" ml-2 label "> Users</span>
+                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                     <div class="d-flex justify-content-between">
+                         <span>
+                            <font-awesome-icon icon="fa-solid fa-user" class="icon" />
+                            <span class=" ml-2 label "> Users</span>
+                         </span>
+                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" icon mt-1" />
+                     </div>
+                    
                     </div>
                    
                     <div class="collapse" id="collapseExample">
                         <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
                            <router-link :to="{name:'User'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                              aria-expanded="true" aria-controls="collapseTwo">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              User
                             </router-link>  
-                             <!-- <router-link :to="{name:'Categorie'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                             <router-link :to="{name:'Role'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                                 aria-expanded="true" aria-controls="collapseTwo">
-                                  Categorie 
-                             </router-link>           -->
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Role 
+                             </router-link>          
                         </div>
                     </div> 
     
@@ -90,6 +98,9 @@ export default {
 </script>
 
 <style scoped>
+.link{
+    cursor: pointer;
+}
 span,.icon{
     color: white;
 }

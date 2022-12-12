@@ -24,7 +24,34 @@
     }
   ],
   "produits": [],
-  "roles": [],
+  "roles": [
+    {
+      "role": "Admin",
+      "description": "charge all activies in database",
+      "id": 1
+    },
+    {
+      "role": "Gerant",
+      "description": "charger les activites de gerer les serveur",
+      "id": 2,
+      "length": 0
+    },
+    {
+      "role": "serveur",
+      "description": "charge donne services au ",
+      "id": 3
+    },
+    {
+      "role": "Super",
+      "description": "Manage all fr",
+      "id": 4
+    },
+    {
+      "role": "Brarudi",
+      "description": "providers",
+      "id": 5
+    }
+  ],
   "stocks": [],
   "typeStock": [],
   "detailReceptions": [],
