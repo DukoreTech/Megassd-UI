@@ -83,7 +83,23 @@
       "adresse": "Mugere"
     }
   ],
-  "typeClients": [],
+  "typeClients": [
+    {
+      "typeClient": "Depot",
+      "description": "all",
+      "id": 1
+    },
+    {
+      "typeClient": "Bar",
+      "description": "all",
+      "id": 2
+    },
+    {
+      "typeClient": "Client simple",
+      "description": "all",
+      "id": 3
+    }
+  ],
   "adresses": [
     {
       "zone": "Mugere",

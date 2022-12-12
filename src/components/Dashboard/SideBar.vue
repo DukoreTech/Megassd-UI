@@ -75,6 +75,11 @@
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Adresse
                             </router-link>  
+                            <router-link :to="{name:'TyClient'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                             aria-expanded="true" aria-controls="collapseClient">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Type de client
+                            </router-link>  
                         </div>
                     </div> 
     

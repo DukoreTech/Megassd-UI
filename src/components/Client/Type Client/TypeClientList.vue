@@ -3,7 +3,7 @@
         <div>        
                 <button class="btn btn-info m-5" @click="modalActive = true,$store.state.IdEditTypClient=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                    Ajouter typeClient
+                    Ajouter type de Client
                   </button>
                 <div class="m-3 float-end ">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>

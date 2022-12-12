@@ -5,7 +5,7 @@
 export default {
 
     components: {
-        'TypeClientList': require("@/views/TypeClientView").default,
+        'TypeClientList': require("@/components/Client/Type Client/TypeClientList").default,
     }
 
 }
