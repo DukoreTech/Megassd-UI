@@ -29,10 +29,10 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
-                                <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
-                                logout
-                            </a>
+                            <router-link :to="{name:'Login'}" class="dropdown-item">
+                              <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
+                             logout
+                            </router-link> 
                         </li>
                     </ul>
                     </div>

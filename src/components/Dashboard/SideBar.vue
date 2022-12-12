@@ -23,7 +23,7 @@
 
             <!-- Nav Item -User -->
             <li class="nav-item">
-                <div class="mb-3" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-user" class="icon" />
