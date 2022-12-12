@@ -13,8 +13,10 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">           
-                <font-awesome-icon icon="fa-solid fa-tachometer-alt" class="icon"/> 
-                <span class="ml-2 label"> Tableau de Bord </span>
+                  <router-link :to="{name:'Dashboard'}" class="nav-link" >
+                        <font-awesome-icon icon="fa-solid fa-tachometer-alt" class="icon"/> 
+                        <span class="ml-2 label"> Tableau de Bord </span>
+                </router-link> 
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
