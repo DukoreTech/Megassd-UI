@@ -1,13 +1,16 @@
 <template>
 <div>
-        <div>        
-                <button class="btn btn-info m-5" @click="modalActive = true,$store.state.IdEditClient=null">
+        <div> 
+          <div class="d-md-flex m-3 justify-content-between" >
+                <button class="btn btn-info mt-5 mb-5 ml-5" @click="modalActive = true,$store.state.IdEditClient=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                    Ajouter client
-                    </button>
-                <div class="m-3 float-end ">
+                    Ajouter Client
+                  </button>
+                <div class="mt-3">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                    </div>
+                </div>
+             </div>  
+
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>

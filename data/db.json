@@ -79,7 +79,23 @@
       "id": 2
     }
   ],
-  "typeStock": [],
+  "typeStocks": [
+    {
+      "typeStock": "Vide",
+      "description": "ggfff",
+      "id": 2
+    },
+    {
+      "typeStock": "Plein",
+      "description": "rrreeww",
+      "id": 3
+    },
+    {
+      "typeStock": "Plein",
+      "description": "Grenad",
+      "id": 4
+    }
+  ],
   "detailReceptions": [],
   "detailVentes": [],
   "lots": [],

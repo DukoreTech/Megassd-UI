@@ -10,7 +10,6 @@
         <span>Type de Stock</span>
           <label>
               <select  v-model="form.typeStock">
-                <option selected="selected">Bar</option>
                 <option>Plein</option>
                 <option>Vide</option>
               </select>
