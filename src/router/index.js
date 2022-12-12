@@ -5,6 +5,7 @@ import Adresse from "@/views/AdresseView.vue"
 import Client from "@/views/ClientView.vue"
 import TyClient from "@/views/TypeClientView.vue"
 import Produit from "@/views/ProduitView.vue"
+import Stock from "@/views/StockView.vue"
 
 const routes = [
 
@@ -14,6 +15,7 @@ const routes = [
  { path:'/Client',name:'Client',component:Client },
  { path:'/TyClient',name:'TyClient',component:TyClient },
  { path:'/Produit',name:'Produit',component:Produit },
+ { path:'/Stock',name:'Stock',component:Stock },
  
 ]
 
