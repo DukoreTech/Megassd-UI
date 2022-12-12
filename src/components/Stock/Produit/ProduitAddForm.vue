@@ -26,8 +26,8 @@
         </label>
         <span>{{ errors?.caisse }}</span>
 
-        <label for="nbBouteille" class="d-block dateWidth">
-            <input type="date" id="dateDenaissance"  v-model="form.nbBouteille">
+        <label for="nbBouteille">
+            <input type="text" id="nbBouteille" placeholder="Nombres des Bouteilles" v-model="form.nbBouteille">
             <span>Nombres des Bouteilles</span>
          </label>
          <span>{{ errors?.nbBouteille }}</span>

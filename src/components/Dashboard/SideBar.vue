@@ -2,7 +2,7 @@
     <div>
             <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ml-4 w-sm-20 " id="accordionSidebar">
-             <li class="nav-item dropdown">
+             <li class="nav-item my-4">
                 <div class="text-center">
                     <img class="rounded-circle w-25 h-25 mx-auto p-2 " src="@/assets/logo.png">
                     <span class="label" >MEGA</span>
@@ -87,6 +87,39 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+                 <li class="nav-item">
+                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapstock" aria-expanded="false" aria-controls="collapstock">
+                     <div class="d-flex justify-content-between">
+                         <span>
+                            <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
+                            <span class=" ml-2 label "> Stock </span>
+                         </span>
+                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" icon mt-1" />
+                     </div>
+                    
+                    </div>
+                   
+                    <div class="collapse" id="collapstock">
+                        <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
+                             <router-link :to="{name:'Produit'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                                aria-expanded="true" aria-controls="collapseClient">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Produit 
+                             </router-link>          
+                           <!-- <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                             aria-expanded="true" aria-controls="collapseClient">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Adresse
+                            </router-link>  
+                            <router-link :to="{name:'TyClient'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                             aria-expanded="true" aria-controls="collapseClient">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Type de client
+                            </router-link>   -->
+                        </div>
+                    </div> 
+    
+            </li>
 
             <!-- Nav Item - stock -->
              <li class="nav-item">

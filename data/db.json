@@ -23,7 +23,22 @@
       "id": 3
     }
   ],
-  "produits": [],
+  "produits": [
+    {
+      "nom": "Fanta",
+      "uniteDeMesure": "20cl",
+      "caisse": "16000",
+      "nbBouteille": "24",
+      "id": 1
+    },
+    {
+      "nom": "Primus",
+      "uniteDeMesure": "40cl",
+      "caisse": "56677",
+      "nbBouteille": "12",
+      "id": 2
+    }
+  ],
   "roles": [
     {
       "role": "Admin",
