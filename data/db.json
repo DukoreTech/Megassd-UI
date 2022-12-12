@@ -64,5 +64,16 @@
   "ventes": [],
   "clients": [],
   "typeClients": [],
-  "adresses": []
+  "adresses": [
+    {
+      "zone": "Mugere",
+      "description": "urbain",
+      "id": 1
+    },
+    {
+      "zone": "Kibembe",
+      "description": "hhhhh",
+      "id": 2
+    }
+  ]
 }

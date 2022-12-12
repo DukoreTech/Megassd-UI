@@ -5,7 +5,7 @@
 export default {
 
     components: {
-        'AdresseList': require("@/views/AdresseView").default,
+        'AdresseList': require("@/components/Client/Addresse/AdresseList.vue").default,
     }
 
 }

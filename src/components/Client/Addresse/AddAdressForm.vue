@@ -10,11 +10,11 @@
 
         <span>Zone</span>
           <label for="etablis">
-              <select  v-model="form.zone" aria-placeholder="Zone">
-                <option value="Mugere" selected>Mugere</option>
-                <option value="Kibembe" selected>Kibembe</option>
-                <option value="Ruziba" selected>Ruziba</option>
-                <option value="Mutambo" selected>Mutambo</option>
+              <select  v-model="form.zone">
+                <option value="Mugere" selected="selected">Mugere</option>
+                <option value="Kibembe" >Kibembe</option>
+                <option value="Ruziba" >Ruziba</option>
+                <option value="Mutambo" >Mutambo</option>
               </select>
           </label>
          <span>{{ errors?.zone }}</span>

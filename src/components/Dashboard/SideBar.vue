@@ -50,9 +50,34 @@
             </li>
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - prduit -->
-            <li class="nav-item">
-                     
+            <!-- Nav Item - clients -->
+           <li class="nav-item">
+                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapseClients" aria-expanded="false" aria-controls="collapseClients">
+                     <div class="d-flex justify-content-between">
+                         <span>
+                            <font-awesome-icon icon="fa-solid fa-users-between-lines" class="icon" />
+                            <span class=" ml-2 label "> Clients</span>
+                         </span>
+                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" icon mt-1" />
+                     </div>
+                    
+                    </div>
+                   
+                    <div class="collapse" id="collapseClients">
+                        <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
+                           <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                             aria-expanded="true" aria-controls="collapseClient">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Adresse
+                            </router-link>  
+                             <router-link :to="{name:'Role'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                                aria-expanded="true" aria-controls="collapseClient">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Role 
+                             </router-link>          
+                        </div>
+                    </div> 
+    
             </li>
 
             <!-- Divider -->

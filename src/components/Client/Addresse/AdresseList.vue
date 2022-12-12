@@ -55,7 +55,7 @@
 <script>
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent.vue';
-import AddForm from './AddAddressForm.vue';
+import AddForm from './AddAdressForm';
 
 export default {
     components: { ModalComponent, AddForm },
