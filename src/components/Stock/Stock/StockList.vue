@@ -87,6 +87,7 @@ export default {
                 console.error(err)
             })
         },
+        
         deleteStock(id) {
             axios.delete(this.$store.state.baseUrl + "/stocks/" + id)
             .then(resp => {
