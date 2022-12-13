@@ -8,12 +8,12 @@ import TyClient from "@/views/TypeClientView.vue"
 import Produit from "@/views/ProduitView.vue"
 import Stock from "@/views/StockView.vue"
 import TypeStock from "@/views/TypeStockView.vue"
-import login from "@/views/loginView.vue"
+//import login from "@/views/loginView.vue"
 
 const routes = [
 
- { path:'/',name:'Login',component:login },
- { path:'/Dashboard',name:'Dashboard',component:Dashboard },
+ //{ path:'/',name:'Login',component:login },
+ { path:'/',name:'Dashboard',component:Dashboard },
  { path:'/User',name:'User',component:User },
  { path:'/Role',name:'Role',component:Role },
  { path:'/Adresse',name:'Adresse',component:Adresse },

@@ -1,29 +1,26 @@
 <template>
-   <div class="col-md-12">
-         <navbar/>
-      <span class="d-flex">
-         <div class="col-md-2 border" id="sideBar" >
-            <sidebar/>
-         </div>
-         <div class="col-md-10">
-            <div class="my-3">
-               <router-view/>
-            </div> 
-            <div class="fixed-bottom">
-            </div>
-         </div>
-      </span>
-
-  </div>
+   <div>
+      <index v-if="isLoggedIn"/>
+       <Loginview v-else/>
+   </div>
 
 </template>
 
 <script>
 export default {
    components:{
-      'navbar':require("@/components/Dashboard/NavBar.vue").default,
-      'sidebar':require("@/components/Dashboard/SideBar.vue").default
-   }
+      
+      'Loginview':require("@/views/loginView.vue").default,
+      'index':require("@/views/Indexview.vue").default
+      
+   },
+   computed: {
+      isLoggedIn: function() { return this.$store.getters.user}
+    },
+    mounted(){
+     this.$store.commit("initialize")
+ },
+
 
 }
 </script>
@@ -36,9 +33,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
- #sideBar{
-  min-height: 710px;
-  width: 227px;
-  background: rgb(60, 74, 94);
-}
+
 </style>

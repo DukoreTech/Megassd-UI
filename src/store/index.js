@@ -2,8 +2,10 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state:{
-    baseUrl: 'http://localhost:3000',
+    baseurl: 'http://127.0.0.1:8000/api/',
+    token: localStorage.getItem('token') || '',
     users:[],
+    user:[],
     IdEditUser:null,
     roles:[],
     IdEditRole:null,
@@ -22,13 +24,38 @@ export default createStore({
 
   },
   mutations: {
+    login(state,user) {
+      state.user = user;
+      localStorage.setItem('user', state.user);
+  
+ 
+    },
+  logout(state){
+      state.user=''
+      localStorage.removeItem('user','token')
+      
+  },
+  initialize(state){
+      
+      if(localStorage.getItem('user')){
+          state.user=localStorage.getItem('user')
+      }
+      
+      else{
+          this.commit("logout");
+      }
+      
+      
+  },
+  
   
   },
   actions: {
   },
   modules: {
   },
-  getters:{  
+  getters:{ 
+    user:state=>state.user, 
 
   },
   computed:{

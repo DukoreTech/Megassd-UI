@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li>
-                            <router-link :to="{name:'Login'}" class="dropdown-item">
+                            <router-link to="" @click="logout" class="dropdown-item">
                               <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
                              logout
                             </router-link> 
@@ -45,6 +45,12 @@
 
 <script>
 export default {
+    methods:{
+        logout: function() {
+        this.$store.commit('logout')
+        
+      },
+    }
 
 }
 </script>

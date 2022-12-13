@@ -2,33 +2,77 @@
   <div class="register">
     <form>
         <label for="NomUtilisateur">
-            <input type="text" id="name" placeholder="Nom d'utilisateur">
-            <span>Nom d'utilisateur</span>
+            <input type="email" id="name" v-model="email" placeholder="Nom d'utilisateur">
+            <span>Email</span>
         </label>
        
         <label for="MotPasse">
-            <input type="text" id="phone" placeholder="Mot de passe">
+            <input type="text" id="phone" v-model="password" placeholder="Mot de passe">
             <span>Mot de passe</span>
         </label>
-        <button type="button" @click="isLogin=!isLogin">Enregistre</button>
+        <button type="button" @click.prevent="login">Login</button>
     </form>
 </div>
 
 </template>
 
 <script>
+import axios from "axios"
+///import   "../"
 export default {
-  data() {
+    
+    data(){
         return{
-            isLogin: false,
+                email: "admin1@gmail.com",
+                password: "12345678",
+                errormessage:""
         }
+
     },
+    methods:{
+    login:function()
+       {
+        let email=this.email
+        let password=this.password
+    
+       
+        axios.post(this.$store.state.baseurl + "login",{email:email,password:password},{headers:{
+            
+        }}).then( (response) =>{
+            
+           
+        this.$store.commit("login", JSON.stringify(response.data
+        ))
+       
+        const token=response.data.token
+        
+
+         localStorage.setItem('token',token),
+           this.$router.push({name:'Dashboard'}) 
+            })
+          
+          .catch(err => {
+            //alert(err.message)
+            console.log(err)
+            this.errormessage=err.message
+          }
+          
+          
+
+          )
+      },
+      
+   },
 }
 </script>
 
 <style scoped>
  .register{
-    margin:auto; 
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh;
     }
  *{
     margin:0;
