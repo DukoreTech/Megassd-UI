@@ -3,9 +3,20 @@
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.stocks}}{{$store.state.IdEditStock}}</span>
 <!-- retrieve data -->
-   
+   <!-- <div class="alert alert-success d-flex align-items-center mt-5 w-50 mx-auto" role="alert">
+      <font-awesome-icon icon="fa-solid fa-check-circle" class="bi flex-shrink-0 " width="24" height="24" role="img" aria-label="Success:" />
+      <div>
+        Done
+      </div>
+    </div>  -->
 
+    <div class="alert-dismissible fade show alert alert-success d-flex align-items-center mt-5 w-50 mx-auto" role="alert">
+      <font-awesome-icon icon="fa-solid fa-check-circle" class="bi flex-shrink-0 " width="24" height="24" role="img" aria-label="Success:" />
+        <strong>success</strong> 
+        <button type="button" class=" btn-sm btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <div class="register">
+    
     <form action="" @submit.prevent="saveInformation">
 
                 <span>Produit</span>
@@ -25,7 +36,7 @@
                  </label>
                 <span>{{ errors?.Quantite }}</span>
                 
-        <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
+        <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
     </form>
 </div>
 
@@ -86,6 +97,7 @@ export default {
         )
         .then((resp) => {
           this.stocks = resp.data;
+          alert("data is saved")
           this.form = { produit:"",Quantite:""} 
         })
         .catch((err) => {
@@ -172,7 +184,7 @@ label span{
     transform:translateY(10px);
     font-size:0.825em;
 }
-button{
+.button{
     padding:15px 0px; 
     margin-top:20px;
     background:rgb(75, 126, 160);

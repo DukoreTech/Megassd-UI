@@ -46,14 +46,9 @@
       "id": 3
     },
     {
-      "role": "Super",
+      "role": "Super Admin",
       "description": "Manage all fr",
       "id": 4
-    },
-    {
-      "role": "Brarudi",
-      "description": "providers",
-      "id": 5
     }
   ],
   "stocks": [
@@ -71,6 +66,11 @@
       "produit": 2,
       "Quantite": "55566",
       "id": 3
+    },
+    {
+      "produit": 1,
+      "Quantite": "2211",
+      "id": 4
     }
   ],
   "typeStocks": [
