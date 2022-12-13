@@ -76,7 +76,7 @@ export default {
 
   methods: {
      getProduits() {
-      axios.get(this.$store.state.baseUrl + "/produits",
+      axios.get(this.$store.state.baseUrl+"produits",
       )
         .then(resp => {
           this.produits = resp.data

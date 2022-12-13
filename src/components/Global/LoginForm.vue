@@ -46,8 +46,10 @@ export default {
        
         const token=response.data.token
         
+        
 
          localStorage.setItem('token',token),
+         localStorage.setItem('user'.user),
            this.$router.push({name:'Dashboard'}) 
             })
           

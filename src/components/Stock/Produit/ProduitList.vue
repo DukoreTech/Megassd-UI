@@ -12,7 +12,7 @@
               </div>      
                
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
-                    <add-form @close="modalActive = !modalActive"/>
+                    <add-form :modalActive="modalActive"/>
                 </modal-component>
         </div>
 
@@ -70,11 +70,13 @@ export default {
         return{
             modalActive: false,
             search:'',
-            products : [ ]
+            products : [ ],
+            token:this.$store.state.token
         }
     },
     mounted(){
         this.fetchData()
+        ///this.editProduit()
     },
     computed:{
         searchEvery(){
@@ -83,7 +85,8 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/products/")
+            axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
+            axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.products = resp.data
             })
@@ -92,7 +95,8 @@ export default {
             })
         },
         deleteProduit(id) {
-            axios.delete(this.$store.state.baseUrl + "/products/" + id)
+            axios.delete(this.$store.state.baseurl + "products/" + id,axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
+            axios.defaults.headers.common['Accept'] = `Application/json`))
             .then(resp => {
                 this.products = resp.data
                 this.fetchData()
