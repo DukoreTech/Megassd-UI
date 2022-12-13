@@ -27,7 +27,7 @@
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
-                                <th scope="col">stock</th>
+                                <th scope="col">Produit</th>
                                 <th scope="col">Quantite</th>
                                 <th scope="col">Actions</th>
                              </tr>

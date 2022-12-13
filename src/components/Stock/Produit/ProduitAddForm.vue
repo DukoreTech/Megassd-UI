@@ -1,24 +1,23 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="d-none">{{$store.state.produits}}{{$store.state.IdEditProduit}}</span>
+<span class="d-none">{{$store.state.products}}{{$store.state.IdEditProduit}}</span>
 <!-- retrieve data -->
-   
 
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
 
-        <label for="nom">
-            <input type="text" id="nom" placeholder="nom" v-model="form.nom">
+        <label for="name">
+            <input type="text" id="name" placeholder="name" v-model="form.name">
             <span>Nom</span>
         </label>
-        <span>{{ errors?.nom }}</span>
+        <span>{{ errors?.name }}</span>
 
-        <label for="uniteDeMesure">
-            <input type="text" id="uniteDeMesure" placeholder="uniteDeMesure" v-model="form.uniteDeMesure">
+        <label for="unite_mesure">
+            <input type="text" id="unite_mesure" placeholder="unite_mesure" v-model="form.unite_mesure">
             <span>Unite De Mesure</span>
         </label>
-        <span>{{ errors?.uniteDeMesure }}</span>
+        <span>{{ errors?.unite_mesure }}</span>
 
        <label for="caisse">
             <input type="tel" id="caisse" placeholder="caisse" v-model="form.caisse">
@@ -26,11 +25,11 @@
         </label>
         <span>{{ errors?.caisse }}</span>
 
-        <label for="nbBouteille">
-            <input type="text" id="nbBouteille" placeholder="Nombres des Bouteilles" v-model="form.nbBouteille">
+        <label for="nombre_bouteille">
+            <input type="text" id="nombre_bouteille" placeholder="Nombres des Bouteilles" v-model="form.nombre_bouteille">
             <span>Nombres des Bouteilles</span>
          </label>
-         <span>{{ errors?.nbBouteille }}</span>
+         <span>{{ errors?.nombre_bouteille }}</span>
 
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
@@ -46,14 +45,14 @@ export default {
   data() {
     return {
       form: {
-        nom:"",
-        uniteDeMesure:"",
+        name:"",
+        unite_mesure:"",
         caisse:"",
-        nbBouteille:"",
+        nombre_bouteille:"",
     
       },
       errors: {},
-      produits:[],
+      products:[],
       saveEditBtn:"Enregistrer",
     };
   },
@@ -62,7 +61,7 @@ export default {
         this.form={};
         this.saveEditBtn="Enregistrer"
       }else{
-         this.form=this.$store.state.produits;
+         this.form=this.$store.state.products;
         this.saveEditBtn="Modifier"
       }
  
@@ -70,17 +69,17 @@ export default {
 
   methods: {
     saveInformation() {
-      if (this.form["uniteDeMesure","adateDenaissancege","caisse","nom"]=="") return; 
+      if (this.form["unite_mesure","adateDenaissancege","caisse","name"]=="") return; 
 
        if(this.$store.state.IdEditProduit==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/produits",
+          this.$store.state.baseUrl + "/products",
           this.form
         )
         .then((resp) => {
-          this.produits = resp.data;
-          this.form = { nom:"",uniteDeMesure:"",nbBouteille:"", caisse:""} 
+          this.products = resp.data;
+          this.form = { name:"",unite_mesure:"",nombre_bouteille:"", caisse:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -88,10 +87,10 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/produits/"+this.$store.state.IdEditProduit,
+          this.$store.state.baseUrl+"/products/"+this.$store.state.IdEditProduit,
           this.form )
         .then((resp) => {
-          this.produits = resp.data;
+          this.products = resp.data;
           this.$emit('close')
          })
         .catch((err) => {

@@ -3,8 +3,6 @@
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.clients}}{{$store.state.IdEditClient}}</span>
 <!-- retrieve data -->
-   
-
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
@@ -20,11 +18,12 @@
                     <span>Prenom</span>
                 </label>
                 <span>{{ errors?.prenom }}</span>
-                <label for="dateDenaissance" class="d-block dateWidth">
-                    <input type="date" id="dateDenaissance"  v-model="form.dateDenaissance">
-                    <span>Date de naissance</span>
+
+                <label for="assujet_tva" class="">
+                    <input type="text" id="assujet_tva"  v-model="form.assujet_tva">
+                    <span>TVA (%)</span>
                 </label>
-                <span>{{ errors?.dateDenaissance }}</span>
+                <span>{{ errors?.assujet_tva }}</span>
 
                  <label for="telephone">
                     <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
@@ -35,32 +34,37 @@
             </div>
 
              <div class="col-6">
-                <label for="mail">
-                    <input type="email" id="mail" placeholder="Telephone" v-model="form.mail">
-                    <span>Email</span>
+                <label for="nif">
+                    <input type="text" id="nif" placeholder="Nif" v-model="form.nif">
+                    <span>Nif</span>
                 </label>
-                <span>{{ errors?.mail }}</span>
+                <span>{{ errors?.nif }}</span>
                     <br>
                 <span>Type de client</span>
                  <label for="typeClient" class="d-block dateWidth">
-                    <select  v-model="form.typeClient" aria-placeholder="Type de client" id="typeClient">
+                    <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
                         <option v-for="typeClient in typeClients" :key="typeClient.id" selected>
                             {{ typeClient.typeClient }}
                          </option>
                      </select>             
                   </label>
-                <span>{{ errors?.typeClient }}</span>
+                <span>{{ errors?.type_client_id}}</span>
                 <br>
-
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
-                    <select  v-model="form.adresse" aria-placeholder="Adresse" id="adresse">
+                    <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse">
                         <option v-for="adresse in adresses" :key="adresse.id" selected>
                         {{ adresse.zone }}
                         </option>
                     </select>             
               </label>
-            <span>{{ errors?.adresse }}</span>
+               <span>{{ errors?.address_id }}</span>       
+
+               <span>Description</span><br>
+                <label for="description">
+                    <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+                </label>
+                <span>{{ errors?.description }}</span>
          </div>
         </div>  
         <!-- <button type="button">Register</button> -->
@@ -80,11 +84,12 @@ export default {
       form: {
         nom:"",
         prenom:"",
-        dateDenaissance:"",
+        assujet_tva:"",
         telephone:"",
-        mail:"",
-        adresse:"",
-        typeClient:""
+        nif:"",
+        address_id:"",
+        type_client_id:"",
+        description:""
     
       },
       errors: {},
@@ -134,7 +139,7 @@ export default {
 
     },
     saveInformation() {
-      if (this.form["prenom","adateDenaissancege","telephone","nom"]=="") return; 
+      if (this.form["prenom","type_client_id","telephone","nom"]=="") return; 
 
        if(this.$store.state.IdEditClient==null){
              
@@ -144,7 +149,7 @@ export default {
         )
         .then((resp) => {
           this.clients = resp.data;
-          this.form = { nom:"",prenom:"",dateDenaissance:"", telephone:"",mail:"",adresse:""} 
+          this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -201,7 +206,7 @@ label{
     position:relative;
     border-bottom:1px solid #ddd;
 }
-input,select{
+input,select,textarea{
     width:100%;
     padding:10px 0px;
     margin-top:20px;
@@ -213,6 +218,9 @@ input::placeholder{
 }
 
 select::placeholder{
+    opacity:0;
+}
+textarea::placeholder{
     opacity:0;
 }
 label span{

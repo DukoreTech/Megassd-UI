@@ -15,7 +15,6 @@
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
-
          <div class="container-fluid">
             <div class="card  mb-4">
                 <div class="card-header py-3">
@@ -29,9 +28,9 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">Prenom</th>
-                                <th scope="col">Date de naissance</th>
+                                <th scope="col">NIF</th>
                                 <th scope="col">Telephone</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">TVA %</th>
                                 <th scope="col">Type de client</th>
                                 <th scope="col">Adresse</th>
                                 <th scope="col">Actions</th>
@@ -43,11 +42,11 @@
                                 <th scope="row">{{ client.id }}</th>
                                 <td>{{ client.nom }} </td>
                                 <td>{{ client.prenom }} </td>
-                                <td>{{ client.dateDenaissance }} </td>
+                                <td>{{ client.nif }} </td>
                                 <td>{{ client.telephone }} </td>            
-                                <td>{{ client.mail }} </td>            
-                                <td>{{ client.typeClient }} </td>            
-                                <td>{{ client.adresse }} </td>            
+                                <td>{{ client.assujet_tva }} </td>            
+                                <td>{{ client.type_client_id }} </td>            
+                                <td>{{ client.address_id }} </td>            
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>

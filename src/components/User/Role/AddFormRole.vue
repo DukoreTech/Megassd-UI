@@ -14,7 +14,7 @@
         </label>
          <span>{{ errors?.role }}</span>
 
-            <span>Description</span>
+        <span>Description</span>
          <label for="description">
             <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
         </label>
