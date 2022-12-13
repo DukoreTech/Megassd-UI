@@ -11,10 +11,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import {faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt)
+library.add(faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt)
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"

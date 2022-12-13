@@ -10,17 +10,6 @@
       "nomDUtilisateur": "justM",
       "motDePasse": "444444",
       "id": 2
-    },
-    {
-      "nom": "Patrick shriver",
-      "prenom": "Irakoze",
-      "dateDenaissance": "1999-02-15",
-      "telephone": "68269979",
-      "mail": "irakoz@gmail.com",
-      "adresse": "Maramvya",
-      "nomDUtilisateur": "ir@",
-      "motDePasse": "1111",
-      "id": 3
     }
   ],
   "produits": [
@@ -77,6 +66,11 @@
       "produit": 2,
       "Quantite": "56",
       "id": 2
+    },
+    {
+      "produit": 2,
+      "Quantite": "55566",
+      "id": 3
     }
   ],
   "typeStocks": [
@@ -94,6 +88,11 @@
       "typeStock": "Plein",
       "description": "Grenad",
       "id": 4
+    },
+    {
+      "typeStock": "Plein",
+      "description": "HHGFH",
+      "id": 5
     }
   ],
   "detailReceptions": [],

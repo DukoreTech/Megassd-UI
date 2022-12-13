@@ -10,7 +10,7 @@
             <input type="text" id="phone" placeholder="Mot de passe">
             <span>Mot de passe</span>
         </label>
-        <button type="button">Enregistre</button>
+        <button type="button" @click="isLogin=!isLogin">Enregistre</button>
     </form>
 </div>
 
@@ -18,7 +18,11 @@
 
 <script>
 export default {
-
+  data() {
+        return{
+            isLogin: false,
+        }
+    },
 }
 </script>
 

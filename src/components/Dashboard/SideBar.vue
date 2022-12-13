@@ -23,13 +23,15 @@
 
             <!-- Nav Item -User -->
             <li class="nav-item">
-                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowUtil" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-user" class="icon" />
                             <span class=" ml-2 label "> Utilisateurs</span>
                          </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                         
+                        <font-awesome-icon v-if="!isShowarrowUtil" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
                      </div>
                     
                     </div>
@@ -54,13 +56,14 @@
 
             <!-- Nav Item - clients -->
            <li class="nav-item">
-                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapseClients" aria-expanded="false" aria-controls="collapseClients">
+                <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowClients" data-bs-target="#collapseClients" aria-expanded="false" aria-controls="collapseClients">
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-users-between-lines" class="icon" />
                             <span class=" ml-2 label "> Clients</span>
                          </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-if="!isShowarrowClients" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
                      </div>
                     
                     </div>
@@ -90,13 +93,14 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
                  <li class="nav-item">
-                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapstock" aria-expanded="false" aria-controls="collapstock">
+                <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowStock"  data-bs-target="#collapstock" aria-expanded="false" aria-controls="collapstock">
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
                             <span class=" ml-2 label "> Stock </span>
                          </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-if="!isShowarrowStock" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
                      </div>
                     
                     </div>
@@ -126,13 +130,14 @@
             <!-- Nav Item - Reception -->
               <hr class="sidebar-divider">
                  <li class="nav-item">
-                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapReception" aria-expanded="false" aria-controls="collapReception">
+                <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowReception" data-bs-target="#collapReception" aria-expanded="false" aria-controls="collapReception">
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
                             <span class=" ml-2 label "> Reception </span>
                          </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-if="!isShowarrowReception" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                        <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
                      </div>
                     
                     </div>
@@ -162,13 +167,14 @@
             <!-- Nav Item - Vente -->
               <hr class="sidebar-divider">
                  <li class="nav-item">
-                <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapVente" aria-expanded="false" aria-controls="collapVente">
+                <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowVente" data-bs-target="#collapVente" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
                             <span class=" ml-2 label "> Vente </span>
                          </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                       <font-awesome-icon v-if="!isShowarrowVente" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                       <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
                      </div>
                     
                     </div>
@@ -248,6 +254,35 @@
 
 <script>
 export default {
+    data(){
+        return{
+            isShowarrowUtil : false,
+            isShowarrowClients:false,
+            isShowarrowStock:false,
+            isShowarrowReception:false,
+            isShowarrowVente:false,
+        }
+    },
+    methods:{
+        showArrowUtil(){
+            this.isShowarrowUtil = !this.isShowarrowUtil 
+        },
+        showArrowClients(){
+            this.isShowarrowClients = !this.isShowarrowClients 
+        },
+       showArrowStock(){
+            this.isShowarrowStock = !this.isShowarrowStock 
+        },
+         showArrowReception(){
+            this.isShowarrowReception = !this.isShowarrowReception 
+        },
+        showArrowVente(){
+            this.isShowarrowVente = !this.isShowarrowVente 
+        }
+
+
+
+    }
 
 }
 </script>

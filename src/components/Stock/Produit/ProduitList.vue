@@ -2,7 +2,7 @@
 <div>
         <div>    
             <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5" @click="modalActive = true,$store.state.IdEditProduit=null">
+                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditProduit=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Produit
                   </button>
@@ -114,5 +114,8 @@ export default {
 </script>
 
 <style scoped>
+.ajout{
+    color: white;
+}
 
 </style>
