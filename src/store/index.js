@@ -15,7 +15,7 @@ export default createStore({
     IdEditClient:null,
     typeClients:[],
     editTypeClient:null,
-    produits:[],
+    products:[],
     IdEditProduit:null,
     stocks:[],
     IdEditStock:null,

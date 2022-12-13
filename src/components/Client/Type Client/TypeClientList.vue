@@ -35,7 +35,7 @@
                             <tbody>
                                <tr v-for="typeClient in typeClients" :key="typeClient.id">
                                 <th scope="row">{{ typeClient.id }}</th>
-                                <td>{{ typeClient.typeClient }} </td>
+                                <td>{{ typeClient.name }} </td>
                                 <td>{{ typeClient.description }} </td>         
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteTClient(typeClient.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
@@ -78,7 +78,7 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/typeClients/")
+            axios.get(this.$store.state.baseUrl + "/type_clients/")
             .then(resp => {
                 this.typeClients = resp.data
             })
@@ -87,7 +87,7 @@ export default {
             })
         },
         deleteTClient(id) {
-            axios.delete(this.$store.state.baseUrl + "/typeClients/" + id)
+            axios.delete(this.$store.state.baseUrl + "/type_clients/" + id)
             .then(resp => {
                 this.typeClients = resp.data
                 this.fetchData()

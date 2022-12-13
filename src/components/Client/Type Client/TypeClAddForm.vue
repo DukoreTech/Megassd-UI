@@ -9,13 +9,13 @@
 
         <span>Type de Client</span>
           <label>
-              <select  v-model="form.typeClient">
+              <select  v-model="form.name">
                 <option selected="selected">Bar</option>
                 <option>Depot</option>
                 <option>Client simple</option>
               </select>
           </label>
-         <span>{{ errors?.typeClient }}</span>
+         <span>{{ errors?.name }}</span>
 
         <span>Description</span>
          <label for="description">
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       form: {
-        typeClient:"",
+        name:"",
         description:"",            
       },
       errors: {},
@@ -64,12 +64,12 @@ export default {
        if(this.$store.state.IdEditTypClient==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/typeClients",
+          this.$store.state.baseUrl + "/type_clients",
           this.form
         )
         .then((resp) => {
           this.typeClients = resp.data;
-          this.form = { typeClient:"",description:""} 
+          this.form = { name:"",description:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -77,7 +77,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/typeClients/"+this.$store.state.IdEditTypClient,
+          this.$store.state.baseUrl+"/type_clients/"+this.$store.state.IdEditTypClient,
           this.form )
         .then((resp) => {
           this.typeClients = resp.data.data;
