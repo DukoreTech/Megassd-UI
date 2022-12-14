@@ -9,6 +9,8 @@ import Produit from "@/views/ProduitView.vue"
 import Stock from "@/views/StockView.vue"
 import TypeStock from "@/views/TypeStockView.vue"
 //import login from "@/views/loginView.vue"
+import lot from "@/views/LotView.vue"
+import Reception from "@/views/ReceptionView.vue"
 
 const routes = [
 
@@ -22,6 +24,8 @@ const routes = [
  { path:'/Produit',name:'Produit',component:Produit },
  { path:'/Stock',name:'Stock',component:Stock },
  { path:'/TypeStock',name:'TypeStock',component:TypeStock },
+ { path:'/lot',name:'lot',component:lot },
+ { path:'/Reception',name:'Reception',component:Reception },
  
 ]
 

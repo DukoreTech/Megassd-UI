@@ -144,21 +144,17 @@
                    
                     <div class="collapse" id="collapReception">
                         <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Produit'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
+                             <router-link :to="{name:'lot'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                                 aria-expanded="true" aria-controls="collapseReception">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Produit 
+                                  Lot 
                              </router-link>          
-                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
+                           <router-link :to="{name:'Reception'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                              aria-expanded="true" aria-controls="collapseReception">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Stock
+                             Reception
                             </router-link>  
-                           <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
-                             aria-expanded="true" aria-controls="collapseReception">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Type de Stock
-                            </router-link>  
+                          
                         </div>
                     </div> 
     

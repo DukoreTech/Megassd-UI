@@ -1,25 +1,24 @@
 <template>
 <div>
-       <div>    
-            <!-- <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditStock=null">
+        <div> 
+          <div class="d-md-flex m-3 justify-content-between" >
+                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditLot=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                    Ajouter stock
+                    Ajouter lot
                   </button>
                 <div class="mt-3">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
                 </div>
-              </div> -->   
-               
+             </div>  
+
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
-
          <div class="container-fluid">
             <div class="card  mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-mute">Liste des stock</h6>
+                    <h6 class="m-0 font-weight-bold text-mute">Liste des lots</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -27,21 +26,29 @@
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
+                                <th scope="col">Nom</th>
                                 <th scope="col">Produit</th>
                                 <th scope="col">Quantite</th>
+                                <th scope="col">prix unitaire</th>
+                                <th scope="col">Prix de vente</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>
                       
                             <tbody>
-                               <tr v-for="stock in stocks" :key="stock.id">
-                                <th scope="row">{{ stock.id }}</th>
-                                <td>{{ stock.produit }} </td>
-                                <td>{{ stock.Quantite }} </td>
+                               <tr v-for="lot in lots" :key="lot.id">
+                                <th scope="row">{{ lot.id }}</th>
+                                <td>{{ lot.name }} </td>
+                                <td>{{ lot.product_id }} </td>
+                                <td>{{ lot.quantity }} </td>
+                                <td>{{ lot.price_unitaire }} </td>            
+                                <td>{{ lot.price_vente }} </td>            
+                                <td>{{ lot.description }} </td>            
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    <button class="btn btn-sm btn-default m-2"  @click="deleteLot(lot.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editStock(stock,stock.id)" >
+                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editlot(lot,lot.id)" >
                                     <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
@@ -58,7 +65,7 @@
 <script>
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
-import AddForm from './StockAddForm';
+import AddForm from './lotAddForm';
 
 export default {
     components: { ModalComponent, AddForm },
@@ -66,8 +73,7 @@ export default {
         return{
             modalActive: false,
             search:'',
-            stocks : [ ],
-            products:[],
+            lots : [ ]
         }
     },
     mounted(){
@@ -75,25 +81,23 @@ export default {
     },
     computed:{
         searchEvery(){
-            return this.stocks.filter(val=>val.includes(this.search))
+            return this.lots.filter(val=>val.includes(this.search))
             }
     },
     methods:{
-        
         fetchData() {
-            axios.get(this.$store.state.baseurl + "stock")
+            axios.get(this.$store.state.baseUrl + "/lots/")
             .then(resp => {
-                this.stocks = resp.data
+                this.lots = resp.data
             })
             .catch(err => {
                 console.error(err)
             })
         },
-        
-        deleteStock(id) {
-            axios.delete(this.$store.state.baseurl + "stock" + id)
+        deleteLot(id) {
+            axios.delete(this.$store.state.baseUrl + "/lots/" + id)
             .then(resp => {
-                this.stocks = resp.data
+                this.lots = resp.data
                 this.fetchData()
             })
             .catch(err => {
@@ -102,9 +106,9 @@ export default {
             
         },
 
-        editStock(stock,id){
-        this.$store.state.IdEditStock=id
-        this.$store.state.stocks=stock
+        editlot(lot,id){
+        this.$store.state.IdEditLot=id
+        this.$store.state.lots=lot
         
         }
     }
