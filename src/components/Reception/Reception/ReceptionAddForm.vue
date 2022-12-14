@@ -6,7 +6,8 @@
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
-            <div class="col-6">
+
+            <div class="col col1">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
@@ -31,7 +32,7 @@
                  <label for="stock_id" class="d-block dateWidth">
                     <select  v-model="form.stock_id" aria-placeholder="stock" id="stock_id">
                         <option v-for="stock in stocks" :key="stock.id" :value="stock.id" selected>
-                        {{ stock.produit }}
+                        {{ stock.id }}
                         </option>
                     </select>             
                   </label>
@@ -39,33 +40,34 @@
 
                 <label for="quantity">
                     <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
-                    <span>quantity</span>
+                    <span>Quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
 
-                <label for="tva" class="">
-                    <input type="number" id="tva"  v-model="form.tva">
-                    <span>TVA (%)</span>
-                </label>
-                <span>{{ errors?.tva }}</span>
+              
                 
             </div>
 
-             <div class="col-6">
+             <div class="col col2">
+                   <label for="tva" class="">
+                    <input type="number" id="tva" placeholder="tva"   v-model="form.tva">
+                    <span>TVA (%)</span>
+                </label>
+                <span>{{ errors?.tva }}</span>
                 <label for="date_achat" class="d-block dateWidth">
-                    <input type="date" id="date_achat"  v-model="form.date_achat">
+                    <input type="date" id="date_achat" placeholder="date_achat" v-model="form.date_achat">
                     <span>Date d'achat</span>
                 </label>
                 <span>{{ errors?.date_achat }}</span>
 
                 <label for="montant" class="">
-                    <input type="number" id="montant"  v-model="form.montant">
+                    <input type="number" id="montant" placeholder="montant"   v-model="form.montant">
                     <span>Montant</span>
                 </label>
                 <span>{{ errors?.montant }}</span>     
 
                 <label for="montant_total" class="">
-                    <input type="number" id="montant_total"  v-model="form.montant_total">
+                    <input type="number" id="montant_total" placeholder="montant"  v-model="form.montant_total">
                     <span>Montant total</span>
                 </label>
                 <span>{{ errors?.montant_total }}</span>            
@@ -206,15 +208,7 @@ export default {
     margin:0;
     padding:0;
     box-sizing:border-box;
-}
-body{
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-    font-family:sans-serif;
-    color:#6b6b6b;
- 
-}
+  }
 form{
     width:90vw;
     max-width:768px;

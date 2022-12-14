@@ -108,7 +108,32 @@
   "pertes": [],
   "typePertes": [],
   "preterVides": [],
-  "receptions": [],
+  "receptions": [
+    {
+      "product_id": 1,
+      "lot_id": 1,
+      "stock_id": 1,
+      "quantity": 56,
+      "tva": 67,
+      "date_achat": "2022-12-13",
+      "montant": 56666,
+      "montant_total": 3333333,
+      "description": "rrrrttt",
+      "id": 1
+    },
+    {
+      "product_id": 2,
+      "lot_id": 1,
+      "stock_id": 2,
+      "quantity": 445,
+      "tva": 5,
+      "date_achat": "2022-12-14",
+      "montant": 5000,
+      "montant_total": 78000000,
+      "id": 2,
+      "description": "hello"
+    }
+  ],
   "ventes": [],
   "clients": [
     {

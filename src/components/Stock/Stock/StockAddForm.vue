@@ -10,11 +10,11 @@
       </div>
     </div>  -->
 
-    <div class="alert-dismissible fade show alert alert-success d-flex align-items-center mt-5 w-50 mx-auto" role="alert">
+    <!-- <div class="alert-dismissible fade show alert alert-success d-flex align-items-center mt-5 w-50 mx-auto" role="alert">
       <font-awesome-icon icon="fa-solid fa-check-circle" class="bi flex-shrink-0 " width="24" height="24" role="img" aria-label="Success:" />
         <strong>success</strong> 
         <button type="button" class=" btn-sm btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    </div> -->
   <div class="register">
     
     <form action="" @submit.prevent="saveInformation">
