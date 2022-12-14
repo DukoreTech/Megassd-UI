@@ -24,7 +24,7 @@
         <span>{{ errors?.description }}</span>
         <span>User_id</span>
          <label for="description">
-            <input  id="description" disabled placeholder="Description"  v-model="form.user_id">
+            <input   disabled placeholder="Description"  v-model="form.user_id">
         </label>
         
         <!-- <button type="button">Register</button> -->
@@ -46,6 +46,7 @@ export default {
         description:"",
         user_id:"",            
       },
+      user:"",
       errors: {},
       typeClients:[],
       saveEditBtn:"Enregistrer",
@@ -53,12 +54,17 @@ export default {
   },
  mounted(){
   this.getuser()
+  //console.log(this.form.user_id)
+  
  },
- /* updated(){
+ /*updated(){
+  
     
     if(this.$store.state.IdEditTypClient==null){
+      this.getuser()
          this.form={};
          this.saveEditBtn="Enregistrer"
+
         }else{
             this.form=this.$store.state.typeClients;
             this.saveEditBtn="Modifier"
@@ -67,14 +73,18 @@ export default {
 
   methods: {
     getuser(){
+      let userlogged= JSON.parse(this.$store.state.user)
+      this.form.user_id=Object.values(userlogged)[0].id
+      
+      
 
-axios.get(`${this.$store.state.baseurl}user`
+/*axios.get(`${this.$store.state.baseurl}user`
 ,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
 axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
 this.$store.commit('userinfo',JSON.stringify(response.data.id))
-this.form.user_id=this.$store.state.userinfo
+this.form.user_id=this.$store.state.userinfo*
 
-});
+});*/
 },
  
     saveInformation() {
@@ -89,6 +99,7 @@ this.form.user_id=this.$store.state.userinfo
         )
         .then((resp) => {
           this.typeClients = resp.data;
+          this.$store.state.typeClients=resp.data
           this.form = { name:"",description:""} 
         })
         .catch((err) => {
@@ -102,6 +113,7 @@ this.form.user_id=this.$store.state.userinfo
           axios.defaults.headers.common['Accept'] = `Application/json` )
         .then((resp) => {
           this.typeClients = resp.data.data;
+          this.$store.state.typeClients=resp.data
           this.$emit('close')
           this.$store.state.IdEditTypClient=null
          })

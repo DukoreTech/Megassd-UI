@@ -68,7 +68,7 @@ export default {
             typeClients :[]
         }
     },
-    mounted(){
+    created(){
         this.fetchData()
     },
     computed:{
@@ -83,6 +83,7 @@ export default {
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.typeClients = resp.data
+                this.$store.state.typeClients=resp.data
             })
             .catch(err => {
                 console.error(err)
@@ -93,6 +94,7 @@ export default {
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.typeClients = resp.data
+                this.$store.state.typeClients=resp.data
                 this.fetchData()
             })
             .catch(err => {

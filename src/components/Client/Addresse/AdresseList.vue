@@ -83,6 +83,7 @@ export default {
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
+                this.$store.state.adresses=resp.data
             })
             .catch(err => {
                 console.error(err)
@@ -93,6 +94,7 @@ export default {
                   axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
+                this.$store.state.adresses=resp.data
                 this.fetchData()
             })
             .catch(err => {

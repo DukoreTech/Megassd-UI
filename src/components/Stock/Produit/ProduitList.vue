@@ -11,7 +11,7 @@
                 </div>
               </div>      
                
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,this.fetchData()">
                     <add-form :modalActive="modalActive"/>
                 </modal-component>
         </div>

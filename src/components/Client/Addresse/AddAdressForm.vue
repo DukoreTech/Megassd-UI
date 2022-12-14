@@ -73,6 +73,7 @@ export default {
         )
         .then((resp) => {
           this.adresses = resp.data;
+          this.$store.state.adresses=resp.data
           this.form = { zone:"",description:""} 
         })
         .catch((err) => {
@@ -85,6 +86,7 @@ export default {
           this.form )
         .then((resp) => {
           this.adresses = resp.data.data;
+          this.$store.state.adresses=resp.data.data
           this.$emit('close')
           this.$store.state.IdEditAdresse=null
          })

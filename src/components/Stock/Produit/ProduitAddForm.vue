@@ -101,6 +101,8 @@ export default{
             )
             .then((resp) => {
               this.products = resp.data;
+              this.getuser()
+              
               
               this.form = { name:"",unite_mesure:"",nombre_bouteille:"", caisse:""} 
             })

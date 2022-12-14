@@ -88,7 +88,9 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/clients/")
+            axios.get(this.$store.state.baseurl + "client",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+        axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.clients = resp.data
             })
@@ -97,7 +99,7 @@ export default {
             })
         },
         deleteUser(id) {
-            axios.delete(this.$store.state.baseUrl + "/clients/" + id)
+            axios.delete(this.$store.state.baseurl + "client/" + id)
             .then(resp => {
                 this.clients = resp.data
                 this.fetchData()
