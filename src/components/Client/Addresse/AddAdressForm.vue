@@ -10,7 +10,7 @@
 
         <span>Zone</span>
           <label for="etablis">
-              <select  v-model="form.zone">
+              <select  v-model="form.name">
                 <option value="Mugere" selected="selected">Mugere</option>
                 <option value="Kibembe" >Kibembe</option>
                 <option value="Ruziba" >Ruziba</option>
@@ -21,7 +21,7 @@
 
         <span>Description</span>
          <label for="description">
-            <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+            <textarea  id="description" placeholder="Description"  v-model="form.descroption"></textarea>
         </label>
         <span>{{ errors?.description }}</span>
         <!-- <button type="button">Register</button> -->
@@ -39,8 +39,8 @@ export default {
   data() {
     return {
       form: {
-        zone:"",
-        description:"",            
+        name:"",
+        descroption:"",            
       },
       errors: {},
       adresses:[],
@@ -66,8 +66,10 @@ export default {
        if(this.$store.state.IdEditAdresse==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/adresses",
-          this.form
+          this.$store.state.baseurl + "Address",
+          this.form,
+          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
           this.adresses = resp.data;
@@ -79,7 +81,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/adresses/"+this.$store.state.IdEditAdresse,
+          this.$store.state.baseUrl+"Address"+this.$store.state.IdEditAdresse,
           this.form )
         .then((resp) => {
           this.adresses = resp.data.data;

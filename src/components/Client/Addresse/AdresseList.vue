@@ -35,8 +35,8 @@
                             <tbody>
                                <tr v-for="adresse in adresses" :key="adresse.id">
                                 <th scope="row">{{ adresse.id }}</th>
-                                <td>{{ adresse.zone }} </td>
-                                <td>{{ adresse.description }} </td>         
+                                <td>{{ adresse.name }} </td>
+                                <td>{{ adresse.descroption	 }} </td>         
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteRole(adresse.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
@@ -78,7 +78,9 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/adresses/")
+            axios.get(this.$store.state.baseurl + "Address",
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
             })
@@ -87,7 +89,8 @@ export default {
             })
         },
         deleteRole(id) {
-            axios.delete(this.$store.state.baseUrl + "/adresses/" + id)
+            axios.delete(this.$store.state.baseurl + "Address/"+ id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                  axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
                 this.fetchData()

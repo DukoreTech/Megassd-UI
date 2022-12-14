@@ -96,7 +96,7 @@ export default{
                  
             axios.post(
               this.$store.state.baseurl + "products",
-              this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
+              this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
                     axios.defaults.headers.common['Accept'] = `Application/json`
             )
             .then((resp) => {
