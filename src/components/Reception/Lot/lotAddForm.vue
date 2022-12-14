@@ -23,11 +23,11 @@
               </label>
                <span>{{ errors?.product_id }}</span>  
 
-                <label for="quantity" class="">
+                <!--<label for="quantity" class="">
                     <input type="text" id="quantity"  v-model="form.quantity">
                     <span>Quantity</span>
                 </label>
-                <span>{{ errors?.quantity }}</span>
+                <span>{{ errors?.quantity }}</span>-->
                 
             </div>
 
@@ -67,11 +67,12 @@ export default {
     return {
       form: {
         name:"",
-        quantity:"",
+        quantity:0,
         price_unitaire:"",
         product_id:"",
         price_vente:"",
-        description:""
+        description:"",
+        user_id:""
     
       },
       errors: {},
@@ -81,9 +82,10 @@ export default {
     };
   },
     mounted(){
-      this.getProducts()
+      this.getproducts()
+      this.getuser()
   },
-  updated(){
+ /* updated(){
     if(this.$store.state.IdEditLot==null){
         this.form={};
         this.saveEditBtn="Enregistrer"
@@ -92,29 +94,33 @@ export default {
         this.saveEditBtn="Modifier"
       }
  
-  },
+  },*/
 
   methods: {
-
-    getProducts() {
-      axios.get(this.$store.state.baseUrl + "/products",
-      )
-        .then(resp => {
-          this.products = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
+    getuser(){
+      let userlogged= JSON.parse(this.$store.state.user)
+      this.form.user_id=Object.values(userlogged)[0].id
     },
+
+    getproducts() {
+            axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+            axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.products = resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
     saveInformation() {
       if (this.form["product_id","price_unitaire","quantity","name"]=="") return; 
 
        if(this.$store.state.IdEditLot==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/lots",
-          this.form
+          this.$store.state.baseurl + "lots",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
           this.lots = resp.data;

@@ -86,7 +86,9 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/lots/")
+            axios.get(this.$store.state.baseurl + "lots",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.lots = resp.data
             })
@@ -95,7 +97,9 @@ export default {
             })
         },
         deleteLot(id) {
-            axios.delete(this.$store.state.baseUrl + "/lots/" + id)
+            axios.delete(this.$store.state.baseurl + "lots/"+id,
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.lots = resp.data
                 this.fetchData()
