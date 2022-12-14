@@ -21,20 +21,21 @@
 
                 <span>Produit</span>
                  <label for="produit" class="">
-                    <select  v-model="form.produit" aria-placeholder="produit" id="produit">
-                        <option v-for="produit in produits" :key="produit.id" :value="produit.id" selected>
-                            {{ produit.nom }}
-                         </option>
-                     </select>             
+                  <input type="tel" disabled id="Quantite" placeholder="Quantite" v-model="form.product_id">
+                               
                   </label>
                  <span>{{ errors?.produit }}</span>
                 <br>
 
                  <label for="Quantite">
-                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.Quantite">
-                    <span>Quantite</span>
+                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.vide">
+                    <span>Quantite Vide</span>
                  </label>
                 <span>{{ errors?.Quantite }}</span>
+                <label for="Quantite">
+                    <input type="text" disabled v-model="form.user_id">
+                    <span>User_id</span>
+                 </label>
                 
         <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
     </form>
@@ -50,8 +51,9 @@ export default {
   data() {
     return {
       form: {
-        produit:"",
-        Quantite:""
+        product_id:"",
+        vide:"",
+        user_id:"",
     
       },
       errors: {},
@@ -60,18 +62,13 @@ export default {
       saveEditBtn:"Enregistrer",
     };
   },
-  mounted(){
+ mounted(){
     this.getProduits()
   },
   updated(){
-    if(this.$store.state.IdEditStock==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
+    
          this.form=this.$store.state.stocks;
         this.saveEditBtn="Modifier"
-      }
- 
   },
 
   methods: {
@@ -93,7 +90,7 @@ export default {
        if(this.$store.state.IdEditStock==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/stocks",
+          this.$store.state.baseUrl + "stock",
           this.form
         )
         .then((resp) => {
@@ -107,7 +104,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/stocks/"+this.$store.state.IdEditStock,
+          this.$store.state.baseurl + "stock/"+this.$store.state.IdEditStock,
           this.form )
         .then((resp) => {
           this.stocks = resp.data;

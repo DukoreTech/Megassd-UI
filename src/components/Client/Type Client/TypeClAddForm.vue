@@ -22,6 +22,11 @@
             <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
         </label>
         <span>{{ errors?.description }}</span>
+        <span>User_id</span>
+         <label for="description">
+            <input  id="description" disabled placeholder="Description"  v-model="form.user_id">
+        </label>
+        
         <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
@@ -38,15 +43,19 @@ export default {
     return {
       form: {
         name:"",
-        description:"",            
+        description:"",
+        user_id:"",            
       },
       errors: {},
       typeClients:[],
       saveEditBtn:"Enregistrer",
     };
   },
-
-  updated(){
+ mounted(){
+  this.getuser()
+ },
+ /* updated(){
+    
     if(this.$store.state.IdEditTypClient==null){
          this.form={};
          this.saveEditBtn="Enregistrer"
@@ -54,9 +63,19 @@ export default {
             this.form=this.$store.state.typeClients;
             this.saveEditBtn="Modifier"
         }
-  },
+  },*/
 
   methods: {
+    getuser(){
+
+axios.get(`${this.$store.state.baseurl}user`
+,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
+this.$store.commit('userinfo',JSON.stringify(response.data.id))
+this.form.user_id=this.$store.state.userinfo
+
+});
+},
  
     saveInformation() {
       if (this.form[ "typeClient"]=="") return; 
@@ -64,8 +83,9 @@ export default {
        if(this.$store.state.IdEditTypClient==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/type_clients",
-          this.form
+          this.$store.state.baseurl + "typeclient",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
           this.typeClients = resp.data;
@@ -77,8 +97,9 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/type_clients/"+this.$store.state.IdEditTypClient,
-          this.form )
+          this.$store.state.baseurl + "typeclient/"+this.$store.state.IdEditTypClient,
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json` )
         .then((resp) => {
           this.typeClients = resp.data.data;
           this.$emit('close')

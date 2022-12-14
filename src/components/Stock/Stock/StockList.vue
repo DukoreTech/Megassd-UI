@@ -28,7 +28,10 @@
                               <tr>                    
                                 <th scope="col">Id</th>
                                 <th scope="col">Produit</th>
-                                <th scope="col">Quantite</th>
+                                <th scope="col">Nbvides</th>
+                                <th scope="col">Nbpleins</th>
+                                <th scope="col">Date created</th>
+                               
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>
@@ -36,8 +39,10 @@
                             <tbody>
                                <tr v-for="stock in stocks" :key="stock.id">
                                 <th scope="row">{{ stock.id }}</th>
-                                <td>{{ stock.produit }} </td>
-                                <td>{{ stock.Quantite }} </td>
+                                <td>{{ stock.product_id }} </td>
+                                <td>{{ stock.vide }} </td>
+                                <td>{{ stock.plein }} </td>
+                                <td>{{stock.date}}</td>
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
