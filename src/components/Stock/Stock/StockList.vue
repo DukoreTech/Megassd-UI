@@ -1,7 +1,7 @@
 <template>
 <div>
-        <div>    
-            <div class="d-md-flex m-3 justify-content-between" >
+       <div>    
+            <!-- <div class="d-md-flex m-3 justify-content-between" >
                 <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditStock=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter stock
@@ -9,7 +9,7 @@
                 <div class="mt-3">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
                 </div>
-              </div>    
+              </div> -->   
                
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
                     <add-form @close="modalActive = !modalActive"/>
@@ -66,7 +66,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            stocks : [ ]
+            stocks : [ ],
+            products:[],
         }
     },
     mounted(){
@@ -78,8 +79,9 @@ export default {
             }
     },
     methods:{
+        
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/stocks/")
+            axios.get(this.$store.state.baseurl + "stock")
             .then(resp => {
                 this.stocks = resp.data
             })
@@ -88,7 +90,7 @@ export default {
             })
         },
         deleteStock(id) {
-            axios.delete(this.$store.state.baseUrl + "/stocks/" + id)
+            axios.delete(this.$store.state.baseurl + "stock" + id)
             .then(resp => {
                 this.stocks = resp.data
                 this.fetchData()

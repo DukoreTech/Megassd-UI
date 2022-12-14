@@ -76,7 +76,8 @@ export default {
 
   methods: {
      getProduits() {
-      axios.get(this.$store.state.baseUrl+"produits",
+      axios.get(this.$store.state.baseurl + "products",this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                    axios.defaults.headers.common['Accept'] = `Application/json`
       )
         .then(resp => {
           this.produits = resp.data

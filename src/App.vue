@@ -11,7 +11,7 @@ export default {
    components:{
       
       'Loginview':require("@/views/loginView.vue").default,
-      'index':require("@/views/Indexview.vue").default
+      'index':require("@/views/IndexPageview.vue").default
       
    },
    computed: {
