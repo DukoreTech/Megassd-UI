@@ -1,18 +1,12 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="d-none">{{$store.state.lots}}{{$store.state.IdEditLot}}</span>
+<span class="d-none">{{$store.state.receptions}}{{$store.state.IdEditReception}}</span>
 <!-- retrieve data -->
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
             <div class="col-6">
-                <label for="name">
-                    <input type="text" id="name" placeholder="name" v-model="form.name">
-                    <span>name</span>
-                </label>
-                <span>{{ errors?.name }}</span>
-                 <br>
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
@@ -20,29 +14,61 @@
                         {{ product.name }}
                         </option>
                     </select>             
-              </label>
+                  </label>
                <span>{{ errors?.product_id }}</span>  
+                 <br>
+                 <span>Lot</span>
+                 <label for="lot_id" class="d-block dateWidth">
+                    <select  v-model="form.lot_id" aria-placeholder="lot" id="lot_id">
+                        <option v-for="lot in lots" :key="lot.id" :value="lot.id" selected>
+                        {{ lot.name }}
+                        </option>
+                    </select>             
+                  </label>
+               <span>{{ errors?.lot_id }}</span>  
+                <br>
+                  <span>stock</span>
+                 <label for="stock_id" class="d-block dateWidth">
+                    <select  v-model="form.stock_id" aria-placeholder="stock" id="stock_id">
+                        <option v-for="stock in stocks" :key="stock.id" :value="stock.id" selected>
+                        {{ stock.produit }}
+                        </option>
+                    </select>             
+                  </label>
+               <span>{{ errors?.stock_id }}</span> 
 
-                <label for="quantity" class="">
-                    <input type="text" id="quantity"  v-model="form.quantity">
-                    <span>Quantity</span>
+                <label for="quantity">
+                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
+                    <span>quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
+
+                <label for="tva" class="">
+                    <input type="number" id="tva"  v-model="form.tva">
+                    <span>TVA (%)</span>
+                </label>
+                <span>{{ errors?.tva }}</span>
                 
             </div>
 
              <div class="col-6">
-                <label for="price_unitaire">
-                    <input type="text" id="price_unitaire" placeholder="price unitaire" v-model="form.price_unitaire">
-                    <span>Prix unitaire</span>
+                <label for="date_achat" class="d-block dateWidth">
+                    <input type="date" id="date_achat"  v-model="form.date_achat">
+                    <span>Date d'achat</span>
                 </label>
-                <span>{{ errors?.price_unitaire }}</span>
+                <span>{{ errors?.date_achat }}</span>
 
-                 <label for="price_vente">
-                    <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
-                    <span>Prix de vente</span>
+                <label for="montant" class="">
+                    <input type="number" id="montant"  v-model="form.montant">
+                    <span>Montant</span>
                 </label>
-                <span>{{ errors?.price_vente }}</span>  
+                <span>{{ errors?.montant }}</span>     
+
+                <label for="montant_total" class="">
+                    <input type="number" id="montant_total"  v-model="form.montant_total">
+                    <span>Montant total</span>
+                </label>
+                <span>{{ errors?.montant_total }}</span>            
                     <br>
                <span>Description</span><br>
                 <label for="description">
@@ -66,29 +92,36 @@ export default {
   data() {
     return {
       form: {
-        name:"",
         quantity:"",
-        price_unitaire:"",
+        lot_id:"",
+        tva:"",
+        stock_id:"",
         product_id:"",
-        price_vente:"",
+        date_achat:"",
+        montant_total:"",
+        montant:"",
         description:""
     
       },
       errors: {},
+      receptions:[],
       products:[],
+      stocks:[],
       lots:[],
       saveEditBtn:"Enregistrer",
     };
   },
     mounted(){
       this.getProducts()
+      this.getStocks()
+      this.getLots()
   },
   updated(){
-    if(this.$store.state.IdEditLot==null){
+    if(this.$store.state.IdEditReception==null){
         this.form={};
         this.saveEditBtn="Enregistrer"
       }else{
-         this.form=this.$store.state.lots;
+         this.form=this.$store.state.receptions;
         this.saveEditBtn="Modifier"
       }
  
@@ -107,18 +140,40 @@ export default {
         })
 
     },
-    saveInformation() {
-      if (this.form["product_id","price_unitaire","quantity","name"]=="") return; 
+     getStocks() {
+      axios.get(this.$store.state.baseUrl + "/stocks",
+      )
+        .then(resp => {
+          this.stocks = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
 
-       if(this.$store.state.IdEditLot==null){
+    },
+    getLots() {
+      axios.get(this.$store.state.baseUrl + "/lots",
+      )
+        .then(resp => {
+          this.lots = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+    },
+    saveInformation() {
+      if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
+
+       if(this.$store.state.IdEditReception==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/lots",
+          this.$store.state.baseUrl + "/receptions",
           this.form
         )
         .then((resp) => {
-          this.lots = resp.data;
-          this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
+          this.receptions = resp.data;
+          this.form = { description:"",quantity:"",product_id:"",date_achat:"",lot_id:"",stock_id:"", tva:"",montant:"",montant_total:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -126,10 +181,10 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/lots/"+this.$store.state.IdEditLot,
+          this.$store.state.baseUrl+"/receptions/"+this.$store.state.IdEditReception,
           this.form )
         .then((resp) => {
-          this.lots = resp.data;
+          this.receptions = resp.data;
           this.$emit('close')
          })
         .catch((err) => {

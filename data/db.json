@@ -94,7 +94,17 @@
   ],
   "detailReceptions": [],
   "detailVentes": [],
-  "lots": [],
+  "lots": [
+    {
+      "name": "Fanta",
+      "product_id": 1,
+      "quantity": "23",
+      "price_unitaire": "800",
+      "price_vente": "1000",
+      "description": "fff",
+      "id": 1
+    }
+  ],
   "pertes": [],
   "typePertes": [],
   "preterVides": [],
