@@ -149,11 +149,11 @@
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   Lot 
                              </router-link>          
-                           <!-- <router-link :to="{name:'Reception'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
+                           <router-link :to="{name:'Reception'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                              aria-expanded="true" aria-controls="collapseReception">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Reception
-                            </router-link>   -->
+                            </router-link>  
                           
                         </div>
                     </div> 
