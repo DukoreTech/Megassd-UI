@@ -177,10 +177,10 @@
                    
                     <div class="collapse" id="collapVente">
                         <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Produit'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                             <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Produit 
+                                  Commande 
                              </router-link>          
                            <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">

@@ -97,12 +97,28 @@
   "lots": [
     {
       "name": "Fanta",
-      "product_id": 1,
+      "product_id": "Fanta",
       "quantity": "23",
       "price_unitaire": "800",
       "price_vente": "1000",
       "description": "fff",
       "id": 1
+    },
+    {
+      "name": "Royal",
+      "product_id": "Royal",
+      "quantity": "20",
+      "price_unitaire": "2000",
+      "price_vente": "2500",
+      "id": 2
+    },
+    {
+      "product_id": "Primus",
+      "name": "Primus",
+      "quantity": "10",
+      "price_unitaire": "1500",
+      "price_vente": "2000",
+      "id": 3
     }
   ],
   "pertes": [],
