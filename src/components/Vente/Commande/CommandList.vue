@@ -4,7 +4,7 @@
           <div class="d-md-flex m-3 justify-content-between" >
                 <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditReception=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                    Ajouter Reception
+                    Ajouter command
                   </button>
                 <div class="mt-3">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
@@ -70,7 +70,7 @@
 <script>
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
-import AddForm from './ReceptionAddForm.vue';
+import AddForm from './CommandAddForm.vue';
 
 export default {
     components: { ModalComponent, AddForm },
