@@ -39,7 +39,7 @@
                                 <th scope="row">{{ location.id }}</th>
                                 <td>{{ location.product_id }} </td>
                                 <td>{{ location.client_id }} </td>
-                                <td>{{ location.Quantite }} </td>
+                                <td>{{ location.quantity }} </td>
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteLocation(location.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>

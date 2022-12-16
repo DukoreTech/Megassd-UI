@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="d-none">{{$store.state.locations}}{{$store.state.IdEditLocation}}</span>
+<span class="d-none">{{$store.state.pertes}}{{$store.state.IdEditLocation}}</span>
 <!-- retrieve data -->
   <div class="register">
     
@@ -17,22 +17,28 @@
                   </label>
                  <span>{{ errors?.product_id }}</span>
                 <br>
-                <span>client</span>
+                <span>Perte</span>
                  <label for="client" class="">
-                    <select  v-model="form.client_id" aria-placeholder="client" id="client">
-                        <option v-for="client in clients" :key="client.id" :value="client.id" selected>
-                            {{ client.nom }}
-                         </option>
+                    <select  v-model="form.type_perte" aria-placeholder="client" id="client">
+                        <option  selected>manquant </option>
+                        <option >manquant </option>
+                        <option >detruire</option>
                      </select>             
                   </label>
-                 <span>{{ errors?.client_id }}</span>
+                 <span>{{ errors?.type_perte }}</span>
                 <br>
 
                  <label for="Quantite">
-                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.quantity">
+                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.Quantite">
                     <span>Quantite</span>
                  </label>
-                <span>{{ errors?.quantity }}</span>
+                <span>{{ errors?.Quantite }}</span>
+
+                 <span>Description</span>
+                <label for="description">
+                    <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+                </label>
+                <span>{{ errors?.description }}</span>
                 
         <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
     </form>
@@ -49,27 +55,26 @@ export default {
     return {
       form: {
         product_id:"",
-        client_id:"",
-        Quantite:""
+        type_perte:"",
+        Quantite:"",
+        description:""
     
       },
       errors: {},
-      locations:[],
+      pertes:[],
       products:[],
-      clients:[],
       saveEditBtn:"Enregistrer",
     };
   },
   mounted(){
     this.getProduits()
-    this.getClients()
   },
   updated(){
     if(this.$store.state.IdEditLocation==null){
         this.form={};
         this.saveEditBtn="Enregistrer"
       }else{
-         this.form=this.$store.state.locations;
+         this.form=this.$store.state.pertes;
         this.saveEditBtn="Modifier"
       }
  
@@ -87,30 +92,20 @@ export default {
         })
 
     },
-    getClients() {
-      axios.get(this.$store.state.baseUrl + "/clients",
-      )
-        .then(resp => {
-          this.clients = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
 
-    },
     saveInformation() {
-      if (this.form["product_id","client_id","quantity"]=="") return; 
+      if (this.form["product_id","type_perte","Quantite","description"]=="") return; 
 
        if(this.$store.state.IdEditLocation==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/locations",
+          this.$store.state.baseUrl + "/pertes",
           this.form
         )
         .then((resp) => {
-          this.locations = resp.data;
+          this.pertes = resp.data;
           alert("data is saved")
-          this.form = { product_id:"",client_id:"",quantity:""} 
+          this.form = { product_id:"",type_perte:"",Quantite:"",description:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -118,10 +113,10 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/locations/"+this.$store.state.IdEditLocation,
+          this.$store.state.baseUrl+"/pertes/"+this.$store.state.IdEditLocation,
           this.form )
         .then((resp) => {
-          this.locations = resp.data;
+          this.pertes = resp.data;
           this.$emit('close')
          })
         .catch((err) => {
