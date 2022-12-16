@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- retrieve data -->
-<span class="d-none">{{$store.state.pertes}}{{$store.state.IdEditLocation}}</span>
+<span class="d-none">{{$store.state.pertes}}{{$store.state.IdEditPerte}}</span>
 <!-- retrieve data -->
   <div class="register">
     
@@ -28,11 +28,11 @@
                  <span>{{ errors?.type_perte }}</span>
                 <br>
 
-                 <label for="Quantite">
-                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.Quantite">
-                    <span>Quantite</span>
+                 <label for="quantity">
+                    <input type="tel" id="quantity" placeholder="quantity" v-model="form.quantity">
+                    <span>quantity</span>
                  </label>
-                <span>{{ errors?.Quantite }}</span>
+                <span>{{ errors?.quantity }}</span>
 
                  <span>Description</span>
                 <label for="description">
@@ -56,7 +56,7 @@ export default {
       form: {
         product_id:"",
         type_perte:"",
-        Quantite:"",
+        quantity:"",
         description:""
     
       },
@@ -70,7 +70,7 @@ export default {
     this.getProduits()
   },
   updated(){
-    if(this.$store.state.IdEditLocation==null){
+    if(this.$store.state.IdEditPerte==null){
         this.form={};
         this.saveEditBtn="Enregistrer"
       }else{
@@ -94,9 +94,9 @@ export default {
     },
 
     saveInformation() {
-      if (this.form["product_id","type_perte","Quantite","description"]=="") return; 
+      if (this.form["product_id","type_perte","quantity","description"]=="") return; 
 
-       if(this.$store.state.IdEditLocation==null){
+       if(this.$store.state.IdEditPerte==null){
              
         axios.post(
           this.$store.state.baseUrl + "/pertes",
@@ -105,7 +105,7 @@ export default {
         .then((resp) => {
           this.pertes = resp.data;
           alert("data is saved")
-          this.form = { product_id:"",type_perte:"",Quantite:"",description:""} 
+          this.form = { product_id:"",type_perte:"",quantity:"",description:""} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -113,7 +113,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/pertes/"+this.$store.state.IdEditLocation,
+          this.$store.state.baseUrl+"/pertes/"+this.$store.state.IdEditPerte,
           this.form )
         .then((resp) => {
           this.pertes = resp.data;
