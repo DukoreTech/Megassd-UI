@@ -39,7 +39,7 @@
                             <tbody>
                                <tr v-for="stock in stocks" :key="stock.id">
                                 <th scope="row">{{ stock.id }}</th>
-                                <td>{{ stock.product_id }} </td>
+                                <td v-if="stock.products && stock.products.name">{{ stock.products.name }} </td>
                                 <td>{{ stock.vide }} </td>
                                 <td>{{ stock.plein }} </td>
                                 <td>{{stock.date}}</td>
@@ -96,7 +96,7 @@ export default {
         },
         
         deleteStock(id) {
-            axios.delete(this.$store.state.baseurl + "stock" + id)
+            axios.delete(this.$store.state.baseurl + "stock/" + id)
             .then(resp => {
                 this.stocks = resp.data
                 this.fetchData()

@@ -10,12 +10,7 @@
 
         <span>Zone</span>
           <label for="etablis">
-              <select  v-model="form.name">
-                <option value="Mugere" selected="selected">Mugere</option>
-                <option value="Kibembe" >Kibembe</option>
-                <option value="Ruziba" >Ruziba</option>
-                <option value="Mutambo" >Mutambo</option>
-              </select>
+              <input type="text" v-model="form.name">
           </label>
          <span>{{ errors?.zone }}</span>
 
@@ -34,6 +29,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2'
 export default {
   props:["modalActive"],
   data() {
@@ -48,15 +44,21 @@ export default {
     };
   },
 
-  updated(){
+  watch:{
+  "$store.state.IdEditAdresse"(a){
+    console.log(a)
     if(this.$store.state.IdEditAdresse==null){
+      //this.getuser()
          this.form={};
          this.saveEditBtn="Enregistrer"
+
         }else{
             this.form=this.$store.state.adresses;
             this.saveEditBtn="Modifier"
         }
-  },
+
+  }
+ },
 
   methods: {
  
@@ -75,19 +77,30 @@ export default {
           this.adresses = resp.data;
           this.$store.state.adresses=resp.data
           this.form = { zone:"",description:""} 
-        })
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'client added successfully!',  });
+          })
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"Address"+this.$store.state.IdEditAdresse,
+          this.$store.state.baseurl + "Address/"+this.$store.state.IdEditAdresse,
           this.form )
         .then((resp) => {
           this.adresses = resp.data.data;
           this.$store.state.adresses=resp.data.data
           this.$emit('close')
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'address updated successfully!',  
+              });
+        
+
           this.$store.state.IdEditAdresse=null
          })
         .catch((err) => {

@@ -18,6 +18,9 @@ library.add(faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetween
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 // import "@/assets/vendor/datatables-demo.js"
 // import "@/assets/vendor/datatables/dataTables.bootstrap4.js"
 // import "@/assets/vendor/datatables/jquery.dataTables.js"
@@ -26,4 +29,6 @@ createApp(App)
     .use(store)
     .use(router)
     .component('font-awesome-icon', FontAwesomeIcon)
+    .use(VueSweetalert2)
     .mount('#app')
+    

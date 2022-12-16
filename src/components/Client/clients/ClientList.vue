@@ -93,6 +93,7 @@ export default {
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.clients = resp.data
+                this.$store.state.typeClients=resp.data
             })
             .catch(err => {
                 console.error(err)

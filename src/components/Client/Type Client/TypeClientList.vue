@@ -58,6 +58,7 @@
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './TypeClAddForm';
+import Swal from 'sweetalert2';
 
 export default {
     components: { ModalComponent, AddForm },
@@ -90,9 +91,20 @@ export default {
             })
         },
         deleteTClient(id) {
-            axios.delete(this.$store.state.baseurl + "typeclient/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+            Swal.fire({
+             title: 'Do you want to save the changes?',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Save',
+             denyButtonText: `Don't save`,
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+    
+                axios.delete(this.$store.state.baseurl + "typeclient/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
+                Swal.fire('item deleted', '', 'success')
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
                 this.fetchData()
@@ -100,6 +112,12 @@ export default {
             .catch(err => {
                 console.error(err)
             })
+              
+            } else if (result.isDenied) {
+              Swal.fire('Changes are not saved', '', 'info')
+            }
+      })
+            
             
         },
 

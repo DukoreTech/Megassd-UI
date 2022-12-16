@@ -66,10 +66,7 @@
                 </label>
                 <span>{{ errors?.description }}</span>
                 
-                <label for="description">
-                    <input disabled   placeholder="Description"  v-model="form.user_id">
-                </label>
-                <span>user_id</span>
+                
          </div>
         </div>  
         <!-- <button type="button">Register</button> -->
@@ -111,30 +108,38 @@ export default {
       this.getuser()
       
   },
-  /*updated(){
+  watch:{
+  "$store.state.IdEditClient"(a){
+    console.log(a)
     if(this.$store.state.IdEditClient==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.clients;
-        this.saveEditBtn="Modifier"
-      }
- 
-  },*/
+      this.getuser()
+         this.form={};
+         this.saveEditBtn="Enregistrer"
+
+        }else{
+            this.form=this.$store.state.clients;
+            this.saveEditBtn="Modifier"
+        }
+
+  }
+ },
  
 
   methods: {
+    
+   
     getuser(){
       let userlogged= JSON.parse(this.$store.state.user)
       this.form.user_id=Object.values(userlogged)[0].id
     },
+    
     getaddress() {
             axios.get(this.$store.state.baseurl + "Address",
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
-               // this.$store.state.adresses=resp.data
+                this.$store.state.adresses=resp.data
             })
             .catch(err => {
                 console.error(err)
@@ -146,7 +151,7 @@ export default {
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.typeClients = resp.data
-                //this.$store.state.typeClients=resp.data
+                this.$store.state.typeClients=resp.data
             })
             .catch(err => {
                 console.error(err)
@@ -172,7 +177,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/clients/"+this.$store.state.IdEditClient,
+            this.$store.state.baseurl + "client/"+this.$store.state.IdEditClient,
           this.form )
         .then((resp) => {
           this.clients = resp.data;

@@ -11,35 +11,35 @@
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
-                        <option v-for="product in products" :key="product.id" :value="product.id" selected>
-                        {{ product.name }}
+                        <option v-for="product in stocks" :key="product.id" :value="product" selected>
+                        {{ product.products.name }}
                         </option>
                     </select>             
                   </label>
                <span>{{ errors?.product_id }}</span>  
                  <br>
-                 <span>Lot</span>
+                 <span>Price</span>
                  <label for="lot_id" class="d-block dateWidth">
-                    <select  v-model="form.lot_id" aria-placeholder="lot" id="lot_id">
-                        <option v-for="lot in lots" :key="lot.id" :value="lot.id" selected>
-                        {{ lot.name }}
+                    <select  v-model="form.lot_id" aria-placeholder="lot"  id="lot_id">
+                        <option v-for="lot in lots" :key="lot.id" :value="lot"  selected>
+                        {{ lot.price_unitaire }}
                         </option>
                     </select>             
                   </label>
                <span>{{ errors?.lot_id }}</span>  
                 <br>
-                  <span>stock</span>
+                <!--<span>stock</span>
                  <label for="stock_id" class="d-block dateWidth">
                     <select  v-model="form.stock_id" aria-placeholder="stock" id="stock_id">
                         <option v-for="stock in stocks" :key="stock.id" :value="stock.id" selected>
-                        {{ stock.id }}
+                        {{ stock.products.name }}
                         </option>
                     </select>             
                   </label>
-               <span>{{ errors?.stock_id }}</span> 
+               <span>{{ errors?.stock_id }}</span>-->
 
                 <label for="quantity">
-                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
+                    <input type="number" id="quantity" v-on:change="onChange" placeholder="quantity" v-model="form.quantity">
                     <span>Quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
@@ -50,7 +50,7 @@
 
              <div class="col col2">
                    <label for="tva" class="">
-                    <input type="number" id="tva" placeholder="tva"   v-model="form.tva">
+                    <input type="number" step="0.01" id="tva" placeholder="tva" v-on:change="onchangetva"   v-model="form.tva">
                     <span>TVA (%)</span>
                 </label>
                 <span>{{ errors?.tva }}</span>
@@ -61,7 +61,7 @@
                 <span>{{ errors?.date_achat }}</span>
 
                 <label for="montant" class="">
-                    <input type="number" id="montant" placeholder="montant"   v-model="form.montant">
+                    <input type="text" id="montant" v-model="form.montant">
                     <span>Montant</span>
                 </label>
                 <span>{{ errors?.montant }}</span>     
@@ -96,29 +96,33 @@ export default {
       form: {
         quantity:"",
         lot_id:"",
-        tva:"",
+        tva:0,
         stock_id:"",
         product_id:"",
         date_achat:"",
-        montant_total:"",
-        montant:"",
-        description:""
+        montant_total:0,
+        montant:0,
+        description:"",
+        user_id:""
     
       },
       errors: {},
       receptions:[],
-      products:[],
+      //products:[],
       stocks:[],
       lots:[],
       saveEditBtn:"Enregistrer",
     };
   },
     mounted(){
-      this.getProducts()
+      this.getuser()
+      
+     // this.getProducts()
       this.getStocks()
       this.getLots()
+      console.log(this.form.montant)
   },
-  updated(){
+  /*updated(){
     if(this.$store.state.IdEditReception==null){
         this.form={};
         this.saveEditBtn="Enregistrer"
@@ -127,24 +131,52 @@ export default {
         this.saveEditBtn="Modifier"
       }
  
-  },
+  },*/
 
   methods: {
 
-    getProducts() {
-      axios.get(this.$store.state.baseUrl + "/products",
-      )
-        .then(resp => {
-          this.products = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    getuser(){
+      let userlogged= JSON.parse(this.$store.state.user)
+      this.form.user_id=Object.values(userlogged)[0].id
+    },
+    onChange(){
+      const a=this.form.lot_id.price_unitaire
+      const b=this.form.quantity
+      this.form.montant= a * b 
+     
+      console.log(this.form.lot_id)
+      console.log(this.form.quantity)
+
+      console.log(this.form.montant)
+      
 
     },
-     getStocks() {
-      axios.get(this.$store.state.baseUrl + "/stocks",
-      )
+    onchangetva(){
+      const b=this.form.tva
+      const a=this.form.montant
+      this.form.montant_total= a * b 
+      console.log(a)
+      console.log(b)
+
+      console.log(this.form.montant_total)
+      
+
+    },
+
+    /*getProducts() {
+            axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+            axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.products = resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },*/
+    getStocks() {
+      axios.get(this.$store.state.baseurl + "stock",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
         .then(resp => {
           this.stocks = resp.data
         })
@@ -154,24 +186,27 @@ export default {
 
     },
     getLots() {
-      axios.get(this.$store.state.baseUrl + "/lots",
-      )
-        .then(resp => {
-          this.lots = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
-    },
+            axios.get(this.$store.state.baseurl + "lots",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.lots = resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
     saveInformation() {
       if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
 
        if(this.$store.state.IdEditReception==null){
-             
+             this.form.lot_id = this.form.lot_id.id
+             this.form.product_id=this.form.product_id.product_id
+             this.form.stock_id=this.form.product_id.id
         axios.post(
-          this.$store.state.baseUrl + "/receptions",
-          this.form
+          this.$store.state.baseurl + "reception",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
           this.receptions = resp.data;

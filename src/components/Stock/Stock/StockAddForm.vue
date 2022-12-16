@@ -65,11 +65,16 @@ export default {
  mounted(){
     this.getProduits()
   },
-  updated(){
+  watch:{
+  "$store.state.IdEditStock"(a){
+    console.log(a)
     
-         this.form=this.$store.state.stocks;
-        this.saveEditBtn="Modifier"
-  },
+            this.form=this.$store.state.stocks;
+            this.saveEditBtn="Modifier"
+        
+
+  }
+ },
 
   methods: {
      getProduits() {

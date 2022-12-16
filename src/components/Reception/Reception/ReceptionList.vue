@@ -28,7 +28,7 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Produit</th>
                                 <th scope="col">Lot</th>
-                                <th scope="col">Stock</th>
+                               <!--<th scope="col">Stock</th>--> 
                                 <th scope="col">Quantite</th>
                                 <th scope="col">TVA %</th>
                                 <th scope="col">Date d'achat</th>
@@ -43,7 +43,7 @@
                                 <th scope="row">{{ reception.id }}</th>
                                 <td>{{ reception.product_id }} </td>
                                 <td>{{ reception.lot_id }} </td>
-                                <td>{{ reception.stock_id }} </td>
+                               <!--<td>{{ reception.stock_id }} </td>--> 
                                 <td>{{ reception.quantity }} </td>            
                                 <td>{{ reception.tva }} </td>            
                                 <td>{{ reception.date_achat }} </td>            
@@ -91,7 +91,9 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/receptions/")
+            axios.get(this.$store.state.baseurl + "reception",
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.receptions = resp.data
             })
@@ -100,7 +102,9 @@ export default {
             })
         },
         deleteReception(id) {
-            axios.delete(this.$store.state.baseUrl + "/receptions/" + id)
+            axios.delete(this.$store.state.baseurl + "reception/"+id,
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.receptions = resp.data
                 this.fetchData()

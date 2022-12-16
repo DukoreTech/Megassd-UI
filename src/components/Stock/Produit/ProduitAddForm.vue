@@ -63,9 +63,24 @@ export default{
   
   mounted(){
       this.getuser()
-      this.edit()
+    
       //this.getcompayinfo()
   },
+  watch:{
+  "$store.state.IdEditProduit"(a){
+    console.log(a)
+    if(this.$store.state.IdEditProduit==null){
+      this.getuser()
+         this.form={};
+         this.saveEditBtn="Enregistrer"
+
+        }else{
+            this.form=this.$store.state.products;
+            this.saveEditBtn="Modifier"
+        }
+
+  }
+ },
   
 
   computed:
@@ -77,18 +92,7 @@ export default{
   },
   
   methods:{
-    edit(){
-      if(this.$store.state.IdEditProduit==null){
-     
-     this.form={};
-     this.saveEditBtn="Enregistrer"
-   }else{
     
-     this.form=this.$store.state.products;
-     this.saveEditBtn="Modifier"
-   }
-
-    },
     saveInformation() {
           if (this.form["unite_mesure","caisse","name"]=="") return; 
     
@@ -112,7 +116,7 @@ export default{
             });
            }else{
              axios.patch(
-              this.$store.state.baseUrl+"/products/"+this.$store.state.IdEditProduit,
+              this.$store.state.baseurl + "products/"+this.$store.state.IdEditProduit,
               this.form )
             .then((resp) => {
               this.products = resp.data;

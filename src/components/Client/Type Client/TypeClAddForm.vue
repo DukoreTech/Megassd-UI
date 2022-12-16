@@ -37,6 +37,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2'
 export default {
   props:["modalActive"],
   data() {
@@ -54,12 +55,12 @@ export default {
   },
  mounted(){
   this.getuser()
-  //console.log(this.form.user_id)
+  console.log(this.form.user_id)
   
  },
- /*updated(){
-  
-    
+ watch:{
+  "$store.state.IdEditTypClient"(a){
+    console.log(a)
     if(this.$store.state.IdEditTypClient==null){
       this.getuser()
          this.form={};
@@ -69,23 +70,24 @@ export default {
             this.form=this.$store.state.typeClients;
             this.saveEditBtn="Modifier"
         }
-  },*/
+
+  }
+ },
+  
+
+ 
 
   methods: {
     getuser(){
-      let userlogged= JSON.parse(this.$store.state.user)
-      this.form.user_id=Object.values(userlogged)[0].id
-      
-      
 
-/*axios.get(`${this.$store.state.baseurl}user`
+axios.get(`${this.$store.state.baseurl}user`
 ,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
 axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
 this.$store.commit('userinfo',JSON.stringify(response.data.id))
-this.form.user_id=this.$store.state.userinfo*
+this.form.user_id=this.$store.state.userinfo
 
-});*/
-},
+})
+    },
  
     saveInformation() {
       if (this.form[ "typeClient"]=="") return; 
@@ -98,7 +100,7 @@ this.form.user_id=this.$store.state.userinfo*
           axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
-          this.typeClients = resp.data;
+          this.typeClients = resp.data.data;
           this.$store.state.typeClients=resp.data
           this.form = { name:"",description:""} 
         })
@@ -107,20 +109,37 @@ this.form.user_id=this.$store.state.userinfo*
           this.errors = err.response.data.errors;
         });
        }else{
-         axios.patch(
-          this.$store.state.baseurl + "typeclient/"+this.$store.state.IdEditTypClient,
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json` )
-        .then((resp) => {
-          this.typeClients = resp.data.data;
-          this.$store.state.typeClients=resp.data
-          this.$emit('close')
-          this.$store.state.IdEditTypClient=null
-         })
-        .catch((err) => {
-          console.error(err.response.data.errors);
-          this.errors = err.response.data.errors;
-        });
+ Swal.fire({
+             title: 'Do you want to save the changes?',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Save',
+             denyButtonText: `Don't save`,
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+    
+              axios.patch(
+                    this.$store.state.baseurl + "typeclient/"+this.$store.state.IdEditTypClient,
+                    this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                    axios.defaults.headers.common['Accept'] = `Application/json` )
+                  .then((resp) => {
+                    this.typeClients = resp.data.data;
+                    this.$store.state.typeClients=resp.data
+                    this.$emit('close')
+                    Swal.fire('Saved!', '', 'success')
+                    this.$store.state.IdEditTypClient=null
+                   })
+                  .catch((err) => {
+                    Swal.fire('oups'+err.response.data.message, '', 'info')
+                    console.error(err.response.data.errors);
+                    this.errors = err.response.data.errors;
+                  });
+              
+            } else if (result.isDenied) {
+              Swal.fire('Changes are not saved', '', 'info')
+            }
+      })
 
        }
  
