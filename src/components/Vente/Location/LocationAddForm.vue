@@ -9,19 +9,19 @@
 
                 <span>Produit</span>
                  <label for="produit" class="">
-                    <select  v-model="form.produit" aria-placeholder="produit" id="produit">
+                    <select  v-model="form.product_id" aria-placeholder="produit" id="produit">
                         <option v-for="produit in produits" :key="produit.id" :value="produit.id" selected>
-                            {{ produit.nom }}
+                            {{ produit.product_id }}
                          </option>
                      </select>             
                   </label>
-                 <span>{{ errors?.produit }}</span>
+                 <span>{{ errors?.product_id }}</span>
                 <br>
                 <span>client</span>
                  <label for="client" class="">
                     <select  v-model="form.client" aria-placeholder="client" id="client">
                         <option v-for="client in clients" :key="client.id" :value="client.id" selected>
-                            {{ client.nom }}
+                            {{ client.client_id }}
                          </option>
                      </select>             
                   </label>
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       form: {
-        produit:"",
+        product_id:"",
         client:"",
         Quantite:""
     
