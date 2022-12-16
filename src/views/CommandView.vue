@@ -5,7 +5,7 @@
 export default {
 
     components: {
-        'CommandList': require("@/components/Vente/Commande/CommandAddForm").default,
+        'CommandList': require("@/components/Vente/Commande/CommandList").default,
     }
 
 }

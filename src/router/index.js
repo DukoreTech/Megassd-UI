@@ -12,6 +12,7 @@ import login from "@/views/loginView.vue"
 import lot from "@/views/LotView.vue"
 import Reception from "@/views/ReceptionView.vue"
 import Commande from "@/views/CommandView.vue"
+import AddCommande from "@/components/Vente/Commande/CommandAddForm"
 
 const routes = [
 
@@ -28,6 +29,7 @@ const routes = [
  { path:'/lot',name:'lot',component:lot },
  { path:'/Reception',name:'Reception',component:Reception },
  { path:'/Commande',name:'Commande',component:Commande },
+ { path:'/AddCommande',name:'AddCommande',component:AddCommande },
 
 ]
 

@@ -12,7 +12,7 @@
 
                 <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Produit</h3>
 
-                <div class="d-flex align-items-center mb-5" v-for="(lot, id) in lots" :key="lot.id">
+                <div class="d-flex align-items-center mb-5" v-for="(lot,id) in lots" :key="lot.id">
                   <div class="flex-shrink-0">
                     <img src="logo.png" class="img-fluid" style="width: 80px;" alt="Produit">
                   </div>
@@ -22,11 +22,18 @@
                     <h6 style="color: #9e9e9e;">Prix: {{lot.price_vente}} Fbu</h6>
                     <div class="d-flex align-items-center">
                   
-                      <div class="def-number-input number-input safari_only justify-items-center">
-                        <button   @click="decrement(id)" class="minus"></button>
-                        <span class="fw-bold">{{lot.quantity}}</span>
+                      <div class="align-items-center">
+                        <button class="btn btn-default"  @click="decrement(id)" >
+                          <font-awesome-icon icon="fa-solid fa-minus"/>
+                        </button>
+                        <!-- <span class="fw-bold">{{lot.quantity}}</span> -->
+                        <input type="text"   min="1" size="2" :max="lot.quantity" v-model="lot.quantity">
+                         <!-- @keyup="limitQte(id)" @change="limitQte(id)" -->
+                        <!-- <div class="text-danger" v-if="showMsg(id)">we dont have such quantity</div> -->
                         <!-- <input class="btn btn-default quantity fw-bold text-black" min="0" name="quantity" type="number" v-model="count"> -->
-                        <button  @click="increment(id)"  class="plus"></button>
+                        <button  class="btn btn-default"  @click="increment(id)" >
+                           <font-awesome-icon icon="fa-solid fa-plus"/>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -34,10 +41,10 @@
 
                 <hr class="mb-4" style="height: 2px; background-color: #1266f1; opacity: 1;">
 
-                <div class="d-flex justify-content-between px-x">
+                <!-- <div class="d-flex justify-content-between px-x">
                   <p class="fw-bold">Discount:</p>
                   <p class="fw-bold">95$</p>
-                </div>
+                </div> -->
                 <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #e1f5fe;">
                   <h5 class="fw-bold mb-0">Total:</h5>
                   <h5 class="fw-bold mb-0">{{totalMontant}} FBU</h5>
@@ -63,11 +70,11 @@
                     </div>
 
             
-                  <button type="button" class="btn btn-primary btn-block btn-lg float-end" @click="Total">Ajouter</button>
+                  <button type="button" class="btn btn-primary btn-block btn-lg float-end" @click="subJouter(id)">Ajouter</button>
 
                   <h5 class="fw-bold mb-5" style="position: absolute; bottom: 0;">
 
-                      <router-link :to="{name:'Produit'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
+                      <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
                              aria-expanded="true" aria-controls="collapseStock">
                                <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
                              Back
@@ -102,8 +109,9 @@ export default {
         return{
             modalActive: false,
             search:'',
-            count:1,
             total:null,
+            // isShow:false,
+            // limit:"",
             lots : [ ]
         }
     },
@@ -113,12 +121,12 @@ export default {
     },
     
     methods:{
-      decrement(id){
-        this.lots[id].quantity =  this.lots[id].quantity *1 + 1 
-      },
-      increment(id){
-        this.lots[id].quantity =  this.lots[id].quantity *1 + 1 
-      },
+        decrement(id){
+          this.lots[id].quantity =  this.lots[id].quantity *1 - 1 
+        },
+        increment(id){
+          this.lots[id].quantity =this.lots[id].quantity *1 + 1 
+        },
         fetchData() {
             axios.get(this.$store.state.baseUrl + "/lots/")
             .then(resp => {
@@ -128,9 +136,30 @@ export default {
                 console.error(err)
             })
         },
-        Total(){
-            return this.total= this.count + 50
-        },
+        // subJouter(id){
+          //  const limit=this.lots[id].quantity
+          //   console.log(limit)
+        //     if(this.lots[id].quantity >24){
+        //       this.isShow=true
+        //     }else{
+        //       this.isShow=false
+        //     }
+        // },
+        // limitQte(id){
+          // const limit=this.lots[id].quantity
+          // console.log(limit)
+        //   if(this.lots[id].quantity>24){
+        //     this.isShow=true
+        //   }else{
+        //      this.isShow=false
+        //   }
+        // },
+        // showMsg(id){
+        //   if(this.lots[id].id) return this.isShow
+        // },
+        // Total(){
+        //     return this.total= this.count + 50
+        // },
         // deleteReception(id) {
         //     axios.delete(this.$store.state.baseUrl + "/receptions/" + id)
         //     .then(resp => {

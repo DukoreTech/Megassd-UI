@@ -2,7 +2,7 @@
 <div>
         <div> 
           <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditReception=null">
+                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="this.$router.push({name:'AddCommande'})">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter command
                   </button>
@@ -27,8 +27,7 @@
                               <tr>                    
                                 <th scope="col">Id</th>
                                 <th scope="col">Produit</th>
-                                <th scope="col">Lot</th>
-                                <th scope="col">Stock</th>
+                                <th scope="col">Prix</th>
                                 <th scope="col">Quantite</th>
                                 <th scope="col">TVA %</th>
                                 <th scope="col">Date d'achat</th>
@@ -90,6 +89,9 @@ export default {
             }
     },
     methods:{
+        ajout(){
+            this.$router.push({name:'AddCommande'})
+        },
         fetchData() {
             axios.get(this.$store.state.baseUrl + "/receptions/")
             .then(resp => {
