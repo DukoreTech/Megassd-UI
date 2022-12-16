@@ -218,16 +218,12 @@
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   Location 
                              </router-link>          
-                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
+                           <router-link :to="{name:'Perte'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
                              aria-expanded="true" aria-controls="collapsPerte">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Stock
+                             Perte
                             </router-link>  
-                           <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
-                             aria-expanded="true" aria-controls="collapsPerte">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Type de Stock
-                            </router-link>  
+                           
                         </div>
                     </div> 
     

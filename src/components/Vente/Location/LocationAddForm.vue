@@ -109,7 +109,6 @@ export default {
         )
         .then((resp) => {
           this.locations = resp.data;
-          alert("data is saved")
           this.form = { product_id:"",client_id:"",quantity:""} 
         })
         .catch((err) => {

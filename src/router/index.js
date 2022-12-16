@@ -13,6 +13,7 @@ import lot from "@/views/LotView.vue"
 import Reception from "@/views/ReceptionView.vue"
 import Commande from "@/views/CommandView.vue"
 import Location from "@/views/LocationView.vue"
+import Perte from "@/views/PerteView.vue"
 import AddCommande from "@/components/Vente/Commande/CommandAddForm"
 
 const routes = [
@@ -32,6 +33,7 @@ const routes = [
  { path:'/Commande',name:'Commande',component:Commande },
  { path:'/AddCommande',name:'AddCommande',component:AddCommande },
  { path:'/Location',name:'Location',component:Location },
+ { path:'/Perte',name:'Perte',component:Perte },
 
 ]
 

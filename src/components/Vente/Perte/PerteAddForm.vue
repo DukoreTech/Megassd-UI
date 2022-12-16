@@ -30,11 +30,11 @@
 
                  <label for="quantity">
                     <input type="tel" id="quantity" placeholder="quantity" v-model="form.quantity">
-                    <span>quantity</span>
+                    <span>Quantite</span>
                  </label>
                 <span>{{ errors?.quantity }}</span>
 
-                 <span>Description</span>
+                 <span>Description</span><br>
                 <label for="description">
                     <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
                 </label>
@@ -104,7 +104,6 @@ export default {
         )
         .then((resp) => {
           this.pertes = resp.data;
-          alert("data is saved")
           this.form = { product_id:"",type_perte:"",quantity:"",description:""} 
         })
         .catch((err) => {
@@ -162,7 +161,7 @@ label{
     position:relative;
     border-bottom:1px solid #ddd;
 }
-input,select{
+input,select,textarea{
     width:100%;
     padding:10px 0px;
     margin-top:20px;
@@ -174,6 +173,9 @@ input::placeholder{
 }
 
 select::placeholder{
+    opacity:0;
+}
+textarea::placeholder{
     opacity:0;
 }
 label span{

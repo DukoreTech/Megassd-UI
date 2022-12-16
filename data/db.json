@@ -121,9 +121,37 @@
       "id": 3
     }
   ],
-  "pertes": [],
+  "pertes": [
+    {
+      "product_id": 1,
+      "type_perte": "manquant",
+      "quantity": "34",
+      "description": "rrfffggg",
+      "id": 1
+    },
+    {
+      "product_id": 2,
+      "type_perte": "manquant",
+      "quantity": "2",
+      "description": "l'empoyeur pert lors de combat de clients",
+      "id": 2
+    }
+  ],
   "typePertes": [],
-  "locations": [],
+  "locations": [
+    {
+      "product_id": 1,
+      "client_id": 1,
+      "quantity": "3",
+      "id": 1
+    },
+    {
+      "product_id": 3,
+      "client_id": 2,
+      "quantity": "5",
+      "id": 2
+    }
+  ],
   "preterVides": [],
   "receptions": [
     {
