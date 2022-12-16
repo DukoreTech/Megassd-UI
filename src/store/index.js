@@ -25,6 +25,8 @@ export default createStore({
     IdEditReception:null,
     locations:[],
     IdEditLocation:null,
+    pertes:[],
+    IdEditPerte:null,
 
 
   },
