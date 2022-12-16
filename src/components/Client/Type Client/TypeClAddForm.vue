@@ -36,8 +36,9 @@
 </template>
 
 <script>
-import axios from "axios";
 import Swal from 'sweetalert2'
+
+import axios from "axios";
 export default {
   props:["modalActive"],
   data() {
@@ -86,7 +87,7 @@ axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
 this.$store.commit('userinfo',JSON.stringify(response.data.id))
 this.form.user_id=this.$store.state.userinfo
 
-})
+});
     },
  
     saveInformation() {
@@ -103,43 +104,44 @@ this.form.user_id=this.$store.state.userinfo
           this.typeClients = resp.data.data;
           this.$store.state.typeClients=resp.data
           this.form = { name:"",description:""} 
+          
         })
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
- Swal.fire({
-             title: 'Do you want to save the changes?',
-             showDenyButton: true,
-             showCancelButton: true,
-             confirmButtonText: 'Save',
-             denyButtonText: `Don't save`,
-            }).then((result) => {
-              /* Read more about isConfirmed, isDenied below */
-              if (result.isConfirmed) {
-    
-              axios.patch(
-                    this.$store.state.baseurl + "typeclient/"+this.$store.state.IdEditTypClient,
-                    this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json` )
-                  .then((resp) => {
-                    this.typeClients = resp.data.data;
-                    this.$store.state.typeClients=resp.data
-                    this.$emit('close')
-                    Swal.fire('Saved!', '', 'success')
-                    this.$store.state.IdEditTypClient=null
-                   })
-                  .catch((err) => {
-                    Swal.fire('oups'+err.response.data.message, '', 'info')
-                    console.error(err.response.data.errors);
-                    this.errors = err.response.data.errors;
-                  });
-              
-            } else if (result.isDenied) {
-              Swal.fire('Changes are not saved', '', 'info')
-            }
-      })
+        
+         axios.patch(
+          this.$store.state.baseurl + "typeclient/"+this.$store.state.IdEditTypClient,
+          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json` )
+        .then((resp) => {
+          this.typeClients = resp.data.data;
+          this.$store.state.typeClients=resp.data
+          this.$emit('close')
+          Swal.fire({
+               icon: 'success',
+               title: 'success message',
+               text: 'updated  successfully!'
+              });
+              this.$store.state.IdEditTypClient=null
+          })
+          
+         
+        .catch((err) => {
+          Swal.fire({
+               icon: 'error',
+               title: ' oups ',
+               text: 'something wrong  try again!'
+              });
+          
+          console.error(err.response.data.errors);
+          this.errors = err.response.data.errors;
+          
+          
+          
+        });
 
        }
  

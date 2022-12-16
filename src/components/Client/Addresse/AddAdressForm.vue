@@ -80,7 +80,7 @@ export default {
           Swal.fire({
                icon: 'success',
                title: 'success',
-               text: 'client added successfully!',  });
+               text: 'Address added successfully!',  });
           })
         .catch((err) => {
           console.error(err.response.data.errors);
