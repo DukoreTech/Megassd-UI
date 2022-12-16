@@ -22,7 +22,10 @@ export default createStore({
     lots:[],
     IdEditLot:null,
     receptions:[],
-    IdEditReception:null
+    IdEditReception:null,
+    locations:[],
+    IdEditLocation:null,
+
 
   },
   mutations: {
