@@ -16,7 +16,7 @@
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
-                        <option v-for="product in products" :key="product.id" :value="product.id" selected>
+                        <option v-for="product in products" :key="product.id"  selected>
                         {{ product.name }}
                         </option>
                     </select>             

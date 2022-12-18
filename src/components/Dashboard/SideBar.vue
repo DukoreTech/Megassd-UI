@@ -177,10 +177,10 @@
                    
                     <div class="collapse" id="collapVente">
                         <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Produit'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                             <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Produit 
+                                  Commande 
                              </router-link>          
                            <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
@@ -213,21 +213,17 @@
                    
                     <div class="collapse" id="collapPerte">
                         <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Produit'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
+                             <router-link :to="{name:'Location'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
                                 aria-expanded="true" aria-controls="collapsPerte">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Produit 
+                                  Location 
                              </router-link>          
-                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
+                           <router-link :to="{name:'Perte'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
                              aria-expanded="true" aria-controls="collapsPerte">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Stock
+                             Perte
                             </router-link>  
-                           <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
-                             aria-expanded="true" aria-controls="collapsPerte">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Type de Stock
-                            </router-link>  
+                           
                         </div>
                     </div> 
     
