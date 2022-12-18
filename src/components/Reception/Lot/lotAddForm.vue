@@ -67,7 +67,7 @@ export default {
     return {
       form: {
         name:"",
-        quantity:0,
+        quantity:"",
         price_unitaire:"",
         product_id:"",
         price_vente:"",
@@ -85,21 +85,34 @@ export default {
       this.getproducts()
       this.getuser()
   },
- /* updated(){
+  watch:{
+  "$store.state.IdEditLot"(a){
+    console.log(a)
     if(this.$store.state.IdEditLot==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.lots;
-        this.saveEditBtn="Modifier"
-      }
- 
-  },*/
+      this.getuser()
+         this.form={};
+         this.saveEditBtn="Enregistrer"
+
+        }else{
+          
+            this.form=this.$store.state.lots;
+            this.saveEditBtn="Modifier"
+            console.log(this.$store.state.lots)
+        }
+
+  }
+ },
+
 
   methods: {
     getuser(){
-      let userlogged= JSON.parse(this.$store.state.user)
-      this.form.user_id=Object.values(userlogged)[0].id
+
+      axios.get(`${this.$store.state.baseurl}user`,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+      axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
+      this.$store.commit('userinfo',JSON.stringify(response.data.id))
+      this.form.user_id=this.$store.state.userinfo
+
+      });
     },
 
     getproducts() {
@@ -113,6 +126,7 @@ export default {
             })
         },
     saveInformation() {
+      this.form.quantity=0;
       if (this.form["product_id","price_unitaire","quantity","name"]=="") return; 
 
        if(this.$store.state.IdEditLot==null){
@@ -125,6 +139,7 @@ export default {
         .then((resp) => {
           this.lots = resp.data;
           this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
+          this.getuser()
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -132,7 +147,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/lots/"+this.$store.state.IdEditLot,
+          this.$store.state.baseurl + "lots/"+this.$store.state.IdEditLot,
           this.form )
         .then((resp) => {
           this.lots = resp.data;

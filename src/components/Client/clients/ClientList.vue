@@ -38,7 +38,7 @@
                             </thead>
                       
                             <tbody>
-                               <tr v-for="client in clients" :key="client.id">
+                               <tr v-for="client in searchEvery" :key="client.id">
                                 <th scope="row">{{ client.id }}</th>
                                 <td>{{ client.nom }} </td>
                                 <td>{{ client.prenom }} </td>
@@ -83,7 +83,8 @@ export default {
     },
     computed:{
         searchEvery(){
-            return this.clients.filter(val=>val.includes(this.search))
+            let val="";
+            return this.clients.filter(val.includes(this.search))
             }
     },
     methods:{
@@ -109,6 +110,19 @@ export default {
                 console.error(err)
             })
             
+        },
+        searchInArray(arrayList, searchText) {
+            //Methode pour faire une rechercher dans le tableau
+            if(Array.isArray(arrayList) ){
+                return arrayList.filter(
+                e => JSON.stringify(e)
+                         .toLowerCase()
+                         .includes(searchText.toLowerCase())
+            )
+            }
+            return arrayList
+            
+
         },
 
         editUser(client,id){

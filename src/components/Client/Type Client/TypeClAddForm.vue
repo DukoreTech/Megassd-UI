@@ -103,7 +103,8 @@ this.form.user_id=this.$store.state.userinfo
         .then((resp) => {
           this.typeClients = resp.data.data;
           this.$store.state.typeClients=resp.data
-          this.form = { name:"",description:""} 
+          this.form = { name:"",description:""}
+          this.getuser() 
           
         })
         .catch((err) => {

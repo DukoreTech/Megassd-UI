@@ -10,7 +10,7 @@
             <div class="col col1">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                    <select  v-model="form.stock" aria-placeholder="product_id" id="product_id">
                         <option v-for="product in stocks" :key="product.id" :value="product" selected>
                         {{ product.products.name }}
                         </option>
@@ -22,7 +22,7 @@
                  <label for="lot_id" class="d-block dateWidth">
                     <select  v-model="form.lot_id" aria-placeholder="lot"  id="lot_id">
                         <option v-for="lot in lots" :key="lot.id" :value="lot"  selected>
-                        {{ lot.price_unitaire }}
+                        {{ lot.name }}
                         </option>
                     </select>             
                   </label>
@@ -39,7 +39,7 @@
                <span>{{ errors?.stock_id }}</span>-->
 
                 <label for="quantity">
-                    <input type="number" id="quantity" v-on:change="onChange" placeholder="quantity" v-model="form.quantity">
+                    <input type="number" id="quantity" @keyup="onChange" v-on:change="onChange" placeholder="quantity" v-model="form.quantity">
                     <span>Quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
@@ -50,7 +50,7 @@
 
              <div class="col col2">
                    <label for="tva" class="">
-                    <input type="number" step="0.01" id="tva" placeholder="tva" v-on:change="onchangetva"   v-model="form.tva">
+                    <input type="number" step="0.01" id="tva" placeholder="tva" @keyup="onchangetva" v-on:change="onchangetva"   v-model="form.tva">
                     <span>TVA (%)</span>
                 </label>
                 <span>{{ errors?.tva }}</span>
@@ -98,6 +98,7 @@ export default {
         lot_id:"",
         tva:0,
         stock_id:"",
+        stock:"",
         product_id:"",
         date_achat:"",
         montant_total:0,
@@ -116,11 +117,8 @@ export default {
   },
     mounted(){
       this.getuser()
-      
-     // this.getProducts()
       this.getStocks()
       this.getLots()
-      console.log(this.form.montant)
   },
   /*updated(){
     if(this.$store.state.IdEditReception==null){
@@ -143,22 +141,14 @@ export default {
       const a=this.form.lot_id.price_unitaire
       const b=this.form.quantity
       this.form.montant= a * b 
-     
-      console.log(this.form.lot_id)
-      console.log(this.form.quantity)
-
-      console.log(this.form.montant)
-      
+    
 
     },
     onchangetva(){
       const b=this.form.tva
       const a=this.form.montant
       this.form.montant_total= a * b 
-      console.log(a)
-      console.log(b)
-
-      console.log(this.form.montant_total)
+      
       
 
     },
@@ -201,8 +191,9 @@ export default {
 
        if(this.$store.state.IdEditReception==null){
              this.form.lot_id = this.form.lot_id.id
-             this.form.product_id=this.form.product_id.product_id
-             this.form.stock_id=this.form.product_id.id
+             this.form.product_id=this.form.stock.product_id
+             this.form.stock_id=this.form.stock.id
+             console.log(this.form.stock_id)
         axios.post(
           this.$store.state.baseurl + "reception",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,

@@ -56,6 +56,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent.vue';
 import AddForm from './AddAdressForm';
 
@@ -90,18 +91,39 @@ export default {
             })
         },
         deleteRole(id) {
-            axios.delete(this.$store.state.baseurl + "Address/"+ id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+            Swal.fire({
+             title: 'Do you want to save the changes?',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Save',
+             denyButtonText: `Don't save`,
+             })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(this.$store.state.baseurl + "Address/"+ id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
                   axios.defaults.headers.common['Accept'] = `Application/json`)
-            .then(resp => {
+                .then(resp => {
                 this.adresses = resp.data
                 this.$store.state.adresses=resp.data
                 this.fetchData()
-            })
-            .catch(err => {
+               }).catch(err => {
                 console.error(err)
-            })
+                Swal.fire('something wrong try again', '', 'error')
+                })
+            }
+         else if (result.isDenied) {
+                 Swal.fire('Changes are not saved', '', 'info')
+               }
+               })
+    
+    
+  
+               
+
+               }
             
-        },
+            
+             },
 
         editRole(adresse,id){
         this.$store.state.IdEditAdresse=id
@@ -110,7 +132,7 @@ export default {
         }
     }
     
-}
+
 </script>
 
 <style scoped>
