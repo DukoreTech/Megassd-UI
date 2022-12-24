@@ -30,8 +30,10 @@
             <span>Nombres des Bouteilles</span>
          </label>
          <span>{{ errors?.nombre_bouteille }}</span>
+         <input type="file" class="d-none" ref="uploadPick" @change="onSelectedPic"/>
+         <button class="btn btn-info" @click="OnUploadPic">telecharge photo</button>
 
-        <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
+        <button type="submit" class="btn btn-sm btn-danger float-end" id="button">{{saveEditBtn}}</button>
     </form>
 </div>
 
@@ -51,35 +53,50 @@ export default {
         nombre_bouteille:"",
     
       },
+      img:null,
       errors: {},
       products:[],
       saveEditBtn:"Enregistrer",
     };
   },
-  updated(){
-    if(this.$store.state.IdEditProduit==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.products;
-        this.saveEditBtn="Modifier"
-      }
+  // updated(){
+  //   if(this.$store.state.IdEditProduit==null){
+  //       this.form={};
+  //       this.saveEditBtn="Enregistrer"
+  //     }else{
+  //        this.form=this.$store.state.products;
+  //       this.saveEditBtn="Modifier"
+  //     }
  
-  },
+  // },
 
   methods: {
+    onSelectedPic(e){
+      this.img=e.target.files[0] 
+      console.log(e);
+      console.log(this.img);
+      
+      
+    },
+    OnUploadPic(){
+      this.$refs.uploadPick.click()        
+    },
     saveInformation() {
+      const fd=new FormData();
+      fd.append('image',this.img,this.img.name)
       if (this.form["unite_mesure","adateDenaissancege","caisse","name"]=="") return; 
 
        if(this.$store.state.IdEditProduit==null){
              
         axios.post(
           this.$store.state.baseUrl + "/products",
-          this.form
+          this.form,fd
         )
         .then((resp) => {
           this.products = resp.data;
           this.form = { name:"",unite_mesure:"",nombre_bouteille:"", caisse:""} 
+          console.log(resp);
+          
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -165,7 +182,7 @@ label span{
     transform:translateY(10px);
     font-size:0.825em;
 }
-button{
+#button{
     padding:15px 0px; 
     margin-top:20px;
     background:rgb(75, 126, 160);
