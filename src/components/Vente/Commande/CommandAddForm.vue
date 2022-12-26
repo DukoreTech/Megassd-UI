@@ -29,7 +29,7 @@
                           <font-awesome-icon icon="fa-solid fa-minus"/>
                         </button>
                         <!-- <span class="fw-bold">{{lot.quantity}}</span> -->
-                        <input type="text"   min="1" size="2" :max="stock.plein" v-model="quantity">
+                        <input type="text"   min="1" size="2" :max="stock.plein" v-model="stock.plein">
                          <!-- @keyup="limitQte(id)" @change="limitQte(id)" -->
                         <!-- <div class="text-danger" v-if="showMsg(id)">we dont have such quantity</div> -->
                         <!-- <input class="btn btn-default quantity fw-bold text-black" min="0" name="quantity" type="number" v-model="count"> -->
@@ -258,7 +258,7 @@ export default {
         this.stocks.map(e =>{
           sum += (e.plein * e.price);
           console.log(e)
-          
+          console.log(sum)
         })
        //
         return sum;
