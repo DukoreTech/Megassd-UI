@@ -2,11 +2,12 @@
 <div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.adresses}}{{$store.state.IdEditAdresse}}</span>
+
 <!-- retrieve data -->
    
 
   <div class="register">
-    <form action="" @submit.prevent="saveInformation">     
+    <form action="" @submit.prevent="saveInformation">   
 
         <span>Zone</span>
           <label for="etablis">
@@ -74,13 +75,9 @@ export default {
           axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
-          this.adresses = resp.data;
-          this.$store.state.adresses=resp.data
+          this.adresses = resp.data.data;
           this.form = { zone:"",description:""} 
-          Swal.fire({
-               icon: 'success',
-               title: 'success',
-               text: 'Address added successfully!',  });
+        
           })
         .catch((err) => {
           console.error(err.response.data.errors);

@@ -6,32 +6,34 @@
       <div class="col">
         <div class="card shopping-cart" style="border-radius: 15px;">
           <div class="card-body text-black">
+            <form action="">
 
             <div class="row">
               <div class="col-lg-6 px-5 py-4">
 
                 <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Produit</h3>
 
-                <div class="d-flex align-items-center mb-5" v-for="(lot,id) in lots" :key="lot.id">
+                <div class="d-flex align-items-center mb-5" v-for="(stock,id) in stocks" :key="stock.id">
                   <div class="flex-shrink-0">
-                    <img src="logo.png" class="img-fluid" style="width: 80px;" alt="Produit">
+                   
                   </div>
                   <div class="flex-grow-1 ms-3">
-                    <a href="#!" class="float-end text-black"><font-awesome-icon icon="fa-solid fa-times"/></a>
-                    <h5 class="text-primary">{{lot.product_id}}</h5>
-                    <h6 style="color: #9e9e9e;">Prix: {{lot.price_vente}} Fbu</h6>
+                    <a href="#!" @click="removeitem(stock.id)" class="float-end text-black"><font-awesome-icon icon="fa-solid fa-times"/></a>
+                    <h5 class="text-primary" ref="product_id" :data-id="`${stock.id}`">{{stock.products.name}}</h5>
+                    
+                    <h6  style="color: #9e9e9e;" id="product_price" :value="stock.price">Prix: {{stock.price}} Fbu</h6>
                     <div class="d-flex align-items-center">
                   
                       <div class="align-items-center">
-                        <button class="btn btn-default"  @click="decrement(id)" >
+                        <button class="btn btn-default"  @click.prevent="decrement(id)" >
                           <font-awesome-icon icon="fa-solid fa-minus"/>
                         </button>
                         <!-- <span class="fw-bold">{{lot.quantity}}</span> -->
-                        <input type="text"   min="1" size="2" :max="lot.quantity" v-model="lot.quantity">
+                        <input type="text"   min="1" size="2" :max="stock.plein" v-model="quantity">
                          <!-- @keyup="limitQte(id)" @change="limitQte(id)" -->
                         <!-- <div class="text-danger" v-if="showMsg(id)">we dont have such quantity</div> -->
                         <!-- <input class="btn btn-default quantity fw-bold text-black" min="0" name="quantity" type="number" v-model="count"> -->
-                        <button  class="btn btn-default"  @click="increment(id)" >
+                        <button  class="btn btn-default"  @click.prevent="increment(id)" >
                            <font-awesome-icon icon="fa-solid fa-plus"/>
                         </button>
                       </div>
@@ -47,7 +49,7 @@
                 </div> -->
                 <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #e1f5fe;">
                   <h5 class="fw-bold mb-0">Total:</h5>
-                  <h5 class="fw-bold mb-0">{{totalMontant}} FBU</h5>
+                  <h5 class="fw-bold mb-0" id="product_quantity" :value="totalMontant">{{totalMontant}} FBU</h5>
                 </div>
 
               </div>
@@ -60,17 +62,22 @@
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Numero de bordereaux</label>
                     <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                      value="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                      v-model="numero" minlength="19" maxlength="19" />
                   </div>
 
                     <div class="form-outline mb-5">
-                        <label class="form-label" for="typeName">Votre nom sur bordereau</label>
-                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                        value="Patrick irakoze" />
+                        <label class="form-label" for="typeName">client</label>
+                        <label for="typeClient" class="d-block dateWidth">
+                    <select  v-model="client" aria-placeholder="Type de client" id="typeClient" v-on:change="getprice" >
+                        <option v-for="client in clients" :key="client.id" :value="client" selected>
+                            {{ client.nom }}
+                         </option>
+                     </select>             
+                  </label>
                     </div>
 
             
-                  <button type="button" class="btn btn-primary btn-block btn-lg float-end" @click="subJouter(id)">Ajouter</button>
+                  <button type="button" class="btn btn-primary btn-block btn-lg float-end" @click="getinfo()">Ajouter</button>
 
                   <h5 class="fw-bold mb-5" style="position: absolute; bottom: 0;">
 
@@ -86,6 +93,7 @@
 
               </div>
             </div>
+          </form>
 
           </div>
         </div>
@@ -107,85 +115,152 @@ export default {
     // components: { ModalComponent, AddForm },
     data() {
         return{
+
+            form:{
+
+            },
+            productname:[],
             modalActive: false,
             search:'',
             total:null,
+            clients:[],
+            client:'',
+            stocks:[],
+            price:'',
             // isShow:false,
             // limit:"",
-            lots : [ ]
+            lots : [ ],
+            cart:[]
         }
     },
   
     mounted(){
-        this.fetchData()
+        //this.fetchData()
+        this.getclient()
+        this.getstock()
+     
+        
     },
     
     methods:{
         decrement(id){
-          this.lots[id].quantity =  this.lots[id].quantity *1 - 1 
+          this.stocks[id].plein =  this.stocks[id].plein *1 - 1 
+          this.stocks[id].price=this.stocks[id].price*1
+          id.PreventDefault()
+        },
+        removeitem(id){
+          this.stocks = this.stocks.filter(item => item.id !== id);
+          console.log(this.stocks)
         },
         increment(id){
-          this.lots[id].quantity =this.lots[id].quantity *1 + 1 
+          this.stocks[id].plein =this.stocks[id].plein *1 + 1
+          this.stocks[id].price=this.stocks[id].price*1 
         },
-        fetchData() {
-            axios.get(this.$store.state.baseUrl + "/lots/")
+      /* fetchData() {
+            axios.get(this.$store.state.baseUrl + "lots")
             .then(resp => {
                 this.lots = resp.data
             })
             .catch(err => {
                 console.error(err)
             })
-        },
-        // subJouter(id){
-          //  const limit=this.lots[id].quantity
-          //   console.log(limit)
-        //     if(this.lots[id].quantity >24){
-        //       this.isShow=true
-        //     }else{
-        //       this.isShow=false
-        //     }
-        // },
-        // limitQte(id){
-          // const limit=this.lots[id].quantity
-          // console.log(limit)
-        //   if(this.lots[id].quantity>24){
-        //     this.isShow=true
-        //   }else{
-        //      this.isShow=false
-        //   }
-        // },
-        // showMsg(id){
-        //   if(this.lots[id].id) return this.isShow
-        // },
-        // Total(){
-        //     return this.total= this.count + 50
-        // },
-        // deleteReception(id) {
-        //     axios.delete(this.$store.state.baseUrl + "/receptions/" + id)
-        //     .then(resp => {
-        //         this.receptions = resp.data
-        //         this.fetchData()
-        //     })
-        //     .catch(err => {
-        //         console.error(err)
-        //     })
-            
-        // },
+        },*/
+        getstock(){
+          axios.get(this.$store.state.baseurl + "stock",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                    axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+              
+                this.stocks = resp.data
+                this.stocks.forEach(function(item){item.price = 0});
+                this.cart=this.stocks
+                console.log(this.cart)
 
-        // editReception(reception,id){
-        // this.$store.state.IdEditReception=id
-        // this.$store.state.receptions=reception
-        
-        // }
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+
+        },
+        getclient(){
+          axios.get(this.$store.state.baseurl + "client",
+          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+        axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.clients = resp.data
+                this.$store.state.typeClients=resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+        },
+        getprice(){
+     // alert('hi')
+  
+
+     //console.log(this.client.address_id  )
+
+      axios.get(this.$store.state.baseurl +"getprice",{params:{
+        address_id:this.client.address_id,
+        type_clients_id:this.client.type_client_id 
+
+      }},axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+        axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.lots = resp.data
+                //console.log(this.lots)
+                
+                this.lots.forEach((obj) => {
+                this.stocks.forEach((array1Obj) => {
+                if (obj.product_id === array1Obj.product_id) {
+                  array1Obj.price=obj.price_vente;
+                    
+                }
+               });
+              });
+             
+              
+             
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
     },
+   
+    getinfo(){
+      for (let index = 0; index < this.$refs.product_id.length; index++) {
+        this.productname= this.$refs.product_id[index].attributes['1'].value;
+        //console.log(ids)
+    }
+    console.log(this.productname)
+    
+   
+      
+     /* this.$refs.product_id.forEach((obj) => {
+  this.productname=obj.attributes['data-id'].value
+ 
+      });
+      console.log(this.productname)*/
+      
+      
+             
+    }   
+    },
+    
     computed:{
+      
       totalMontant(){
         let sum = 0;
+        //this.stocks.price=price
 
-        this.lots.map(e =>{
-          sum += (e.quantity * e.price_vente);
+        this.stocks.map(e =>{
+          sum += (e.plein * e.price);
           console.log(e)
+          
         })
+       //
         return sum;
       },
        searchEvery(){

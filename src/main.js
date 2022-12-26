@@ -6,6 +6,7 @@ import store from './store'
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
+import Select2 from 'vue3-select2-component';
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -30,5 +31,6 @@ createApp(App)
     .use(router)
     .component('font-awesome-icon', FontAwesomeIcon)
     .use(VueSweetalert2)
+    .component('Select2', Select2)
     .mount('#app')
     

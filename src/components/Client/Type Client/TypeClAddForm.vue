@@ -9,11 +9,7 @@
 
         <span>Type de Client</span>
           <label>
-              <select  v-model="form.name">
-                <option selected="selected">Bar</option>
-                <option>Depot</option>
-                <option>Client simple</option>
-              </select>
+             <input type="text" v-model="form.name">
           </label>
          <span>{{ errors?.name }}</span>
 

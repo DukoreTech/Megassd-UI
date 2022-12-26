@@ -86,7 +86,8 @@ export default {
     methods:{
         
         fetchData() {
-            axios.get(this.$store.state.baseurl + "stock")
+            axios.get(this.$store.state.baseurl + "stock",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                    axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.stocks = resp.data
             })
@@ -96,7 +97,8 @@ export default {
         },
         
         deleteStock(id) {
-            axios.delete(this.$store.state.baseurl + "stock/" + id)
+            axios.delete(this.$store.state.baseurl + "stock/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                    axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.stocks = resp.data
                 this.fetchData()

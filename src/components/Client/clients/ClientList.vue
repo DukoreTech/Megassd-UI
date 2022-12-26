@@ -38,7 +38,7 @@
                             </thead>
                       
                             <tbody>
-                               <tr v-for="client in searchEvery" :key="client.id">
+                               <tr v-for="client in clients" :key="client.id">
                                 <th scope="row">{{ client.id }}</th>
                                 <td>{{ client.nom }} </td>
                                 <td>{{ client.prenom }} </td>
@@ -82,10 +82,10 @@ export default {
         this.fetchData()
     },
     computed:{
-        searchEvery(){
+        /*searchEvery(){
             let val="";
             return this.clients.filter(val.includes(this.search))
-            }
+            }*/
     },
     methods:{
         fetchData() {

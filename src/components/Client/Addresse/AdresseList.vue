@@ -40,7 +40,7 @@
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteRole(adresse.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editRole(adresse,adresse.id)" >
+                                    <button class="btn btn-sm btn-default" @click="modalActive =true,editRole(adresse,adresse.id)" >
                                     <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
@@ -120,16 +120,17 @@ export default {
   
                
 
-               }
-            
-            
-             },
-
-        editRole(adresse,id){
+               },
+               editRole(adresse,id){
         this.$store.state.IdEditAdresse=id
         this.$store.state.adresses=adresse
         
         }
+            
+            
+             }
+
+       
     }
     
 

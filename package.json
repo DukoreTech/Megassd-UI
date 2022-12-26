@@ -23,6 +23,7 @@
     "vue-ionicons": "^3.0.5",
     "vue-router": "^4.1.6",
     "vue-sweetalert2": "^5.0.5",
+    "vue3-select2-component": "^0.1.7",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

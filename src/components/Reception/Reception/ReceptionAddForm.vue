@@ -20,11 +20,7 @@
                  <br>
                  <span>Price</span>
                  <label for="lot_id" class="d-block dateWidth">
-                    <select  v-model="form.lot_id" aria-placeholder="lot"  id="lot_id">
-                        <option v-for="lot in lots" :key="lot.id" :value="lot"  selected>
-                        {{ lot.name }}
-                        </option>
-                    </select>             
+                    <input type="text" v-model="form.lot_id">
                   </label>
                <span>{{ errors?.lot_id }}</span>  
                 <br>
@@ -138,7 +134,7 @@ export default {
       this.form.user_id=Object.values(userlogged)[0].id
     },
     onChange(){
-      const a=this.form.lot_id.price_unitaire
+      const a=this.form.lot_id
       const b=this.form.quantity
       this.form.montant= a * b 
     

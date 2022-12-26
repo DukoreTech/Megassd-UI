@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state:{
-    baseurl: 'http://127.0.0.1:8000/api/',
+    baseurl: 'http://localhost:8000/api/',
     token: localStorage.getItem('token') || '',
     userinfo:[],
     users:[],
@@ -43,7 +43,7 @@ export default createStore({
     },
   logout(state){
       state.user=''
-      localStorage.removeItem('user','token')
+      localStorage.removeItem('user')
       
   },
   initialize(state){

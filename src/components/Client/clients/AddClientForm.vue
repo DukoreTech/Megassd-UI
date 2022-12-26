@@ -43,8 +43,8 @@
                 <span>Type de client</span>
                  <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
-                        <option v-for="typeClient in typeClients" :key="typeClient.id" :value="`${typeClient.id}`" selected>
-                            {{ typeClient.name }}
+                        <option v-for="typeClient in typeClients" :key="typeClient.id" selected>
+                            {{ typeClient.typeClient }}
                          </option>
                      </select>             
                   </label>
@@ -53,8 +53,8 @@
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
                     <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse">
-                        <option v-for="adresse in adresses" :key="adresse.id" :value="`${adresse.id}`" selected>
-                        {{ adresse.name }}
+                        <option v-for="adresse in adresses" :key="adresse.id" selected>
+                        {{ adresse.zone }}
                         </option>
                     </select>             
               </label>
@@ -65,8 +65,6 @@
                     <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
                 </label>
                 <span>{{ errors?.description }}</span>
-                
-                
          </div>
         </div>  
         <!-- <button type="button">Register</button> -->
@@ -91,8 +89,7 @@ export default {
         nif:"",
         address_id:"",
         type_client_id:"",
-        description:"",
-        user_id:""
+        description:""
     
       },
       errors: {},
@@ -103,70 +100,53 @@ export default {
     };
   },
     mounted(){
-      this.getclients()
-      this.getaddress()
-      this.getuser()
-      
+      this.getAdresse()
+      this.getClientType()
   },
-  watch:{
-  "$store.state.IdEditClient"(a){
-    console.log(a)
+  updated(){
     if(this.$store.state.IdEditClient==null){
-      this.getuser()
-         this.form={};
-         this.saveEditBtn="Enregistrer"
-
-        }else{
-            this.form=this.$store.state.clients;
-            this.saveEditBtn="Modifier"
-        }
-
-  }
- },
+        this.form={};
+        this.saveEditBtn="Enregistrer"
+      }else{
+         this.form=this.$store.state.clients;
+        this.saveEditBtn="Modifier"
+      }
  
+  },
 
   methods: {
-    
-   
-    getuser(){
-      let userlogged= JSON.parse(this.$store.state.user)
-      this.form.user_id=Object.values(userlogged)[0].id
+
+    getAdresse() {
+      axios.get(this.$store.state.baseUrl + "/adresses",
+      )
+        .then(resp => {
+          this.adresses = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
     },
-    
-    getaddress() {
-            axios.get(this.$store.state.baseurl + "Address",
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-        axios.defaults.headers.common['Accept'] = `Application/json`)
-            .then(resp => {
-                this.adresses = resp.data
-                this.$store.state.adresses=resp.data
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },
-    getclients() {
-            axios.get(this.$store.state.baseurl + "typeclient",
-            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
-            .then(resp => {
-                this.typeClients = resp.data
-                this.$store.state.typeClients=resp.data
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },
+     getClientType() {
+      axios.get(this.$store.state.baseUrl + "/typeClients",
+      )
+        .then(resp => {
+          this.typeClients = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+    },
     saveInformation() {
       if (this.form["prenom","type_client_id","telephone","nom"]=="") return; 
 
        if(this.$store.state.IdEditClient==null){
              
-        
-          axios.post(this.$store.state.baseurl + "client",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-        axios.defaults.headers.common['Accept'] = `Application/json`)
-        
+        axios.post(
+          this.$store.state.baseUrl + "/clients",
+          this.form
+        )
         .then((resp) => {
           this.clients = resp.data;
           this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""} 
@@ -177,7 +157,7 @@ export default {
         });
        }else{
          axios.patch(
-            this.$store.state.baseurl + "client/"+this.$store.state.IdEditClient,
+          this.$store.state.baseUrl+"/clients/"+this.$store.state.IdEditClient,
           this.form )
         .then((resp) => {
           this.clients = resp.data;

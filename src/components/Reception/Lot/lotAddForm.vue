@@ -16,12 +16,24 @@
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
-                        <option v-for="product in products" :key="product.id"  selected>
+                        <option v-for="product in products" :key="product.id" :value="product.id"  selected>
                         {{ product.name }}
                         </option>
                     </select>             
-              </label>
-               <span>{{ errors?.product_id }}</span>  
+               </label>
+               <span>{{ errors?.product_id }}</span>
+               <span>direction</span>
+                 <label for="product_id" class="d-block dateWidth">
+                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="product_id">
+                        <option v-for="zone in address" :key="zone.id" :value="zone.id"  selected>
+                        {{ zone.name }}
+                        </option>
+                    </select>             
+                </label>
+                
+         
+               
+                 
 
                 <!--<label for="quantity" class="">
                     <input type="text" id="quantity"  v-model="form.quantity">
@@ -32,12 +44,14 @@
             </div>
 
              <div class="col-6">
-                <label for="price_unitaire">
-                    <input type="text" id="price_unitaire" placeholder="price unitaire" v-model="form.price_unitaire">
-                    <span>Prix unitaire</span>
-                </label>
-                <span>{{ errors?.price_unitaire }}</span>
-
+              <span>type client</span>
+                 <label for="product_id" class="d-block dateWidth">
+                    <select  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
+                        <option v-for="client in typeClients" :key="client.id" :value="client.id"  selected>
+                        {{ client.name }}
+                        </option>
+                    </select>             
+               </label>
                  <label for="price_vente">
                     <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
                     <span>Prix de vente</span>
@@ -67,23 +81,30 @@ export default {
     return {
       form: {
         name:"",
-        quantity:"",
-        price_unitaire:"",
+        //quantity:"",
+       // price_unitaire:"",
         product_id:"",
         price_vente:"",
         description:"",
-        user_id:""
+        user_id:"",
+        adresses_id:"",
+        type_Clients_id:""
     
       },
+      myOptions: ['op1', 'op2', 'op3'], // or [{id: key, text: value}, {id: key, text: value}]
+      address:[],
       errors: {},
       products:[],
       lots:[],
       saveEditBtn:"Enregistrer",
+      typeClients:[]
     };
   },
     mounted(){
       this.getproducts()
       this.getuser()
+      this.getaddress()
+      this.gettyclient()
   },
   watch:{
   "$store.state.IdEditLot"(a){
@@ -105,6 +126,18 @@ export default {
 
 
   methods: {
+    gettyclient() {
+            axios.get(this.$store.state.baseurl + "typeclient",
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.typeClients = resp.data
+                this.$store.state.typeClients=resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
     getuser(){
 
       axios.get(`${this.$store.state.baseurl}user`,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -114,6 +147,18 @@ export default {
 
       });
     },
+    getaddress() {
+        axios.get(this.$store.state.baseurl + "Address",
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+        axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.address = resp.data
+                this.$store.state.adresses=resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
 
     getproducts() {
             axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -125,42 +170,7 @@ export default {
                 console.error(err)
             })
         },
-    saveInformation() {
-      this.form.quantity=0;
-      if (this.form["product_id","price_unitaire","quantity","name"]=="") return; 
-
-       if(this.$store.state.IdEditLot==null){
-             
-        axios.post(
-          this.$store.state.baseurl + "lots",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
-        )
-        .then((resp) => {
-          this.lots = resp.data;
-          this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
-          this.getuser()
-        })
-        .catch((err) => {
-          console.error(err.response.data.errors);
-          this.errors = err.response.data.errors;
-        });
-       }else{
-         axios.patch(
-          this.$store.state.baseurl + "lots/"+this.$store.state.IdEditLot,
-          this.form )
-        .then((resp) => {
-          this.lots = resp.data;
-          this.$emit('close')
-         })
-        .catch((err) => {
-          console.error(err.response.data.errors);
-          this.errors = err.response.data.errors;
-        });
-
-       }
- 
-    }
+   
     
 }
 }

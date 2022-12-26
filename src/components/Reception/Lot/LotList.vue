@@ -28,10 +28,10 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">Produit</th>
-                                <th scope="col">Quantite</th>
-                                <th scope="col">prix unitaire</th>
+                                
                                 <th scope="col">Prix de vente</th>
                                 <th scope="col">Description</th>
+                                <th scope="col">zone</th>
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>
@@ -40,11 +40,11 @@
                                <tr v-for="lot in lots" :key="lot.id">
                                 <th scope="row">{{ lot.id }}</th>
                                 <td>{{ lot.name }} </td>
-                                <td>{{ lot.product_id }} </td>
-                                <td>{{ lot.quantity }} </td>
-                                <td>{{ lot.price_unitaire }} </td>            
+                                <td>{{ lot.products.name }} </td>
+                                            
                                 <td>{{ lot.price_vente }} </td>            
-                                <td>{{ lot.description }} </td>            
+                                <td>{{ lot.description }} </td> 
+                                <td>{{ lot.adresses.name }}</td>           
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteLot(lot.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
