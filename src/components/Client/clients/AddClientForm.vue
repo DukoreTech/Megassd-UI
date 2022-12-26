@@ -44,7 +44,7 @@
                  <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
                         <option v-for="typeClient in typeClients" :key="typeClient.id" selected>
-                            {{ typeClient.typeClient }}
+                            {{ typeClient.name }}
                          </option>
                      </select>             
                   </label>
@@ -54,7 +54,7 @@
                  <label for="adresse" class="d-block dateWidth">
                     <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse">
                         <option v-for="adresse in adresses" :key="adresse.id" selected>
-                        {{ adresse.zone }}
+                        {{ adresse.name }}
                         </option>
                     </select>             
               </label>
@@ -117,7 +117,9 @@ export default {
   methods: {
 
     getAdresse() {
-      axios.get(this.$store.state.baseUrl + "/adresses",
+      axios.get(this.$store.state.baseurl + "Address",
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
       )
         .then(resp => {
           this.adresses = resp.data
@@ -128,14 +130,16 @@ export default {
 
     },
      getClientType() {
-      axios.get(this.$store.state.baseUrl + "/typeClients",
-      )
-        .then(resp => {
-          this.typeClients = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      axios.get(this.$store.state.baseurl + "typeclient",
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`)
+            .then(resp => {
+                this.typeClients = resp.data
+                this.$store.state.typeClients=resp.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
 
     },
     saveInformation() {

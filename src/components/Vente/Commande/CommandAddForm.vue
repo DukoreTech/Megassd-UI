@@ -8,7 +8,7 @@
           <div class="card-body text-black">
             <form action="">
 
-            <div class="row">
+             <div class="row">
               <div class="col-lg-6 px-5 py-4">
 
                 <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Produit</h3>
@@ -19,7 +19,7 @@
                   </div>
                   <div class="flex-grow-1 ms-3">
                     <a href="#!" @click="removeitem(stock.id)" class="float-end text-black"><font-awesome-icon icon="fa-solid fa-times"/></a>
-                    <h5 class="text-primary" ref="product_id" :data-id="`${stock.id}`">{{stock.products.name}}</h5>
+                    <h5 class="text-primary" ref="product_id"   :data-id="id">{{stock.products.name}}</h5>
                     
                     <h6  style="color: #9e9e9e;" id="product_price" :value="stock.price">Prix: {{stock.price}} Fbu</h6>
                     <div class="d-flex align-items-center">
@@ -49,7 +49,7 @@
                 </div> -->
                 <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #e1f5fe;">
                   <h5 class="fw-bold mb-0">Total:</h5>
-                  <h5 class="fw-bold mb-0" id="product_quantity" :value="totalMontant">{{totalMontant}} FBU</h5>
+                  <h5 class="fw-bold mb-0" id="product_quantity" ref="montant"  :data-id="totalMontant">{{totalMontant}} FBU</h5>
                 </div>
 
               </div>
@@ -61,15 +61,20 @@
 
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Numero de bordereaux</label>
-                    <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                    <input type="number" id="typeText" class="form-control form-control-lg" siez="17"
                       v-model="numero" minlength="19" maxlength="19" />
+                  </div>
+                  <div class="form-outline mb-5">
+                    <label class="form-label" for="typeText">Montant sur bordereaux</label>
+                    <input type="number" id="typeText" class="form-control form-control-lg" siez="17"
+                      v-model="montatsurbordereau" minlength="19" maxlength="19" />
                   </div>
 
                     <div class="form-outline mb-5">
                         <label class="form-label" for="typeName">client</label>
                         <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="client" aria-placeholder="Type de client" id="typeClient" v-on:change="getprice" >
-                        <option v-for="client in clients" :key="client.id" :value="client" selected>
+                        <option v-for="client in clients" :key="client" :value="client" selected>
                             {{ client.nom }}
                          </option>
                      </select>             
@@ -126,9 +131,10 @@ export default {
             clients:[],
             client:'',
             stocks:[],
+            montatsurbordereau:'',
+            numero:"",
+            totalammount:'',
             price:'',
-            // isShow:false,
-            // limit:"",
             lots : [ ],
             cart:[]
         }
@@ -137,16 +143,14 @@ export default {
     mounted(){
         //this.fetchData()
         this.getclient()
-        this.getstock()
-     
-        
+        this.getstock()   
     },
     
     methods:{
         decrement(id){
           this.stocks[id].plein =  this.stocks[id].plein *1 - 1 
           this.stocks[id].price=this.stocks[id].price*1
-          id.PreventDefault()
+        //id.PreventDefault()
         },
         removeitem(id){
           this.stocks = this.stocks.filter(item => item.id !== id);
@@ -156,20 +160,11 @@ export default {
           this.stocks[id].plein =this.stocks[id].plein *1 + 1
           this.stocks[id].price=this.stocks[id].price*1 
         },
-      /* fetchData() {
-            axios.get(this.$store.state.baseUrl + "lots")
-            .then(resp => {
-                this.lots = resp.data
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },*/
+     
         getstock(){
           axios.get(this.$store.state.baseurl + "stock",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
                     axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
-              
                 this.stocks = resp.data
                 this.stocks.forEach(function(item){item.price = 0});
                 this.cart=this.stocks
@@ -185,7 +180,7 @@ export default {
         getclient(){
           axios.get(this.$store.state.baseurl + "client",
           axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-        axios.defaults.headers.common['Accept'] = `Application/json`)
+          axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.clients = resp.data
                 this.$store.state.typeClients=resp.data
@@ -196,12 +191,8 @@ export default {
 
         },
         getprice(){
-     // alert('hi')
-  
-
-     //console.log(this.client.address_id  )
-
-      axios.get(this.$store.state.baseurl +"getprice",{params:{
+ 
+        axios.get(this.$store.state.baseurl +"getprice",{params:{
         address_id:this.client.address_id,
         type_clients_id:this.client.type_client_id 
 
@@ -230,21 +221,28 @@ export default {
     },
    
     getinfo(){
+      const x = [];
       for (let index = 0; index < this.$refs.product_id.length; index++) {
-        this.productname= this.$refs.product_id[index].attributes['1'].value;
+        const productname= this.$refs.product_id[index].attributes['1'].value;
+        const all=this.stocks[productname]
+        x.push(all)
+      //  console.log(productname)
         //console.log(ids)
     }
-    console.log(this.productname)
+    console.log(x)
+
+    const v = {
+      produits : x,
+      client: this.client.id,
+      borderau:this.numero,
+      montant_borderau:this.montatsurbordereau,
+      totalamount:this.$refs.montant.attributes['2'].value,
+
+
+    }
+    console.log(v)
     
-   
-      
-     /* this.$refs.product_id.forEach((obj) => {
-  this.productname=obj.attributes['data-id'].value
- 
-      });
-      console.log(this.productname)*/
-      
-      
+    axios.post("",v)
              
     }   
     },
@@ -258,10 +256,12 @@ export default {
         this.stocks.map(e =>{
           sum += (e.plein * e.price);
           console.log(e)
-          console.log(sum)
+          //console.log(sum)
+
         })
-       //
         return sum;
+       //
+        
       },
        searchEvery(){
             return this.products.filter(val=>val.includes(this.search))

@@ -2,14 +2,24 @@
   <div class="register">
     <form>
         <label for="NomUtilisateur">
-            <input type="email" id="name" v-model="email" placeholder="Nom d'utilisateur">
             <span>Email</span>
+            <input type="email" required="required" id="name" v-model="form.email" placeholder="Nom d'utilisateur">
+            
+            
         </label>
+        <span>{{ errors?.email}}</span>
        
         <label for="MotPasse">
-            <input type="text" id="phone" v-model="password" placeholder="Mot de passe">
             <span>Mot de passe</span>
+            <input type="text" id="phone" :required="required" v-model="form.password" placeholder="Mot de passe">
+           
+            
+
+           
+
         </label>
+        <span>{{ errors?.password}}</span>
+        
         <button type="button" @click.prevent="login">Login</button>
     </form>
 </div>
@@ -18,50 +28,64 @@
 
 <script>
 import axios from "axios"
+import Swal from 'sweetalert2'
 ///import   "../"
 export default {
     
     data(){
         return{
+            form:{
+
+            
                 email: "admin1@gmail.com",
                 password: "12345678",
-                errormessage:""
+                
+            },
+            errors: {}
         }
 
     },
     methods:{
     login:function()
        {
-        let email=this.email
-        let password=this.password
-    
        
-        axios.post(this.$store.state.baseurl + "login",{email:email,password:password},{headers:{
+        
+        
+
+        axios.post(this.$store.state.baseurl + "login",this.form,{headers:{
             
-        }}).then( (response) =>{
+        }})
+        .then( (response) =>{
             
            
         this.$store.commit("login", JSON.stringify(response.data
         ))
        
         const token=response.data.token
-        
-        
-
          localStorage.setItem('token',token),
          localStorage.setItem('user'.user),
            this.$router.push({name:'Dashboard'}) 
             })
           
           .catch(err => {
-            //alert(err.message)
-            console.log(err)
-            this.errormessage=err.message
-          }
           
+            //alert(err.message)
+            //console.log(err)
+            console.log(err.response.data.errors)
+            this.errors = err.response.data.errors;
+          /*  Swal.fire({
+               icon: 'error',
+               title: 'error',
+               text:  err.response.data.errors
+              });
+              
+          }*/
+        
+        }
           
 
           )
+        
       },
       
    },
