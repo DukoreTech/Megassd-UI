@@ -50,6 +50,7 @@ export default createStore({
       
       if(localStorage.getItem('user')){
           state.user=localStorage.getItem('user')
+
       }
       
       else{
