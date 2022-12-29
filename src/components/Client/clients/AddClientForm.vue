@@ -153,6 +153,7 @@ console.log(this.form.user_id)
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
+                this.getuser
             })
             .catch(err => {
                 console.error(err)
@@ -171,7 +172,9 @@ console.log(this.form.user_id)
         )
         .then((resp) => {
           this.clients = resp.data;
-          this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""} 
+
+          this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""}
+          this.getuser() 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -179,7 +182,7 @@ console.log(this.form.user_id)
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/clients/"+this.$store.state.IdEditClient,
+          this.$store.state.baseurl+"client/"+this.$store.state.IdEditClient,
           this.form )
         .then((resp) => {
           this.clients = resp.data;

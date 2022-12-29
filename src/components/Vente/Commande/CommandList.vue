@@ -26,29 +26,22 @@
                             <thead>                              
                               <tr>                    
                                 <th scope="col">Id</th>
-                                <th scope="col">Produit</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Quantite</th>
-                                <th scope="col">TVA %</th>
-                                <th scope="col">Date d'achat</th>
-                                <th scope="col">Montant</th>
-                                <th scope="col">Montant Total</th>
-                                <th scope="col">Description</th>
+                                <th scope="col-lg-4">Produit</th>
+                                <th scope="col">Total Amount</th>
+                                <th scope="col">Date effectue</th>
+                                <th scope="col">status</th>
+                                <th scope="col">Added by</th>
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>                     
                             <tbody>
-                               <tr v-for="reception in receptions" :key="reception.id">
-                                <th scope="row">{{ reception.id }}</th>
-                                <td>{{ reception.product_id }} </td>
-                                <td>{{ reception.lot_id }} </td>
-                                <td>{{ reception.stock_id }} </td>
-                                <td>{{ reception.quantity }} </td>            
-                                <td>{{ reception.tva }} </td>            
-                                <td>{{ reception.date_achat }} </td>            
-                                <td>{{ reception.montant }} </td>            
-                                <td>{{ reception.montant_total }} </td>            
-                                <td>{{ reception.description }} </td>            
+                               <tr v-for="order in orders" :key="order.id">
+                                <th scope="row">{{ order.id }}</th>
+                                <td>{{ order.products.product.id }} </td>
+                                <td>{{ order.amount_tax }} </td>
+                                <td>{{ order.date_facturation	 }} </td>
+                                <td>pending</td>            
+                                <td>{{ order.user_id}} </td>                       
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
@@ -77,7 +70,7 @@ export default {
         return{
             modalActive: false,
             search:'',
-            receptions : [ ]
+            orders : [ ]
         }
     },
     mounted(){
@@ -93,9 +86,10 @@ export default {
             this.$router.push({name:'AddCommande'})
         },
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/receptions/")
+            axios.get(this.$store.state.baseurl + "ventes")
             .then(resp => {
-                this.receptions = resp.data
+                this.orders = resp.data
+                console.log(this.orders)
             })
             .catch(err => {
                 console.error(err)

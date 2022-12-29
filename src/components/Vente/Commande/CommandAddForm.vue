@@ -279,8 +279,8 @@ export default {
     const v = {
       products : x,
       client_id: this.client.id,
-      //borderau:this.numero,
-     // montant_borderau:this.montatsurbordereau,
+      borderau:this.numero,
+      montant_borderau:this.montatsurbordereau,
       amount_tax:this.$refs.montant.attributes['2'].value,
     }
     axios.post(
