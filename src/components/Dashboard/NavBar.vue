@@ -12,7 +12,7 @@
                     <div class="nav-item dropdown" id="profileDrop">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small mr-2">Patrick irakoze</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small mr-2">{{username}}</span>
                             <img class="img-profile rounded-circle w-30 h-30 bg-light ml-2"  src="@/assets/logo.png">
                         
                          </a>
@@ -45,13 +45,26 @@
 
 <script>
 export default {
+    data(){
+        return{
+            username:'',
+        }
+    },
     methods:{
         logout: function() {
         this.$store.commit('logout')
-        localStorage.removeItem('token')
+        //localStorage.removeItem('token')
         this.$router.push('/')
         
       },
+      getuser(){
+      let userlogged= JSON.parse(this.$store.state.user)
+      this.username=Object.values(userlogged)[0].name
+    }
+     
+    },
+    mounted(){
+        this.getuser()
     }
 
 }

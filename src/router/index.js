@@ -14,7 +14,8 @@ import Reception from "@/views/ReceptionView.vue"
 import Commande from "@/views/CommandView.vue"
 import Location from "@/views/LocationView.vue"
 import Perte from "@/views/PerteView.vue"
-import AddCommande from "@/components/Vente/Commande/CommandAddForm"
+import AddCommande from "@/components/Vente/Commande/lotExForm.vue"
+import salesreport from "@/views/SalesreportView.vue"
 
 const routes = [
 
@@ -34,6 +35,7 @@ const routes = [
  { path:'/AddCommande',name:'AddCommande',component:AddCommande },
  { path:'/Location',name:'Location',component:Location },
  { path:'/Perte',name:'Perte',component:Perte },
+ { path:'/salesreport',name:'salesreport',component:salesreport },
 
 ]
 

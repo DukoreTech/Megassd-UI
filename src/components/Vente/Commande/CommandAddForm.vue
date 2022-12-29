@@ -13,7 +13,7 @@
 
                 <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Produit</h3>
 
-                <div class="d-flex align-items-center mb-5" v-for="(stock,id) in stocks" :key="stock.id">
+                <div class="d-flex align-items-center mb-5" v-for="(stock,id) in cart" :key="stock.id">
                   <div class="flex-shrink-0">
                    
                   </div>
@@ -29,13 +29,14 @@
                           <font-awesome-icon icon="fa-solid fa-minus"/>
                         </button>
                         <!-- <span class="fw-bold">{{lot.quantity}}</span> -->
-                        <input type="text"   min="1" size="2" :max="stock.plein" v-model="stock.plein">
+                        <input type="number"   min="1"  :max="stock.plein" v-model="stock.plein">
                          <!-- @keyup="limitQte(id)" @change="limitQte(id)" -->
                         <!-- <div class="text-danger" v-if="showMsg(id)">we dont have such quantity</div> -->
                         <!-- <input class="btn btn-default quantity fw-bold text-black" min="0" name="quantity" type="number" v-model="count"> -->
-                        <button  class="btn btn-default"  @click.prevent="increment(id)" >
+                        <button  class="btn btn-default" :max="stock.plein"  @click.prevent="increment(id)" >
                            <font-awesome-icon icon="fa-solid fa-plus"/>
                         </button>
+                       
                       </div>
                     </div>
                   </div>
@@ -58,6 +59,12 @@
                 <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Paiement</h3>
 
                 <form class="mb-5">
+                  <div class="form-outline mb-5">
+                    <label class="form-label" for="typeText">Type paiement</label>
+                    <input type="number" id="typeText" class="form-control form-control-lg" siez="17"
+                      v-model="paiement" minlength="19" maxlength="19" />
+                  </div>
+                  
 
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Numero de bordereaux</label>
@@ -122,7 +129,8 @@ export default {
         return{
 
             form:{
-
+              amount:"",
+              
             },
             productname:[],
             modalActive: false,
@@ -136,7 +144,10 @@ export default {
             totalammount:'',
             price:'',
             lots : [ ],
-            cart:[]
+            cart:[],
+            stocksquant:[],
+            error:'',
+            paiment:"bordereau"
         }
     },
   
@@ -147,29 +158,58 @@ export default {
     },
     
     methods:{
+      onchange(id){
+
+        if(this.cart[id].plein > this.stocksquant[id])
+        {
+          this.cart[id].plein.preventDefault()
+          
+           //this.error='the quantity u are asking does not exist in store';
+        }
+
+      },
+      /*validateNumber:function(event,id){
+        let keyCode = this.cart[id].plein;
+      let range=this.stocksquant[id]
+      if (keyCode >range ) {
+        event.preventDefault();
+      }
+  },*/
+      
         decrement(id){
-          this.stocks[id].plein =  this.stocks[id].plein *1 - 1 
-          this.stocks[id].price=this.stocks[id].price*1
+          this.cart[id].plein =  this.cart[id].plein *1 - 1 
+          this.cart[id].price=this.cart[id].price*1
+
         //id.PreventDefault()
         },
         removeitem(id){
-          this.stocks = this.stocks.filter(item => item.id !== id);
-          console.log(this.stocks)
+          this.cart = this.cart.filter(item => item.id !== id);
+          console.log(this.cart)
         },
-        increment(id){
-          this.stocks[id].plein =this.stocks[id].plein *1 + 1
-          this.stocks[id].price=this.stocks[id].price*1 
+        increment(id){ 
+          if(this.cart[id].plein < this.stocksquant[id])
+          {
+          this.cart[id].plein =this.cart[id].plein *1 + 1
+          //this.stocks[id].price=this.stocks[id].price*1 
+          }
         },
      
         getstock(){
           axios.get(this.$store.state.baseurl + "stock",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
                     axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
-                this.stocks = resp.data
-                this.stocks.forEach(function(item){item.price = 0});
-                this.cart=this.stocks
-                console.log(this.cart)
+                
+                this.cart=resp.data
+    
+                this.cart.forEach(function(item){item.price = 0});
 
+                for (let index = 0; index < resp.data.length; index++) {
+                  const quantity = resp.data[index].plein;
+                  const idproduit=resp.data[index].id;
+                  let product_quantity={"id":idproduit,"quantity":quantity}
+                  this.stocksquant.push(product_quantity)
+                }
+                //console.log(this.stocksquant)
             })
             .catch(err => {
                 console.error(err)
@@ -201,9 +241,8 @@ export default {
             .then(resp => {
                 this.lots = resp.data
                 //console.log(this.lots)
-                
                 this.lots.forEach((obj) => {
-                this.stocks.forEach((array1Obj) => {
+                this.cart.forEach((array1Obj) => {
                 if (obj.product_id === array1Obj.product_id) {
                   array1Obj.price=obj.price_vente;
                     
@@ -221,28 +260,43 @@ export default {
     },
    
     getinfo(){
-      const x = [];
+      let y={};
+      let x = [];
       for (let index = 0; index < this.$refs.product_id.length; index++) {
         const productname= this.$refs.product_id[index].attributes['1'].value;
-        const all=this.stocks[productname]
-        x.push(all)
-      //  console.log(productname)
-        //console.log(ids)
+        let id=this.cart[productname].id
+        let quantity=this.cart[productname].plein
+        let price=this.cart[productname].price
+        y={'product_id':id,'product_quantity':quantity,'amount':price}
+        x.push(y)
     }
-    console.log(x)
+  //console.log(x)
+
+  
+  
+   
 
     const v = {
-      produits : x,
-      client: this.client.id,
-      borderau:this.numero,
-      montant_borderau:this.montatsurbordereau,
-      totalamount:this.$refs.montant.attributes['2'].value,
-
-
+      products : x,
+      client_id: this.client.id,
+      //borderau:this.numero,
+     // montant_borderau:this.montatsurbordereau,
+      amount_tax:this.$refs.montant.attributes['2'].value,
     }
-    console.log(v)
+    axios.post(
+          this.$store.state.baseurl + "ventes",
+          v,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
+        )
+        .then((resp) => {
+          this.receptions = resp.data;
+          this.form = { description:"",quantity:"",product_id:"",date_achat:"",lot_id:"",stock_id:"", tva:"",montant:"",montant_total:""} 
+        })
+        .catch((err) => {
+          console.error(err.response.data.errors);
+          this.errors = err.response.data.errors;
+        })
     
-    axios.post("",v)
              
     }   
     },
@@ -253,7 +307,7 @@ export default {
         let sum = 0;
         //this.stocks.price=price
 
-        this.stocks.map(e =>{
+        this.cart.map(e =>{
           sum += (e.plein * e.price);
           console.log(e)
           //console.log(sum)

@@ -6,7 +6,6 @@
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
-
             <div class="col col1">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
@@ -20,7 +19,7 @@
                  <br>
                  <span>Price</span>
                  <label for="lot_id" class="d-block dateWidth">
-                    <input type="text" v-model="form.lot_id">
+                    <input type="number" v-model="form.lot_id">
                   </label>
                <span>{{ errors?.lot_id }}</span>  
                 <br>
@@ -107,15 +106,30 @@ export default {
       receptions:[],
       //products:[],
       stocks:[],
-      lots:[],
       saveEditBtn:"Enregistrer",
     };
   },
     mounted(){
       this.getuser()
       this.getStocks()
-      this.getLots()
   },
+  watch:{
+  "$store.state.IdEditReception"(a){
+    console.log(a)
+    if(this.$store.state.IdEditReception==null){
+      this.getuser()
+         this.form={};
+         this.saveEditBtn="Enregistrer"
+
+        }else{
+          
+            this.form=this.$store.state.receptions;
+            this.saveEditBtn="Modifier"
+            console.log(this.$store.state.receptions)
+        }
+
+  }
+ },
   /*updated(){
     if(this.$store.state.IdEditReception==null){
         this.form={};
@@ -148,6 +162,7 @@ export default {
       
 
     },
+  
 
     /*getProducts() {
             axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -171,24 +186,13 @@ export default {
         })
 
     },
-    getLots() {
-            axios.get(this.$store.state.baseurl + "lots",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
-            .then(resp => {
-                this.lots = resp.data
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },
+  
     saveInformation() {
       if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
 
        if(this.$store.state.IdEditReception==null){
-             this.form.lot_id = this.form.lot_id.id
              this.form.product_id=this.form.stock.product_id
-             this.form.stock_id=this.form.stock.id
+             this.form.stock_id=this.form.stock.id,
              console.log(this.form.stock_id)
         axios.post(
           this.$store.state.baseurl + "reception",

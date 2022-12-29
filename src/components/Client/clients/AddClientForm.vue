@@ -43,7 +43,7 @@
                 <span>Type de client</span>
                  <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
-                        <option v-for="typeClient in typeClients" :key="typeClient.id" selected>
+                        <option v-for="typeClient in typeClients" :key="typeClient.id" :value="typeClient.id" selected>
                             {{ typeClient.name }}
                          </option>
                      </select>             
@@ -53,7 +53,7 @@
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
                     <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse">
-                        <option v-for="adresse in adresses" :key="adresse.id" selected>
+                        <option v-for="adresse in adresses" :value="adresse.id" :key="adresse.id" selected>
                         {{ adresse.name }}
                         </option>
                     </select>             
@@ -89,7 +89,8 @@ export default {
         nif:"",
         address_id:"",
         type_client_id:"",
-        description:""
+        description:"",
+        user_id:"",
     
       },
       errors: {},
@@ -100,10 +101,14 @@ export default {
     };
   },
     mounted(){
+      this.getuser()
       this.getAdresse()
       this.getClientType()
+      
   },
-  updated(){
+  watch:{
+  "$store.state.IdEditClient"(a){
+    console.log(a)
     if(this.$store.state.IdEditClient==null){
         this.form={};
         this.saveEditBtn="Enregistrer"
@@ -112,9 +117,21 @@ export default {
         this.saveEditBtn="Modifier"
       }
  
-  },
+  }
+},
 
   methods: {
+    getuser(){
+
+axios.get(`${this.$store.state.baseurl}user`
+,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
+this.$store.commit('userinfo',JSON.stringify(response.data.id))
+this.form.user_id=response.data.id
+console.log(this.form.user_id)
+
+});
+    },
 
     getAdresse() {
       axios.get(this.$store.state.baseurl + "Address",
@@ -142,13 +159,14 @@ export default {
             })
 
     },
+   
     saveInformation() {
       if (this.form["prenom","type_client_id","telephone","nom"]=="") return; 
 
        if(this.$store.state.IdEditClient==null){
              
         axios.post(
-          this.$store.state.baseUrl + "/clients",
+          this.$store.state.baseurl + "client",
           this.form
         )
         .then((resp) => {

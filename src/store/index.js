@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state:{
     baseurl: 'http://localhost:8000/api/',
-    token: localStorage.getItem('token') || '',
+    token: localStorage.getItem('token'),
     userinfo:[],
     users:[],
     user:"",
@@ -34,13 +34,12 @@ export default createStore({
 
   },
   mutations: {
-    login(state,user) {
+    login(state, user) {
       state.user = user;
-      localStorage.setItem('user',user);
-      
-  
- 
-    },
+      //state.token=token;
+      localStorage.setItem('user', state.user);
+     // localStorage.setItem('token', state.token);
+  },
   logout(state){
       state.user=''
       localStorage.removeItem('user')
@@ -50,7 +49,6 @@ export default createStore({
       
       if(localStorage.getItem('user')){
           state.user=localStorage.getItem('user')
-
       }
       
       else{
@@ -73,6 +71,7 @@ export default createStore({
   },
   getters:{ 
     user:state=>state.user, 
+    token:state=>state.token,
     userinformation:state=>state.userinfo,
 
   },

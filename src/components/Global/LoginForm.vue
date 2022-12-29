@@ -2,17 +2,18 @@
   <div class="register">
     <form>
         <label for="NomUtilisateur">
-            <span>Email</span>
+           
             <input type="email" required="required" id="name" v-model="form.email" placeholder="Nom d'utilisateur">
+            <span>Email</span>
             
             
         </label>
         <span>{{ errors?.email}}</span>
        
         <label for="MotPasse">
-            <span>Mot de passe</span>
             <input type="text" id="phone" :required="required" v-model="form.password" placeholder="Mot de passe">
-           
+            
+            <span>Mot de passe</span>
             
 
            
@@ -28,7 +29,7 @@
 
 <script>
 import axios from "axios"
-import Swal from 'sweetalert2'
+//import Swal from 'sweetalert2'
 ///import   "../"
 export default {
     
@@ -49,30 +50,25 @@ export default {
     login:function()
        {
        
-        
-        
-
-        axios.post(this.$store.state.baseurl + "login",this.form,{headers:{
-            
-        }})
+        axios.post(this.$store.state.baseurl + "login",this.form)
         .then( (response) =>{
-            
-           
+    
         this.$store.commit("login", JSON.stringify(response.data
         ))
        
-        const token=response.data.token
-         localStorage.setItem('token',token),
-         localStorage.setItem('user'.user),
+       const token=response.data.token
+        localStorage.setItem('token',token),
+         this.$store.state.token=response.data.token
+         
+         //window.location('/')
            this.$router.push({name:'Dashboard'}) 
             })
           
           .catch(err => {
           
             //alert(err.message)
-            //console.log(err)
-            console.log(err.response.data.errors)
-            this.errors = err.response.data.errors;
+            console.log(err)
+           
           /*  Swal.fire({
                icon: 'error',
                title: 'error',

@@ -17,7 +17,7 @@
 
         <span>Description</span>
          <label for="description">
-            <textarea  id="description" placeholder="Description"  v-model="form.descroption"></textarea>
+            <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
         </label>
         <span>{{ errors?.description }}</span>
         <!-- <button type="button">Register</button> -->
@@ -37,7 +37,7 @@ export default {
     return {
       form: {
         name:"",
-        descroption:"",            
+        description:"",            
       },
       errors: {},
       adresses:[],

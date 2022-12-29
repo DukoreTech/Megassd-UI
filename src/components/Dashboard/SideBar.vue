@@ -162,7 +162,7 @@
 
             <!-- Nav Item - Vente -->
               <hr class="sidebar-divider">
-                 <li class="nav-item">
+            <li class="nav-item">
                 <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowVente" data-bs-target="#collapVente" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -199,7 +199,7 @@
 
             <!-- Nav Item - Perte -->
               <hr class="sidebar-divider">
-                 <li class="nav-item">
+            <li class="nav-item">
                 <div class="mb-3 link" data-bs-toggle="collapse" data-bs-target="#collapPerte" aria-expanded="false" aria-controls="collapPerte">
                      <div class="d-flex justify-content-between iconBetween">
                          <span>
@@ -226,16 +226,46 @@
                            
                         </div>
                     </div> 
+                    
     
             </li>
              <hr class="sidebar-divider">
 
             <!-- Nav Item - vente -->
-             <li class="nav-item">
-                           
+            <li class="nav-item">
+                <div class="mb-3 link" data-bs-toggle="collapse" @click="showArrowReports" data-bs-target="#collapVente" aria-expanded="false" aria-controls="collapVente">
+                     <div class="d-flex justify-content-between">
+                         <span>
+                            <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
+                            <span class=" ml-2 label "> reports </span>
+                         </span>
+                       <font-awesome-icon v-if="!showArrowReports" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
+                       <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
+                     </div>
                     
-
-             </li>
+                    </div>
+                   
+                    <div class="collapse" id="collapVente">
+                        <div class="bg-light py-2 px-3 collapse-inner rounded d-block">
+                             <router-link :to="{name:'salesreport'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                                aria-expanded="true" aria-controls="collapseVente">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  salesreport 
+                             </router-link>          
+                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                             aria-expanded="true" aria-controls="collapseVente">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             invoicereports
+                            </router-link>  
+                           <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                             aria-expanded="true" aria-controls="collapseVente">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Type de Stock
+                            </router-link>  
+                        </div>
+                    </div> 
+    
+            </li>
            
         </ul>
         <!-- End of Sidebar -->
@@ -253,6 +283,7 @@ export default {
             isShowarrowStock:false,
             isShowarrowReception:false,
             isShowarrowVente:false,
+            isShowarrowReports:false
         }
     },
     methods:{
@@ -270,6 +301,9 @@ export default {
         },
         showArrowVente(){
             this.isShowarrowVente = !this.isShowarrowVente 
+        },
+        showArrowReports(){
+            this.isShowarrowReports = !this.isShowarrowReports 
         }
 
 

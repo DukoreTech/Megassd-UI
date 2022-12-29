@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import '../../../../axios';
 import axios from "axios";
 import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent.vue';
@@ -66,7 +67,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            adresses :[]
+            adresses :[],
+            
         }
     },
     mounted(){
@@ -75,16 +77,19 @@ export default {
     computed:{
         searchEvery(){
             return this.adresses.filter(val=>val.includes(this.search))
-            }
+            },
+        
     },
     methods:{
         fetchData() {
+            console.log(this.$store.state.token)
             axios.get(this.$store.state.baseurl + "Address",
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
                 this.$store.state.adresses=resp.data
+        
             })
             .catch(err => {
                 console.error(err)
