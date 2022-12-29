@@ -14,7 +14,7 @@ import Reception from "@/views/ReceptionView.vue"
 import Commande from "@/views/CommandView.vue"
 import Location from "@/views/LocationView.vue"
 import Perte from "@/views/PerteView.vue"
-import AddCommande from "@/components/Vente/Commande/lotExForm.vue"
+import AddCommande from "@/components/Vente/Commande/CommandAddForm.vue"
 import salesreport from "@/views/SalesreportView.vue"
 
 const routes = [
