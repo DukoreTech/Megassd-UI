@@ -6,10 +6,10 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col">
-								<h3 class="page-title">Data Tables</h3>
+								<h3 class="page-title">Stock details</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-									<li class="breadcrumb-item active">Data Tables</li>
+									<li class="breadcrumb-item active">stock details</li>
 								</ul>
 							</div>
 						</div>
@@ -20,42 +20,39 @@
 						<div class="col-sm-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Details ventes</h4>
-									<p class="card-text">
-										
-									</p>
+									<h4 class="card-title">Stocks</h4>
+									
 								</div>
 								<div class="card-body">
 
 									<div class="table-responsive">
-										<table class="  table-stripped">
+										<table class="datatable table table-stripped">
 											<thead>
-												<tr class="p-5">
-													<th>#</th>
-													<th>order_id</th>
+												<tr>
 													<th>product_name</th>
-													
-													<th>product_id</th>
-													<th>product_quantity</th>
-                                                    <th>quantite_stock</th>
-                                                    <th>Prix de vente</th>
-													<th>done by:</th>
+													<th>Activity_Realisé</th>
+													<th>quantite sortie</th>
+													<th>quantite sortie</th>
+													<th>quantite_entre</th>
+                                                    <th>quantite_actuel</th>
+                                                    <th>stock_initial</th>
                                                     <th>on date:</th>
+                                                    <th>done by:</th>
 													<th>Actions</th>
 												</tr>
 											</thead>
                                             <tbody>
-                                                <tr v-for="detail in detailsorder" :key="detail.id">
-													<td>{{detail.id}}</td>	
-													<td>{{detail.order_id}}</td>
-                                                    <td>{{detail.name}}</td>
-													<td>{{detail.product_id}}</td>
-													<td>{{detail.product_quantity}}</td>
-													<td>{{detail.quantite_stock}}</td>
-													<td>{{detail.price_unitaire}}</td>
-                                                    <td>{{detail.user_id}}</td>
+                                                <tr v-for="detail in detailsstock" :key="detail.id">
+                                                    <td>{{detail.product_name}}</td>
+													<td>{{detail.activity_realise}}</td>
+													<td>{{detail.quantite_sortie}}</td>
+													<td>{{detail.quantite_sortie}}</td>
+													<td>{{detail.quantite_entre}}</td>
+                                                    <td>{{detail.quantite_actuel}}</td>
+                                                    <td>{{detail.stock_quantite_initial	}}</td>
                                                     <td>{{detail.created_at	}}</td>
-													<td>
+                                                    <td>{{detail.user_id	}}</td>
+                                                    <td>
 														<button class="btn-sm btn btn-primary">View</button>
 													</td>
                                                     
@@ -83,7 +80,7 @@ export default {
     data()
     {
         return{
-            detailsorder:[],
+            detailsstock:[],
         }
     },
     mounted(){
@@ -91,11 +88,11 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseurl + "getorderdetail",
+            axios.get(this.$store.state.baseurl + "getstockdetails",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
-                this.detailsorder =resp.data
+                this.detailsstock = resp.data
                // this.$store.state.typeClients=resp.data
             })
             .catch(err => {
@@ -108,7 +105,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 th{
 	padding:10px;
 	text-align: center;

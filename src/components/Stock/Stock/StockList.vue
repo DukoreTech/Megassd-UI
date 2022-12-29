@@ -17,13 +17,22 @@
         </div>
 
          <div class="container-fluid">
+            <div class="page-header mb-5 pt-4">
+						<div class="row">
+							<div class="col">
+								<h3 class="page-title">Stock</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item active">stock</li>
+								</ul>
+							</div>
+						</div>
+					</div>
             <div class="card  mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-mute">Liste des stock</h6>
-                </div>
+               
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
@@ -61,6 +70,11 @@
 </template>
 
 <script>
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './StockAddForm';
@@ -90,6 +104,15 @@ export default {
                     axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.stocks = resp.data
+                setTimeout(() => {
+          $("#datatable").DataTable({
+            lengthMenu: [
+              [5,10, 25, 50, -1],
+              [5,10, 25, 50, "All"],
+            ],
+            pageLength: 5,
+          });
+        });
             })
             .catch(err => {
                 console.error(err)

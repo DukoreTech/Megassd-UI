@@ -16,6 +16,7 @@ import Location from "@/views/LocationView.vue"
 import Perte from "@/views/PerteView.vue"
 import AddCommande from "@/components/Vente/Commande/CommandAddForm.vue"
 import salesreport from "@/views/SalesreportView.vue"
+import DetailStocksView from "@/views/DetailStocksView.vue"
 
 const routes = [
 
@@ -36,6 +37,7 @@ const routes = [
  { path:'/Location',name:'Location',component:Location },
  { path:'/Perte',name:'Perte',component:Perte },
  { path:'/salesreport',name:'salesreport',component:salesreport },
+ { path:'/DetailStocksView',name:'DetailStocksView',component:DetailStocksView },
 
 ]
 

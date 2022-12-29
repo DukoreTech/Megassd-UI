@@ -252,15 +252,15 @@
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   salesreport 
                              </router-link>          
-                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                           <router-link :to="{name:'DetailStocksView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             invoicereports
+                              stock details
                             </router-link>  
                            <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Type de Stock
+                             factures
                             </router-link>  
                         </div>
                     </div> 

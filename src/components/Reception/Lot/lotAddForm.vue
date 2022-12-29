@@ -160,6 +160,40 @@ export default {
             })
         },
 
+        saveInformation() {
+      if (this.form["product_id","price_vente","quantity","name"]=="") return; 
+
+       if(this.$store.state.IdEditLot==null){
+             
+        axios.post(
+          this.$store.state.baseurl + "lots",
+          this.form
+        )
+        .then((resp) => {
+          this.lots = resp.data;
+          //this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
+        })
+        .catch((err) => {
+          console.error(err.response.data.errors);
+          this.errors = err.response.data.errors;
+        });
+       }else{
+         axios.patch(
+          this.$store.state.baseurl+"lots/"+this.$store.state.IdEditLot,
+          this.form )
+        .then((resp) => {
+          this.lots = resp.data;
+          this.$emit('close')
+         })
+        .catch((err) => {
+          console.error(err.response.data.errors);
+          this.errors = err.response.data.errors;
+        });
+
+       }
+ 
+    },
+
     getproducts() {
             axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
             axios.defaults.headers.common['Accept'] = `Application/json`)

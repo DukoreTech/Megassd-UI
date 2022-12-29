@@ -123,8 +123,11 @@ import axios from "axios";
 // import ModalComponent from '@/components/Global/ModalComponent';
 // import AddForm from './ReceptionAddForm.vue';
 
+import Swal from 'sweetalert2';
+
 export default {
     // components: { ModalComponent, AddForm },
+    
     data() {
         return{
 
@@ -147,7 +150,7 @@ export default {
             cart:[],
             stocksquant:[],
             error:'',
-            paiment:"bordereau"
+            paiment:"bordereau",
         }
     },
   
@@ -160,21 +163,22 @@ export default {
     methods:{
       onchange(id){
 
-        if(this.cart[id].plein > this.stocksquant[id])
+        if(this.stocks[id].plein > this.stocksquant[id])
         {
-          this.cart[id].plein.preventDefault()
+          this.stocks[id].plein .preventDefault()
           
+          console.log(this.stocks.plein)
            //this.error='the quantity u are asking does not exist in store';
         }
 
       },
-      /*validateNumber:function(event,id){
+      validateNumber(event,id){
         let keyCode = this.cart[id].plein;
       let range=this.stocksquant[id]
       if (keyCode >range ) {
         event.preventDefault();
       }
-  },*/
+  },
       
         decrement(id){
           this.cart[id].plein =  this.cart[id].plein *1 - 1 
@@ -279,9 +283,9 @@ export default {
     const v = {
       products : x,
       client_id: this.client.id,
-      borderau:this.numero,
-      montant_borderau:this.montatsurbordereau,
-      amount_tax:this.$refs.montant.attributes['2'].value,
+      num_bordereau:this.numero,
+      payed_amount:this.montatsurbordereau,
+      total_amount:this.$refs.montant.attributes['2'].value,
     }
     axios.post(
           this.$store.state.baseurl + "ventes",
@@ -295,6 +299,12 @@ export default {
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
+          Swal.fire({
+               icon: 'error',
+               title: ' oups ',
+               text: 'something wrong  try again!'+ ""+ err.response.data.data 
+              });
+          
         })
     
              

@@ -22,12 +22,14 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>                              
                               <tr>                    
                                 <th scope="col">Id</th>
                                 <th scope="col-lg-4">Produit</th>
                                 <th scope="col">Total Amount</th>
+                                <th scope="col">Paied Amount</th>
+                                <th scope="col">To:client</th>
                                 <th scope="col">Date effectue</th>
                                 <th scope="col">status</th>
                                 <th scope="col">Added by</th>
@@ -37,16 +39,18 @@
                             <tbody>
                                <tr v-for="order in orders" :key="order.id">
                                 <th scope="row">{{ order.id }}</th>
-                                <td>{{ order.products.product.id }} </td>
-                                <td>{{ order.amount_tax }} </td>
-                                <td>{{ order.date_facturation	 }} </td>
-                                <td>pending</td>            
+                                <td>{{ order.products}}</td>
+                                <td>{{ order.total_amount}} </td>
+                                <td>{{ order.payed_amount}} </td>
+                                <td>{{ order.client_id}} </td>
+                                <td>{{ order.date_facturation}} </td>
+                                <td>{{order.status}}</td>            
                                 <td>{{ order.user_id}} </td>                       
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    <button v-if="order.status==0" class="btn btn-sm btn-default m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>Confirm order
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editReception(reception,reception.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <button v-if="order.status==1" class="btn btn-sm btn-default" @click="modalActive = true,editReception(reception,reception.id)">
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>invoices
                                     </button>
                                 </td>
                               </tr>
@@ -60,6 +64,11 @@
 </template>
 
 <script>
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './CommandAddForm.vue';
@@ -90,6 +99,15 @@ export default {
             .then(resp => {
                 this.orders = resp.data
                 console.log(this.orders)
+                setTimeout(() => {
+          $("#datatable").DataTable({
+            lengthMenu: [
+              [5,10, 25, 50, -1],
+              [5,10, 25, 50, "All"],
+            ],
+            pageLength: 5,
+          });
+        });
             })
             .catch(err => {
                 console.error(err)

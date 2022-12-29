@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
@@ -55,6 +55,11 @@
 </template>
 
 <script>
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './TypeClAddForm';
@@ -85,6 +90,15 @@ export default {
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
+                setTimeout(() => {
+          $("#datatable").DataTable({
+            lengthMenu: [
+              [5,10, 25, 50, -1],
+              [5,10, 25, 50, "All"],
+            ],
+            pageLength: 5,
+          });
+        });
             })
             .catch(err => {
                 console.error(err)
