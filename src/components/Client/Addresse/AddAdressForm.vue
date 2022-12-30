@@ -13,13 +13,13 @@
           <label for="etablis">
               <input type="text" v-model="form.name">
           </label>
-         <span>{{ errors?.zone }}</span>
+         <span class="error">{{ errors?.zone}}</span>
 
         <span>Description</span>
          <label for="description">
             <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
         </label>
-        <span>{{ errors?.description }}</span>
+        <span class="error">{{ errors?.description }}</span>
         <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
@@ -75,9 +75,10 @@ export default {
           axios.defaults.headers.common['Accept'] = `Application/json`
         )
         .then((resp) => {
-          this.adresses = resp.data.data;
+          this.adresses = resp.data;
           this.form = { zone:"",description:""} 
-        
+          this.$store.state.adresses=resp.data
+          
           })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -86,7 +87,7 @@ export default {
        }else{
          axios.patch(
           this.$store.state.baseurl + "Address/"+this.$store.state.IdEditAdresse,
-          this.form )
+          this.form)
         .then((resp) => {
           this.adresses = resp.data.data;
           this.$store.state.adresses=resp.data.data
@@ -127,6 +128,9 @@ body{
     font-family:sans-serif;
     color:#6b6b6b;
  
+}
+.error{
+  color:color;
 }
 form{
     width:90vw;

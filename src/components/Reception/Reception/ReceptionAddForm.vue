@@ -209,7 +209,7 @@ export default {
         });
        }else{
          axios.patch(
-          this.$store.state.baseUrl+"/receptions/"+this.$store.state.IdEditReception,
+          this.$store.state.baseurl+"reception/"+this.$store.state.IdEditReception,
           this.form )
         .then((resp) => {
           this.receptions = resp.data;

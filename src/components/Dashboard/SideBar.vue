@@ -317,9 +317,14 @@ export default {
 .link{
     cursor: pointer;
 }
+.label{
+    font-size: 18px;
+}
 span,.icon,.iconAngle{
     color: white;
+    text-align: center;
 }
+
 #navbar{
     color:white;
 }
@@ -328,7 +333,7 @@ span,.icon,.iconAngle{
 }
 li{
     margin: auto 20px;
-}
+} 
 /* media query */
 @media screen and (max-width:980px) {
    .icon,.label,.Title{

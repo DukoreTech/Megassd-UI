@@ -6,9 +6,9 @@
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
                         Ajouter lot
                       </button>
-                    <div class="mt-3">
+                   <!-- <div class="mt-3">
                             <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                    </div>
+                    </div>-->
                  </div>  
     
                     <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
@@ -42,15 +42,16 @@
                                     <td>{{ lot.name }} </td>
                                     <td>{{ lot.products.name }} </td>            
                                     <td>{{ lot.price_vente }} </td>            
-                                    <td>{{ lot.description }} </td>    
-                                    <td>{{lot.adresses_id }}</td>  
-                                    <td>{{lot.type_clients_id }}</td> 
+                                       
+                                    <td>{{lot.adresses.name }}</td>  
+                                    <td>{{lot.type_clients.name}}</td>
+                                    <td>{{ lot.description }} </td>  
                                           
                                     <td>
-                                        <button class="btn btn-sm btn-default m-2"  @click="deleteLot(lot.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                        </button>
-                                        <button class="btn btn-sm btn-default" @click="modalActive = true,editlot(lot,lot.id)" >
-                                        <font-awesome-icon icon="fa-solid fa-edit"/>
+                                        <button class="btn btn-sm btn-danger m-2"  @click="deleteLot(lot.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                        delete</button>
+                                        <button class="btn btn-sm btn-primary" @click="modalActive = true,editlot(lot,lot.id)" >
+                                       edit<font-awesome-icon icon="fa-solid fa-edit"/>
                                         </button>
                                     </td>
                                   </tr>
@@ -69,6 +70,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
+import Swal from 'sweetalert2';
     import axios from "axios";
     import ModalComponent from '@/components/Global/ModalComponent';
     import AddForm from './lotAddForm';
@@ -110,14 +112,28 @@ import $ from "jquery";
                 })
             },
             deleteLot(id) {
-                axios.delete(this.$store.state.baseurl + "lots/" + id)
+                Swal.fire({
+                title: 'vous etes sure de vouloir supprimer ces informations',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Delete'
+             })  .then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(this.$store.state.baseurl + "lots/" + id)
                 .then(resp => {
                     this.lots = resp.data
+                    console.log(this.lots)
                     this.fetchData()
                 })
                 .catch(err => {
                     console.error(err)
+                    
+                Swal.fire('something wrong try again', '', 'error')
                 })
+                }
+            });
+
+              
                 
             },
     

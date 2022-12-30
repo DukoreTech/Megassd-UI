@@ -9,13 +9,13 @@
             <div class="col-6">
                 <label for="nom">
                     <input type="text" id="nom" placeholder="nom" v-model="form.nom">
-                    <span>Nom</span>
+                    <span>Nom du client</span>
                 </label>
                 <span>{{ errors?.nom }}</span>
 
                 <label for="prenom">
                     <input type="text" id="prenom" placeholder="prenom" v-model="form.prenom">
-                    <span>Prenom</span>
+                    <span>Proprietaire</span>
                 </label>
                 <span>{{ errors?.prenom }}</span>
 

@@ -10,7 +10,7 @@
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
                 </div>
              </div>   
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ">
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
@@ -38,10 +38,10 @@
                                 <td>{{ typeClient.name }} </td>
                                 <td>{{ typeClient.description }} </td>         
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteTClient(typeClient.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editTypeClient(typeClient,typeClient.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteTClient(typeClient.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    delete</button>
+                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editTypeClient(typeClient,typeClient.id)" >
+                                      edit<font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>
@@ -84,6 +84,7 @@ export default {
     },
     methods:{
         fetchData() {
+            
             axios.get(this.$store.state.baseurl + "typeclient",
             axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
@@ -91,26 +92,26 @@ export default {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
                 setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
+                    $('#datatable').dataTable( {
+                     paging: false,
+                    searching: true
+                  } );
+      
         });
+          
             })
             .catch(err => {
                 console.error(err)
             })
+            
         },
         deleteTClient(id) {
             Swal.fire({
-             title: 'Do you want to save the changes?',
+             title: 'vous etes sure de vouloir supprimer ces informations',
              showDenyButton: true,
              showCancelButton: true,
-             confirmButtonText: 'Save',
-             denyButtonText: `Don't save`,
+             confirmButtonText: 'Delete',
+            // denyButtonText: `Don't save`,
             }).then((result) => {
               /* Read more about isConfirmed, isDenied below */
               if (result.isConfirmed) {
@@ -125,11 +126,10 @@ export default {
             })
             .catch(err => {
                 console.error(err)
+                Swal.fire('something wrong try again', '', 'error')
             })
               
-            } else if (result.isDenied) {
-              Swal.fire('Changes are not saved', '', 'info')
-            }
+            } 
       })
             
             
@@ -149,6 +149,18 @@ export default {
    
     .ajout{
         color: white;
+    }
+    th{
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        
+    }
+    td{
+        text-align: center;
+        font-size: 16px;  
+        
     }
 
 </style>

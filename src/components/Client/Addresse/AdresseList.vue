@@ -6,12 +6,12 @@
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Adresse
                   </button>
-                <div class="mt-3">
+                <!---<div class="mt-3">
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
+                </div>-->
              </div>  
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ">
-                    <add-form @close="modalActive = !modalActive"/>
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
+                    <add-form/>
                 </modal-component>
         </div>
 
@@ -36,12 +36,12 @@
                                <tr v-for="adresse in adresses" :key="adresse.id">
                                 <th scope="row">{{ adresse.id }}</th>
                                 <td>{{ adresse.name }} </td>
-                                <td>{{ adresse.descroption	 }} </td>         
+                                <td>{{ adresse.description	 }} </td>         
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteRole(adresse.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive =true,editRole(adresse,adresse.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteRole(adresse.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    detele</button>
+                                    <button class="btn btn-sm btn-primary" @click="modalActive =true,editRole(adresse,adresse.id)" >
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>edit
                                     </button>
                                 </td>
                               </tr>
@@ -77,6 +77,7 @@ export default {
     },
     mounted(){
         this.fetchData()
+        
     },
     computed:{
         searchEvery(){
@@ -84,6 +85,8 @@ export default {
             },
         
     },
+
+
     methods:{
         fetchData() {
             console.log(this.$store.state.token)
@@ -94,13 +97,11 @@ export default {
                 this.adresses = resp.data
                 this.$store.state.adresses=resp.data
                 setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
+                    $('#datatable').dataTable( {
+                     paging: true,
+                    searching: true
+                  } );
+      
         });
         
             })
@@ -110,11 +111,10 @@ export default {
         },
         deleteRole(id) {
             Swal.fire({
-             title: 'Do you want to save the changes?',
+                title: 'vous etes sure de vouloir supprimer ces informations',
              showDenyButton: true,
              showCancelButton: true,
-             confirmButtonText: 'Save',
-             denyButtonText: `Don't save`,
+             confirmButtonText: 'Delete'
              })
             .then((result) => {
                 if (result.isConfirmed) {
@@ -126,18 +126,11 @@ export default {
                 this.fetchData()
                }).catch(err => {
                 console.error(err)
+                
                 Swal.fire('something wrong try again', '', 'error')
                 })
             }
-         else if (result.isDenied) {
-                 Swal.fire('Changes are not saved', '', 'info')
-               }
                })
-    
-    
-  
-               
-
                },
                editRole(adresse,id){
         this.$store.state.IdEditAdresse=id
@@ -158,5 +151,17 @@ export default {
 
     .ajout{
         color: white;
+    }
+    th{
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        
+    }
+    td{
+        text-align: center;
+        font-size: 16px;  
+        
     }
 </style>

@@ -48,10 +48,10 @@
                                 <td>{{ client.type_client_id }} </td>            
                                 <td>{{ client.address_id }} </td>            
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editUser(client,client.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    delete</button>
+                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editUser(client,client.id)" >
+                                    edit<font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>
@@ -71,6 +71,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 import axios from "axios";
+import Swal from 'sweetalert2'
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './AddClientForm.vue';
 
@@ -116,6 +117,15 @@ export default {
             })
         },
         deleteUser(id) {
+            Swal.fire({
+             title: 'vous etes sure de vouloir supprimer ces informations',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Delete',
+            // denyButtonText: `Don't save`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
             axios.delete(this.$store.state.baseurl + "client/" + id)
             .then(resp => {
                 this.clients = resp.data
@@ -123,7 +133,11 @@ export default {
             })
             .catch(err => {
                 console.error(err)
+                Swal.fire('something wrong try again', '', 'error')
+                
             })
+        }
+    });
             
         },
         searchInArray(arrayList, searchText) {
