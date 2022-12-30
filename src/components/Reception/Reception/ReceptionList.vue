@@ -74,6 +74,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 import axios from "axios";
+import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './ReceptionAddForm.vue';
 
@@ -116,7 +117,14 @@ export default {
             })
         },
         deleteReception(id) {
-            axios.delete(this.$store.state.baseurl + "reception/"+id,
+            Swal.fire({
+                title: 'vous etes sure de vouloir supprimer ces informations',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Delete'
+             })  .then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(this.$store.state.baseurl + "reception/"+id,
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
@@ -126,6 +134,9 @@ export default {
             .catch(err => {
                 console.error(err)
             })
+                }
+            });
+           
             
         },
 
@@ -142,6 +153,18 @@ export default {
 <style scoped>
     .ajout{
         color: white;
+    }
+    th{
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        
+    }
+    td{
+        text-align: center;
+        font-size: 16px;  
+        
     }
 
 </style>

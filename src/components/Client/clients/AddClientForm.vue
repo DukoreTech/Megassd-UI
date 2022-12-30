@@ -77,6 +77,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   props:["modalActive"],
   data() {
@@ -153,7 +154,7 @@ console.log(this.form.user_id)
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
-                this.getuser
+                this.getuser()
             })
             .catch(err => {
                 console.error(err)
@@ -186,6 +187,11 @@ console.log(this.form.user_id)
           this.form )
         .then((resp) => {
           this.clients = resp.data;
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data updated successfully!',  
+              });
           this.$emit('close')
          })
         .catch((err) => {

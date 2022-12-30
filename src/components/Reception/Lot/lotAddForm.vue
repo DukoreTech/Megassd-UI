@@ -75,6 +75,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   props:["modalActive"],
   data() {
@@ -183,11 +184,17 @@ export default {
           this.form )
         .then((resp) => {
           this.lots = resp.data;
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data updated successfully!',  
+              });
           this.$emit('close')
          })
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
+
         });
 
        }

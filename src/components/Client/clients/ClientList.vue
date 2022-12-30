@@ -168,5 +168,17 @@ export default {
     .ajout{
         color: white;
     }
+    th{
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        
+    }
+    td{
+        text-align: center;
+        font-size: 16px;  
+        
+    }
 
 </style>

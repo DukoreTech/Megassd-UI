@@ -106,12 +106,20 @@ export default {
 </script>
 
 <style>
+
 th{
-	padding:10px;
+    padding:10px;
 	text-align: center;
-}
-td{
-	text-align: center;
-}
+        text-transform: capitalize;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        
+    }
+    td{
+        text-align: center;
+        font-size: 16px;  
+        
+    }
 
 </style>
