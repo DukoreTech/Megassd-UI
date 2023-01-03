@@ -6,10 +6,10 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col">
-								<h3 class="page-title">Data Tables</h3>
+								<h3 class="page-title">Details ventes</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-									<li class="breadcrumb-item active">Data Tables</li>
+									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Dashboard</a></li>
+									<li class="breadcrumb-item active">detail ventes</li>
 								</ul>
 							</div>
 						</div>
