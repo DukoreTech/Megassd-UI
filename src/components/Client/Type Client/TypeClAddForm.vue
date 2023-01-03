@@ -122,6 +122,7 @@ this.form.user_id=this.$store.state.userinfo
                title: 'success message',
                text: 'updated  successfully!'
               });
+            this.fetchData()
               this.$store.state.IdEditTypClient=null
           })
           

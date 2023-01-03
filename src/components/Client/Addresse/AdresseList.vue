@@ -82,14 +82,14 @@ export default {
         
     },
     watch: {
- adresses(val) {
-    console.log(val)
-    $('#datatable').DataTable().destroy();
-    this.$nextTick(()=> {
-      $('#datatable').DataTable()
-    });
-  }
-},
+           adresses(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     computed:{
         searchEvery(){
             return this.adresses.filter(val=>val.includes(this.search))
@@ -131,6 +131,8 @@ export default {
                   axios.defaults.headers.common['Accept'] = `Application/json`)
                 .then(resp => {
                 this.adresses = resp.data
+
+                Swal.fire('item deleted', '', 'success')
                 this.$store.state.adresses=resp.data
                 this.fetchData()
                }).catch(err => {

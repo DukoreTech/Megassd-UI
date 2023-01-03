@@ -77,6 +77,15 @@ export default {
     created(){
         this.fetchData()
     },
+    watch: {
+        typeClients(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     computed:{
         searchEvery(){
             return this.typeClients.filter(val=>val.includes(this.search))
@@ -91,13 +100,7 @@ export default {
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
-                setTimeout(() => {
-                    $('#datatable').dataTable( {
-                     paging: false,
-                    searching: true
-                  } );
-      
-        });
+               
           
             })
             .catch(err => {
