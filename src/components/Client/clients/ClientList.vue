@@ -6,12 +6,10 @@
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Client
                   </button>
-                <div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
+               
              </div>  
 
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
@@ -27,10 +25,10 @@
                               <tr>                    
                                 <th scope="col">Id</th>
                                 <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">NIF</th>
+                                <!---<th scope="col">Prenom</th>
+                                <th scope="col">NIF</th>-->
                                 <th scope="col">Telephone</th>
-                                <th scope="col">TVA %</th>
+                              <!--  <th scope="col">TVA %</th>-->
                                 <th scope="col">Type de client</th>
                                 <th scope="col">Adresse</th>
                                 <th scope="col">Actions</th>
@@ -41,12 +39,13 @@
                                <tr v-for="client in clients" :key="client.id">
                                 <th scope="row">{{ client.id }}</th>
                                 <td>{{ client.nom }} </td>
-                                <td>{{ client.prenom }} </td>
+                                <td>{{ client.telephone }} </td>
+                              <!--<td>{{ client.prenom }} </td>
                                 <td>{{ client.nif }} </td>
-                                <td>{{ client.telephone }} </td>            
-                                <td>{{ client.assujet_tva }} </td>            
-                                <td>{{ client.type_client_id }} </td>            
-                                <td>{{ client.address_id }} </td>            
+                                           
+                                <td>{{ client.assujet_tva }} </td> -->             
+                                <td>{{ client.type_clients.name }} </td>            
+                                <td>{{ client.adresses.name }} </td>            
                                 <td>
                                     <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     delete</button>
@@ -93,6 +92,15 @@ export default {
             return this.clients.filter(val.includes(this.search))
             }*/
     },
+    watch: {
+        clients(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     methods:{
         fetchData() {
             axios.get(this.$store.state.baseurl + "client",
@@ -101,15 +109,7 @@ export default {
             .then(resp => {
                 this.clients = resp.data
                 this.$store.state.typeClients=resp.data
-                setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
-        });
+         
                 
             })
             .catch(err => {
@@ -129,6 +129,7 @@ export default {
             axios.delete(this.$store.state.baseurl + "client/" + id)
             .then(resp => {
                 this.clients = resp.data
+                Swal.fire('item deleted', '', 'success')
                 this.fetchData()
             })
             .catch(err => {

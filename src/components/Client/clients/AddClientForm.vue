@@ -9,11 +9,11 @@
             <div class="col-6">
                 <label for="nom">
                     <input type="text" id="nom" placeholder="nom" v-model="form.nom">
-                    <span>Nom du client</span>
+                    <span>Nom</span>
                 </label>
-                <span>{{ errors?.nom }}</span>
+                <span class="error">{{ errors?.nom }}</span>
 
-                <label for="prenom">
+                <!--<label for="prenom">
                     <input type="text" id="prenom" placeholder="prenom" v-model="form.prenom">
                     <span>Proprietaire</span>
                 </label>
@@ -23,23 +23,23 @@
                     <input type="text" id="assujet_tva"  v-model="form.assujet_tva">
                     <span>TVA (%)</span>
                 </label>
-                <span>{{ errors?.assujet_tva }}</span>
+                <span>{{ errors?.assujet_tva }}</span>-->
 
-                 <label for="telephone">
+             <label for="telephone">
                     <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
                     <span>Telephone</span>
                 </label>
-                <span>{{ errors?.telephone }}</span>
+                <span class="error">{{ errors?.telephone }}</span>
                 
             </div>
 
              <div class="col-6">
-                <label for="nif">
+                <!---<label for="nif">
                     <input type="text" id="nif" placeholder="Nif" v-model="form.nif">
                     <span>Nif</span>
                 </label>
                 <span>{{ errors?.nif }}</span>
-                    <br>
+                    <br>--> 
                 <span>Type de client</span>
                  <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
@@ -48,7 +48,7 @@
                          </option>
                      </select>             
                   </label>
-                <span>{{ errors?.type_client_id}}</span>
+                <span class="error">{{ errors?.type_client_id}}</span>
                 <br>
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
@@ -58,13 +58,13 @@
                         </option>
                     </select>             
               </label>
-               <span>{{ errors?.address_id }}</span>       
+               <span class="error">{{ errors?.address_id }}</span>       
 
-               <span>Description</span><br>
+               <!--<span>Description</span><br>
                 <label for="description">
                     <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
                 </label>
-                <span>{{ errors?.description }}</span>
+                <span>{{ errors?.description }}</span>--> 
          </div>
         </div>  
         <!-- <button type="button">Register</button> -->
@@ -175,6 +175,11 @@ console.log(this.form.user_id)
           this.clients = resp.data;
 
           this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""}
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data added successfully!',  
+              });
           this.getuser() 
         })
         .catch((err) => {
@@ -244,8 +249,12 @@ input,select,textarea{
     border:none;
     outline:none;
 }
+
 input::placeholder{
     opacity:0;
+}
+.error{
+  color: red;
 }
 
 select::placeholder{
