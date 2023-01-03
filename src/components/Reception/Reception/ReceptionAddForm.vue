@@ -189,12 +189,30 @@ export default {
     },
   
     saveInformation() {
+     
       if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
-
+      
+      
+      //this.form.product_id=this.form.stock.product_id
+      
+    
        if(this.$store.state.IdEditReception==null){
-             this.form.product_id=this.form.stock.product_id
+        let result= this.stocks.find((item) => item.id === this.form.stock.product_id)
+      console.log(this.result)
+      if(this.form.quantity > result.vide)
+      {
+        Swal.fire({
+               icon: 'error',
+               title: 'oups',
+               text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result.vide,  
+              });
+        
+      }
+      else{
+        this.form.product_id=this.form.stock.product_id
              this.form.stock_id=this.form.stock.id,
              console.log(this.form.stock_id)
+
         axios.post(
           this.$store.state.baseurl + "reception",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -202,12 +220,21 @@ export default {
         )
         .then((resp) => {
           this.receptions = resp.data;
-          this.form = { description:"",quantity:"",product_id:"",date_achat:"",lot_id:"",stock_id:"", tva:"",montant:"",montant_total:""} 
+          this.form = {}
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: "Achat effectué avec success",  
+              });
         })
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
+
+      }
+
+            
        }else{
          axios.patch(
           this.$store.state.baseurl+"reception/"+this.$store.state.IdEditReception,
@@ -226,12 +253,15 @@ export default {
           this.errors = err.response.data.errors;
         });
 
-       }
+       
+
+      }
+}
  
     }
     
 }
-}
+
 </script>
 
 <style  scoped>

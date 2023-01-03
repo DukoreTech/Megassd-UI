@@ -11,7 +11,7 @@
                     </div>-->
                  </div>  
     
-                    <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
+                    <modal-component :modalActive="modalActive" @close="modalActive = !modalActive , fetchData()">
                         <add-form @close="modalActive = !modalActive"/>
                     </modal-component>
             </div>
@@ -92,20 +92,21 @@ import Swal from 'sweetalert2';
                 return this.lots.filter(val=>val.includes(this.search))
                 }
         },
+        watch: {
+            lots(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
         methods:{
             fetchData() {
                 axios.get(this.$store.state.baseurl + "lots")
                 .then(resp => {
                     this.lots = resp.data
-                    setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
-        });
+              
                 })
                 .catch(err => {
                     console.error(err)
@@ -123,7 +124,9 @@ import Swal from 'sweetalert2';
                 .then(resp => {
                     this.lots = resp.data
                     console.log(this.lots)
+                    Swal.fire('item deleted')
                     this.fetchData()
+
                 })
                 .catch(err => {
                     console.error(err)

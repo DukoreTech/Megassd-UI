@@ -6,13 +6,11 @@
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter produit
                   </button>
-                <div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
+               
               </div>      
                
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,this.fetchData()">
-                    <add-form :modalActive="modalActive"/>
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,fetchData()">
+                    <add-form  @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
 
@@ -43,10 +41,10 @@
                                 <td>{{ product.unite_mesure }} </td>
                                 <td>{{ product.nombre_bouteille }} </td>
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteProduit(product.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteProduit(product.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editProduit(product,product.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editProduit(product,product.id)" >
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>Edit
                                     </button>
                                 </td>
                               </tr>
@@ -60,6 +58,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -88,39 +87,54 @@ export default {
             return this.products.filter(val=>val.includes(this.search))
             }
     },
+    watch: {
+        products(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     methods:{
         fetchData() {
             axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
             axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.products = resp.data
-                setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
-        });
+          
             })
             .catch(err => {
                 console.error(err)
             })
         },
         deleteProduit(id) {
+            Swal.fire({
+                title: 'vous etes sure de vouloir supprimer ces informations',
+             showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'Delete'
+             })
+            .then((result) => {
+                if (result.isConfirmed) {
             axios.delete(this.$store.state.baseurl + "products/" + id,axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
             axios.defaults.headers.common['Accept'] = `Application/json`))
             .then(resp => {
                 this.products = resp.data
+                
+                Swal.fire('item deleted', '', 'success')
                 this.fetchData()
+
             })
             .catch(err => {
                 console.error(err)
+                Swal.fire('something wrong try again', '', 'error')
+                
             })
             
-        },
-
+        }
+    });
+},
         editProduit(product,id){
         this.$store.state.IdEditProduit=id
         this.$store.state.products=product

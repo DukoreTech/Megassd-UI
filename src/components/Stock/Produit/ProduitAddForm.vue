@@ -38,6 +38,7 @@
 </template>
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 export default{
   props:["modalActive"],
@@ -106,9 +107,15 @@ export default{
             .then((resp) => {
               this.products = resp.data;
               this.getuser()
+
               
               
               this.form = { name:"",unite_mesure:"",nombre_bouteille:"", caisse:""} 
+              Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data added successfully!',  
+              });
             })
             .catch((err) => {
               console.error(err.response.data.errors);
@@ -120,7 +127,12 @@ export default{
               this.form )
             .then((resp) => {
               this.products = resp.data;
-              this.$emit('close')
+              Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data updated successfully!',  
+              });
+          this.$emit('close')
              })
             .catch((err) => {
               console.error(err.response.data.errors);

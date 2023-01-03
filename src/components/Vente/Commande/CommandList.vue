@@ -95,6 +95,16 @@ export default {
             return this.receptions.filter(val=>val.includes(this.search))
             }
     },
+    watch: {
+        orders(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
+    
     methods:{
         ajout(){
             this.$router.push({name:'AddCommande'})
@@ -105,15 +115,7 @@ export default {
             .then(resp => {
                 this.orders = resp.data
                 console.log(this.orders)
-                setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
-        });
+              
             })
             .catch(err => {
                 console.error(err)

@@ -107,7 +107,7 @@
                    <tr v-for="(commande, index) in poubelle" :key="index">
                        <td>{{ commande.product_id }}</td>
                        <td>{{ commande.product_quantity }}</td>
-                       <td>{{ commande.amount }} F</td>
+                       <td>{{ commande.amount}} F</td>
                        <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }} F</td>
                        <td><a class="btn btn-success btn-block" @click="retablir(index)">Rétablir</a></td>
                        <td><a class="btn btn-danger btn-block" @click="eliminer(index)">Supprimer</a></td>

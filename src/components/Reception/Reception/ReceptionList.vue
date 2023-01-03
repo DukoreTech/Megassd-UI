@@ -6,12 +6,10 @@
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Reception
                   </button>
-                <div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
+                
              </div>  
 
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive , fetchData()">
                     <add-form @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
@@ -97,26 +95,27 @@ export default {
             return this.receptions.filter(val=>val.includes(this.search))
             }
     },
+    watch: {
+        receptions(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     
     methods:{
-        initialize()
-        {
-            setTimeout(() => {
-                    $('#datatable').dataTable( {
-                     paging: true,
-                    searching: true
-                  } );
-      
-        });
+       
 
-        },
+        
         fetchData() {
             axios.get(this.$store.state.baseurl + "reception",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.receptions = resp.data
-                this.initialize()
+                
               
             })
             .catch(err => {
@@ -150,6 +149,7 @@ export default {
         editReception(reception,id){
         this.$store.state.IdEditReception=id
         this.$store.state.receptions=reception
+        console.log(this.$store.state.receptions)
         
         }
     }

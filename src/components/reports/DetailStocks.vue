@@ -91,17 +91,17 @@ export default {
     mounted(){
         this.fetchData()
     },
+    watch: {
+            detailsstock(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     methods:{
-        initialize()
-        {
-            setTimeout(() => {
-                    $('#datatable').dataTable( {
-                     paging: true,
-                    searching: true
-                  } );
-      
-        });
-    },
+        
         fetchData() {
             axios.get(this.$store.state.baseurl + "getstockdetails",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -109,7 +109,7 @@ export default {
             .then(resp => {
                 this.detailsstock = resp.data
                 console.log(this.detailsstock)
-                this.initialize();
+                
                // this.$store.state.typeClients=resp.data
             })
             .catch(err => {

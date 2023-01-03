@@ -172,6 +172,11 @@ export default {
         )
         .then((resp) => {
           this.lots = resp.data;
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data added successfully!',  
+              });
           //this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
         })
         .catch((err) => {

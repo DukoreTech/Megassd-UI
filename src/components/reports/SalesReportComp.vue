@@ -90,27 +90,29 @@ export default {
             detailsorder:[],
         }
     },
+	
     mounted(){
         this.fetchData()
     },
+	watch: {
+            detailsorder(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
     methods:{
-		initialize()
-        {
-            setTimeout(() => {
-                    $('#datatable').dataTable( {
-                     paging: true,
-                    searching: true
-                  } );
+		
       
-        });
-    },
         fetchData() {
             axios.get(this.$store.state.baseurl + "getorderdetail",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.detailsorder =resp.data
-				this.initialize()
+				
                // this.$store.state.typeClients=resp.data
             })
             .catch(err => {
