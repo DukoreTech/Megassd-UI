@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import axios from "axios";
 export default {
   props:["modalActive"],
@@ -113,6 +114,11 @@ export default {
           this.form )
         .then((resp) => {
           this.stocks = resp.data;
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'data updated successfully!',  
+              });
           this.$emit('close')
          })
         .catch((err) => {

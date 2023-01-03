@@ -53,10 +53,10 @@
                                 <td>{{ stock.plein }} </td>
                                 <td>{{stock.date}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editStock(stock,stock.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editStock(stock,stock.id)" >
+                                    edit <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>
@@ -92,6 +92,22 @@ export default {
     mounted(){
         this.fetchData()
     },
+    watch: {
+        stocks(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $("#datatable").DataTable({
+            lengthMenu: [
+              [5,10, 25, 50, -1],
+              [5,10, 25, 50, "All"],
+            ],
+            pageLength: 5,
+          });
+               
+              });
+            }
+       },
     computed:{
         searchEvery(){
             return this.stocks.filter(val=>val.includes(this.search))
@@ -104,15 +120,7 @@ export default {
                     axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.stocks = resp.data
-                setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
-        });
+           
             })
             .catch(err => {
                 console.error(err)
