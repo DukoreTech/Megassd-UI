@@ -27,7 +27,7 @@
                               <tr>                    
                                 <th scope="col">Id</th>
                                 <th scope="col">Produit</th>
-                                <th scope="col">Lot</th>
+                                <th scope="col">prix d'achats</th>
                                <!--<th scope="col">Stock</th>--> 
                                 <th scope="col">Quantite</th>
                                 <th scope="col">TVA %</th>
@@ -42,7 +42,7 @@
                                <tr v-for="reception in receptions" :key="reception.id">
                                 <th scope="row">{{ reception.id }}</th>
                                 <td>{{ reception.products.name }} </td>
-                                <td>{{ reception.lot_id }} </td>
+                                <td>{{ reception.lot_id }}Fbu</td>
                                <!--<td>{{ reception.stock_id }} </td>--> 
                                 <td>{{ reception.quantity }} </td>            
                                 <td>{{ reception.tva }} </td>            
@@ -89,28 +89,35 @@ export default {
     },
     mounted(){
         this.fetchData()
+      
+        
     },
     computed:{
         searchEvery(){
             return this.receptions.filter(val=>val.includes(this.search))
             }
     },
+    
     methods:{
+        initialize()
+        {
+            setTimeout(() => {
+                    $('#datatable').dataTable( {
+                     paging: true,
+                    searching: true
+                  } );
+      
+        });
+
+        },
         fetchData() {
             axios.get(this.$store.state.baseurl + "reception",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.receptions = resp.data
-                setTimeout(() => {
-          $("#datatable").DataTable({
-            lengthMenu: [
-              [5,10, 25, 50, -1],
-              [5,10, 25, 50, "All"],
-            ],
-            pageLength: 5,
-          });
-        });
+                this.initialize()
+              
             })
             .catch(err => {
                 console.error(err)

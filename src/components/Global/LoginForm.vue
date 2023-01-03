@@ -1,15 +1,5 @@
 <template>
-
-<div class="alert alert-warning alert-dismissible fade show m-5" role="alert" v-if="errors.length > 0">
-  <strong>erros</strong><h6 v-for="error in errors" :key="error">
-  {{error}},
-</h6>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-
+<main style="background:linear-gradient(90deg, #C7C5F4, #776BCC);">
 
   <div class="container">
    
@@ -39,7 +29,7 @@
 		</div>		
 	</div>
 </div>
-
+</main>
 </template>
 
 <script>
@@ -79,7 +69,20 @@ else if(!this.validEmail(this.form.email)){
     this.errors.push('invalid amail');
 }
 
+if(this.errors.length > 0)
+{
+   
+        Swal.fire({
+               icon: 'error',
+               title: 'error',
+               text:  this.errors
+              });
+              this.errors=[]
+    
+}
+
 else{
+    
         axios.post(this.$store.state.baseurl + "login",this.form)
         .then( (response) =>{
     
@@ -131,14 +134,23 @@ else{
 	margin: 0;
 	padding: 0;	
 	font-family: Raleway, sans-serif;
+    
 }
 
+
+main{
+    
+
+
+}
 .container {
-    background: linear-gradient(90deg, #C7C5F4, #776BCC); 		
+    /*background: linear-gradient(90deg, #C7C5F4, #776BCC); 		*/
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
+    min-width: 100vh;
+    
 }
 
 .screen {		

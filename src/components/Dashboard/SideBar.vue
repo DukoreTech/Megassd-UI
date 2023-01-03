@@ -117,11 +117,7 @@
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Stock
                             </router-link>  
-                           <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
-                             aria-expanded="true" aria-controls="collapseStock">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Type de Stock
-                            </router-link>  
+                          
                         </div>
                     </div> 
     
@@ -147,7 +143,7 @@
                              <router-link :to="{name:'lot'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                                 aria-expanded="true" aria-controls="collapseReception">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Lot 
+                                  Prix de vente 
                              </router-link>          
                            <router-link :to="{name:'Reception'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                              aria-expanded="true" aria-controls="collapseReception">
@@ -182,16 +178,8 @@
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   Commande 
                              </router-link>          
-                           <router-link :to="{name:'Stock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
-                             aria-expanded="true" aria-controls="collapseVente">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Stock
-                            </router-link>  
-                           <router-link :to="{name:'TypeStock'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
-                             aria-expanded="true" aria-controls="collapseVente">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Type de Stock
-                            </router-link>  
+                           
+                             
                         </div>
                     </div> 
     
@@ -318,7 +306,8 @@ export default {
     cursor: pointer;
 }
 .label{
-    font-size: 18px;
+    font-size: 13px;
+    text-align: center;
 }
 span,.icon,.iconAngle{
     color: white;

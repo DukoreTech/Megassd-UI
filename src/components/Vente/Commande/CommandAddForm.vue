@@ -61,7 +61,7 @@
                 <form class="mb-5">
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Type paiement</label>
-                    <input type="number" id="typeText" class="form-control form-control-lg" siez="17"
+                    <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
                       v-model="paiement" minlength="19" maxlength="19" />
                   </div>
                   
@@ -150,7 +150,7 @@ export default {
             cart:[],
             stocksquant:[],
             error:'',
-            paiment:"bordereau",
+            paiement:"bordereau",
         }
     },
   

@@ -23,15 +23,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 #app{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50; 	
-  background: linear-gradient(90deg, #C7C5F4, #776BCC); 
+  
 }
+   /*body{
+    background: linear-gradient(90deg, #C7C5F4, #776BCC);
+
+}*/
+
 
 
 </style>

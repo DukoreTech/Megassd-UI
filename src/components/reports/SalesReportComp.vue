@@ -26,16 +26,15 @@
 									</p>
 								</div>
 								<div class="card-body">
-
 									<div class="table-responsive">
-										<table class="  table-stripped">
+										<table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
 											<thead>
 												<tr class="p-5">
 													<th>#</th>
 													<th>order_id</th>
 													<th>product_name</th>
 													
-													<th>product_id</th>
+													
 													<th>product_quantity</th>
                                                     <th>quantite_stock</th>
                                                     <th>Prix de vente</th>
@@ -49,8 +48,8 @@
 													<td>{{detail.id}}</td>	
 													<td>{{detail.order_id}}</td>
                                                     <td>{{detail.name}}</td>
-													<td>{{detail.product_id}}</td>
-													<td>{{detail.product_quantity}}</td>
+													
+													<td>{{detail.product_quantity}}Casier</td>
 													<td>{{detail.quantite_stock}}</td>
 													<td>{{detail.price_unitaire}}</td>
                                                     <td>{{detail.user_id}}</td>
@@ -79,6 +78,11 @@
 
 <script>
 import axios from 'axios'
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 export default {
     data()
     {
@@ -90,12 +94,23 @@ export default {
         this.fetchData()
     },
     methods:{
+		initialize()
+        {
+            setTimeout(() => {
+                    $('#datatable').dataTable( {
+                     paging: true,
+                    searching: true
+                  } );
+      
+        });
+    },
         fetchData() {
             axios.get(this.$store.state.baseurl + "getorderdetail",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.detailsorder =resp.data
+				this.initialize()
                // this.$store.state.typeClients=resp.data
             })
             .catch(err => {

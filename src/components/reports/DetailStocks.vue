@@ -26,19 +26,19 @@
 								<div class="card-body">
 
 									<div class="table-responsive">
-										<table class="datatable table table-stripped">
+										<table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th>product_name</th>
-													<th>Activity_Realisé</th>
-													<th>quantite sortie</th>
-													<th>quantite sortie</th>
-													<th>quantite_entre</th>
-                                                    <th>quantite_actuel</th>
-                                                    <th>stock_initial</th>
-                                                    <th>on date:</th>
-                                                    <th>done by:</th>
-													<th>Actions</th>
+													<th scope="col">product_name</th>
+													<th scope="col">Activity_Realisé</th>
+													<th scope="col">quantite sortie</th>
+													<th scope="col">quantite sortie</th>
+													<th scope="col">quantite_entre</th>
+                                                    <th scope="col">quantite_actuel</th>
+                                                    <th scope="col">stock_initial</th>
+                                                    <th scope="col">on date:</th>
+                                                    <th scope="col">done by:</th>
+													<th scope="col">Actions</th>
 												</tr>
 											</thead>
                                             <tbody>
@@ -51,7 +51,7 @@
                                                     <td>{{detail.quantite_actuel}}</td>
                                                     <td>{{detail.stock_quantite_initial	}}</td>
                                                     <td>{{detail.created_at	}}</td>
-                                                    <td>{{detail.user_id	}}</td>
+                                                    <td>{{detail.user_id}}</td>
                                                     <td>
 														<button class="btn-sm btn btn-primary">View</button>
 													</td>
@@ -75,6 +75,11 @@
 </template>
 
 <script>
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 import axios from 'axios'
 export default {
     data()
@@ -87,12 +92,24 @@ export default {
         this.fetchData()
     },
     methods:{
+        initialize()
+        {
+            setTimeout(() => {
+                    $('#datatable').dataTable( {
+                     paging: true,
+                    searching: true
+                  } );
+      
+        });
+    },
         fetchData() {
             axios.get(this.$store.state.baseurl + "getstockdetails",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.detailsstock = resp.data
+                console.log(this.detailsstock)
+                this.initialize();
                // this.$store.state.typeClients=resp.data
             })
             .catch(err => {

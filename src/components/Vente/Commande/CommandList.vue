@@ -2,7 +2,7 @@
 <div>
         <div> 
           <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="this.$router.push({name:'AddCommande'})">
+                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="this.$router.push({name:'lotExForm'})">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter command
                   </button>
@@ -39,18 +39,23 @@
                             <tbody>
                                <tr v-for="order in orders" :key="order.id">
                                 <th scope="row">{{ order.id }}</th>
-                                <td>{{ order.products}}</td>
+                                <td>{{JSON.parse(order.products)}}</td>
                                 <td>{{ order.total_amount}} </td>
                                 <td>{{ order.payed_amount}} </td>
-                                <td>{{ order.client_id}} </td>
+                                <td>{{ order.clients.nom}} </td>
                                 <td>{{ order.date_facturation}} </td>
-                                <td>{{order.status}}</td>            
-                                <td>{{ order.user_id}} </td>                       
+                                <td><span v-if="order.status==1" style="background:turquoise;color:white; padding:4px;">Payed</span><span style="background-color:#495057;color:white ;padding:4px;" 
+                                     v-if="order.status==0">Pending</span></td>            
+                                <td>{{ order.users.name}} </td>                       
                                 <td>
-                                    <button v-if="order.status==0" class="btn btn-sm btn-default m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>Confirm order
-                                    </button>
-                                    <button v-if="order.status==1" class="btn btn-sm btn-default" @click="modalActive = true,editReception(reception,reception.id)">
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>invoices
+                                    <router-link :to="{name:'InvoiceOrderView',params:{id:order.id}}" v-if="order.status==1" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
+                                        aria-expanded="true" aria-controls="collapseStock">
+                                        
+                                    Invoice
+                            </router-link> 
+                                    
+                                    <button v-if="order.status==0" class="btn btn-sm btn-primary" @click="editReception(reception,reception.id)">
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>confirm
                                     </button>
                                 </td>
                               </tr>
@@ -95,7 +100,8 @@ export default {
             this.$router.push({name:'AddCommande'})
         },
         fetchData() {
-            axios.get(this.$store.state.baseurl + "ventes")
+            axios.get(this.$store.state.baseurl + "ventes",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+                    axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.orders = resp.data
                 console.log(this.orders)

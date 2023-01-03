@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.adresses}}{{$store.state.IdEditAdresse}}</span>
 

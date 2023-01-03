@@ -12,10 +12,10 @@ import Select2 from 'vue3-select2-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import {faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons tPlus,o the library */
-library.add(faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt)
+library.add(faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers)
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"

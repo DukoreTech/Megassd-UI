@@ -15,8 +15,10 @@ import Commande from "@/views/CommandView.vue"
 import Location from "@/views/LocationView.vue"
 import Perte from "@/views/PerteView.vue"
 import AddCommande from "@/components/Vente/Commande/CommandAddForm.vue"
+import lotExForm from "@/components/Vente/Commande/lotExForm.vue"
 import salesreport from "@/views/SalesreportView.vue"
 import DetailStocksView from "@/views/DetailStocksView.vue"
+import InvoiceOrderView from"@/views/InvoiceOrderView.vue"
 
 const routes = [
 
@@ -34,10 +36,13 @@ const routes = [
  { path:'/Reception',name:'Reception',component:Reception },
  { path:'/Commande',name:'Commande',component:Commande },
  { path:'/AddCommande',name:'AddCommande',component:AddCommande },
+ { path:'/lotExForm',name:'lotExForm',component:lotExForm },
  { path:'/Location',name:'Location',component:Location },
  { path:'/Perte',name:'Perte',component:Perte },
  { path:'/salesreport',name:'salesreport',component:salesreport },
  { path:'/DetailStocksView',name:'DetailStocksView',component:DetailStocksView },
+ {path:'/InvoiceOrderView/:id',name:'InvoiceOrderView',component:InvoiceOrderView,props: true},
+
 
 ]
 
