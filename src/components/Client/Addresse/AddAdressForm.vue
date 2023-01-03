@@ -62,6 +62,7 @@ export default {
  },
 
   methods: {
+    
  
     saveInformation() {
       if (this.form[ "zone"]=="") return; 
@@ -76,8 +77,13 @@ export default {
         )
         .then((resp) => {
           this.adresses = resp.data;
-          this.form = { zone:"",description:""} 
+          this.form = {} 
           this.$store.state.adresses=resp.data
+          Swal.fire({
+               icon: 'success',
+               title: 'success',
+               text: 'address added successfully!',  
+              });
           
           })
         .catch((err) => {
@@ -90,15 +96,16 @@ export default {
           this.form)
         .then((resp) => {
           this.adresses = resp.data.data;
-          this.$store.state.adresses=resp.data.data
-          this.$emit('close')
           Swal.fire({
                icon: 'success',
                title: 'success',
-               text: 'address updated successfully!',  
+               text: 'data updated successfully!',  
               });
+          this.$emit('close')
+          
 
-          this.$store.state.IdEditAdresse=null
+          //this.$store.state.IdEditAdresse=null
+          
          })
         .catch((err) => {
           console.error(err.response.data.errors);

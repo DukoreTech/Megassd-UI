@@ -10,8 +10,8 @@
                         <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
                 </div>-->
              </div>  
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
-                    <add-form/>
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,fetchData()">
+                    <add-form  @close="modalActive = !modalActive"/>
                 </modal-component>
         </div>
 
@@ -76,9 +76,20 @@ export default {
         }
     },
     mounted(){
+
         this.fetchData()
+       
         
     },
+    watch: {
+ adresses(val) {
+    console.log(val)
+    $('#datatable').DataTable().destroy();
+    this.$nextTick(()=> {
+      $('#datatable').DataTable()
+    });
+  }
+},
     computed:{
         searchEvery(){
             return this.adresses.filter(val=>val.includes(this.search))
@@ -88,21 +99,19 @@ export default {
 
 
     methods:{
+        getall()
+        {
+
+        },
         fetchData() {
             console.log(this.$store.state.token)
-            axios.get(this.$store.state.baseurl + "Address",
+          axios.get(this.$store.state.baseurl + "Address",
           axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.token}`,
           axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
                 this.adresses = resp.data
                 this.$store.state.adresses=resp.data
-                setTimeout(() => {
-                    $('#datatable').dataTable( {
-                     paging: true,
-                    searching: true
-                  } );
-      
-        });
+              
         
             })
             .catch(err => {
