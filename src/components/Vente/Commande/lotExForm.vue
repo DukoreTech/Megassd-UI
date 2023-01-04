@@ -319,6 +319,7 @@ export default {
                title: ' success message ',
                text: 'order made with success'
               });
+              this.$router.push('/Commande')
          // this.form = { description:"",quantity:"",product_id:"",date_achat:"",lot_id:"",stock_id:"", tva:"",montant:"",montant_total:""} 
         })
         .catch((err) => {
