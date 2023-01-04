@@ -23,7 +23,7 @@
                  <label for="produit" class="">
                     <select  v-model="form.produit" aria-placeholder="produit" id="produit">
                         <option v-for="produit in produits" :key="produit.id" :value="produit.id" selected>
-                            {{ produit.nom }}
+                            {{ produit.name }}
                          </option>
                      </select>             
                   </label>
@@ -76,7 +76,7 @@ export default {
 
   methods: {
      getProduits() {
-      axios.get(this.$store.state.baseUrl + "/produits",
+      axios.get(this.$store.state.baseUrl + "/products",
       )
         .then(resp => {
           this.produits = resp.data

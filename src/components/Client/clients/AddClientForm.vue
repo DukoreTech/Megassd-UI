@@ -44,7 +44,7 @@
                  <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
                         <option v-for="typeClient in typeClients" :key="typeClient.id" selected>
-                            {{ typeClient.typeClient }}
+                            {{ typeClient.name }}
                          </option>
                      </select>             
                   </label>
@@ -128,7 +128,7 @@ export default {
 
     },
      getClientType() {
-      axios.get(this.$store.state.baseUrl + "/typeClients",
+      axios.get(this.$store.state.baseUrl + "/type_clients",
       )
         .then(resp => {
           this.typeClients = resp.data
