@@ -9,8 +9,8 @@
             <div class="col col1">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.stock" aria-placeholder="product_id" id="product_id">
-                        <option v-for="product in stocks" :key="product.id" :value="product" selected>
+                    <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                        <option v-for="product in stocks" :key="product.id" :value="product.product_id" selected>
                         {{ product.products.name }}
                         </option>
                     </select>             
@@ -23,18 +23,10 @@
                   </label>
                <span>{{ errors?.lot_id }}</span>  
                 <br>
-                <!--<span>stock</span>
-                 <label for="stock_id" class="d-block dateWidth">
-                    <select  v-model="form.stock_id" aria-placeholder="stock" id="stock_id">
-                        <option v-for="stock in stocks" :key="stock.id" :value="stock.id" selected>
-                        {{ stock.products.name }}
-                        </option>
-                    </select>             
-                  </label>
-               <span>{{ errors?.stock_id }}</span>-->
+              
 
                 <label for="quantity">
-                    <input type="number" id="quantity" @keyup="onChange" v-on:change="onChange" placeholder="quantity" v-model="form.quantity">
+                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
                     <span>Quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
@@ -44,9 +36,9 @@
             </div>
 
              <div class="col col2">
-                   <label for="tva" class="">
-                    <input type="number" step="0.01" id="tva" placeholder="tva" @keyup="onchangetva" v-on:change="onchangetva"   v-model="form.tva">
-                    <span>TVA (%)</span>
+                  <label for="tva" class="">
+                    <input type="number" step="0.01" id="tva" placeholder="tva" v-model="form.tva">
+                    <span>TVA(%)</span>
                 </label>
                 <span>{{ errors?.tva }}</span>
                 <label for="date_achat" class="d-block dateWidth">
@@ -59,7 +51,11 @@
                     <input type="text" id="montant" v-model="form.montant">
                     <span>Montant</span>
                 </label>
-                <span>{{ errors?.montant }}</span>     
+                <span>{{ errors?.montant }}</span> 
+                <label for="montant" class="">
+                    <input type="hidden" id="montant" v-model="form.stock_id">
+        
+                </label>    
 
                 <label for="montant_total" class="">
                     <input type="number" id="montant_total" placeholder="montant"  v-model="form.montant_total">
@@ -76,6 +72,7 @@
         </div>  
         <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
+        <button type="reset" class="btn btn-sm btn-danger float-end d-flex" >annuler</button>
     </form>
 </div>
 
@@ -110,6 +107,7 @@ export default {
       saveEditBtn:"Enregistrer",
     };
   },
+
     mounted(){
       this.getuser()
       this.getStocks()
@@ -130,17 +128,28 @@ export default {
         }
 
   }
- },
-  /*updated(){
-    if(this.$store.state.IdEditReception==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.receptions;
-        this.saveEditBtn="Modifier"
+  ,"form.lot_id"(val)
+  {
+    if(this.quantity!=0 || this.form.tva!=0)
+    {
+      this.onChange();
+      this.onchangetva();
+    }
+  }
+  ,"form.quantity"(val)
+  {
+    this.onChange()
+    if(this.form.tva!=0)
+      {
+        this.onchangetva()
       }
- 
-  },*/
+  }
+  ,"form.tva"(val)
+  {
+    this.onchangetva()
+  }
+ },
+
 
   methods: {
 
@@ -152,13 +161,12 @@ export default {
       const a=this.form.lot_id
       const b=this.form.quantity
       this.form.montant= a * b 
-    
-
     },
     onchangetva(){
-      const b=this.form.tva
-      const a=this.form.montant
-      this.form.montant_total= a * b 
+      const c=this.form.tva
+      const d=this.form.montant
+      this.form.montant_total= d * c
+      
       
       
 
@@ -189,16 +197,13 @@ export default {
     },
   
     saveInformation() {
+      console.log(this.$refs.product)
      
       if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
       
-      
+      let result= this.stocks.find((item) => item.id === this.form.product_id)
       //this.form.product_id=this.form.stock.product_id
       
-    
-       if(this.$store.state.IdEditReception==null){
-        let result= this.stocks.find((item) => item.id === this.form.stock.product_id)
-      console.log(this.result)
       if(this.form.quantity > result.vide)
       {
         Swal.fire({
@@ -206,13 +211,16 @@ export default {
                title: 'oups',
                text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result.vide,  
               });
-        
       }
       else{
-        this.form.product_id=this.form.stock.product_id
-             this.form.stock_id=this.form.stock.id,
-             console.log(this.form.stock_id)
 
+       if(this.$store.state.IdEditReception==null){
+        
+      console.log(this.result)
+     
+        //this.form.product_id=this.form.stock.product_id
+           this.form.stock_id=result.id,
+             console.log(this.form.stock_id)
         axios.post(
           this.$store.state.baseurl + "reception",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -232,21 +240,19 @@ export default {
           this.errors = err.response.data.errors;
         });
 
-      }
-
-            
-       }else{
+      }else{
          axios.patch(
           this.$store.state.baseurl+"reception/"+this.$store.state.IdEditReception,
           this.form )
         .then((resp) => {
           this.receptions = resp.data;
+          this.$emit('close')
           Swal.fire({
                icon: 'success',
                title: 'success',
                text: 'data updated successfully!',  
               });
-          this.$emit('close')
+          
          })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -258,9 +264,12 @@ export default {
       }
 }
  
-    }
-    
+},
+
+  }
 }
+    
+
 
 </script>
 
