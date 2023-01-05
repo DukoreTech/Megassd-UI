@@ -1,12 +1,66 @@
 <template>
    <div class="container">
+    <div class="page-header ">
+						<div class="row texx-white">
+							<div class="col">
+								<h3 class="page-title">Ventes</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
+									<li class="breadcrumb-item active">Ajouter commandes</li>
+								</ul>
+							</div>
+						</div>
+	</div>
        <div class="row justify-content-center mt-5">
            <div class="col-md-12">
-               <form class="" @submit.prevent="envoyer()" >
-               <table class="table table-bordered table-striped table-responsive">
+             <form class="" @submit.prevent="envoyer()" >
+                <table class="table table-bordered table-striped table-responsive">
                    <thead class="thead-dark">
-                    <p>Product info</p>
-                       <tr>
+                    
+                    <p class="m-4">Ajouter des produits</p>
+                   <tr>
+                    <th> produits</th>
+                    <th>Quantité</th>
+                    <th>Action</th>
+                    <th>au:client</th>
+                    <th> Numero Bordereau</th>
+                    <th>Montant sur bordereau</th>
+                    <th>montant supplementaire</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                    <tr>
+                    
+                    <td>
+                        <div class="form-group">                            
+                        <select  v-model="form.product" name="produit_id" class="form-control">
+                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
+                        </select>
+
+
+                        </div>
+                    </td>
+                    <td><input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite"></td>
+
+                    <td><a class="btn btn-success btn-block" @click="ajouter">Ajouter</a></td>
+                    
+                    <td>
+
+                     <select v-model="form.client"  name="produit_id" class="form-control">
+                            <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
+                     </select>
+                     <span class="error">{{ errors?.client_id}}</span>
+                    </td>
+                    <td><input type="text" aria-required="required" class="form-control" v-model="form.nbbordereau">
+                        <span class="error">{{ errors?.num_bordereau}}</span>
+                    </td>
+                    <td><input type="number" class="form-control" v-model="form.montant_paye">
+                        <span class="error">{{ errors?.payed_amount}}</span>
+                    </td>
+                    <td><input type="number" class="form-control" v-model="form.montantsup"></td>
+                </tr>
+                    <p class="m-4">Panier</p>
+                    <tr>
                            <th scope="col">Produit</th>
                            <th scope="col">Quantité</th>
                            <th scope="col">montant</th>
@@ -16,22 +70,15 @@
                            <th scope="col">Nbbordereau</th>
                            <th scope="col">montant payé</th>
                        </tr>
-                       
-
-                   </thead>
-                   <tbody>
                    <tr v-for="(commande, index) in commandes" :key="commande.index">
-                       <td>{{ commande.product_id }}</td>
+                       <td>{{ commande.product_name }}</td>
                        <td>{{ commande.product_quantity }}</td>
                        <td>{{ commande.amount }}</td>
                        <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }}F</td>
                        <td class="d-flex"><a class="btn btn-info btn-block" @click="modifier(index)">Modifier</a>
-                      <a class="btn btn-warning btn-block" @click="supprimer(index)">Poubelle</a></td>
+                      <a class="btn btn-danger btn-block" @click="supprimer(index)">supprimer</a></td>
                       
-                   </tr>
-                   <p class="m-4">Total Amount</p>
-                   
-
+                       </tr>
                    <tr>
                     
                        <td colspan="3"></td>
@@ -42,50 +89,11 @@
                        <td>{{form.montant_paye}}</td>
                        
                    </tr>
-                   <p>Product Form</p>
-                   <tr>
-                    
-                    <th>select product</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                    <th>To:client</th>
-                    <th> Numero Bordereau</th>
-                    <th>Montant sur bordereau</th>
-                    <th>montant supplementaire</th>
+                   
 
-
-                   </tr>
-
-                   <tr>
-                    
-                    
-
-                       <td>
-                           <div class="form-group">                            
-                           <select v-model="form.product" name="produit_id" class="form-control">
-                               <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
-                           </select>
-
-                           </div>
-                       </td>
-                       <td><input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite"></td>
-
-                       <td><a class="btn btn-primary btn-block" @click="ajouter">Ajouter</a></td>
-                       
-                       <td>
-
-                        <select v-model="form.client" v-on:change="getprice" name="produit_id" class="form-control">
-                               <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
-                        </select>
-                       </td>
-                       <td><input type="number" class="form-control" v-model="form.nbbordereau"></td>
-                       <td><input type="number" class="form-control" v-model="form.montant_paye"></td>
-                       <td><input type="number" class="form-control" v-model="form.montantsup"></td>
-                   </tr>
+                  
                    </tbody>
                    <tfoot class="d-flex justify_content_around mt-5">
-                   
-                   
                    <button class="button btn btn-xs btn-success" type="submit">Valider</button>
                    </tfoot>
                </table>
@@ -114,13 +122,7 @@
                    </tr>
                    </tbody>
                </table>
-               <div class="panel-footer">
-                   &nbsp;
-                   <div class="btn-group">
-                       <a class="button btn btn-xs btn-success" @click="toutRetablir">Tout rétablir</a>
-                       <a class="button btn btn-xs btn-danger" @click="toutEliminer">Tout supprimer</a>
-                   </div>
-               </div>
+               
            </div>
            </div>            
        </div>
@@ -136,13 +138,14 @@ export default {
             poubelle: [], 
             produits: [], 
             clients:{},
+            errors:{},
             
             lots:{},
             form: {                                  
                 product : '',                    
                 quantite : '',                    
                 montant: '',  
-                client:'', 
+                client:this.$store.state.selectClient_id, 
                 client_name:'',
                 montant_paye:'',
                 nbbordereau:'',
@@ -152,16 +155,21 @@ export default {
             }
 
         },
-    
+        watch: {
+        "form.client"(val) {
+            console.log(val)
+            this.form.client=val
+              this.getprice();
+            }
+       },
         computed:{
       
       totalMontant(){
-        let sum=0;
-        
+        let sum=0;   
         //this.stocks.price=price
-
         this.commandes.map(e =>{
-           sum+= (e.product_quantity * e.amount)+this.form.montantsup;
+          let prod= (e.product_quantity * e.amount);
+          sum=prod+this.form.montantsup
           console.log(e)
           //console.log(sum)
 
@@ -186,7 +194,7 @@ export default {
                 
                 this.produits=resp.data
     
-                this.produits.forEach(function(item){item.price = 12000});
+                //this.produits.forEach(function(item){item.price = 12000});
 
                /* for (let index = 0; index < resp.data.length; index++) {
                   const quantity = resp.data[index].plein;
@@ -256,12 +264,21 @@ export default {
             
         ajouter() {
             console.log(this.produits)
+            
             let result= this.produits.find((item) => item.id === this.form.product.product_id)
                 if(this.form.quantite < result.plein){
-                this.commandes.push({product_id: this.form.product.product_id, product_quantity: this.form.quantite, amount: this.form.montant , product_name:this.form.product.products.name});
-               // this.form = {};
+            let exist=this.commandes.find((item)=>item.product_id===this.form.product.product_id)
+            if(exist)
+            {
+                exist.product_quantity+=this.form.quantite
+            }
+            else{
+                this.commandes.push({product_id: this.form.product.product_id, product_quantity: this.form.quantite, amount: this.form.montant , product_name:this.form.product.products.name});   
                 console.log(this.commandes)
+                this.getprice()
+                 // this.form = {};
                // this.commandes.sort(ordonner);
+                }
                 }
               
                 else{
@@ -282,7 +299,7 @@ export default {
 
             modifier(index) {
                 this.form.produit_id = this.commandes[index].product_id;
-                this.form.quantite = this.commandes[index].quantite;
+                this.form.quantite = this.commandes[index].product_quantity;
                 this.form.montant = this.commandes[index].montant;
                 this.commandes.splice(index, 1);
             },
@@ -293,7 +310,19 @@ export default {
                 this.poubelle.sort(ordonner);
             },
             envoyer() {
-                const v = {
+
+    if(this.form.montant_paye > this.totalMontant)
+    {
+        Swal.fire({
+               icon: 'error',
+               title: ' verifier ',
+               text: 'le montant paye ne peut pas depasser le total montant' 
+              }); 
+    }
+    else{
+
+    
+    const v = {
       products : this.commandes,
       client_id: this.form.client.id,
       num_bordereau:this.form.nbbordereau,
@@ -301,6 +330,7 @@ export default {
       total_amount:this.totalMontant,
       montantsup:this.form.montantsup
     }
+    
     console.log(v)
 
     axios.post(
@@ -326,13 +356,12 @@ export default {
             Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'something wrong  try again!'+ ""+ err.response.data.data 
+               text: 'something wrong  try again!'+ ""+ err.response.data.errors
               });
-          
-        
-          console.error(err.response.data.errors);
+          console.log(err.response.data);
           this.errors = err.response.data.errors;
-        })       
+        }) 
+    }      
             }, 
             eliminer(index)
             {
@@ -342,6 +371,7 @@ export default {
     },
     
     }
+
     var ordonner = function (a, b) {
         return (a.commande.toUpperCase() > b.commande.toUpperCase())
     };

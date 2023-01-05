@@ -39,7 +39,13 @@
                             <tbody>
                                <tr v-for="order in orders" :key="order.id">
                                 <th scope="row">{{ order.id }}</th>
-                                <td>{{JSON.parse(order.products)}}</td>
+                                <td>
+                                    <div v-for="val in JSON.parse(order.products)" :key="val">
+                                        {{ val.product_name }}
+                                    
+                                    </div>
+                                    
+                                </td>
                                 <td>{{ order.total_amount}} </td>
                                 <td>{{ order.payed_amount}} </td>
                                 <td>{{ order.clients.nom}} </td>
