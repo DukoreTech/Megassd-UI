@@ -31,6 +31,7 @@
                                 <th scope="col">Paied Amount</th>
                                 <th scope="col">To:client</th>
                                 <th scope="col">Date effectue</th>
+                                <th scope="col">Date confirmer</th>
                                 <th scope="col">status</th>
                                 <th scope="col">Added by</th>
                                 <th scope="col">Actions</th>
@@ -42,7 +43,6 @@
                                 <td>
                                     <div v-for="val in JSON.parse(order.products)" :key="val">
                                         {{ val.product_name }}
-                                    
                                     </div>
                                     
                                 </td>
@@ -50,17 +50,19 @@
                                 <td>{{ order.payed_amount}} </td>
                                 <td>{{ order.clients.nom}} </td>
                                 <td>{{ order.date_facturation}} </td>
+                                <td>{{ order.updated_at}}</td>
                                 <td><span v-if="order.status==1" style="background:turquoise;color:white; padding:4px;">Payed</span><span style="background-color:#495057;color:white ;padding:4px;" 
                                      v-if="order.status==0">Pending</span></td>            
                                 <td>{{ order.users.name}} </td>                       
                                 <td>
-                                    <router-link :to="{name:'InvoiceOrderView',params:{id:order.id}}" v-if="order.status==1" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
-                                        aria-expanded="true" aria-controls="collapseStock">
-                                        
-                                    Invoice
-                            </router-link> 
                                     
-                                    <button v-if="order.status==0" class="btn btn-sm btn-primary" @click="editReception(reception,reception.id)">
+                                       <router-link :to="{name:'InvoiceOrderView',params:{id:order.id}}" v-if="order.status==1" class="nav-link collapsed bg-success text-white" data-toggle="collapse" data-target="#collapseStock"
+                                        aria-expanded="true" aria-controls="collapseStock">view Invoice</router-link>
+                                         
+                                      
+                                     
+                                    
+                                    <button v-if="order.status==0" class="btn btn-sm btn-primary" @click="confirmpayment(order)">
                                     <font-awesome-icon icon="fa-solid fa-edit"/>confirm
                                     </button>
                                 </td>
@@ -75,6 +77,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -127,15 +130,37 @@ export default {
                 console.error(err)
             })
         },
-        deleteReception(id) {
-            axios.delete(this.$store.state.baseUrl + "/receptions/" + id)
-            .then(resp => {
-                this.receptions = resp.data
-                this.fetchData()
-            })
+        confirmpayment(order) {
+
+           let form={
+                payed_amount:order.total_amount,
+                status:1
+            }
+            Swal.fire({
+                icon:'info',
+                title: 'en cliquant sur confirmez vous confirmez que le montant total a ete payé',
+            // showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'confirmer'
+             })
+            .then((result) => {
+                if (result.isConfirmed) {
+        axios.patch(
+          this.$store.state.baseurl + "ventes/"+order.id,
+          form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json` )
+        .then((resp) => {
+            this.orders=resp.data
+            this.fetchData()
+        })
             .catch(err => {
                 console.error(err)
             })
+
+                }
+
+            });
+
             
         },
 
@@ -153,5 +178,6 @@ export default {
     .ajout{
         color: white;
     }
+  
 
 </style>

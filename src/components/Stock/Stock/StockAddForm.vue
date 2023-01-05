@@ -32,9 +32,9 @@
                     <span>Quantite Vide</span>
                  </label>
                 <span>{{ errors?.Quantite }}</span>
-                <label for="Quantite">
-                    <input type="text" disabled v-model="form.user_id">
-                    <span>User_id</span>
+                <label for="Quantite" >
+                    <input type="hidden" disabled v-model="form.user_id">
+                    
                  </label>
                 
         <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>

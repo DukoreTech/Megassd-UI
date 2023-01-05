@@ -80,7 +80,7 @@
 													</thead>
 													<tbody>
 													   <tr v-for="item in products[0]" :key="item.product_id">
-															<td>{{item.product_id}}</td>
+															<td>{{item.product_name}}</td>
 															<td class="text-center">{{item.product_quantity}}</td>
 															<td class="text-right">{{item.amount}}Fbu</td>
 														</tr>
