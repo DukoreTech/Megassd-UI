@@ -5,7 +5,10 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="navbar-toggler-icon rounded-circle border-0"></span>
                 </button>
-                <div class="navbar-brand">MEGA S.S.D</div>
+                <div class="navbar-brand">
+                    <img class="rounded-circle  mx-auto img " src="@/assets/logo.png">
+                    MEGA S.S.D
+                </div>
                 <div class="collapse navbar-collapse justify-content-end " id="navbarNavDropdown">
                 <div class="navbar-nav">
 
@@ -71,7 +74,7 @@ export default {
 </script>
 
 <style scoped>
-img{
+img,.img{
     width:25px;
     height:25px;
 }
