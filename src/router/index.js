@@ -20,6 +20,7 @@ import salesreport from "@/views/SalesreportView.vue"
 import DetailStocksView from "@/views/DetailStocksView.vue"
 import InvoiceOrderView from"@/views/InvoiceOrderView.vue"
 import AllinVoiceView from "@/views/AllinVoiceView.vue"
+import DetailsStocksView from "@/views/DetailsStocksView.vue"
 
 const routes = [
 
@@ -42,10 +43,9 @@ const routes = [
  { path:'/Perte',name:'Perte',component:Perte },
  { path:'/salesreport',name:'salesreport',component:salesreport },
  { path:'/DetailStocksView',name:'DetailStocksView',component:DetailStocksView },
+ { path:'/DetailsStocksView',name:'DetailsStocksView',component:DetailsStocksView },
  { path:'/AllinVoiceView',name:'AllinVoiceView',component:AllinVoiceView },
  {path:'/InvoiceOrderView/:id',name:'InvoiceOrderView',component:InvoiceOrderView,props: true},
-
-
 ]
 
 const router = createRouter({

@@ -72,7 +72,7 @@
         </div>  
         <!-- <button type="button">Register</button> -->
         <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
-        <button type="reset" class="btn btn-sm btn-danger float-end d-flex" >annuler</button>
+       
     </form>
 </div>
 
@@ -98,7 +98,6 @@ export default {
         montant:0,
         description:"",
         user_id:""
-    
       },
       errors: {},
       receptions:[],
@@ -215,9 +214,7 @@ export default {
       else{
 
        if(this.$store.state.IdEditReception==null){
-        
-      console.log(this.result)
-     
+       console.log(this.result)
         //this.form.product_id=this.form.stock.product_id
            this.form.stock_id=result.id,
              console.log(this.form.stock_id)

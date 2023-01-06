@@ -49,8 +49,8 @@
                                 <td>{{ reception.montant_total }} </td>            
                                 <td>{{ reception.description }} </td>            
                                 <td>
-                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    delete</button>
+                                   <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    delete</button>-->
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editReception(reception,reception.id)" >
                                     <font-awesome-icon icon="fa-solid fa-edit"/>edit
                                     </button>

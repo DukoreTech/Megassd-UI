@@ -102,7 +102,6 @@ export default {
     };
   },
     mounted(){
-      this.getuser()
       this.getAdresse()
       this.getClientType()
       
@@ -122,17 +121,7 @@ export default {
 },
 
   methods: {
-    getuser(){
-
-axios.get(`${this.$store.state.baseurl}user`
-,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
-this.$store.commit('userinfo',JSON.stringify(response.data.id))
-this.form.user_id=response.data.id
-console.log(this.form.user_id)
-
-});
-    },
+   
 
     getAdresse() {
       axios.get(this.$store.state.baseurl + "Address",
@@ -168,8 +157,9 @@ console.log(this.form.user_id)
        if(this.$store.state.IdEditClient==null){
              
         axios.post(
-          this.$store.state.baseurl + "client",
-          this.form
+          this.$store.state.baseurl + "client",  this.form, axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+          axios.defaults.headers.common['Accept'] = `Application/json`
+        
         )
         .then((resp) => {
           this.clients = resp.data;
@@ -180,7 +170,7 @@ console.log(this.form.user_id)
                title: 'success',
                text: 'data added successfully!',  
               });
-          this.getuser() 
+         // this.getuser() 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -192,12 +182,13 @@ console.log(this.form.user_id)
           this.form )
         .then((resp) => {
           this.clients = resp.data;
+         // this.$emit('close')
           Swal.fire({
                icon: 'success',
                title: 'success',
                text: 'data updated successfully!',  
               });
-          this.$emit('close')
+          
          })
         .catch((err) => {
           console.error(err.response.data.errors);

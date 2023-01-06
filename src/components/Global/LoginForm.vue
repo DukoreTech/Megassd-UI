@@ -137,12 +137,6 @@ else{
     
 }
 
-
-main{
-    
-
-
-}
 .container {
     /*background: linear-gradient(90deg, #C7C5F4, #776BCC); 		*/
 	display: flex;
@@ -150,6 +144,7 @@ main{
 	justify-content: center;
 	min-height: 100vh;
     min-width: 100vh;
+	
     
 }
 

@@ -245,6 +245,11 @@
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                               stock details
                             </router-link>  
+                            <router-link :to="{name:'DetailsStocksView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                             aria-expanded="true" aria-controls="collapseVente">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                              details des vides
+                            </router-link> 
                            <router-link :to="{name:'AllinVoiceView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
