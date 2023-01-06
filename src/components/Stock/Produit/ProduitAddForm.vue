@@ -1,4 +1,9 @@
 <template>
+  <div class="form">
+    <div class="d-flex">
+      <span class="mx-auto h3 title">Produit</span>
+      <span @click="close" class="h2 close ">x</span>
+    </div>
   <span class="d-none">{{$store.state.products}}{{$store.state.IdEditProduit}}</span>
     <!-- retrieve data -->
    <div class="register">
@@ -27,14 +32,18 @@
                 <span>Nombres des Bouteilles</span>
              </label>
              <span>{{ errors?.nombre_bouteille }}</span>
-             <label for="nombre_bouteille">
+             <!-- <label for="nombre_bouteille">
               <input type="text" v-model="form.user_id" >
                 <span>User_id</span>
                 
-             </label>
-            <button type="submit" @click="saveInformation" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
-        </form>
+             </label> -->
+             <div class="d-flex justify-content-around">
+              <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+              <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+            </div>
+          </form>
     </div>
+  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -93,7 +102,10 @@ export default{
   },
   
   methods:{
-    
+
+    close(){
+      this.$emit('close')
+    },   
     saveInformation() {
           if (this.form["unite_mesure","caisse","name"]=="") return; 
     
@@ -159,81 +171,79 @@ export default{
 }
 </script>
 <style  scoped>
-    
-      *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-    }
-    body{
-        min-height:100vh;
-        display:grid;
-        place-content:center;
-        font-family:sans-serif;
-        color:#6b6b6b;
-     
-    }
-    form{
-        width:90vw;
-        max-width:768px;
-        /* border:1px solid #ddd; */
-        padding:3vw;
-        display:flex;
-        flex-direction:column;
-        border-radius:5px;
-    }
-    
-    label{
-        margin-bottom:15px;
-        position:relative;
-        border-bottom:1px solid #ddd;
-    }
-    input,select{
-        width:100%;
-        padding:10px 0px;
-        margin-top:20px;
-        border:none;
-        outline:none;
-    }
-    input::placeholder{
-        opacity:0;
-    }
-    
-    select::placeholder{
-        opacity:0;
-    }
-    label span{
-        position:absolute;
-        top:0;
-        left:0;
-        transform:translateY(30px);
-        font-size:0.825em;
-        transition-duration:300ms;
-    }
-     span{
-        position:relative;
-        bottom:10;
-        left:0;
-        transform:translateY(10px);
-        font-size:0.825em;
-    }
-    button{
-        padding:15px 0px; 
-        margin-top:20px;
-        background:rgb(75, 126, 160);
-        color:#fff;
-        cursor:pointer;
-        border-radius:3px;
-        width: 100px;
-        float:right;
-    }
-    label:focus-within > span,
-    input:not(:placeholder-shown) + span{
-        color:purple;
-        transform:translateY(0px);
-    }
-    .dateWidth{
-        width: 60%;
-    }
-    
+ .title{
+  font-weight: bolder;
+  font-size: 20px;
+}
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
+}
+form{
+    width:30vw;
+    max-width:768px;
+    font-family:sans-serif;
+    padding:0 3vw;
+    display:flex;
+    flex-direction:column;
+    border-radius:5px;
+}
+
+label{
+    margin-bottom:15px;
+    position:relative;
+    border-bottom:1px solid #ddd;
+}
+input,select,textarea{
+    width:100%;
+    padding:10px 0px;
+    margin-top:20px;
+    border:none;
+    outline:none;
+}
+
+input::placeholder{
+    opacity:0;
+}
+.error{
+  color: red;
+}
+
+select::placeholder{
+    opacity:0;
+}
+textarea::placeholder{
+    opacity:0;
+}
+label span{
+    position:absolute;
+    top:0;
+    left:0;
+    transform:translateY(30px);
+    font-size:0.825em;
+    transition-duration:300ms;
+}
+ span{
+    position:relative;
+    bottom:10;
+    left:0;
+    transform:translateY(10px);
+    font-size:0.825em;
+}
+button{
+    padding:5px 0px; 
+    margin-top:20px;
+    color:#fff;
+    cursor:pointer;
+    border-radius:3px;
+    width: 100px;
+    float:right;
+}
+label:focus-within > span,
+input:not(:placeholder-shown) + span{
+    color:purple;
+    transform:translateY(0px);
+}
     </style>

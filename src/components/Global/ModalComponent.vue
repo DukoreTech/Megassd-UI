@@ -3,7 +3,7 @@
         <div v-show="modalActive" class="modal">
             <transition name="modal-animation-inner">
                 <div v-show="modalActive" class="modal-inner">
-                    <span @click="close" class="h2 close ">x</span>
+                    <!-- <span @click="close" class="h2 close ">x</span> -->
                     <slot/>    
                 </div>
             </transition>
@@ -44,7 +44,7 @@ export default {
     width:min-content;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     background-color: #fff;
-    padding: 20px 6px;
+    padding:0px 0px 30px 0px;
 }
 
 .modal-animation-enter-active,

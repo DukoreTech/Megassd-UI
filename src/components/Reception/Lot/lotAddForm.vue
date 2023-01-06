@@ -1,12 +1,16 @@
 <template>
-<div>
+<div class="form">
+  <div class="d-flex">
+      <span class="mx-auto h3 title">Prix de vente</span>
+      <span @click="close" class="h2 close ">x</span>
+  </div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.lots}}{{$store.state.IdEditLot}}</span>
 <!-- retrieve data -->
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
-            <div class="col-6">
+            <div class="col">
                 <label for="name">
                     <input type="text" id="name" placeholder="name" v-model="form.name">
                     <span>name</span>
@@ -30,20 +34,16 @@
                         </option>
                     </select>             
                 </label>
-                
-         
-               
-                 
 
-                <!--<label for="quantity" class="">
-                    <input type="text" id="quantity"  v-model="form.quantity">
-                    <span>Quantity</span>
-                </label>
-                <span>{{ errors?.quantity }}</span>-->
-                
             </div>
 
-             <div class="col-6">
+             <div class="col">
+              <label for="price_vente">
+                    <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
+                    <span>Prix de vente</span>
+                </label>
+                <span>{{ errors?.price_vente }}</span> 
+                  <br>
               <span>type client</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
@@ -51,13 +51,8 @@
                         {{ client.name }}
                         </option>
                     </select>             
-               </label>
-                 <label for="price_vente">
-                    <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
-                    <span>Prix de vente</span>
-                </label>
-                <span>{{ errors?.price_vente }}</span>  
-                    <br>
+               </label> 
+
                <span>Description</span><br>
                 <label for="description">
                     <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
@@ -65,8 +60,15 @@
                 <span>{{ errors?.description }}</span>
          </div>
         </div>  
+        <div class="d-flex justify-content-around">
+          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+        </div>
         <!-- <button type="button">Register</button> -->
-        <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
+        <div class="d-flex justify-content-around">
+          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+        </div>
     </form>
 </div>
 
@@ -97,7 +99,7 @@ export default {
       errors: {},
       products:[],
       lots:[],
-      saveEditBtn:"Enregistrer",
+      saveEditBtn:"Ajouter",
       typeClients:[]
     };
   },
@@ -113,7 +115,7 @@ export default {
     if(this.$store.state.IdEditLot==null){
       this.getuser()
          this.form={};
-         this.saveEditBtn="Enregistrer"
+         this.saveEditBtn="Ajouter"
 
         }else{
           
@@ -160,7 +162,9 @@ export default {
                 console.error(err)
             })
         },
-
+        close(){
+      this.$emit('close')
+    }, 
         saveInformation() {
       if (this.form["product_id","price_vente","quantity","name"]=="") return; 
 
@@ -223,28 +227,25 @@ export default {
 </script>
 
 <style  scoped>
-
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.title{
+  font-weight: bolder;
+  font-size: 20px;
 }
-body{
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-    font-family:sans-serif;
-    color:#6b6b6b;
- 
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
 }
 form{
-    width:90vw;
+    width:45vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
-    padding:3vw;
+    font-family:sans-serif;
+    padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
+    margin-left:20px;
 }
 
 label{
@@ -259,8 +260,12 @@ input,select,textarea{
     border:none;
     outline:none;
 }
+
 input::placeholder{
     opacity:0;
+}
+.error{
+  color: red;
 }
 
 select::placeholder{
@@ -285,9 +290,8 @@ label span{
     font-size:0.825em;
 }
 button{
-    padding:15px 0px; 
+    padding:5px 0px; 
     margin-top:20px;
-    background:rgb(75, 126, 160);
     color:#fff;
     cursor:pointer;
     border-radius:3px;
@@ -300,7 +304,7 @@ input:not(:placeholder-shown) + span{
     transform:translateY(0px);
 }
 .dateWidth{
-    width: 60%;
+    width: 80%;
 }
 
 </style>

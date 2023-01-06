@@ -2,13 +2,10 @@
 <div>
         <div>      
             <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditTypClient=null">
+                <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditTypClient=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter type de Client
                   </button>
-                <div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
              </div>   
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
                     <add-form @close="modalActive = !modalActive"/>

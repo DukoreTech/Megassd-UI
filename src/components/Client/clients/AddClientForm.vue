@@ -1,45 +1,23 @@
 <template>
-<div>
+<div class="form">
+ <div class="d-flex">
+  <span class="mx-auto h3 title">Client</span>
+  <span @click="close" class="h2 close ">x</span>
+  </div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.clients}}{{$store.state.IdEditClient}}</span>
 <!-- retrieve data -->
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
-            <div class="col-6">
+            <div class="col">
+
                 <label for="nom">
                     <input type="text" id="nom" placeholder="nom" v-model="form.nom">
                     <span>Nom</span>
                 </label>
                 <span class="error">{{ errors?.nom }}</span>
-
-                <!--<label for="prenom">
-                    <input type="text" id="prenom" placeholder="prenom" v-model="form.prenom">
-                    <span>Proprietaire</span>
-                </label>
-                <span>{{ errors?.prenom }}</span>
-
-                <label for="assujet_tva" class="">
-                    <input type="text" id="assujet_tva"  v-model="form.assujet_tva">
-                    <span>TVA (%)</span>
-                </label>
-                <span>{{ errors?.assujet_tva }}</span>-->
-
-             <label for="telephone">
-                    <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
-                    <span>Telephone</span>
-                </label>
-                <span class="error">{{ errors?.telephone }}</span>
-                
-            </div>
-
-             <div class="col-6">
-                <!---<label for="nif">
-                    <input type="text" id="nif" placeholder="Nif" v-model="form.nif">
-                    <span>Nif</span>
-                </label>
-                <span>{{ errors?.nif }}</span>
-                    <br>--> 
+                  <br>
                 <span>Type de client</span>
                  <label for="typeClient" class="d-block dateWidth">
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
@@ -49,7 +27,17 @@
                      </select>             
                   </label>
                 <span class="error">{{ errors?.type_client_id}}</span>
-                <br>
+                
+                <button type="submit" class="btn btn-sm btn-danger float-start" >{{saveEditBtn}}</button>
+            </div>
+
+             <div class="col">
+              <label for="telephone">
+                        <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
+                        <span>Telephone</span>
+                  </label>
+                <span class="error">{{ errors?.telephone }}</span> 
+                 <br>
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
                     <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse">
@@ -59,16 +47,9 @@
                     </select>             
               </label>
                <span class="error">{{ errors?.address_id }}</span>       
-
-               <!--<span>Description</span><br>
-                <label for="description">
-                    <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
-                </label>
-                <span>{{ errors?.description }}</span>--> 
+               <button type="reset" class="btn btn-sm btn-primary float-start" >vider</button>
          </div>
         </div>  
-        <!-- <button type="button">Register</button> -->
-        <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
     </form>
 </div>
 
@@ -98,7 +79,7 @@ export default {
       clients:[],
       adresses:[],
       typeClients:[],
-      saveEditBtn:"Enregistrer",
+      saveEditBtn:"Ajouter",
     };
   },
     mounted(){
@@ -111,7 +92,7 @@ export default {
     console.log(a)
     if(this.$store.state.IdEditClient==null){
         this.form={};
-        this.saveEditBtn="Enregistrer"
+        this.saveEditBtn="Ajouter"
       }else{
          this.form=this.$store.state.clients;
         this.saveEditBtn="Modifier"
@@ -122,7 +103,9 @@ export default {
 
   methods: {
    
-
+    close(){
+      this.$emit('close')
+    },
     getAdresse() {
       axios.get(this.$store.state.baseurl + "Address",
       axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -204,28 +187,25 @@ export default {
 </script>
 
 <style  scoped>
-
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.title{
+  font-weight: bolder;
+  font-size: 20px;
 }
-body{
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-    font-family:sans-serif;
-    color:#6b6b6b;
- 
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
 }
 form{
-    width:90vw;
+    width:45vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
-    padding:3vw;
+    font-family:sans-serif;
+    padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
+    margin-left:20px;
 }
 
 label{
@@ -270,9 +250,8 @@ label span{
     font-size:0.825em;
 }
 button{
-    padding:15px 0px; 
+    padding:5px 0px; 
     margin-top:20px;
-    background:rgb(75, 126, 160);
     color:#fff;
     cursor:pointer;
     border-radius:3px;
@@ -285,7 +264,7 @@ input:not(:placeholder-shown) + span{
     transform:translateY(0px);
 }
 .dateWidth{
-    width: 60%;
+    width: 80%;
 }
 
 </style>

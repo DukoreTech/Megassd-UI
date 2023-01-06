@@ -1,15 +1,19 @@
 <template>
-<div>
+ <div class="form">
+    <div class="d-flex">
+        <span class="mx-auto h3 title">Reception</span>
+        <span @click="close" class="h2 close ">x</span>
+      </div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.receptions}}{{$store.state.IdEditReception}}</span>
 <!-- retrieve data -->
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <div class="d-flex">
-            <div class="col col1">
+            <div class="col">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                    <select  v-model="form.product_id"  id="product_id">
                         <option v-for="product in stocks" :key="product.id" :value="product.product_id" selected>
                         {{ product.products.name }}
                         </option>
@@ -17,9 +21,9 @@
                   </label>
                <span>{{ errors?.product_id }}</span>  
                  <br>
-                 <span>Price</span>
                  <label for="lot_id" class="d-block dateWidth">
-                    <input type="number" v-model="form.lot_id">
+                   <input type="number" v-model="form.lot_id" placeholder="price">
+                   <span>Price</span>
                   </label>
                <span>{{ errors?.lot_id }}</span>  
                 <br>
@@ -30,17 +34,19 @@
                     <span>Quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
-
-              
-                
-            </div>
-
-             <div class="col col2">
-                  <label for="tva" class="">
+                <label for="tva" class="">
                     <input type="number" step="0.01" id="tva" placeholder="tva" v-model="form.tva">
                     <span>TVA(%)</span>
                 </label>
                 <span>{{ errors?.tva }}</span>
+            </div>
+
+             <div class="col">
+                  <!-- <label for="tva" class="">
+                    <input type="number" step="0.01" id="tva" placeholder="tva" v-model="form.tva">
+                    <span>TVA(%)</span>
+                </label>
+                <span>{{ errors?.tva }}</span> -->
                 <label for="date_achat" class="d-block dateWidth">
                     <input type="date" id="date_achat" placeholder="date_achat" v-model="form.date_achat">
                     <span>Date d'achat</span>
@@ -71,8 +77,10 @@
          </div>
         </div>  
         <!-- <button type="button">Register</button> -->
-        <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
-       
+        <div class="d-flex justify-content-around">
+          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+        </div>
     </form>
 </div>
 
@@ -103,7 +111,7 @@ export default {
       receptions:[],
       //products:[],
       stocks:[],
-      saveEditBtn:"Enregistrer",
+      saveEditBtn:"Ajouter",
     };
   },
 
@@ -117,7 +125,7 @@ export default {
     if(this.$store.state.IdEditReception==null){
       this.getuser()
          this.form={};
-         this.saveEditBtn="Enregistrer"
+         this.saveEditBtn="Ajouter"
 
         }else{
           
@@ -194,7 +202,10 @@ export default {
         })
 
     },
-  
+
+    close(){
+      this.$emit('close')
+    }, 
     saveInformation() {
       console.log(this.$refs.product)
      
@@ -272,19 +283,26 @@ export default {
 
 <style  scoped>
 
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-  }
+.title{
+  font-weight: bolder;
+  font-size: 20px;
+}
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
+}
 form{
-    width:90vw;
+    width:45vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
-    padding:3vw;
+    font-family:sans-serif;
+    padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
+    margin-left:20px;
+    margin-top: 20px;
 }
 
 label{
@@ -299,8 +317,12 @@ input,select,textarea{
     border:none;
     outline:none;
 }
+
 input::placeholder{
     opacity:0;
+}
+.error{
+  color: red;
 }
 
 select::placeholder{
@@ -325,9 +347,8 @@ label span{
     font-size:0.825em;
 }
 button{
-    padding:15px 0px; 
+    padding:5px 0px; 
     margin-top:20px;
-    background:rgb(75, 126, 160);
     color:#fff;
     cursor:pointer;
     border-radius:3px;
@@ -340,7 +361,6 @@ input:not(:placeholder-shown) + span{
     transform:translateY(0px);
 }
 .dateWidth{
-    width: 60%;
+    width: 80%;
 }
-
 </style>

@@ -1,20 +1,12 @@
 <template>
-<div>
+<div class="form">
+  <div class="d-flex">
+    <span class="mx-auto h3 title">Stock</span>
+    <span @click="close" class="h2 close ">x</span>
+  </div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.stocks}}{{$store.state.IdEditStock}}</span>
 <!-- retrieve data -->
-   <!-- <div class="alert alert-success d-flex align-items-center mt-5 w-50 mx-auto" role="alert">
-      <font-awesome-icon icon="fa-solid fa-check-circle" class="bi flex-shrink-0 " width="24" height="24" role="img" aria-label="Success:" />
-      <div>
-        Done
-      </div>
-    </div>  -->
-
-    <!-- <div class="alert-dismissible fade show alert alert-success d-flex align-items-center mt-5 w-50 mx-auto" role="alert">
-      <font-awesome-icon icon="fa-solid fa-check-circle" class="bi flex-shrink-0 " width="24" height="24" role="img" aria-label="Success:" />
-        <strong>success</strong> 
-        <button type="button" class=" btn-sm btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div> -->
   <div class="register">
     
     <form action="" @submit.prevent="saveInformation">
@@ -32,13 +24,16 @@
                     <span>Quantite Vide</span>
                  </label>
                 <span>{{ errors?.Quantite }}</span>
-                <label for="Quantite" >
+                <!-- <label for="Quantite" >
                     <input type="hidden" disabled v-model="form.user_id">
                     
-                 </label>
+                 </label> -->
                 
-        <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
-    </form>
+              <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+                <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+              </div>
+          </form>
 </div>
 
 </div>
@@ -60,7 +55,7 @@ export default {
       errors: {},
       stocks:[],
       produits:[],
-      saveEditBtn:"Enregistrer",
+      saveEditBtn:"Ajouter",
     };
   },
  mounted(){
@@ -90,6 +85,9 @@ export default {
         })
 
     },
+    close(){
+      this.$emit('close')
+    }, 
     saveInformation() {
       if (this.form["produit","Quantite"]=="") return; 
 
@@ -136,24 +134,21 @@ export default {
 
 <style  scoped>
 
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.title{
+  font-weight: bolder;
+  font-size: 20px;
 }
-body{
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-    font-family:sans-serif;
-    color:#6b6b6b;
- 
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
 }
 form{
-    width:90vw;
+    width:30vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
-    padding:3vw;
+    font-family:sans-serif;
+    padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
@@ -164,18 +159,25 @@ label{
     position:relative;
     border-bottom:1px solid #ddd;
 }
-input,select{
+input,select,textarea{
     width:100%;
     padding:10px 0px;
     margin-top:20px;
     border:none;
     outline:none;
 }
+
 input::placeholder{
     opacity:0;
 }
+.error{
+  color: red;
+}
 
 select::placeholder{
+    opacity:0;
+}
+textarea::placeholder{
     opacity:0;
 }
 label span{
@@ -193,10 +195,9 @@ label span{
     transform:translateY(10px);
     font-size:0.825em;
 }
-.button{
-    padding:15px 0px; 
+button{
+    padding:5px 0px; 
     margin-top:20px;
-    background:rgb(75, 126, 160);
     color:#fff;
     cursor:pointer;
     border-radius:3px;
@@ -207,9 +208,6 @@ label:focus-within > span,
 input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
-}
-.dateWidth{
-    width: 60%;
 }
 
 </style>
