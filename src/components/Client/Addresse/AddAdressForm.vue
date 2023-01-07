@@ -37,7 +37,9 @@
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2'
+import api from "../../../../api";
 export default {
+  
   props:["modalActive"],
   data() {
     return {
@@ -77,12 +79,8 @@ export default {
 
        if(this.$store.state.IdEditAdresse==null){
              
-        axios.post(
-          this.$store.state.baseurl + "Address",
-          this.form,
-          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
-        )
+        api.post("Address",
+          this.form)
         .then((resp) => {
           this.adresses = resp.data;
           this.form = {} 
@@ -99,8 +97,7 @@ export default {
           this.errors = err.response.data.errors;
         });
        }else{
-         axios.patch(
-          this.$store.state.baseurl + "Address/"+this.$store.state.IdEditAdresse,
+         api.patch("Address/"+this.$store.state.IdEditAdresse,
           this.form)
         .then((resp) => {
           this.adresses = resp.data.data;

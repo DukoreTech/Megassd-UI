@@ -1,8 +1,10 @@
 
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -33,4 +35,4 @@ createApp(App)
     .use(VueSweetalert2)
     .component('Select2', Select2)
     .mount('#app')
-    
+

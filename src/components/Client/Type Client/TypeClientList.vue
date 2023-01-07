@@ -108,18 +108,16 @@ export default {
         deleteTClient(id) {
             Swal.fire({
              title: 'vous etes sure de vouloir supprimer ces informations',
-             showDenyButton: true,
              showCancelButton: true,
              confirmButtonText: 'Delete',
             // denyButtonText: `Don't save`,
             }).then((result) => {
               /* Read more about isConfirmed, isDenied below */
               if (result.isConfirmed) {
-    
-                axios.delete(this.$store.state.baseurl + "typeclient/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                axios.defaults.headers.common['Accept'] = `Application/json`)
+                api.delete("typeclient/" + id,
+               )
               .then(resp => {
-                Swal.fire('item deleted', '', 'success')
+                Swal.fire('donnée supprimer avec success', '', 'success')
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
                 this.fetchData()

@@ -33,8 +33,6 @@
 													<th>#</th>
 													<th>order_id</th>
 													<th>product_name</th>
-													
-													
 													<th>product_quantity</th>
                                                     <th>quantite_stock</th>
                                                     <th>Prix de vente</th>

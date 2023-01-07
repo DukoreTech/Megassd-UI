@@ -42,7 +42,7 @@
                                 <th scope="row">{{ order.id }}</th>
                                 <td>
                                     <div v-for="val in JSON.parse(order.products)" :key="val">
-                                        {{ val.product_name }}
+                                        {{ val.product_name }},
                                     </div>
                                     
                                 </td>
@@ -53,7 +53,7 @@
                                 <td>{{ order.updated_at}}</td>
                                 <td><span v-if="order.status==1" style="background:turquoise;color:white; padding:4px;">Payed</span><span style="background-color:#495057;color:white ;padding:4px;" 
                                      v-if="order.status==0">Pending</span></td>            
-                                <td>{{ order.users.name}} </td>                       
+                                <td>{{ order.users.name}}</td>                       
                                 <td>
                                     
                                        <router-link :to="{name:'InvoiceOrderView',params:{id:order.id}}" v-if="order.status==1" class="nav-link collapsed bg-success text-white" data-toggle="collapse" data-target="#collapseStock"
@@ -86,6 +86,7 @@ import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './CommandAddForm.vue';
+import api from '../../../../api';
 
 export default {
     components: { ModalComponent, AddForm },
@@ -119,8 +120,7 @@ export default {
             this.$router.push({name:'AddCommande'})
         },
         fetchData() {
-            axios.get(this.$store.state.baseurl + "ventes",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("ventes")
             .then(resp => {
                 this.orders = resp.data
                 console.log(this.orders)
@@ -145,10 +145,9 @@ export default {
              })
             .then((result) => {
                 if (result.isConfirmed) {
-        axios.patch(
-          this.$store.state.baseurl + "ventes/"+order.id,
-          form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json` )
+        api.patch(
+          "ventes/"+order.id,
+          form)
         .then((resp) => {
             this.orders=resp.data
             this.fetchData()

@@ -179,7 +179,7 @@
 
             <!-- Nav Item - Perte -->
               <hr class="sidebar-divider">
-            <li class="nav-item">
+           <!--<li class="nav-item">
                 <div class="link" @click="showArrowPerte" data-bs-toggle="collapse" data-bs-target="#collapPerte" aria-expanded="false" aria-controls="collapPerte">
                      <div class="d-flex justify-content-between iconBetween">
                         <span>
@@ -209,7 +209,7 @@
                     </div> 
                     
     
-            </li>
+            </li>--> 
              <hr class="sidebar-divider">
 
             <!-- Nav Item - report -->

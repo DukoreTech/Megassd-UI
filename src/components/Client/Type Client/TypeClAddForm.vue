@@ -41,6 +41,8 @@
 <script>
 import Swal from 'sweetalert2'
 
+import api from '../../../../api'
+
 import axios from "axios";
 export default {
   props:["modalActive"],
@@ -58,7 +60,7 @@ export default {
     };
   },
  mounted(){
-  this.getuser()
+  //this.getuser()
   console.log(this.form.user_id)
   
  },
@@ -66,7 +68,7 @@ export default {
   "$store.state.IdEditTypClient"(a){
     console.log(a)
     if(this.$store.state.IdEditTypClient==null){
-      this.getuser()
+      //this.getuser()
          this.form={};
          this.saveEditBtn="Ajouter"
 
@@ -82,7 +84,7 @@ export default {
  
 
   methods: {
-    getuser(){
+    /*getuser(){
 
 axios.get(`${this.$store.state.baseurl}user`
 ,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
@@ -91,25 +93,28 @@ this.$store.commit('userinfo',JSON.stringify(response.data.id))
 this.form.user_id=this.$store.state.userinfo
 
 });
-    },
+    },*/
     close(){
       this.$emit('close')
+      this.errors={}
     }, 
     saveInformation() {
       if (this.form[ "typeClient"]=="") return; 
 
        if(this.$store.state.IdEditTypClient==null){
              
-        axios.post(
-          this.$store.state.baseurl + "typeclient",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
-        )
+        api.post("typeclient",
+          this.form )
         .then((resp) => {
           this.typeClients = resp.data.data;
           this.$store.state.typeClients=resp.data
           this.form = { name:"",description:""}
-          this.getuser() 
+          Swal.fire({
+               icon: 'success',
+               title: 'Ajouter',
+               text: 'Ajout reussi!'
+              });
+         // this.getuser() 
           
         })
         .catch((err) => {
@@ -118,33 +123,30 @@ this.form.user_id=this.$store.state.userinfo
         });
        }else{
         
-         axios.patch(
-          this.$store.state.baseurl + "typeclient/"+this.$store.state.IdEditTypClient,
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json` )
+         api.patch("typeclient/"+this.$store.state.IdEditTypClient,
+          this.form)
         .then((resp) => {
-          this.typeClients = resp.data.data;
+          this.typeClients = resp.data;
           this.$store.state.typeClients=resp.data
-          this.$emit('close')
+          this.close()
           Swal.fire({
                icon: 'success',
-               title: 'success message',
-               text: 'updated  successfully!'
+               title: 'Modification',
+               text: 'Modification avec success!'
               });
             this.fetchData()
               this.$store.state.IdEditTypClient=null
           })
-          
-         
         .catch((err) => {
+          console.log(err.response.data);
+          this.errors = err.response.data;
           Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'something wrong  try again!'
+               text: 'une errer est survenue réessayer plustard!'
               });
           
-          console.error(err.response.data.errors);
-          this.errors = err.response.data.errors;
+          
           
           
           

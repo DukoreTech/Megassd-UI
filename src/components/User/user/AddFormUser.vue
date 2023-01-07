@@ -105,8 +105,8 @@ export default {
 
        if(this.$store.state.IdEditUser==null){
              
-        axios.post(
-          this.$store.state.baseUrl + "/users",
+        api.post(
+           "register",
           this.form
         )
         .then((resp) => {

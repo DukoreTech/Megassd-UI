@@ -53,8 +53,8 @@
                                 <td>{{ stock.plein }} </td>
                                 <td>{{stock.date}}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
-                                    </button>
+                                    <!--<button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
+                                    </button>-->
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editStock(stock,stock.id)" >
                                     ajouter des vides <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
@@ -78,6 +78,8 @@ import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './StockAddForm';
+
+import api from '../../../../api';
 
 export default {
     components: { ModalComponent, AddForm },
@@ -116,8 +118,7 @@ export default {
     methods:{
         
         fetchData() {
-            axios.get(this.$store.state.baseurl + "stock",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("stock")
             .then(resp => {
                 this.stocks = resp.data
            
@@ -128,8 +129,8 @@ export default {
         },
         
         deleteStock(id) {
-            axios.delete(this.$store.state.baseurl + "stock/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.delete("stock/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+            )
             .then(resp => {
                 this.stocks = resp.data
                 this.fetchData()

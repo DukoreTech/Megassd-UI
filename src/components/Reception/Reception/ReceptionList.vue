@@ -75,6 +75,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './ReceptionAddForm.vue';
+import api from '../../../../api';
 
 export default {
     components: { ModalComponent, AddForm },
@@ -110,9 +111,8 @@ export default {
 
         
         fetchData() {
-            axios.get(this.$store.state.baseurl + "reception",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("reception",
+          )
             .then(resp => {
                 this.receptions = resp.data
                 
@@ -130,9 +130,7 @@ export default {
              confirmButtonText: 'Delete'
              })  .then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(this.$store.state.baseurl + "reception/"+id,
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+                    api.delete("reception/"+id)
             .then(resp => {
                 this.receptions = resp.data
                 this.fetchData()

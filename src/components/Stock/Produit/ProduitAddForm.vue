@@ -7,8 +7,7 @@
   <span class="d-none">{{$store.state.products}}{{$store.state.IdEditProduit}}</span>
     <!-- retrieve data -->
    <div class="register">
-        <form @submit.prevent>
-    
+        <form @submit.prevent="saveInformation">
             <label for="name">
                 <input type="text" id="name" placeholder="name" v-model="form.name">
                 <span>Nom</span>
@@ -48,6 +47,7 @@
 <script>
 import axios from 'axios'
 import Swal from 'sweetalert2';
+import api from '../../../../api';
 
 export default{
   props:["modalActive"],
@@ -72,7 +72,7 @@ export default{
       
   
   mounted(){
-      this.getuser()
+    //  this.getuser()
     
       //this.getcompayinfo()
   },
@@ -80,9 +80,9 @@ export default{
   "$store.state.IdEditProduit"(a){
     console.log(a)
     if(this.$store.state.IdEditProduit==null){
-      this.getuser()
+     // this.getuser()
          this.form={};
-         this.saveEditBtn="Enregistrer"
+         this.saveEditBtn="Ajouter"
 
         }else{
             this.form=this.$store.state.products;
@@ -111,14 +111,13 @@ export default{
     
            if(this.$store.state.IdEditProduit==null){
                  
-            axios.post(
-              this.$store.state.baseurl + "products",
-              this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json`
+            api.post(
+              "products",
+              this.form
             )
             .then((resp) => {
               this.products = resp.data;
-              this.getuser()
+           //   this.getuser()
 
               
               
@@ -134,8 +133,7 @@ export default{
               this.errors = err.response.data.errors;
             });
            }else{
-             axios.patch(
-              this.$store.state.baseurl + "products/"+this.$store.state.IdEditProduit,
+             api.patch("products/"+this.$store.state.IdEditProduit,
               this.form )
             .then((resp) => {
               this.products = resp.data;
@@ -155,17 +153,7 @@ export default{
      
         },
       
-      getuser(){
-
-           axios.get(`${this.$store.state.baseurl}user`
-          ,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-           axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
-           this.$store.commit('userinfo',JSON.stringify(response.data.id))
-           this.form.user_id=this.$store.state.userinfo
-        
-  });
-},
-   
+  
      
   }
 }
@@ -225,7 +213,7 @@ label span{
     font-size:0.825em;
     transition-duration:300ms;
 }
- span{
+span{
     position:relative;
     bottom:10;
     left:0;

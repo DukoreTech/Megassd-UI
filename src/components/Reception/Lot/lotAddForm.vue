@@ -70,11 +70,13 @@
 </div>
 
 </div>
+
 </template>
 
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2';
+import api from '../../../../api'
 export default {
   props:["modalActive"],
   data() {
@@ -104,7 +106,7 @@ export default {
   },
     mounted(){
       this.getproducts()
-      this.getuser()
+      //this.getuser()
       this.getaddress()
       this.gettyclient()
   },
@@ -112,7 +114,7 @@ export default {
   "$store.state.IdEditLot"(a){
     console.log(a)
     if(this.$store.state.IdEditLot==null){
-      this.getuser()
+     /// this.getuser()
          this.form={};
          this.saveEditBtn="Ajouter"
 
@@ -133,9 +135,8 @@ export default {
 
   methods: {
     gettyclient() {
-            axios.get(this.$store.state.baseurl + "typeclient",
-            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("typeclient"
+            )
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
@@ -144,19 +145,9 @@ export default {
                 console.error(err)
             })
         },
-    getuser(){
-
-      axios.get(`${this.$store.state.baseurl}user`,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-      axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
-      this.$store.commit('userinfo',JSON.stringify(response.data.id))
-      this.form.user_id=this.$store.state.userinfo
-
-      });
-    },
+    
     getaddress() {
-        axios.get(this.$store.state.baseurl + "Address",
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-        axios.defaults.headers.common['Accept'] = `Application/json`)
+        api.get("Address")
             .then(resp => {
                 this.address = resp.data
                 this.$store.state.adresses=resp.data
@@ -183,16 +174,12 @@ export default {
           Swal.fire({
                icon: 'info',
                title: 'error',
-               text: 'already exist!',  
+               text: 'prix deja existant pour cette zone et type de client!',  
               });
-
         }
         else{
-        
-
-       
-        axios.post(
-          this.$store.state.baseurl + "lots",
+        api.post(
+          "lots",
           this.form
         )
         .then((resp) => {
@@ -210,8 +197,8 @@ export default {
           this.errors = err.response.data.errors;
         });
       } }else{
-         axios.patch(
-          this.$store.state.baseurl+"lots/"+this.$store.state.IdEditLot,
+         api.patch(
+          "lots/"+this.$store.state.IdEditLot,
           this.form )
         .then((resp) => {
           this.lots = resp.data;
@@ -222,6 +209,7 @@ export default {
                text: 'data updated successfully!',  
               });
           this.$emit('close')
+         
          })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -236,8 +224,7 @@ export default {
     
 
     getproducts() {
-            axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-            axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("products")
             .then(resp => {
                 this.products = resp.data
             })

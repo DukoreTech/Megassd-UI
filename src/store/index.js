@@ -43,17 +43,17 @@ export default createStore({
   },
   logout(state){
       state.user=''
-      localStorage.removeItem('user')
-      
+      localStorage.removeItem('user')    
+
   },
   initialize(state){
-      
       if(localStorage.getItem('user')){
           state.user=localStorage.getItem('user')
       }
       
       else{
           this.commit("logout");
+          localStorage.removeItem('token')
       }
       
       

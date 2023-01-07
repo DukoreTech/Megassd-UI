@@ -155,7 +155,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+//import axios from 'axios'
+import api from "../../../api";
 
 export default {
     data()
@@ -182,9 +183,7 @@ export default {
     methods:{
         fetchData() {
             console.log(this.$store.state.token)
-            axios.get(this.$store.state.baseurl + "dashboard",
-          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("dashboard")
             .then(resp => {
                 this.dashboard = resp.data
                 console.log(this.dashboard)

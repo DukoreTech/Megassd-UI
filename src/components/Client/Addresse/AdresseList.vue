@@ -64,6 +64,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent.vue';
 import AddForm from './AddAdressForm';
+import api from "../../../../api";
 
 export default {
     components: { ModalComponent, AddForm },
@@ -105,10 +106,7 @@ export default {
         },
         fetchData() {
             console.log(this.$store.state.token)
-          axios.get(this.$store.state.baseurl + "Address",
-          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
-            .then(resp => {
+          api.get("Address").then(resp => {
                 this.adresses = resp.data
                 this.$store.state.adresses=resp.data
               
@@ -121,14 +119,13 @@ export default {
         deleteRole(id) {
             Swal.fire({
                 title: 'vous etes sure de vouloir supprimer ces informations',
-             showDenyButton: true,
+
              showCancelButton: true,
              confirmButtonText: 'Delete'
              })
             .then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(this.$store.state.baseurl + "Address/"+ id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                  axios.defaults.headers.common['Accept'] = `Application/json`)
+                    api.delete("Address/"+ id)
                 .then(resp => {
                 this.adresses = resp.data
 

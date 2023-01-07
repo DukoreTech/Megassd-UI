@@ -90,6 +90,7 @@
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2';
+import api from '../../../../api'
 export default {
   props:["modalActive"],
   data() {
@@ -173,10 +174,6 @@ export default {
       const c=this.form.tva
       const d=this.form.montant
       this.form.montant_total= d * c
-      
-      
-      
-
     },
   
 
@@ -191,9 +188,8 @@ export default {
             })
         },*/
     getStocks() {
-      axios.get(this.$store.state.baseurl + "stock",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+      api.get("stock",
+          this.form)
         .then(resp => {
           this.stocks = resp.data
         })
@@ -229,10 +225,9 @@ export default {
         //this.form.product_id=this.form.stock.product_id
            this.form.stock_id=result.id,
              console.log(this.form.stock_id)
-        axios.post(
-          this.$store.state.baseurl + "reception",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
+        api.post(
+          "reception",
+          this.form
         )
         .then((resp) => {
           this.receptions = resp.data;
@@ -249,8 +244,8 @@ export default {
         });
 
       }else{
-         axios.patch(
-          this.$store.state.baseurl+"reception/"+this.$store.state.IdEditReception,
+         api.patch(
+          "reception/"+this.$store.state.IdEditReception,
           this.form )
         .then((resp) => {
           this.receptions = resp.data;

@@ -5,7 +5,6 @@
    </div>
 </template>
 <script>
-import '../axios'
 export default {
    components:{
       'Loginview':require("@/views/loginView.vue").default,
@@ -17,6 +16,7 @@ export default {
     mounted(){
      this.$store.commit("initialize")
      console.log(this.$store.getters.token)
+     
  },
 
 

@@ -25,7 +25,9 @@ import DetailsStocksView from "@/views/DetailsStocksView.vue"
 const routes = [
 
  //{ path:'/',name:'Login',component:login },
- { path:'/',name:'Dashboard',component:Dashboard },
+ { path:'/',name:'Dashboard',component:Dashboard, meta: {
+  requiresAuth: true
+} },
  { path:'/User',name:'User',component:User },
  { path:'/Role',name:'Role',component:Role },
  { path:'/Adresse',name:'Adresse',component:Adresse },
@@ -50,8 +52,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes  
 })
+
+
 
 
 export default router

@@ -29,9 +29,10 @@
 										<table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
+                                                    <th scope="col">Numero</th>
+
 													<th scope="col">product_name</th>
 													<th scope="col">Activity_Realisé</th>
-													<th scope="col">quantite sortie</th>
 													<th scope="col">quantite sortie</th>
 													<th scope="col">quantite_entre</th>
                                                     <th scope="col">quantite_actuel</th>
@@ -43,9 +44,10 @@
 											</thead>
                                             <tbody>
                                                 <tr v-for="detail in detailsstock" :key="detail.id">
+                                                    <td>{{detail.id}}</td>
                                                     <td>{{detail.product_name}}</td>
 													<td>{{detail.activity_realise}}</td>
-													<td>{{detail.quantite_sortie}}</td>
+												
 													<td>{{detail.quantite_sortie}}</td>
 													<td>{{detail.quantite_entre}}</td>
                                                     <td>{{detail.quantite_actuel}}</td>

@@ -42,6 +42,7 @@
 <script>
 import Swal from 'sweetalert2';
 import axios from "axios";
+import api from '../../../../api';
 export default {
   props:["modalActive"],
   data() {
@@ -74,8 +75,8 @@ export default {
 
   methods: {
      getProduits() {
-      axios.get(this.$store.state.baseurl + "products",this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json`
+      api.get("products",
+      this.form
       )
         .then(resp => {
           this.produits = resp.data
@@ -93,8 +94,7 @@ export default {
 
        if(this.$store.state.IdEditStock==null){
              
-        axios.post(
-          this.$store.state.baseUrl + "stock",
+        api.post("stock",
           this.form
         )
         .then((resp) => {
@@ -107,8 +107,8 @@ export default {
           this.errors = err.response.data.errors;
         });
        }else{
-         axios.patch(
-          this.$store.state.baseurl + "stock/"+this.$store.state.IdEditStock,
+         api.patch(
+       "stock/"+this.$store.state.IdEditStock,
           this.form )
         .then((resp) => {
           this.stocks = resp.data;

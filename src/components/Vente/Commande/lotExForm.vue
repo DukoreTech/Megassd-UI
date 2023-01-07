@@ -131,6 +131,7 @@
 <script>
 import axios from 'axios'
 import Swal from 'sweetalert2';
+import api from '../../../../api';
 export default {
     data(){
         return{
@@ -166,9 +167,10 @@ export default {
       
       totalMontant(){
         let sum=0;   
+        let prod=0
         //this.stocks.price=price
         this.commandes.map(e =>{
-          let prod= (e.product_quantity * e.amount);
+         prod+= (e.product_quantity * e.amount);
           sum=prod+this.form.montantsup
           console.log(e)
           //console.log(sum)
@@ -188,8 +190,7 @@ export default {
     
     methods:{
         getstock(){
-          axios.get(this.$store.state.baseurl + "stock",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-                    axios.defaults.headers.common['Accept'] = `Application/json`)
+          api.get("stock")
             .then(resp => {
                 
                 this.produits=resp.data
@@ -211,9 +212,8 @@ export default {
 
         },
         getclient(){
-          axios.get(this.$store.state.baseurl + "client",
-          axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+          api.get("client",
+          )
             .then(resp => {
                 this.clients = resp.data
                 this.$store.state.typeClients=resp.data
@@ -226,12 +226,11 @@ export default {
         getprice(){
             this.form.client_name=this.form.client.nom
  
-        axios.get(this.$store.state.baseurl +"getprice",{params:{
+        api.get("getprice",{params:{
         address_id:this.form.client.address_id,
         type_clients_id:this.form.client.type_client_id 
 
-      }},axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-        axios.defaults.headers.common['Accept'] = `Application/json`)
+      }})
             .then(resp => {
                 this.lots = resp.data
                 //console.log(this.lots)
@@ -330,13 +329,11 @@ export default {
       total_amount:this.totalMontant,
       montantsup:this.form.montantsup
     }
-    
     console.log(v)
 
-    axios.post(
-          this.$store.state.baseurl + "ventes",
-          v,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
+    api.post(
+          "ventes",
+          v
         )
         .then((resp) => {
             this.data=resp.data
@@ -356,7 +353,7 @@ export default {
             Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'something wrong  try again!'+ ""+ err.response.data.errors
+               text: 'something wrong  try again!'+ ""+ err.data.data
               });
           console.log(err.response.data);
           this.errors = err.response.data.errors;

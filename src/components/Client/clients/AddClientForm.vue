@@ -59,6 +59,7 @@
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2';
+import api from '../../../../api'
 export default {
   props:["modalActive"],
   data() {
@@ -107,9 +108,7 @@ export default {
       this.$emit('close')
     },
     getAdresse() {
-      axios.get(this.$store.state.baseurl + "Address",
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
+      api.get("Address"
       )
         .then(resp => {
           this.adresses = resp.data
@@ -120,9 +119,7 @@ export default {
 
     },
      getClientType() {
-      axios.get(this.$store.state.baseurl + "typeclient",
-            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+      api.get("typeclient")
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
@@ -133,24 +130,26 @@ export default {
             })
 
     },
+    closemodal(){
+      this.$emit('close')
+      this.errors={}
+    },
+    
    
     saveInformation() {
       if (this.form["prenom","type_client_id","telephone","nom"]=="") return; 
 
        if(this.$store.state.IdEditClient==null){
              
-        axios.post(
-          this.$store.state.baseurl + "client",  this.form, axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`
-        
-        )
+        api.post(
+          "client",  this.form)
         .then((resp) => {
           this.clients = resp.data;
 
           this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""}
           Swal.fire({
                icon: 'success',
-               title: 'success',
+               title: 'Ajout',
                text: 'data added successfully!',  
               });
          // this.getuser() 
@@ -160,12 +159,11 @@ export default {
           this.errors = err.response.data.errors;
         });
        }else{
-         axios.patch(
-          this.$store.state.baseurl+"client/"+this.$store.state.IdEditClient,
+         api.patch("client/"+this.$store.state.IdEditClient,
           this.form )
         .then((resp) => {
           this.clients = resp.data;
-         // this.$emit('close')
+          this.closemodal()
           Swal.fire({
                icon: 'success',
                title: 'success',

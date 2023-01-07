@@ -4,7 +4,7 @@
               <div class="d-md-flex m-3 justify-content-between" >
                     <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditLot=null">
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                        Ajouter lot
+                        Ajouter nouveau prix
                       </button>
                    <!-- <div class="mt-3">
                             <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
@@ -74,6 +74,7 @@ import Swal from 'sweetalert2';
     import axios from "axios";
     import ModalComponent from '@/components/Global/ModalComponent';
     import AddForm from './lotAddForm';
+    import api from '../../../../api'
     
     export default {
         components: { ModalComponent, AddForm },
@@ -103,7 +104,7 @@ import Swal from 'sweetalert2';
        },
         methods:{
             fetchData() {
-                axios.get(this.$store.state.baseurl + "lots")
+                api.get("lots")
                 .then(resp => {
                     this.lots = resp.data
                     this.$store.state.lots=resp.data
@@ -121,7 +122,7 @@ import Swal from 'sweetalert2';
              confirmButtonText: 'Delete'
              })  .then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(this.$store.state.baseurl + "lots/" + id)
+                    api.delete("lots/" + id)
                 .then(resp => {
                     this.lots = resp.data
                     console.log(this.lots)

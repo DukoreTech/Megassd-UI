@@ -10,7 +10,7 @@
               </div>      
                
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,fetchData()">
-                    <add-form  @close="modalActive = !modalActive"/>
+                    <add-form  @close="modalActive = !modalActive ,fetchData()"/>
                 </modal-component>
         </div>
 
@@ -67,6 +67,7 @@ import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './ProduitAddForm';
+import api from '../../../../api';
 
 export default {
     components: { ModalComponent, AddForm },
@@ -98,8 +99,7 @@ export default {
        },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
-            axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("products")
             .then(resp => {
                 this.products = resp.data
           
@@ -111,14 +111,13 @@ export default {
         deleteProduit(id) {
             Swal.fire({
                 title: 'vous etes sure de vouloir supprimer ces informations',
-             showDenyButton: true,
+            // showDenyButton: true,
              showCancelButton: true,
              confirmButtonText: 'Delete'
              })
             .then((result) => {
                 if (result.isConfirmed) {
-            axios.delete(this.$store.state.baseurl + "products/" + id,axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`,
-            axios.defaults.headers.common['Accept'] = `Application/json`))
+            api.delete("products/" + id)
             .then(resp => {
                 this.products = resp.data
                 
