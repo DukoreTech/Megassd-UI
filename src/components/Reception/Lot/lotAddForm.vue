@@ -60,10 +60,7 @@
                 <span>{{ errors?.description }}</span>
          </div>
         </div>  
-        <div class="d-flex justify-content-around">
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-          <button type="reset" class="btn btn-sm btn-primary" >vider</button>
-        </div>
+        
         <!-- <button type="button">Register</button> -->
         <div class="d-flex justify-content-around">
           <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
@@ -99,6 +96,8 @@ export default {
       errors: {},
       products:[],
       lots:[],
+
+
       saveEditBtn:"Ajouter",
       typeClients:[]
     };
@@ -124,6 +123,10 @@ export default {
             console.log(this.$store.state.lots)
         }
 
+  },
+  "this.$store.state.lots"(val){
+    console.log(val)
+    this.lots=val;
   }
  },
 
@@ -166,16 +169,35 @@ export default {
       this.$emit('close')
     }, 
         saveInformation() {
-      if (this.form["product_id","price_vente","quantity","name"]=="") return; 
+      if (this.form["product_id","price_vente","quantity","name"]=="") return;
+
 
        if(this.$store.state.IdEditLot==null){
-             
+
+        let result= this.$store.state.lots.find((item) => item.product_id == this.form.product_id && item.adresses_id==this.form.adresses_id && item.type_clients_id==this.form.type_Clients_id
+)
+
+        console.log(result)
+        console.log(this.$store.state.lots)
+        if(result){
+          Swal.fire({
+               icon: 'info',
+               title: 'error',
+               text: 'already exist!',  
+              });
+
+        }
+        else{
+        
+
+       
         axios.post(
           this.$store.state.baseurl + "lots",
           this.form
         )
         .then((resp) => {
           this.lots = resp.data;
+          this.form={}
           Swal.fire({
                icon: 'success',
                title: 'success',
@@ -187,12 +209,13 @@ export default {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
-       }else{
+      } }else{
          axios.patch(
           this.$store.state.baseurl+"lots/"+this.$store.state.IdEditLot,
           this.form )
         .then((resp) => {
           this.lots = resp.data;
+          this.$store.state.lots=resp.data
           Swal.fire({
                icon: 'success',
                title: 'success',
@@ -207,8 +230,10 @@ export default {
         });
 
        }
+       
  
     },
+    
 
     getproducts() {
             axios.get(this.$store.state.baseurl + "products",axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,

@@ -106,6 +106,7 @@ import Swal from 'sweetalert2';
                 axios.get(this.$store.state.baseurl + "lots")
                 .then(resp => {
                     this.lots = resp.data
+                    this.$store.state.lots=resp.data
               
                 })
                 .catch(err => {
