@@ -8,7 +8,7 @@
                   </button>
              </div>   
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
-                    <add-form @close="modalActive = !modalActive"/>
+                    <add-form @close="modalActive = !modalActive,fetchData()"/>
                 </modal-component>
         </div>
 
