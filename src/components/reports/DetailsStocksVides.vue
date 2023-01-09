@@ -39,7 +39,7 @@
                                                     <th scope="col">stock_initial</th>
                                                     <th scope="col">on date:</th>
                                                     <th scope="col">done by:</th>
-													<th scope="col">Actions</th>
+													
 												</tr>
 											</thead>
                                             <tbody>
@@ -53,9 +53,7 @@
                                                     <td>{{detail.stock_quantite_initial	}}</td>
                                                     <td>{{detail.created_at	}}</td>
                                                     <td>{{detail.user_id}}</td>
-                                                    <td>
-														<button class="btn-sm btn btn-primary">View</button>
-													</td>
+                                                    >
                                                     
                                                     
                                                 </tr>

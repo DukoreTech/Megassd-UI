@@ -22,13 +22,18 @@
     
              <label for="motDePasse">
                 <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.password">
-                <span>Mot de passe</span>
+                <span>Ancien Mot de passe</span>
             </label>
             <span>{{ errors?.password }}</span>
 
             <label for="confirm">
+                <input type="password" placeholder="Mot de passe" v-model="form.new_password">
+                <span>Nouveau mot de passe</span>
+            </label>
+             <span>{{ errors?.password_confirmation }}</span>
+             <label for="confirm">
                 <input type="password" placeholder="Mot de passe" v-model="form.password_confirmation">
-                <span>Confirmer nouveau mot de passe</span>
+                <span>Confirmer Nouveau mot de passe</span>
             </label>
              <span>{{ errors?.password_confirmation }}</span>
     
@@ -54,7 +59,9 @@
             name:"",
             email:"",
             password:"" ,
-            password_confirmation:""
+            password_confirmation:"",
+            id:"",
+            new_password:"",
     
           },
           errors: {},
@@ -65,6 +72,7 @@
       },
       mounted(){
     this.getuser()
+    console.log("id:",this.iduser);
   },
     //   watch:{
     //   "$store.state.IdEditUser"(a){
@@ -93,34 +101,43 @@
     // },
     getuser(){
       let userlogged= JSON.parse(this.$store.state.user)
-      this.username=Object.values(userlogged)[0].name
-      this.iduser=Object.values(userlogged)[0].id
+      this.form.name=Object.values(userlogged)[0].name
+      this.form.email=Object.values(userlogged)[0].email
       
-      console.log("id:",this.iduser);
+      this.form.id=Object.values(userlogged)[0].id
+      
     },
     saveInformation() {
 
           if (this.form["name", "password", "mail"]=="") return; 
 
-            if(this.form.password==this.form.password_confirmation)
-            {
-             api.patch("users/"+this.iduser,
-              this.form )
+            
+             api.get("changePassword",{params:{old_password:this.form.password,new_password
+:this.form.new_password,new_password_confirmation:this.form.password_confirmation}}
+              )
             .then((resp) => {
               this.users = resp.data;
+            Swal.fire({
+            icon: 'success',
+            title: 'Modification',
+            text: 'Modification réussi!'   
+              });
+              this.$router.push('/')
              })
             .catch((err) => {
-              console.error(err.response.data.errors);
-              this.errors = err.response.data.errors;
+                
+                
+              
+              this.errors= JSON.stringify(err.data.errors);
+              console.log(this.errors);
+              Swal.fire({
+            icon: 'error',
+            title: 'erreur',
+            text: this.errors,
+              });
+             
             });
-          }else{
-            Swal.fire({
-                   icon: 'error',
-                   title: 'mot de passe',
-                   text: 'Mots de passe ne sont pas les memes',  
-                  });
-    
-          }    
+             
      
         }
         

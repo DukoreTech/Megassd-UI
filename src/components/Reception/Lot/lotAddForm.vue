@@ -133,6 +133,9 @@ export default {
  },
 
 
+ 
+
+
   methods: {
     gettyclient() {
             api.get("typeclient"
@@ -158,6 +161,7 @@ export default {
         },
         close(){
       this.$emit('close')
+
     }, 
         saveInformation() {
       if (this.form["product_id","price_vente","quantity","name"]=="") return;
@@ -168,8 +172,7 @@ export default {
         let result= this.$store.state.lots.find((item) => item.product_id == this.form.product_id && item.adresses_id==this.form.adresses_id && item.type_clients_id==this.form.type_Clients_id
 )
 
-        console.log(result)
-        console.log(this.$store.state.lots)
+       // console.log(result)
         if(result){
           Swal.fire({
                icon: 'info',
@@ -183,7 +186,12 @@ export default {
           this.form
         )
         .then((resp) => {
+         
           this.lots = resp.data;
+          this.$emit('fetch')
+       // console.log(this.$store.state.lots)
+
+
           this.form={}
           this.$emit("fetch")
           Swal.fire({
@@ -202,14 +210,17 @@ export default {
           "lots/"+this.$store.state.IdEditLot,
           this.form )
         .then((resp) => {
+          this.form={}
           this.lots = resp.data;
-          this.$store.state.lots=resp.data
+        
           Swal.fire({
                icon: 'success',
                title: 'Modification',
                text: 'Modification réussi!',  
               });
-          this.$emit('close')
+              this.$store.state.lots=resp.data
+         this.$emit('close')
+        // this.$emit('fetch')
          
          })
         .catch((err) => {

@@ -27,7 +27,8 @@
                                     <th scope="col">Id</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Actions</th>
+                                    <th scope="col">Role</th>
+                                  <!-- <th scope="col">Actions</th>--> 
                                  </tr>
                                 </thead>
                           
@@ -36,13 +37,14 @@
                                     <th scope="row">{{ user.id }}</th>
                                     <td>{{ user.name }} </td>
                                     <td>{{ user.email }} </td>
-                                    <td>
+                                    <td>{{ user.roles.name}} </td>
+                                   <!-- <td>
                                         <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(user.id)"><font-awesome-icon icon="fa-solid fa-trash"/>supprimer
                                         </button>
                                         <button class="btn btn-sm btn-primary" @click="modalActive = true,editUser(user,user.id)" >
                                         <font-awesome-icon icon="fa-solid fa-edit"/>modifier
                                         </button>
-                                    </td>
+                                    </td>-->
                                   </tr>
                                 </tbody>
                              </table>

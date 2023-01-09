@@ -31,15 +31,15 @@
 												<tr>
                                                     <th scope="col">Numero</th>
 
-													<th scope="col">product_name</th>
+													<th scope="col">Produit</th>
 													<th scope="col">Activity_Realisé</th>
 													<th scope="col">quantite sortie</th>
 													<th scope="col">quantite_entre</th>
                                                     <th scope="col">quantite_actuel</th>
                                                     <th scope="col">stock_initial</th>
-                                                    <th scope="col">on date:</th>
-                                                    <th scope="col">done by:</th>
-													<th scope="col">Actions</th>
+                                                    <th scope="col">date:</th>
+                                                    <th scope="col">Fait par:</th>
+													
 												</tr>
 											</thead>
                                             <tbody>
@@ -54,9 +54,7 @@
                                                     <td>{{detail.stock_quantite_initial	}}</td>
                                                     <td>{{detail.created_at	}}</td>
                                                     <td>{{detail.user_id}}</td>
-                                                    <td>
-														<button class="btn-sm btn btn-primary">View</button>
-													</td>
+                                                    
                                                     
                                                     
                                                 </tr>

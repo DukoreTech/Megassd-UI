@@ -16,7 +16,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small mr-2">{{username}}</span>
-                            <img class="img-profile rounded-circle w-30 h-30 bg-light ml-2"  src="@/assets/logo.png">
+                           <!-- <img class="img-profile rounded-circle w-30 h-30 bg-light ml-2"  src="@/assets/logo.png">-->
                         
                          </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -25,9 +25,9 @@
                             <font-awesome-icon icon="fa-solid fa-user"/>
                             Profile
                             </a> -->
-                            <router-link :to="{name:'Profile',params:{id:{id},name:{name},email:{email}}}" class="dropdown-item">
+                            <router-link :to="{name:'Profile'}" class="dropdown-item">
                                 <font-awesome-icon icon="fa-solid fa-user"/>
-                                Profile {{id }}
+                                changePassword
                              </router-link> 
                         </li>
                         <!-- <li>

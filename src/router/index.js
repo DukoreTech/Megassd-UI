@@ -51,7 +51,7 @@ const routes = [
  { path:'/lotExForm',name:'lotExForm',component:lotExForm },
  { path:'/Location',name:'Location',component:Location },
  { path:'/Perte',name:'Perte',component:Perte },
- { path:'/Profile/:id,:name,:email',name:'Profile',component:Profile,props: true},
+ { path:'/Profile',name:'Profile',component:Profile},
  { path:'/salesreport',name:'salesreport',component:salesreport,
  meta: {
   requiresAuth: true, 
@@ -89,7 +89,7 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   let user =JSON.parse(localStorage.getItem('user')); 
- let role=user.user.Role
+ let role=user.user.role_id
   let accessToken = localStorage.getItem('token');
   
   if (to.meta.requiresAuth) {
@@ -97,13 +97,13 @@ router.beforeEach((to, from, next) => {
   router.push({path: '/login'});
   } else {
   if (to.meta.adminAuth) {
-  if (role == "Admin") {
+  if (role == 1) {
   next();
   } else {
   router.push({path: '/'});
   }
   } else if (to.meta.userAuth) {
-  if (role == "Agent") {
+  if (role == 2) {
    next();
   } else {
     router.push({path: '/'});

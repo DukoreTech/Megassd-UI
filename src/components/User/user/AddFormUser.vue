@@ -87,7 +87,8 @@ export default {
        // adresse:"",
        // nomDUtilisateur:"",
         password:"" ,
-        password_confirmation:""
+        password_confirmation:"",
+        role_id:2
 
       },
       errors: {},
@@ -115,7 +116,7 @@ export default {
       this.$emit('close')
     },  
     saveInformation() {
-      if (this.form["name", "password", "mail"]=="") return; 
+      if (this.form["name", "password", "mail","role_id"]=="") return; 
 
        if(this.$store.state.IdEditUser==null){
         if(this.form.password==this.form.password_confirmation)

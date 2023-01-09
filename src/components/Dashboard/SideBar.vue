@@ -14,7 +14,7 @@
             <hr class="sidebar-divider">
 
             <!-- Nav Item -User -->
-            <li class="nav-item" v-if="Role=='Admin'">
+            <li class="nav-item" v-if="Role==1">
                 <div class=" link" data-bs-toggle="collapse" @click="showArrowUtil" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -208,7 +208,7 @@
             </li>--> 
              <hr class="sidebar-divider">
             <!-- Nav Item - report -->
-            <li class="nav-item" v-if="Role=='Admin'">
+            <li class="nav-item" v-if="Role=='1'">
                 <div class="link" data-bs-toggle="collapse" @click="showArrowReports" data-bs-target="#collapReport" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -226,17 +226,17 @@
                              <router-link :to="{name:'salesreport'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  sales report 
+                                  DetailsVentes 
                              </router-link>          
                            <router-link :to="{name:'DetailStocksView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                              stock details
+                               Details stocks
                             </router-link>  
                             <router-link :to="{name:'DetailsStocksView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                              details des vides
+                              Detais des vides
                             </router-link> 
                             
                         </div>
@@ -269,7 +269,7 @@ export default {
     computed:{
         Role:function(){
           let user=JSON.parse(localStorage.getItem('user'))
-          return user.user.Role;
+          return user.user.role_id;
 
         }
 
