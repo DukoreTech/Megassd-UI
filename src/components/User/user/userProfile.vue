@@ -5,7 +5,7 @@
     <!-- retrieve data -->
        
       <div class="register">
-        <img class="img-profile rounded-circle w-30 h-30 bg-light"  src="@/assets/logo.png">
+        <img class="img-profile rounded-circle w-30 h-30 bg-light ml-2" width="250" height="230"  src="@/assets/Produit-brarudi.jpg">
 
         <form action="" @submit.prevent="saveInformation">
             <label for="nom">
