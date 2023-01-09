@@ -1,13 +1,15 @@
 <template>
-<div>
+<div class="form">
+    <div class="d-flex">
+      <span class="mx-auto h3 title">Utilisateur</span>
+      <span @click="close" class="h2 close ">x</span>
+    </div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
 <!-- retrieve data -->
    
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
-        <div class="d-flex">
-            <div class="col-6">
         <label for="nom">
             <input type="text" id="nom" placeholder="nom" v-model="form.name">
             <span>Nom</span>
@@ -36,10 +38,6 @@
             <span>Telephone</span>
          </label>
          <span>{{ errors?.telephone }}</span>--> 
-            </div>
-             <div class="col-6">
-        
-
         <!-- <label for="Adresse">
             <input type="text" id="Adresse" placeholder="Adresse" v-model="form.adresse">
             <span>Adresse</span>
@@ -61,11 +59,11 @@
             <span>Confirmer Mot de passe</span>
         </label>
          <span>{{ errors?.motDePasse }}</span>
-             </div>
 
-        </div>
-        <!-- <button type="button">Register</button> -->
-        <button type="submit" class="btn btn-sm btn-danger float-end" >{{saveEditBtn}}</button>
+         <div class="d-flex justify-content-around">
+              <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+              <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+            </div>
     </form>
 </div>
 
@@ -94,22 +92,28 @@ export default {
       },
       errors: {},
       users:[],
-      saveEditBtn:"Enregistrer",
+      saveEditBtn:"Ajouter",
     };
   },
-  updated(){
+  watch:{
+  "$store.state.IdEditUser"(a){
+    console.log(a)
     if(this.$store.state.IdEditUser==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.users;
-        this.saveEditBtn="Modifier"
-      }
- 
-  },
+         this.form={};
+         this.saveEditBtn="Ajouter"
+
+        }else{
+            this.form=this.$store.state.users;
+            this.saveEditBtn="Modifier"
+        }
+
+  }
+ },
 
   methods: {
- 
+    close(){
+      this.$emit('close')
+    },  
     saveInformation() {
       if (this.form["name", "password", "mail"]=="") return; 
 

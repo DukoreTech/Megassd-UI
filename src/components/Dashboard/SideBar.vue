@@ -84,7 +84,7 @@
                 <div class="link" data-bs-toggle="collapse" @click="showArrowStock"  data-bs-target="#collapstock" aria-expanded="false" aria-controls="collapstock">
                      <div class="d-flex justify-content-between">
                          <span>
-                            <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
+                            <font-awesome-icon icon="fa-solid fa-warehouse" class="icon" />
                             <span class=" ml-2 label "> Stock </span>
                          </span>
                         <font-awesome-icon v-if="!isShowarrowStock" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
@@ -150,7 +150,7 @@
                 <div class="link" data-bs-toggle="collapse" @click="showArrowVente" data-bs-target="#collapVente" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
-                            <font-awesome-icon icon="fa-sharp fa-solid fa-arrow-trend-down" />
+                            <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="icon" />
                             <span class=" ml-2 label "> Vente </span>
                          </span>
                        <font-awesome-icon v-if="!isShowarrowVente" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
@@ -174,7 +174,7 @@
             </li>
 
             <!-- Nav Item - Perte -->
-              <hr class="sidebar-divider">
+              <!-- <hr class="sidebar-divider"> -->
            <!--<li class="nav-item">
                 <div class="link" @click="showArrowPerte" data-bs-toggle="collapse" data-bs-target="#collapPerte" aria-expanded="false" aria-controls="collapPerte">
                      <div class="d-flex justify-content-between iconBetween">
@@ -207,13 +207,12 @@
     
             </li>--> 
              <hr class="sidebar-divider">
-
             <!-- Nav Item - report -->
             <li class="nav-item" v-if="Role=='Admin'">
                 <div class="link" data-bs-toggle="collapse" @click="showArrowReports" data-bs-target="#collapReport" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
-                            <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
+                            <font-awesome-icon icon="fa-solid fa-file" class="icon" />
                             <span class=" ml-2 label "> Reports </span>
                          </span>
                        <font-awesome-icon v-if="!isShowarrowReports" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />

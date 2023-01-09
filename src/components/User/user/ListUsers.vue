@@ -1,131 +1,148 @@
 <template>
-<div>
-        <div>      
-            <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditUser=null">
-                    <font-awesome-icon icon="fa-solid fa-plus-circle" />
-                    Ajouter  utilisateur
-                  </button>
-                <div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
-              </div>  
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
-                    <add-form @close="modalActive = !modalActive"/>
-                </modal-component>
-        </div>
-
-         <div class="container-fluid">
-            <div class="card  mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-mute">Liste des utilisateurs</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                              <tr>                    
-                                <th scope="col">Id</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">Date de naissance</th>
-                                <th scope="col">Telephone</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Adresse</th>
-                                <th scope="col">Nom d'Utilasateur</th>
-                                <th scope="col">Mot de Passe</th>
-                                <th scope="col">Actions</th>
-                             </tr>
-                            </thead>
-                            
-                            <tbody>
-                               <tr v-for="user in users" :key="user.id">
-                                <th scope="row">{{ user.id }}</th>
-                                <td>{{ user.nom }} </td>
-                                <td>{{ user.prenom }} </td>
-                                <td>{{ user.dateDenaissance }} </td>
-                                <td>{{ user.telephone }} </td>            
-                                <td>{{ user.mail }} </td>            
-                                <td>{{ user.adresse }} </td>            
-                                <td>{{ user.nomDUtilisateur}} </td>            
-                                <td>{{ user.motDePasse }} </td>            
-                                <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deleteUser(user.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editUser(user,user.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>
-                                    </button>
-                                </td>
-                              </tr>
-                            </tbody>
-                         </table>
-                      </div>
-                   </div>
-                </div>
-        </div>
-</div>
-</template>
-
-<script>
-import axios from "axios";
-import api from '../../../../api';
-import Swal from 'sweetalert2';
-import ModalComponent from '@/components/Global/ModalComponent.vue';
-import AddForm from './AddFormUser.vue';
-
-export default {
-    components: { ModalComponent, AddForm },
-    data() {
-        return{
-            modalActive: false,
-            search:'',
-            users : [ ]
-        }
-    },
-    mounted(){
-        this.fetchData()
-    },
-    computed:{
-        searchEvery(){
-            return this.users.filter(val=>val.includes(this.search))
-            }
-    },
-    methods:{
-        fetchData() {
-            api.get("/users/")
-            .then(resp => {
-                this.users = resp.data
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },
-        deleteUser(id) {
-            axios.delete(this.$store.state.baseUrl + "/users/" + id)
-            .then(resp => {
-                this.users = resp.data
-                this.fetchData()
-            })
-            .catch(err => {
-                console.error(err)
-            })
-            
-        },
-
-        editUser(user,id){
-        this.$store.state.IdEditUser=id
-        this.$store.state.users=user
-        
-        }
-    }
+    <div>
+            <div>    
+                <div class="d-md-flex m-3 justify-content-between" >
+                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditUser=null">
+                        <font-awesome-icon icon="fa-solid fa-plus-circle" />
+                        Ajouter Utilisateur
+                      </button>
+                   
+                  </div>      
+                   
+                    <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,fetchData()">
+                        <add-form  @close="modalActive = !modalActive ,fetchData()"/>
+                    </modal-component>
+            </div>
     
-}
-</script>
-
-<style scoped>
-
+             <div class="container-fluid">
+                <div class="card  mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-mute">Liste des Utilisateurs</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+                                <thead>
+                                  <tr> 
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Actions</th>
+                                 </tr>
+                                </thead>
+                          
+                                <tbody>
+                                   <tr v-for="user in users" :key="user.id">
+                                    <th scope="row">{{ user.id }}</th>
+                                    <td>{{ user.name }} </td>
+                                    <td>{{ user.email }} </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(user.id)"><font-awesome-icon icon="fa-solid fa-trash"/>supprimer
+                                        </button>
+                                        <button class="btn btn-sm btn-primary" @click="modalActive = true,editUser(user,user.id)" >
+                                        <font-awesome-icon icon="fa-solid fa-edit"/>modifier
+                                        </button>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                             </table>
+                          </div>
+                       </div>
+                    </div>
+            </div>
+    </div>
+    </template>
+    
+    <script>
+    import Swal from 'sweetalert2';
+    import "jquery/dist/jquery.min.js";
+    import "bootstrap/dist/css/bootstrap.min.css";
+    import "datatables.net-dt/js/dataTables.dataTables";
+    import "datatables.net-dt/css/jquery.dataTables.min.css";
+    import $ from "jquery";
+    import axios from "axios";
+    import ModalComponent from '@/components/Global/ModalComponent';
+    import AddForm from './AddFormUser.vue';
+    import api from '../../../../api';
+    
+    export default {
+        components: { ModalComponent, AddForm },
+        data() {
+            return{
+                modalActive: false,
+                search:'',
+                users : [ ],
+                token:this.$store.state.token
+            }
+        },
+        mounted(){
+            this.fetchData()
+            ///this.editUser()
+        },
+        computed:{
+            searchEvery(){
+                return this.users.filter(val=>val.includes(this.search))
+                }
+        },
+        watch: {
+            users(val) {
+                  console.log(val)
+                  $('#datatable').DataTable().destroy();
+                  this.$nextTick(()=> {
+                    $('#datatable').DataTable()
+                  });
+                }
+           },
+        methods:{
+            fetchData() {
+                api.get("users")
+                .then(resp => {
+                    this.users = resp.data
+              
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+            },
+            deleteUser(id) {
+                Swal.fire({
+                    title: 'vous etes sure de vouloir supprimer ces informations',
+                // showDenyButton: true,
+                 showCancelButton: true,
+                 confirmButtonText: 'supprimer'
+                 })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                api.delete("users/" + id)
+                .then(resp => {
+                    this.users = resp.data
+                    
+                    Swal.fire('suppression avec succès', '', 'success')
+                    this.fetchData()
+    
+                })
+                .catch(err => {
+                    console.error(err)
+                    Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
+                    
+                })
+                
+            }
+        });
+    },
+            editUser(user,id){
+            this.$store.state.IdEditUser=id
+            this.$store.state.users=user
+            
+            }
+        }
+        
+    }
+    </script>
+    
+    <style scoped>
     .ajout{
         color: white;
     }
-
-</style>
+    
+    </style>

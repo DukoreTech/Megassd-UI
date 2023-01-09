@@ -14,15 +14,14 @@ import Select2 from 'vue3-select2-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import {faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons'
+import {faWarehouse,faFile,faCartFlatbedSuitcase,faScaleUnbalancedFlip,faWineBottle,faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons tPlus,o the library */
-library.add(faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar)
+library.add(faWarehouse,faFile,faCartFlatbedSuitcase,faScaleUnbalancedFlip,faWineBottle,faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar)
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import { faArrowTrendDown } from '@fortawesome/free-solid-svg-icons'
 
 // import "@/assets/vendor/datatables-demo.js"
 // import "@/assets/vendor/datatables/dataTables.bootstrap4.js"

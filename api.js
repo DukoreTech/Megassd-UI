@@ -42,7 +42,7 @@ error => {
             break;
     
         case 404:
-          alert('page not exist');
+         // alert('page not exist');
           break;
         case 502:
          setTimeout(() => {

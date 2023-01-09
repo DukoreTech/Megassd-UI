@@ -21,6 +21,7 @@ import InvoiceOrderView from"@/views/InvoiceOrderView.vue"
 import AllinVoiceView from "@/views/AllinVoiceView.vue"
 import DetailsStocksView from "@/views/DetailsStocksView.vue"
 import Loginform from '@/components/Global/LoginForm.vue'
+import Profile from "@/views/UserProfileView.vue"
 import store from '../store/index.js'
 
 const routes = [
@@ -50,6 +51,7 @@ const routes = [
  { path:'/lotExForm',name:'lotExForm',component:lotExForm },
  { path:'/Location',name:'Location',component:Location },
  { path:'/Perte',name:'Perte',component:Perte },
+ { path:'/Profile/:id,:name,:email',name:'Profile',component:Profile,props: true},
  { path:'/salesreport',name:'salesreport',component:salesreport,
  meta: {
   requiresAuth: true, 

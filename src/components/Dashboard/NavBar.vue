@@ -20,17 +20,22 @@
                         
                          </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">
+                        <li>
+                            <!-- <a class="dropdown-item" href="#">
                             <font-awesome-icon icon="fa-solid fa-user"/>
                             Profile
-                            </a>
+                            </a> -->
+                            <router-link :to="{name:'Profile',params:{id:{id},name:{name},email:{email}}}" class="dropdown-item">
+                                <font-awesome-icon icon="fa-solid fa-user"/>
+                                Profile {{id }}
+                             </router-link> 
                         </li>
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item" href="#">
                                 <font-awesome-icon icon="fa-solid fa-cog"/>
                             settings
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <router-link to="" @click="logout" class="dropdown-item">
                               <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
@@ -51,6 +56,9 @@ export default {
     data(){
         return{
             username:'',
+            name:'',
+            email:'',
+            id:'',
         }
     },
     methods:{
@@ -63,11 +71,16 @@ export default {
       getuser(){
       let userlogged= JSON.parse(this.$store.state.user)
       this.username=Object.values(userlogged)[0].name
-    }
+      this.id=Object.values(userlogged)[0].id
+      this.email=Object.values(userlogged)[0].email
+      
+    },
+   
      
     },
     mounted(){
         this.getuser()
+        console.log(this.id)
     }
 
 }

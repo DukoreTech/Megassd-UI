@@ -7,7 +7,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Welcome Admin!</h3>
+                            <h3 class="page-title">Welcome {{username}}!</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ul>
@@ -22,17 +22,14 @@
                             <div class="card-body">
                                 <div class="dash-widget-header">
                                     <span class="dash-widget-icon text-primary border-primary">
-                                        <i class="fe fe-users"></i>
+                                        <font-awesome-icon icon="fa-solid fa-cart-flatbed-suitcase" />
                                     </span>
                                     <div class="dash-count">
-                                        <h6>{{totalV}}Fbu</h6>
+                                        <h6>{{totalV}} Fbu</h6>
                                     </div>
                                 </div>
                                 <div class="dash-widget-info">
                                     <h6 class="text-muted">Total sales</h6>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary w-50"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -45,15 +42,11 @@
                                         <font-awesome-icon icon="fa-solid fa-money-check-dollar" />
                                     </span>
                                     <div class="dash-count">
-                                        <h6>{{totalA}}</h6>
+                                        <h6>{{totalA}} Fbu</h6>
                                     </div>
                                 </div>
                                 <div class="dash-widget-info">
-                                    
                                     <h6 class="text-muted">Montant Achats effectues</h6>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-success w-50"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -64,17 +57,14 @@
                                 <div class="dash-widget-header">
                                     <span class="dash-widget-icon text-danger border-danger">
                                         <i class="fe fe-money"></i>
+                                        <font-awesome-icon icon="fa-solid fa-wine-bottle" />
                                     </span>
                                     <div class="dash-count">
                                         <h6>{{totalP}}</h6>
                                     </div>
                                 </div>
-                                <div class="dash-widget-info">
-                                    
+                                <div class="dash-widget-info">                                    
                                     <h6 class="text-muted">products</h6>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-danger w-50"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,19 +73,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="dash-widget-header">
-                                    <span class="dash-widget-icon text-warning border-warning">
-                                        <i class="fe fe-folder"></i>
+                                    <span class="dash-widget-icon  border-dark">
+                                        <font-awesome-icon icon="fa-solid fa-users" />  
                                     </span>
                                     <div class="dash-count">
                                         <h6>{{totalCl}}</h6>
                                     </div>
                                 </div>
-                                <div class="dash-widget-info">
-                                    
+                                <div class="dash-widget-info">                                 
                                     <h6 class="text-muted">Client</h6>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning w-50"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +93,7 @@
                             <div class="card-body">
                                 <div class="dash-widget-header">
                                     <span class="dash-widget-icon text-warning border-warning">
-                                        <i class="fe fe-folder"></i>
+                                        <font-awesome-icon icon="fa-solid fa-cart-plus" />
                                     </span>
                                     <div class="dash-count">
                                         <h6>{{Nbvente}}</h6>
@@ -116,9 +102,6 @@
                                 <div class="dash-widget-info">
                                     
                                     <h6 class="text-muted">Ventes effectues</h6>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning w-50"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,19 +111,15 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="dash-widget-header">
-                                    <span class="dash-widget-icon text-warning border-warning">
-                                        <i class="fe fe-folder"></i>
+                                    <span class="dash-widget-icon text-secondary border-secondary">
+                                        <font-awesome-icon icon="fa-solid fa-scale-unbalanced-flip" />
                                     </span>
                                     <div class="dash-count">
                                         <h6>{{Nbachat}}</h6>
                                     </div>
                                 </div>
-                                <div class="dash-widget-info">
-                                    
+                                <div class="dash-widget-info">                                    
                                     <h6 class="text-muted">Achats effectues</h6>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning w-50"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,15 +148,14 @@ export default {
             totalP:'',
             Nbachat:'',
             Nbvente:'',
+            username:''
             
-
-
         }
     },
     mounted()
     {
         this.fetchData()
-        
+        this.getuser()
         
     },
     methods:{
@@ -200,6 +178,10 @@ export default {
                 console.error(err)
             })
         },
+        getuser(){
+      let userlogged= JSON.parse(this.$store.state.user)
+      this.username=Object.values(userlogged)[0].name
+    }
       
        
     }

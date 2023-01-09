@@ -90,6 +90,7 @@ else{
        const token=response.data.token
         localStorage.setItem('token',token),
          this.$store.state.token=response.data.token
+		 this.$store.state.role=response.data.user.Role
 
 		 console.log(this.$store.state.role)
          

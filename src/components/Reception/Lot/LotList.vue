@@ -12,7 +12,7 @@
                  </div>  
     
                     <modal-component :modalActive="modalActive" @close="modalActive = !modalActive , fetchData()">
-                        <add-form @close="modalActive = !modalActive,fetchData()"/>
+                        <add-form @close="modalActive = !modalActive,fetchData()" @fetch="fetchData()"/>
                     </modal-component>
             </div>
              <div class="container-fluid">

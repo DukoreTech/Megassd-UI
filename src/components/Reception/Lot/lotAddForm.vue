@@ -185,6 +185,7 @@ export default {
         .then((resp) => {
           this.lots = resp.data;
           this.form={}
+          this.$emit("fetch")
           Swal.fire({
                icon: 'success',
                title: 'Ajouter',
