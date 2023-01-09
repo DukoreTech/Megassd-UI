@@ -41,10 +41,10 @@
                                 <td>{{ product.unite_mesure }} </td>
                                 <td>{{ product.nombre_bouteille }} </td>
                                 <td>
-                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteProduit(product.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
+                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteProduit(product.id)"><font-awesome-icon icon="fa-solid fa-trash"/>supprimer
                                     </button>
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editProduit(product,product.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>Edit
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>modifier
                                     </button>
                                 </td>
                               </tr>
@@ -113,7 +113,7 @@ export default {
                 title: 'vous etes sure de vouloir supprimer ces informations',
             // showDenyButton: true,
              showCancelButton: true,
-             confirmButtonText: 'Delete'
+             confirmButtonText: 'supprimer'
              })
             .then((result) => {
                 if (result.isConfirmed) {
@@ -121,13 +121,13 @@ export default {
             .then(resp => {
                 this.products = resp.data
                 
-                Swal.fire('item deleted', '', 'success')
+                Swal.fire('suppression avec succès', '', 'success')
                 this.fetchData()
 
             })
             .catch(err => {
                 console.error(err)
-                Swal.fire('something wrong try again', '', 'error')
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
                 
             })
             

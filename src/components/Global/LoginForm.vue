@@ -8,14 +8,14 @@
 			<form class="login" @submit.prevent="login">
 				<div class="login__field">
 					<i class="login__icon fas fa-user"></i>
-					<input type="text" v-model="form.email" class="login__input" placeholder="User name / Email">
+					<input type="text" v-model="form.email" class="login__input" placeholder=" Email">
 				</div>
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>
-					<input type="password" v-model="form.password" class="login__input" placeholder="Password">
+					<input type="password" v-model="form.password" class="login__input" placeholder="Mot de passe">
 				</div>
 				<button class="button login__submit">
-					<span class="button__text">Log In Now</span>
+					<span class="button__text">Connexion</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>				
 			</form>
@@ -41,10 +41,8 @@ export default {
     data(){
         return{
             form:{
-
-            
-                email: "admin1@gmail.com",
-                password: "12345678",
+                email: "",
+                password: "",
                 
             },
             errors: [],
@@ -88,10 +86,12 @@ else{
     
         this.$store.commit("login", JSON.stringify(response.data
         ))
-       
+		
        const token=response.data.token
         localStorage.setItem('token',token),
          this.$store.state.token=response.data.token
+
+		 console.log(this.$store.state.role)
          
          //window.location('/')
            this.$router.push({name:'Dashboard'}) 
@@ -132,20 +132,19 @@ else{
 * {
 
 	margin: 0;
-	padding: 0;	
-	font-family: Raleway, sans-serif;
+    padding: 0;	
+	font-family: Raleway,sans-serif;
     
 }
 
 .container {
-    /*background: linear-gradient(90deg, #C7C5F4, #776BCC); 		*/
+   /* background: linear-gradient(90deg, #C7C5F4, #776BCC);*/
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
-    min-width: 100vh;
-	
-    
+    min-width: 100vh;  
+	overflow: hidden;
 }
 
 .screen {		

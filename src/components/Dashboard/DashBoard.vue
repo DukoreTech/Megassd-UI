@@ -42,7 +42,7 @@
                             <div class="card-body">
                                 <div class="dash-widget-header">
                                     <span class="dash-widget-icon text-success">
-                                        <i class="fe fe-credit-card"></i>
+                                        <font-awesome-icon icon="fa-solid fa-money-check-dollar" />
                                     </span>
                                     <div class="dash-count">
                                         <h6>{{totalA}}</h6>
@@ -211,7 +211,7 @@ export default {
 
 .page-wrapper {
 	margin-left: 24px;
-	padding-top: 60px;
+	padding-top:20px;
 	position: relative;
 	transition: all 0.4s ease;
 }

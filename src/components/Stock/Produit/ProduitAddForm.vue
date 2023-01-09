@@ -118,14 +118,11 @@ export default{
             .then((resp) => {
               this.products = resp.data;
            //   this.getuser()
-
-              
-              
               this.form = { name:"",unite_mesure:"",nombre_bouteille:"", caisse:""} 
               Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'data added successfully!',  
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
               });
             })
             .catch((err) => {
@@ -139,8 +136,8 @@ export default{
               this.products = resp.data;
               Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'data updated successfully!',  
+               title: 'Modification',
+               text: 'Modification réussi!',  
               });
           this.$emit('close')
              })

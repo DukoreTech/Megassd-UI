@@ -5,6 +5,7 @@ export default createStore({
     baseurl: 'http://localhost:8000/api/',
     token: localStorage.getItem('token'),
     selectClient_id : "",
+    role:JSON.parse(localStorage.getItem('user')),
     userinfo:[],
     users:[],
     user:"",
@@ -37,6 +38,7 @@ export default createStore({
   mutations: {
     login(state, user) {
       state.user = user;
+
       //state.token=token;
       localStorage.setItem('user', state.user);
      // localStorage.setItem('token', state.token);
@@ -72,6 +74,7 @@ export default createStore({
   },
   getters:{ 
     user:state=>state.user, 
+  //  role:state=>state.role.,
     token:state=>state.token,
     userinformation:state=>state.userinfo,
 

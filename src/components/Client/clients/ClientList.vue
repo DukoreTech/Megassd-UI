@@ -48,9 +48,9 @@
                                 <td>{{ client.adresses.name }} </td>            
                                 <td>
                                     <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    delete</button>
+                                    supprimer</button>
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editUser(client,client.id)" >
-                                    edit<font-awesome-icon icon="fa-solid fa-edit"/>
+                                    Modifier<font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>
@@ -107,9 +107,7 @@ export default {
             api.get("client",this.form)
             .then(resp => {
                 this.clients = resp.data
-                this.$store.state.typeClients=resp.data
-         
-                
+                this.$store.state.typeClients=resp.data    
             })
             .catch(err => {
                 console.error(err)
@@ -119,7 +117,7 @@ export default {
             Swal.fire({
              title: 'vous etes sure de vouloir supprimer ces informations',
              showCancelButton: true,
-             confirmButtonText: 'Delete',
+             confirmButtonText: 'supprimer',
             // denyButtonText: `Don't save`,
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -127,12 +125,12 @@ export default {
             api.delete(this.$store.state.baseurl + "client/" + id)
             .then(resp => {
                 this.clients = resp.data
-                Swal.fire('info supprimer', '', 'success')
+                Swal.fire('suppression avec succès', '', 'success')
                 this.fetchData()
             })
             .catch(err => {
                 console.error(err)
-                Swal.fire('something wrong try again', '', 'error')
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
                 
             })
         }

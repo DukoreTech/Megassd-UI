@@ -49,9 +49,9 @@
                                           
                                     <td>
                                         <button class="btn btn-sm btn-danger m-2"  @click="deleteLot(lot.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                        delete</button>
+                                        suppprimer</button>
                                         <button class="btn btn-sm btn-primary" @click="modalActive = true,editlot(lot,lot.id)" >
-                                       edit<font-awesome-icon icon="fa-solid fa-edit"/>
+                                       Modifier<font-awesome-icon icon="fa-solid fa-edit"/>
                                         </button>
                                     </td>
                                   </tr>
@@ -119,21 +119,21 @@ import Swal from 'sweetalert2';
                 title: 'vous etes sure de vouloir supprimer ces informations',
              showDenyButton: true,
              showCancelButton: true,
-             confirmButtonText: 'Delete'
+             confirmButtonText: 'supprimer'
              })  .then((result) => {
                 if (result.isConfirmed) {
                     api.delete("lots/" + id)
                 .then(resp => {
                     this.lots = resp.data
                     console.log(this.lots)
-                    Swal.fire('item deleted')
+                    Swal.fire('suppression avec succès ')
                     this.fetchData()
 
                 })
                 .catch(err => {
                     console.error(err)
                     
-                Swal.fire('something wrong try again', '', 'error')
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
                 })
                 }
             });

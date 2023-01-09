@@ -93,7 +93,7 @@ export default {
         type_Clients_id:""
     
       },
-      myOptions: ['op1', 'op2', 'op3'], // or [{id: key, text: value}, {id: key, text: value}]
+      //myOptions: ['op1', 'op2', 'op3'], // or [{id: key, text: value}, {id: key, text: value}]
       address:[],
       errors: {},
       products:[],
@@ -173,7 +173,7 @@ export default {
         if(result){
           Swal.fire({
                icon: 'info',
-               title: 'error',
+               title: 'erreur',
                text: 'prix deja existant pour cette zone et type de client!',  
               });
         }
@@ -187,8 +187,8 @@ export default {
           this.form={}
           Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'data added successfully!',  
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
               });
           //this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
         })
@@ -205,8 +205,8 @@ export default {
           this.$store.state.lots=resp.data
           Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'data updated successfully!',  
+               title: 'Modification',
+               text: 'Modification réussi!',  
               });
           this.$emit('close')
          
@@ -221,8 +221,6 @@ export default {
        
  
     },
-    
-
     getproducts() {
             api.get("products")
             .then(resp => {

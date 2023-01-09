@@ -302,7 +302,7 @@ export default {
           Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'something wrong  try again!'+ ""+ err.response.data.data 
+               text: 'une erreur est survenue !'+ "/n"+ err.response.data.data 
               });
           
         })

@@ -68,6 +68,8 @@
 
 <script>
 import axios from "axios";
+import api from '../../../../api';
+import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent.vue';
 import AddForm from './AddFormUser.vue';
 
@@ -90,7 +92,7 @@ export default {
     },
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/users/")
+            api.get("/users/")
             .then(resp => {
                 this.users = resp.data
             })

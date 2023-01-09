@@ -151,7 +151,7 @@ export default {
                 montant_paye:'',
                 nbbordereau:'',
                 totalmontant:1,   
-                montantsup:0             
+                montantsup:0            
             }       
             }
 
@@ -343,8 +343,8 @@ export default {
           this.v=[];
           Swal.fire({
                icon: 'success',
-               title: ' success message ',
-               text: 'order made with success'
+               title: 'Ajouter',
+               text: 'Enregister avec succès'
               });
               this.$router.push('/Commande')
          // this.form = { description:"",quantity:"",product_id:"",date_achat:"",lot_id:"",stock_id:"", tva:"",montant:"",montant_total:""} 
@@ -353,7 +353,7 @@ export default {
             Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'something wrong  try again!'+ ""+ err.data.data
+               text: 'une erreur est survenue veuillez réessayer plus tard!'+ "/n"+ err.data.data
               });
           console.log(err.response.data);
           this.errors = err.response.data.errors;

@@ -234,8 +234,8 @@ export default {
           this.form = {}
           Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: "Achat effectué avec success",  
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
               });
         })
         .catch((err) => {
@@ -252,10 +252,9 @@ export default {
           this.$emit('close')
           Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'data updated successfully!',  
+               title: 'Modification',
+               text: 'Modification réussi!',  
               });
-          
          })
         .catch((err) => {
           console.error(err.response.data.errors);

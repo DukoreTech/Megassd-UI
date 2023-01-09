@@ -9,12 +9,18 @@
         <div class="d-flex">
             <div class="col-6">
         <label for="nom">
-            <input type="text" id="nom" placeholder="nom" v-model="form.nom">
+            <input type="text" id="nom" placeholder="nom" v-model="form.name">
             <span>Nom</span>
         </label>
          <span>{{ errors?.nom }}</span>
 
-         <label for="prenom">
+         <label for="mail">
+            <input type="email" id="mail" placeholder="Telephone" v-model="form.email">
+            <span>Email</span>
+         </label>
+         <span>{{ errors?.mail }}</span>
+
+       <!-- <label for="prenom">
             <input type="text" id="prenom" placeholder="prenom" v-model="form.prenom">
             <span>Prenom</span>
         </label>
@@ -29,30 +35,30 @@
             <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
             <span>Telephone</span>
          </label>
-         <span>{{ errors?.telephone }}</span>
+         <span>{{ errors?.telephone }}</span>--> 
             </div>
              <div class="col-6">
-         <label for="mail">
-            <input type="email" id="mail" placeholder="Telephone" v-model="form.mail">
-            <span>Email</span>
-         </label>
-         <span>{{ errors?.mail }}</span>
+        
 
-         <label for="Adresse">
+        <!-- <label for="Adresse">
             <input type="text" id="Adresse" placeholder="Adresse" v-model="form.adresse">
             <span>Adresse</span>
          </label>
-         <span>{{ errors?.adresse }}</span>
+         <span>{{ errors?.adresse }}</span>-->
 
-        <label for="nomDUtilisateur">
+        <!--<label for="nomDUtilisateur">
             <input type="text" id="nomDUtilisateur" placeholder="Nom d'Utilasateur" v-model="form.nomDUtilisateur">
             <span>Nom d'Utilisateur</span>
         </label>
-        <span>{{ errors?.nomDUtilisateur }}</span>
+        <span>{{ errors?.nomDUtilisateur }}</span>-->
 
          <label for="motDePasse">
-            <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.motDePasse">
+            <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.password">
             <span>Mot de passe</span>
+        </label>
+        <label for="confirm">
+            <input type="password" placeholder="Mot de passe" v-model="form.password_confirmation">
+            <span>Confirmer Mot de passe</span>
         </label>
          <span>{{ errors?.motDePasse }}</span>
              </div>
@@ -67,20 +73,24 @@
 </template>
 
 <script>
+import api from '../../../../api';
 import axios from "axios";
+import Swal from 'sweetalert2';
 export default {
   props:["modalActive"],
   data() {
     return {
       form: {
-        nom:"",
-        prenom:"",
-        dateDenaissance:"",
-        telephone:"",
-        mail:"",
-        adresse:"",
-        nomDUtilisateur:"",
-        motDePasse:""      
+        name:"",
+     //   prenom:"",
+       // dateDenaissance:"",
+       // telephone:"",
+        email:"",
+       // adresse:"",
+       // nomDUtilisateur:"",
+        password:"" ,
+        password_confirmation:""
+
       },
       errors: {},
       users:[],
@@ -101,25 +111,39 @@ export default {
   methods: {
  
     saveInformation() {
-      if (this.form["nomDUtilisateur", "motDePasse", "mail", "nom"]=="") return; 
+      if (this.form["name", "password", "mail"]=="") return; 
 
        if(this.$store.state.IdEditUser==null){
-             
+        if(this.form.password==this.form.password_confirmation)
+        {
         api.post(
            "register",
           this.form
         )
         .then((resp) => {
           this.users = resp.data;
-          this.form = { nom:"",prenom:"",dateDenaissance:"", telephone:"",mail:"",adresse:"",nomDUtilisateur:"",motDePasse:""} 
+          Swal.fire({
+               icon: 'success',
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
+              });
+              this.$emit('close')
+          this.form = {} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
+      }else{
+        Swal.fire({
+               icon: 'error',
+               title: 'mot de passe',
+               text: 'Mots de passe ne sont pas les memes',  
+              });
+
+      }
        }else{
-         axios.patch(
-          this.$store.state.baseUrl+"/users/"+this.$store.state.IdEditUser,
+        api.patch("users/"+this.$store.state.IdEditUser,
           this.form )
         .then((resp) => {
           this.users = resp.data;
@@ -153,11 +177,21 @@ body{
     color:#6b6b6b;
  
 }
+.title{
+  font-weight: bolder;
+  font-size: 20px;
+}
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
+}
 form{
-    width:90vw;
+    width:30vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
-    padding:3vw;
+    font-family:sans-serif;
+    padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
@@ -168,18 +202,25 @@ label{
     position:relative;
     border-bottom:1px solid #ddd;
 }
-input,select{
+input,select,textarea{
     width:100%;
     padding:10px 0px;
     margin-top:20px;
     border:none;
     outline:none;
 }
+
 input::placeholder{
     opacity:0;
 }
+.error{
+  color: red;
+}
 
 select::placeholder{
+    opacity:0;
+}
+textarea::placeholder{
     opacity:0;
 }
 label span{
@@ -190,7 +231,7 @@ label span{
     font-size:0.825em;
     transition-duration:300ms;
 }
- span{
+span{
     position:relative;
     bottom:10;
     left:0;
@@ -198,9 +239,8 @@ label span{
     font-size:0.825em;
 }
 button{
-    padding:15px 0px; 
+    padding:5px 0px; 
     margin-top:20px;
-    background:rgb(75, 126, 160);
     color:#fff;
     cursor:pointer;
     border-radius:3px;
@@ -211,9 +251,6 @@ label:focus-within > span,
 input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
-}
-.dateWidth{
-    width: 60%;
 }
 
 </style>

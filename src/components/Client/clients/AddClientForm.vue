@@ -123,7 +123,7 @@ export default {
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
-                this.getuser()
+                
             })
             .catch(err => {
                 console.error(err)
@@ -148,9 +148,9 @@ export default {
 
           this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""}
           Swal.fire({
-               icon: 'success',
-               title: 'Ajout',
-               text: 'data added successfully!',  
+            icon: 'success',
+            title: 'Ajouter',
+            text: 'Enregister avec succès'   
               });
          // this.getuser() 
         })
@@ -165,9 +165,9 @@ export default {
           this.clients = resp.data;
           this.closemodal()
           Swal.fire({
-               icon: 'success',
-               title: 'success',
-               text: 'data updated successfully!',  
+            icon: 'success',
+            title: 'Modification',
+            text: 'Modification réussi!'   
               });
           
          })

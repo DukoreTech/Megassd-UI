@@ -8,8 +8,6 @@
 <span class="d-none">{{$store.state.adresses}}{{$store.state.IdEditAdresse}}</span>
 
 <!-- retrieve data -->
-   
-
   <div class="register">
     <form action="" @submit.prevent="saveInformation">   
           <label for="etablis">
@@ -87,8 +85,8 @@ export default {
           this.$store.state.adresses=resp.data
           Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'address added successfully!',  
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
               });
           
           })
@@ -103,8 +101,8 @@ export default {
           this.adresses = resp.data.data;
           Swal.fire({
                icon: 'success',
-               title: 'success',
-               text: 'data updated successfully!',  
+               title: 'Modification',
+               text: 'Modification réussi!',  
               });
           this.$emit('close')
           

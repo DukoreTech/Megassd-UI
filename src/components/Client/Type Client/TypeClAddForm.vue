@@ -84,16 +84,7 @@ export default {
  
 
   methods: {
-    /*getuser(){
 
-axios.get(`${this.$store.state.baseurl}user`
-,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-axios.defaults.headers.common['Accept'] = `Application/json`).then((response)=>{
-this.$store.commit('userinfo',JSON.stringify(response.data.id))
-this.form.user_id=this.$store.state.userinfo
-
-});
-    },*/
     close(){
       this.$emit('close')
       this.errors={}
@@ -110,9 +101,9 @@ this.form.user_id=this.$store.state.userinfo
           this.$store.state.typeClients=resp.data
           this.form = { name:"",description:""}
           Swal.fire({
-               icon: 'success',
-               title: 'Ajouter',
-               text: 'Ajout reussi!'
+            icon: 'success',
+            title: 'Ajouter',
+            text: 'Enregister avec succès'
               });
          // this.getuser() 
           
@@ -143,13 +134,8 @@ this.form.user_id=this.$store.state.userinfo
           Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'une errer est survenue réessayer plustard!'
+               text: 'une erreur est survenue réessayer plustard!'
               });
-          
-          
-          
-          
-          
         });
 
        }

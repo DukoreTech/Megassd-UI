@@ -109,7 +109,7 @@ export default {
             Swal.fire({
              title: 'vous etes sure de vouloir supprimer ces informations',
              showCancelButton: true,
-             confirmButtonText: 'Delete',
+             confirmButtonText: 'supprimer',
             // denyButtonText: `Don't save`,
             }).then((result) => {
               /* Read more about isConfirmed, isDenied below */
@@ -117,14 +117,14 @@ export default {
                 api.delete("typeclient/" + id,
                )
               .then(resp => {
-                Swal.fire('donnée supprimer avec success', '', 'success')
+                Swal.fire('suppression avec succès ', '', 'success')
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
                 this.fetchData()
             })
             .catch(err => {
                 console.error(err)
-                Swal.fire('something wrong try again', '', 'error')
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
             })
               
             } 

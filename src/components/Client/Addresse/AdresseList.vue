@@ -39,9 +39,9 @@
                                 <td>{{ adresse.description	 }} </td>         
                                 <td>
                                     <button class="btn btn-sm btn-danger m-2"  @click="deleteRole(adresse.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    detele</button>
+                                    Supprimer</button>
                                     <button class="btn btn-sm btn-primary" @click="modalActive =true,editRole(adresse,adresse.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>edit
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>Modifier
                                     </button>
                                 </td>
                               </tr>
@@ -121,21 +121,20 @@ export default {
                 title: 'vous etes sure de vouloir supprimer ces informations',
 
              showCancelButton: true,
-             confirmButtonText: 'Delete'
+             confirmButtonText: 'supprimer'
              })
             .then((result) => {
                 if (result.isConfirmed) {
                     api.delete("Address/"+ id)
                 .then(resp => {
                 this.adresses = resp.data
-
-                Swal.fire('item deleted', '', 'success')
+                Swal.fire('suppression avec succès ', '', 'success')
                 this.$store.state.adresses=resp.data
                 this.fetchData()
                }).catch(err => {
                 console.error(err)
                 
-                Swal.fire('something wrong try again', '', 'error')
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
                 })
             }
                })

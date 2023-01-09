@@ -14,7 +14,7 @@
             <hr class="sidebar-divider">
 
             <!-- Nav Item -User -->
-            <li class="nav-item">
+            <li class="nav-item" v-if="Role=='Admin'">
                 <div class=" link" data-bs-toggle="collapse" @click="showArrowUtil" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -35,11 +35,7 @@
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Utilisateur
                             </router-link>  
-                             <router-link :to="{name:'Role'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                                aria-expanded="true" aria-controls="collapseTwo">
-                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Role 
-                             </router-link>          
+                                  
                         </div>
                     </div> 
     
@@ -154,7 +150,7 @@
                 <div class="link" data-bs-toggle="collapse" @click="showArrowVente" data-bs-target="#collapVente" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
-                            <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
+                            <font-awesome-icon icon="fa-sharp fa-solid fa-arrow-trend-down" />
                             <span class=" ml-2 label "> Vente </span>
                          </span>
                        <font-awesome-icon v-if="!isShowarrowVente" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
@@ -167,7 +163,7 @@
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
                              <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
-                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                               
                                   Commande 
                              </router-link>          
                            
@@ -213,7 +209,7 @@
              <hr class="sidebar-divider">
 
             <!-- Nav Item - report -->
-            <li class="nav-item">
+            <li class="nav-item" v-if="Role=='Admin'">
                 <div class="link" data-bs-toggle="collapse" @click="showArrowReports" data-bs-target="#collapReport" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -227,7 +223,7 @@
                     </div>
                    
                     <div class="collapse" id="collapReport" data-bs-parent="#accordionSidebar">
-                        <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
+                        <div  class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
                              <router-link :to="{name:'salesreport'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
@@ -243,11 +239,7 @@
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                               details des vides
                             </router-link> 
-                           <router-link :to="{name:'AllinVoiceView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
-                             aria-expanded="true" aria-controls="collapseVente">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             factures
-                            </router-link>  
+                            
                         </div>
                     </div> 
     
@@ -270,10 +262,28 @@ export default {
             isShowarrowReception:false,
             isShowarrowPerte:false,
             isShowarrowVente:false,
-            isShowarrowReports:false
+            isShowarrowReports:false,
+            role:'',
+            
         }
     },
+    computed:{
+        Role:function(){
+          let user=JSON.parse(localStorage.getItem('user'))
+          return user.user.Role;
+
+        }
+
+
+    },
+    
+   
+
+    
+
     methods:{
+    
+        
         showArrowUtil(){
             this.isShowarrowUtil = !this.isShowarrowUtil 
             this.isShowarrowClients=false

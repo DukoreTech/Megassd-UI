@@ -52,7 +52,7 @@
                                    <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     delete</button>-->
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editReception(reception,reception.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>edit
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>Modifier
                                     </button>
                                 </td>
                               </tr>
@@ -107,16 +107,11 @@ export default {
        },
     
     methods:{
-       
-
-        
         fetchData() {
             api.get("reception",
           )
             .then(resp => {
                 this.receptions = resp.data
-                
-              
             })
             .catch(err => {
                 console.error(err)
@@ -127,7 +122,7 @@ export default {
                 title: 'vous etes sure de vouloir supprimer ces informations',
              showDenyButton: true,
              showCancelButton: true,
-             confirmButtonText: 'Delete'
+             confirmButtonText: 'suppprimer'
              })  .then((result) => {
                 if (result.isConfirmed) {
                     api.delete("reception/"+id)
@@ -143,7 +138,6 @@ export default {
            
             
         },
-
         editReception(reception,id){
         this.$store.state.IdEditReception=id
         this.$store.state.receptions=reception
