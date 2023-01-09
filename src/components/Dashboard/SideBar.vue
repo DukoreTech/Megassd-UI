@@ -14,7 +14,7 @@
             <hr class="sidebar-divider">
 
             <!-- Nav Item -User -->
-            <li class="nav-item" v-if="Role=='Admin'">
+            <li class="nav-item" v-if="Role==1">
                 <div class=" link" data-bs-toggle="collapse" @click="showArrowUtil" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -174,7 +174,7 @@
             </li>
 
             <!-- Nav Item - Perte -->
-              <hr class="sidebar-divider">
+             
            <!--<li class="nav-item">
                 <div class="link" @click="showArrowPerte" data-bs-toggle="collapse" data-bs-target="#collapPerte" aria-expanded="false" aria-controls="collapPerte">
                      <div class="d-flex justify-content-between iconBetween">
@@ -209,7 +209,7 @@
              <hr class="sidebar-divider">
 
             <!-- Nav Item - report -->
-            <li class="nav-item" v-if="Role=='Admin'">
+            <li class="nav-item" v-if="Role=='1'">
                 <div class="link" data-bs-toggle="collapse" @click="showArrowReports" data-bs-target="#collapReport" aria-expanded="false" aria-controls="collapVente">
                      <div class="d-flex justify-content-between">
                          <span>
@@ -270,7 +270,7 @@ export default {
     computed:{
         Role:function(){
           let user=JSON.parse(localStorage.getItem('user'))
-          return user.user.Role;
+          return user.user.role_id;
 
         }
 

@@ -87,7 +87,7 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   let user =JSON.parse(localStorage.getItem('user')); 
- let role=user.user.Role
+ let role=user.user.role_id
   let accessToken = localStorage.getItem('token');
   
   if (to.meta.requiresAuth) {
@@ -95,13 +95,13 @@ router.beforeEach((to, from, next) => {
   router.push({path: '/login'});
   } else {
   if (to.meta.adminAuth) {
-  if (role == "Admin") {
+  if (role == 1) {
   next();
   } else {
   router.push({path: '/'});
   }
   } else if (to.meta.userAuth) {
-  if (role == "Agent") {
+  if (role == 2) {
    next();
   } else {
     router.push({path: '/'});

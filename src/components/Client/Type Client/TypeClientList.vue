@@ -36,9 +36,9 @@
                                 <td>{{ typeClient.description }} </td>         
                                 <td>
                                     <button class="btn btn-sm btn-danger m-2"  @click="deleteTClient(typeClient.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    delete</button>
+                                    supprimer</button>
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editTypeClient(typeClient,typeClient.id)" >
-                                      edit<font-awesome-icon icon="fa-solid fa-edit"/>
+                                    Modifier<font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>
@@ -61,6 +61,8 @@ import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './TypeClAddForm';
 import Swal from 'sweetalert2';
+
+import api from '../../../../api'
 
 export default {
     components: { ModalComponent, AddForm },
@@ -91,9 +93,8 @@ export default {
     methods:{
         fetchData() {
             
-            axios.get(this.$store.state.baseurl + "typeclient",
-            axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-          axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("typeclient",
+            )
             .then(resp => {
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
