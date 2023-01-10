@@ -38,7 +38,7 @@
                                                     <th>Prix de vente</th>
 													<th>done by:</th>
                                                     <th>on date:</th>
-													<th>Actions</th>
+													
 												</tr>
 											</thead>
                                             <tbody>
@@ -52,9 +52,7 @@
 													<td>{{detail.price_unitaire}}</td>
                                                     <td>{{detail.user_id}}</td>
                                                     <td>{{detail.created_at	}}</td>
-													<td>
-														<button class="btn-sm btn btn-primary">View</button>
-													</td>
+													
                                                     
                                                     
                                                 </tr>

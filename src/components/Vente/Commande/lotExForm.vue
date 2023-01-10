@@ -355,8 +355,8 @@ export default {
                title: ' oups ',
                text: 'une erreur est survenue veuillez réessayer plus tard!'+ "/n"+ err.data.data
               });
-          console.log(err.response.data);
-          this.errors = err.response.data.errors;
+          console.log(err.data.data);
+         
         }) 
     }      
             }, 
