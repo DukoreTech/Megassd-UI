@@ -94,7 +94,7 @@
 										   <div class="col-md-6  pb-3">
                                             <div v-if="form.TypePaiment=='Bordereau'">
                                                 <label>Numero bordereau</label >
-                                                 <input  type="text" class="form-control" id="custom_rating_input" name="custom_rating_count" value="" placeholder="20">
+                                                 <input  type="text" v-model="form.nbbordereau" class="form-control" id="custom_rating_input" name="custom_rating_count"  placeholder="20">
 
                                             </div>
                                             
@@ -441,15 +441,7 @@ export default {
             },
             envoyer() {
 
-    if(this.form.montant_paye > this.totalMontant)
-    {
-        Swal.fire({
-               icon: 'error',
-               title: ' verifier ',
-               text: 'le montant paye ne peut pas depasser le total montant' 
-              }); 
-    }
-    else{
+    
 
     
     const v = {
@@ -458,8 +450,8 @@ export default {
       num_bordereau:this.form.nbbordereau,
       payed_amount:this.form.montant_paye,
       total_amount:this.totalMontant,
-      dateb_bordereau:this.form.datepayed,
-      type_paiment:this.form.TypePaiment,
+      date_bordereau:this.form.datepayed,
+      type_paiement:this.form.TypePaiment,
       montantsup:this.form.montantsup
     }
     console.log(v)
@@ -491,7 +483,7 @@ export default {
           console.log(err.data.data);
          
         }) 
-    }      
+        
             }, 
             eliminer(index)
             {

@@ -190,8 +190,6 @@ export default {
           this.lots = resp.data;
           this.$emit('fetch')
        // console.log(this.$store.state.lots)
-
-
           this.form={}
           this.$emit("fetch")
           Swal.fire({
@@ -211,8 +209,7 @@ export default {
           this.form )
         .then((resp) => {
           this.form={}
-          this.lots = resp.data;
-        
+          this.lots = resp.data;        
           Swal.fire({
                icon: 'success',
                title: 'Modification',
