@@ -6,9 +6,7 @@
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter perte
                   </button>
-                <div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>
+               
               </div>    
                
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">

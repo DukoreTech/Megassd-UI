@@ -1,5 +1,9 @@
 <template>
-<div>
+<div class="form">
+  <div class="d-flex">
+      <span class="mx-auto h3 title">Perte</span>
+      <span @click="close" class="h2 close ">x</span>
+    </div>
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.pertes}}{{$store.state.IdEditPerte}}</span>
 <!-- retrieve data -->
@@ -20,9 +24,9 @@
                 <span>Perte</span>
                  <label for="client" class="">
                     <select  v-model="form.type_perte" aria-placeholder="client" id="client">
-                        <option  selected>manquant </option>
-                        <option >manquant </option>
-                        <option >detruire</option>
+                        <option  selected>Non conforme </option>
+                        <option >ouvert</option>
+                        <option >cassé</option>
                      </select>             
                   </label>
                  <span>{{ errors?.type_perte }}</span>
@@ -69,18 +73,12 @@ export default {
   mounted(){
     this.getProduits()
   },
-  updated(){
-    if(this.$store.state.IdEditPerte==null){
-        this.form={};
-        this.saveEditBtn="Enregistrer"
-      }else{
-         this.form=this.$store.state.pertes;
-        this.saveEditBtn="Modifier"
-      }
- 
-  },
+  
 
   methods: {
+    close(){
+      this.$emit('close')
+    },
      getProduits() {
       axios.get(this.$store.state.baseUrl + "/products",
       )
@@ -133,7 +131,7 @@ export default {
 
 <style  scoped>
 
-  *{
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -146,11 +144,21 @@ body{
     color:#6b6b6b;
  
 }
+.title{
+  font-weight: bolder;
+  font-size: 20px;
+}
+.close{
+  font-weight: bolder;
+  margin-right: 20px;
+  font-size: 23px;
+  cursor:pointer;
+}
 form{
-    width:90vw;
+    width:30vw;
     max-width:768px;
-    /* border:1px solid #ddd; */
-    padding:3vw;
+    font-family:sans-serif;
+    padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
@@ -168,8 +176,12 @@ input,select,textarea{
     border:none;
     outline:none;
 }
+
 input::placeholder{
     opacity:0;
+}
+.error{
+  color: red;
 }
 
 select::placeholder{
@@ -186,17 +198,16 @@ label span{
     font-size:0.825em;
     transition-duration:300ms;
 }
- span{
+span{
     position:relative;
     bottom:10;
     left:0;
     transform:translateY(10px);
     font-size:0.825em;
 }
-.button{
-    padding:15px 0px; 
+button{
+    padding:5px 0px; 
     margin-top:20px;
-    background:rgb(75, 126, 160);
     color:#fff;
     cursor:pointer;
     border-radius:3px;
@@ -207,9 +218,6 @@ label:focus-within > span,
 input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
-}
-.dateWidth{
-    width: 60%;
 }
 
 </style>

@@ -166,7 +166,15 @@
                                
                                   Commande 
                              </router-link>          
-                           
+                             <router-link :to="{name:'Videsrestant'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                                aria-expanded="true" aria-controls="collapseVente">
+                               
+                                  Vides Vides 
+                             </router-link> 
+                             <router-link :to="{name:'MontantNonpayes'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
+                                aria-expanded="true" aria-controls="collapseVente">
+                                  Montant non Payés 
+                             </router-link> 
                              
                         </div>
                     </div> 
@@ -174,8 +182,8 @@
             </li>
 
             <!-- Nav Item - Perte -->
-              <!-- <hr class="sidebar-divider"> -->
-           <!--<li class="nav-item">
+              <hr class="sidebar-divider"> 
+           <li class="nav-item">
                 <div class="link" @click="showArrowPerte" data-bs-toggle="collapse" data-bs-target="#collapPerte" aria-expanded="false" aria-controls="collapPerte">
                      <div class="d-flex justify-content-between iconBetween">
                         <span>

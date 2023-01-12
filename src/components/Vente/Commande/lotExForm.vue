@@ -14,8 +14,132 @@
        <div class="row justify-content-center mt-5">
            <div class="col-md-12">
              <form class="" @submit.prevent="envoyer()" >
+                <div class="container">
+                    <div class="row">
+                        
+                            <!-- Contact Details -->
+							<div class="card contact-card col-6">
+								<div class="card-body">
+									<h4 class="card-title">Add product to sell</h4>
+									<div class="row form-row">
+										<div class="col-md-6 pb-3">
+											<div class="form-group">
+												<label>Product</label>
+												<select  v-model="form.product" name="produit_id" class="form-control">
+                                                 <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
+                                                 </select>
+											</div>
+										</div>
+										<div class="col-md-6 pb-3">
+											<div class="form-group">
+												<label class="control-label">Quantity</label>
+												<input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite">
+											</div>
+										</div>
+										<div class="col-md-6 pb-3">
+											<div class="form-group">
+												<label class="control-label">Vides Amenés</label>
+												<input type="text" v-model="form.vides" class="form-control">
+											</div>
+										</div>
+
+										<!--<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">State / Province</label>
+												<input type="text" class="form-control">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Country</label>
+												<input type="text" class="form-control">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Postal Code</label>
+												<input type="text" class="form-control">
+											</div>
+										</div>-->
+                                        <div class="row mt-3">
+											<div class="form-group">
+												<a class="btn btn-success btn-block" @click="ajouter">Ajouter</a>
+											</div>
+										</div>
+                                        
+                                        
+									</div>
+								</div>
+							</div>
+							<!-- /Contact Details -->
+							
+							<!-- Pricing -->
+							<div class="card col-6">
+								<div class="card-body">
+									<h4 class="card-title">Pricing</h4>
+
+                                    <div class="row form-row  ">
+                                        <div class="col-md-6  pb-3">
+											<div class="form-group">
+												<label>Type of paiement</label>
+												<select v-model="form.TypePaiment" aria-placeholder="typepaiment"  class="form-control">
+                                                  <option>cash</option>  
+                                                  <option>Bordereau</option>                                 
+                                                 </select>                            
+                                                
+											</div>
+										</div>
+                                    
+
+										   <div class="col-md-6  pb-3">
+                                            <div v-if="form.TypePaiment=='Bordereau'">
+                                                <label>Numero bordereau</label >
+                                                 <input  type="text" class="form-control" id="custom_rating_input" name="custom_rating_count" value="" placeholder="20">
+
+                                            </div>
+                                            
+										   	  
+										   </div>
+									   
+                                    
+                                       <div class="col-md-6  pb-3">
+											<div class="form-group">
+												<label>Client</label>
+												<select v-model="form.client"  name="produit_id" class="form-control">
+                                                  <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
+                                                 </select>                            
+                                                
+											</div>
+										</div>
+
+                                    
+									    <div class="col-md-6  pb-3">
+											<div class="form-group">
+												<label>PayedAmount</label>
+                                                <input type="number" class="form-control" v-model="form.montant_paye">
+												
+											</div>
+										</div>
+                                        <div class="col-md-6  pb-3">
+											<div class="form-group">
+												<label>Date Payed</label>
+												<input v-model="form.datepayed" type="date" class="form-control">
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<!-- /Pricing -->
+
+                      
+                         
+                    </div>
+
+                </div>
+                
                 <table class="table table-bordered table-striped table-responsive">
-                   <thead class="thead-dark">
+                  <!-- <thead class="thead-dark">
                     
                     <p class="m-4">Ajouter des produits</p>
                    <tr>
@@ -27,9 +151,9 @@
                     <th>Montant sur bordereau</th>
                     <th>montant supplementaire</th>
                    </tr>
-                   </thead>
+                   </thead>-->
                    <tbody>
-                    <tr>
+                    <!--<tr>
                     
                     <td>
                         <div class="form-group">                            
@@ -58,15 +182,17 @@
                         <span class="error">{{ errors?.payed_amount}}</span>
                     </td>
                     <td><input type="number" class="form-control" v-model="form.montantsup"></td>
-                </tr>
+                </tr>-->
                     <p class="m-4">Panier</p>
                     <tr>
                            <th scope="col">Produit</th>
                            <th scope="col">Quantité</th>
                            <th scope="col">montant</th>
+                           <th scope="col">Vides Amenés</th>
                            <th scope="col">Total</th>
                            <th scope="col">Actions</th>
                            <th scope="col">client</th>
+                           <th scope="col">type Paiments</th>
                            <th scope="col">Nbbordereau</th>
                            <th scope="col">montant payé</th>
                        </tr>
@@ -74,6 +200,7 @@
                        <td>{{ commande.product_name }}</td>
                        <td>{{ commande.product_quantity }}</td>
                        <td>{{ commande.amount }}</td>
+                       <td>{{ commande.caisse_vide }}</td>
                        <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }}F</td>
                        <td class="d-flex"><a class="btn btn-info btn-block" @click="modifier(index)">Modifier</a>
                       <a class="btn btn-danger btn-block" @click="supprimer(index)">supprimer</a></td>
@@ -81,10 +208,11 @@
                        </tr>
                    <tr>
                     
-                       <td colspan="3"></td>
+                       <td colspan="4"></td>
                        <td><input type="text" :disabled="disabled"  class="form-control" v-model="totalMontant" Fbu></td>
                        <td colspan="1"></td>
                        <td>{{form.client_name}}</td>
+                       <td>{{ form.TypePaiment }}</td>
                        <td>{{form.nbbordereau}}</td>
                        <td>{{form.montant_paye}}</td>
                        
@@ -97,7 +225,7 @@
                    <button class="button btn btn-xs btn-success" type="submit">Valider</button>
                    </tfoot>
                </table>
-           </form>
+            </form>
            <div class="panel panel-danger" v-show="poubelle.length">
                <div class="panel-heading">Poubelle</div>
                <table class="table table-bordered table-striped table-responsive">
@@ -142,10 +270,13 @@ export default {
             errors:{},
             
             lots:{},
-            form: {                                  
+            form: {
+                TypePaiment:'',                                  
                 product : '',                    
                 quantite : '',                    
                 montant: '',  
+                vides:'',
+                datepayed:'',
                 client:this.$store.state.selectClient_id, 
                 client_name:'',
                 montant_paye:'',
@@ -272,7 +403,7 @@ export default {
                 exist.product_quantity+=this.form.quantite
             }
             else{
-                this.commandes.push({product_id: this.form.product.product_id, product_quantity: this.form.quantite, amount: this.form.montant , product_name:this.form.product.products.name});   
+                this.commandes.push({product_id: this.form.product.product_id, product_quantity: this.form.quantite, amount: this.form.montant , product_name:this.form.product.products.name,caisse_vide:this.form.vides});   
                 console.log(this.commandes)
                 this.getprice()
                  // this.form = {};
@@ -327,6 +458,8 @@ export default {
       num_bordereau:this.form.nbbordereau,
       payed_amount:this.form.montant_paye,
       total_amount:this.totalMontant,
+      dateb_bordereau:this.form.datepayed,
+      type_paiment:this.form.TypePaiment,
       montantsup:this.form.montantsup
     }
     console.log(v)
@@ -377,5 +510,4 @@ export default {
 </script>
 
 <style>
-
 </style>
