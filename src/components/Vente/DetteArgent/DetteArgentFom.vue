@@ -1,11 +1,11 @@
 <template>
     <div class="form">
       <div class="d-flex">
-        <span class="mx-auto h3 title">Dettes vides</span>
+        <span class="mx-auto h3 title">Dettes</span>
         <span @click="close" class="h2 close ">x</span>
       </div>
     <!-- retrieve data -->
-    <span class="d-none">{{$store.state.stocks}}{{$store.state.IdEditStock}}</span>
+    <span class="d-none">{{this.$store.state.DetteArgent}}{{this.$store.state.IdEditDetteArgent}}</span>
     <!-- retrieve data -->
       <div class="register">
         
@@ -18,14 +18,23 @@
                       </label>
                      <span>{{ errors?.produit }}</span>
                     <br>
+
+                    <label for="Quantite" v-if="form.montant_en_dette!=0">
+                        <input type="tel" disabled id="Quantite" placeholder="Quantite" v-model="form.montant_en_dette">
+                        <span>Montant en dette</span>
+                     </label>
+                     <label for="Quantite" v-if="form.montant_en_exces!=0">
+                        <input type="tel" disabled  id="Quantite" placeholder="Quantite" v-model="form.montant_en_exces">
+                        <span>Montant en excés</span>
+                     </label>
     
-                     <label for="Quantite">
-                        <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.vide">
+                     <label for="Quantite" v-if="form.montant_en_exces!=0">
+                        <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.montant_rembourse">
                         <span>Montant Remboursé</span>
                      </label>
                     <span>{{ errors?.Quantite }}</span>
-                    <label for="Quantite">
-                        <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.vide">
+                    <label for="Quantite" v-if="form.montant_en_dette!=0">
+                        <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.montant_amene">
                         <span>Montant Payés</span>
                      </label>
                     <span>{{ errors?.Quantite }}</span>
@@ -52,68 +61,47 @@
       data() {
         return {
           form: {
-            product_id:"",
-            vide:"",
-            user_id:"",
-        
+            montant_paye:this.$store.state.DetteArgent.montant_paye,
+            montant_en_exces:this.$store.state.DetteArgent.montant_en_exces,
+            montant_en_dette:this.$store.state.DetteArgent.montant_en_dette,
+            montant_amene:this.$store.state.DetteArgent.montant_amene,
+            montant_rembourse:this.$store.state.DetteArgent.montant_rembourse,
           },
           errors: {},
           stocks:[],
           produits:[],
-          saveEditBtn:"Ajouter",
+         saveEditBtn:"Modifier",
         };
       },
-     mounted(){
-        this.getProduits()
+      mounted()
+      {
+            this.form.montant_paye=this.$store.state.DetteArgent.montant_paye,
+            this.form.montant_en_exces=this.$store.state.DetteArgent.montant_en_exces,
+            this.form.montant_en_dette=this.$store.state.DetteArgent.montant_en_dette,
+            this.form.montant_amene=this.$store.state.DetteArgent.montant_amene,
+            this.form.montant_rembourse=this.$store.state.DetteArgent.montant_rembourse;
       },
+
       watch:{
-      "$store.state.IdEditStock"(a){
+      "$store.state.IdEditDetteArgent"(a){
         console.log(a)
         
-                this.form=this.$store.state.stocks;
-                this.saveEditBtn="Modifier"
-            
-    
+          this.form=this.$store.state.DetteArgent
+        //  this.saveEditBtn="Modifier
+       
       }
      },
     
       methods: {
-         getProduits() {
-          api.get("products",
-          this.form
-          )
-            .then(resp => {
-              this.produits = resp.data
-            })
-            .catch(err => {
-              console.log(err)
-            })
-    
-        },
         close(){
           this.$emit('close')
         }, 
-        saveInformation() {
-          if (this.form["produit","Quantite"]=="") return; 
-    
-           if(this.$store.state.IdEditStock==null){
-                 
-            api.post("stock",
-              this.form
-            )
-            .then((resp) => {
-              this.stocks = resp.data;
-              alert("data is saved")
-              this.form = { produit:"",Quantite:""} 
-            })
-            .catch((err) => {
-              console.error(err.response.data.errors);
-              this.errors = err.response.data.errors;
-            });
-           }else{
+        saveInformation(){
+          alert('hi')
+          
              api.patch(
-           "stock/"+this.$store.state.IdEditStock,
-              this.form )
+           "getDetteArgent/"+this.$store.state.IdEditDetteArgent,
+              this.form)
             .then((resp) => {
               this.stocks = resp.data;
               Swal.fire({
@@ -124,11 +112,10 @@
               this.$emit('close')
              })
             .catch((err) => {
-              console.error(err.response.data.errors);
-              this.errors = err.response.data.errors;
+              
             });
     
-           }
+           
      
         }
         

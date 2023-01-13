@@ -5,22 +5,22 @@
         <span @click="close" class="h2 close ">x</span>
       </div>
     <!-- retrieve data -->
-    <span class="d-none">{{$store.state.stocks}}{{$store.state.IdEditStock}}</span>
+    <span class="d-none">{{$store.state.DetteVides}}{{$store.state.IdEditVide}}</span>
     <!-- retrieve data -->
       <div class="register">
         
         <form action="" @submit.prevent="saveInformation">
     
-                    <span>Product</span>
+                   <span>Restant</span>
                      <label for="produit" class="">
-                      <input type="tel" disabled id="Quantite" placeholder="Quantite" v-model="form.product_id">
+                      <input type="tel" v-model="form.reste" disabled id="Quantite" placeholder="Quantite">
                                    
                       </label>
                      <span>{{ errors?.produit }}</span>
                     <br>
     
                      <label for="Quantite">
-                        <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.vide">
+                        <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.nouveau_casier">
                         <span>Quantite Amenés</span>
                      </label>
                     <span>{{ errors?.Quantite }}</span>
@@ -47,9 +47,9 @@
       data() {
         return {
           form: {
-            product_id:"",
-            vide:"",
-            user_id:"",
+           
+            nouveau_casier:this.$store.state.DetteVides.nouveau_casier,
+            reste:this.$store.state.DetteVides.reste
         
           },
           errors: {},
@@ -58,14 +58,12 @@
           saveEditBtn:"Ajouter",
         };
       },
-     mounted(){
-        this.getProduits()
-      },
+     
       watch:{
-      "$store.state.IdEditStock"(a){
+      "$store.state.IdEditVide"(a){
         console.log(a)
         
-                this.form=this.$store.state.stocks;
+                this.form=this.$store.state.DetteVides;
                 this.saveEditBtn="Modifier"
             
     
@@ -73,41 +71,16 @@
      },
     
       methods: {
-         getProduits() {
-          api.get("products",
-          this.form
-          )
-            .then(resp => {
-              this.produits = resp.data
-            })
-            .catch(err => {
-              console.log(err)
-            })
-    
-        },
         close(){
           this.$emit('close')
-        }, 
+        },
         saveInformation() {
-          if (this.form["produit","Quantite"]=="") return; 
+         // if (this.form["produit","Quantite"]=="") return; 
     
-           if(this.$store.state.IdEditStock==null){
-                 
-            api.post("stock",
-              this.form
-            )
-            .then((resp) => {
-              this.stocks = resp.data;
-             // alert("data is saved")
-              this.form = { produit:"",Quantite:""} 
-            })
-            .catch((err) => {
-              console.error(err.response.data.errors);
-              this.errors = err.response.data.errors;
-            });
-           }else{
+         
+            
              api.patch(
-           "stock/"+this.$store.state.IdEditStock,
+           "getDetteVides/"+this.$store.state.IdEditVide,
               this.form )
             .then((resp) => {
               this.stocks = resp.data;
@@ -124,11 +97,12 @@
             });
     
            }
+          }
      
         }
         
-    }
-    }
+    
+    
     </script>
     
     <style  scoped>

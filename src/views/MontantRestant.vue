@@ -1,5 +1,7 @@
 <template>
-    <DetteArgent></DetteArgent>
+    <DetteArgent>
+        
+    </DetteArgent>
   </template>
   
   <script>

@@ -23,7 +23,7 @@ import DetailsStocksView from "@/views/DetailsStocksView.vue"
 import Loginform from '@/components/Global/LoginForm.vue'
 import Profile from "@/views/UserProfileView.vue"
 import Videsrestant from "@/views/DetteVidesView.vue"
-import MontantNonpayes from "@/views/MontantRestant.vue"
+import MontantNonpayes from "@/components/Vente/DetteArgent/DetteMoney.vue"
 import store from '../store/index.js'
 
 const routes = [
@@ -46,8 +46,8 @@ const routes = [
  { path:'/Produit',name:'Produit',component:Produit },
  { path:'/Stock',name:'Stock',component:Stock },
  { path:'/Videsrestant',name:'Videsrestant',component:Videsrestant },
- { path:'/MontantNonpayes',name:'MontantNonpayes',component:MontantNonpayes },
- 
+ { path:'/MontantNonpayes',name:'MontantNonpayes',component:MontantNonpayes},
+
  { path:'/lot',name:'lot',component:lot },
  { path:'/Reception',name:'Reception',component:Reception },
  { path:'/Commande',name:'Commande',component:Commande },
