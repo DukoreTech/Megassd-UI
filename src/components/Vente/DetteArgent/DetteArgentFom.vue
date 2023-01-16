@@ -89,7 +89,22 @@
           this.form=this.$store.state.DetteArgent
         //  this.saveEditBtn="Modifier
        
+      },
+      "$store.state.DetteArgent.montant_en_exces"(val){
+        this.form.montant_en_exces=this.$store.state.DetteArgent.montant_en_exces
+      },
+      "$store.state.DetteArgent.montant_en_dette"(val){
+        this.form.montant_en_dette=this.$store.state.DetteArgent.montant_en_dette
+      },
+      "$store.state.DetteArgent.montant_amene"(val){
+        this.form.montant_amene=this.$store.state.DetteArgent.montant_amene
+      },
+      "$store.state.DetteArgent.montant_rembourse"(val)
+      {
+        this.form.montant_rembourse=this.$store.state.DetteArgent.montant_rembourse
+
       }
+
      },
     
       methods: {
@@ -97,8 +112,7 @@
           this.$emit('close')
         }, 
         saveInformation(){
-          alert('hi')
-          
+
              api.patch(
            "getDetteArgent/"+this.$store.state.IdEditDetteArgent,
               this.form)

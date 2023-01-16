@@ -44,7 +44,7 @@
                                        <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                         delete</button>-->
                                         <span class="bg-success p-2 text-white" v-if="dette.reste==0">Done</span>
-                                        <button v-if="dette.reste!==0" class="btn btn-sm btn-primary" @click="modalActive = true,editDette(dette,dette.id)" >
+                                        <button v-if="dette.reste!==0" class="btn btn-sm btn-primary" @click="modalActive = true, editDette(dette,dette.id)" >
                                         <font-awesome-icon icon="fa-solid fa-edit"/>Modifier
                                         </button>
                                     </td>
@@ -96,7 +96,11 @@
                   this.$nextTick(()=> {
                     $('#datatable').DataTable()
                   });
+                },
+                "$store.state.IdEditVide"(val){
+
                 }
+            
            },
         
         methods:{
@@ -105,6 +109,7 @@
               )
                 .then(resp => {
                     this.DetteVides = resp.data
+                    this.$store.state.DetteVides=resp.data
                 })
                 .catch(err => {
                     console.error(err)

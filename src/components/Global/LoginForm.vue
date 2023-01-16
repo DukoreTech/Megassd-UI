@@ -35,6 +35,7 @@
 <script>
 import axios from "axios"
 import Swal from 'sweetalert2'
+import api from '../../../api'
 ///import   "../"
 export default {
     
@@ -81,7 +82,7 @@ if(this.errors.length > 0)
 
 else{
     
-        axios.post(this.$store.state.baseurl + "login",this.form)
+	api.post("login",this.form)
         .then( (response) =>{
     
         this.$store.commit("login", JSON.stringify(response.data

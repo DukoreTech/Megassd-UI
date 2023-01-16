@@ -3,7 +3,8 @@ import Dashboard from "@/views/DashboardView.vue"
 import User from "@/views/UserView.vue"
 import Role from "@/views/RoleView.vue"
 import Adresse from "@/views/AdresseView.vue"
-import Client from "@/views/ClientView.vue"
+//import Client from "@/views/ClientView.vue"
+import Client from "@/components/Client/clients/ClientsAll.vue"
 import TyClient from "@/views/TypeClientView.vue"
 import Produit from "@/views/ProduitView.vue"
 import Stock from "@/views/StockView.vue"
@@ -23,6 +24,7 @@ import DetailsStocksView from "@/views/DetailsStocksView.vue"
 import Loginform from '@/components/Global/LoginForm.vue'
 import Profile from "@/views/UserProfileView.vue"
 import Videsrestant from "@/views/DetteVidesView.vue"
+import Clientshistoric from "@/components/Client/clients/Clientshistoric.vue"
 import MontantNonpayes from "@/components/Vente/DetteArgent/DetteMoney.vue"
 import store from '../store/index.js'
 
@@ -47,6 +49,7 @@ const routes = [
  { path:'/Stock',name:'Stock',component:Stock },
  { path:'/Videsrestant',name:'Videsrestant',component:Videsrestant },
  { path:'/MontantNonpayes',name:'MontantNonpayes',component:MontantNonpayes},
+ { path:'/Clientshistoric/:id,:client',name:'Clientshistoric',component:Clientshistoric,props: true},
 
  { path:'/lot',name:'lot',component:lot },
  { path:'/Reception',name:'Reception',component:Reception },

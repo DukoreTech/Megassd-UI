@@ -21,9 +21,9 @@
                   </label>
                  <span>{{ errors?.product_id }}</span>
                 <br>
-                <span>Perte</span>
+                <span>Nature</span>
                  <label for="client" class="">
-                    <select  v-model="form.type_perte" aria-placeholder="client" id="client">
+                    <select  v-model="form.nature" aria-placeholder="client" id="client">
                         <option  selected>Non conforme </option>
                         <option >ouvert</option>
                         <option >cassé</option>
@@ -31,20 +31,26 @@
                   </label>
                  <span>{{ errors?.type_perte }}</span>
                 <br>
-
-                 <label for="quantity">
-                    <input type="tel" id="quantity" placeholder="quantity" v-model="form.quantity">
+                <span>Stock</span>
+                 <label for="client" class="">
+                    <select  v-model="form.stock" aria-placeholder="client" id="client">
+                        <option>Vides</option>
+                        <option >plein</option>
+                     </select>             
+                  </label>
+                 <span>{{ errors?.type_perte }}</span>
+                <br>
+                <label for="quantity">
+                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
                     <span>Quantite</span>
-                 </label>
-                <span>{{ errors?.quantity }}</span>
-
-                 <span>Description</span><br>
-                <label for="description">
-                    <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
                 </label>
-                <span>{{ errors?.description }}</span>
+                <span>{{ errors?.quantity }}</span>
+                <label for="quantity">
+                    <input type="number" id="quantity" placeholder="quantity" v-model="form.casier">
+                    <span>casier</span>
+                </label>
                 
-        <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
+            <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
     </form>
 </div>
 
@@ -52,14 +58,17 @@
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
+import api from '../../../../api';
 export default {
   props:["modalActive"],
   data() {
     return {
       form: {
         product_id:"",
-        type_perte:"",
+        nature:"",
+        casier:"",
+        stock:"",
         quantity:"",
         description:""
     
@@ -80,7 +89,7 @@ export default {
       this.$emit('close')
     },
      getProduits() {
-      axios.get(this.$store.state.baseUrl + "/products",
+      api.get("products",
       )
         .then(resp => {
           this.products = resp.data
@@ -92,25 +101,25 @@ export default {
     },
 
     saveInformation() {
-      if (this.form["product_id","type_perte","quantity","description"]=="") return; 
+      
 
        if(this.$store.state.IdEditPerte==null){
              
-        axios.post(
-          this.$store.state.baseUrl + "/pertes",
+        api.post(
+          "pertes",
           this.form
+          
         )
         .then((resp) => {
           this.pertes = resp.data;
-          this.form = { product_id:"",type_perte:"",quantity:"",description:""} 
+          this.form = {} 
         })
         .catch((err) => {
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
-         axios.patch(
-          this.$store.state.baseUrl+"/pertes/"+this.$store.state.IdEditPerte,
+         api.patch(pertes/"+this.$store.state.IdEditPerte",
           this.form )
         .then((resp) => {
           this.pertes = resp.data;
@@ -132,17 +141,6 @@ export default {
 <style  scoped>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-body{
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-    font-family:sans-serif;
-    color:#6b6b6b;
- 
 }
 .title{
   font-weight: bolder;
@@ -155,13 +153,15 @@ body{
   cursor:pointer;
 }
 form{
-    width:30vw;
+    width:45vw;
     max-width:768px;
     font-family:sans-serif;
     padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
+    margin-left:20px;
+    margin-top: 20px;
 }
 
 label{
@@ -198,7 +198,7 @@ label span{
     font-size:0.825em;
     transition-duration:300ms;
 }
-span{
+ span{
     position:relative;
     bottom:10;
     left:0;
@@ -218,6 +218,9 @@ label:focus-within > span,
 input:not(:placeholder-shown) + span{
     color:purple;
     transform:translateY(0px);
+}
+.dateWidth{
+    width: 80%;
 }
 
 </style>
