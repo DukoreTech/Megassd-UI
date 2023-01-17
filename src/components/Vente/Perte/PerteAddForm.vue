@@ -60,6 +60,7 @@
 <script>
 //import axios from "axios";
 import api from '../../../../api';
+import Swal from 'sweetalert2';
 export default {
   props:["modalActive"],
   data() {
@@ -93,6 +94,11 @@ export default {
       )
         .then(resp => {
           this.products = resp.data
+          Swal.fire({
+               icon: 'success',
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
+              });
         })
         .catch(err => {
           console.log(err)

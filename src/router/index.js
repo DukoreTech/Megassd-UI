@@ -95,9 +95,14 @@ const router = createRouter({
   routes  
 })
 router.beforeEach((to, from, next) => {
+  if(localStorage.getItem('user'))
+  {
+
+  
   let user =JSON.parse(localStorage.getItem('user')); 
  let role=user.user.role_id
   let accessToken = localStorage.getItem('token');
+}
   
   if (to.meta.requiresAuth) {
   if (!role || !accessToken) {

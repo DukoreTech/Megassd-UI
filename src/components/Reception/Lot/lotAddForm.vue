@@ -41,8 +41,8 @@
              <div class="col">
               <span>direction</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="product_id" multiple>
-                        <option v-for="zone in address" :key="zone.id" :value="zone.id"  selected>
+                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" class="bg-white" multiple>
+                        <option v-for="zone in address" :key="zone.id" :value="zone.id" class="bg-white"  selected>
                         {{ zone.name }}
                         </option>
                     </select>             
@@ -172,7 +172,7 @@ export default {
        if(this.$store.state.IdEditLot==null){
 
         let result= this.$store.state.lots.find((item) => item.product_id == this.form.product_id && item.adresses_id==this.form.adresses_id && item.type_clients_id==this.form.type_Clients_id
-)
+         )
 
        // console.log(result)
         if(result){
@@ -327,5 +327,7 @@ input:not(:placeholder-shown) + span{
 .dateWidth{
     width: 80%;
 }
+
+
 
 </style>
