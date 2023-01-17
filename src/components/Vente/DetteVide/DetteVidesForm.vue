@@ -118,6 +118,7 @@
                    text: 'data updated successfully!',  
                   });
               this.$emit('close')
+              this.$store.state.DetteVides=resp.data
              })
             .catch((err) => {
               console.error(err.response.data.errors);
