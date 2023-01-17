@@ -84,12 +84,14 @@
               this.form )
             .then((resp) => {
               this.stocks = resp.data;
+              
               Swal.fire({
                    icon: 'success',
                    title: 'success',
                    text: 'data updated successfully!',  
                   });
               this.$emit('close')
+              this.$store.state.DetteVides=resp.data
              })
             .catch((err) => {
               console.error(err.response.data.errors);
