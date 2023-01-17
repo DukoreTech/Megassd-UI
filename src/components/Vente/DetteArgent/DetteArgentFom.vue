@@ -112,6 +112,16 @@
           this.$emit('close')
         }, 
         saveInformation(){
+          if (this.form.montant_amene > this.form.montant_en_dette || this.form.montant_rembourse > this.form.montant_en_exces)
+          {
+            Swal.fire({
+                   icon: 'info',
+                   title: 'error',
+                   text: 'Montant entered is  not valid!',  
+                  })
+          }
+          else{
+
 
              api.patch(
            "getDetteArgent/"+this.$store.state.IdEditDetteArgent,
@@ -128,11 +138,14 @@
             .catch((err) => {
               
             });
+
+         
+
     
            
      
         }
-        
+      }
     }
     }
     </script>

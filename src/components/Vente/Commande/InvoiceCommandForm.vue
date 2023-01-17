@@ -38,7 +38,7 @@
 											<div class="invoice-info invoice-info2">
 												<strong class="customer-text">Invoice To</strong>
 												<p class="invoice-details">
-													{{data.client_id}} <br>
+													{{data.clients}} <br>
 													299 Star Trek Drive, Panama City, <br>
 													Florida, 32405, USA <br>
 												</p>

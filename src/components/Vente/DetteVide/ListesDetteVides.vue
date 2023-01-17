@@ -35,7 +35,7 @@
                                     <th scope="row">{{ dette.id }}</th>
                                     <td>{{ dette.order_id }} </td>
                                     <td>{{ dette.products.name }}</td>
-                                    <td>{{ dette.orders.client_id}}</td>
+                                    <td>{{ dette.clients}}</td>
                                     <td>{{ dette.quantite_depart }}</td>
                                     <td>{{ dette.reste }} </td>
                                     <td>{{ dette.nouveau_casier }} </td>            
