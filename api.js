@@ -31,9 +31,10 @@ error => {
     if (error.response.status) {
       switch (error.response.status) {
         case 400:
-
-          break;
-      
+          store.commit('logout')
+            localStorage.removeItem('token')
+            router.push('/')
+            break;
           case 401:
             
             store.commit('logout')

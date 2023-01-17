@@ -102,7 +102,7 @@ export default {
         stock_id:"",
         stock:"",
         product_id:"",
-        date_achat:"",
+        date_achat:new Date().toISOString().slice(0,10),
         montant_total:0,
         montant:0,
         description:"",

@@ -21,14 +21,16 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
-                                <th scope="col">Produit</th>
-                                <th scope="col">Type de perte</th>
-                                <th scope="col">Quantite</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Nature</th>
+                                <th scope="col">Nb bouteilles</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">casier</th>
+                                <th scope="col">Restant</th>
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>
@@ -36,10 +38,12 @@
                             <tbody>
                                <tr v-for="perte in pertes" :key="perte.id">
                                 <th scope="row">{{ perte.id }}</th>
-                                <td>{{ perte.product_id }} </td>
-                                <td>{{ perte.type_perte }} </td>
+                                <td>{{ perte.products.name }} </td>
+                                <td>{{ perte.nature }} </td>
                                 <td>{{ perte.quantity }} </td>
-                                <td>{{ perte.description }} </td>
+                                <td>{{ perte.stock}} </td>
+                                <td>{{ perte.casier }} </td>
+                                <td>{{ perte.restant }} </td>
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deletePerte(perte.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
@@ -59,9 +63,14 @@
 
 <script>
 import axios from "axios";
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './PerteAddForm';
-
+import api from '../../../../api';
 export default {
     components: { ModalComponent, AddForm },
     data() {
@@ -74,14 +83,19 @@ export default {
     mounted(){
         this.fetchData()
     },
-    computed:{
-        searchEvery(){
-            return this.pertes.filter(val=>val.includes(this.search))
+    watch: {
+        pertes(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
             }
-    },
+       },
+   
     methods:{
         fetchData() {
-            axios.get(this.$store.state.baseUrl + "/pertes/")
+                api.get("pertes")
             .then(resp => {
                 this.pertes = resp.data
             })
@@ -91,7 +105,7 @@ export default {
         },
         
         deletePerte(id) {
-            axios.delete(this.$store.state.baseUrl + "/pertes/" + id)
+            api.delete("pertes/" + id)
             .then(resp => {
                 this.pertes = resp.data
                 this.fetchData()

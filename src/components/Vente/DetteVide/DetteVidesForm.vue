@@ -30,8 +30,8 @@
                      </label> -->
                     
                   <div class="d-flex justify-content-around">
-                    <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-                    <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+                    <button type="submit" class="btn btn-sm btn-danger" >Modifier</button>
+                   
                   </div>
               </form>
     </div>
@@ -55,36 +55,63 @@
           errors: {},
           stocks:[],
           produits:[],
-          saveEditBtn:"Ajouter",
+
         };
       },
      
       watch:{
+
+      
       "$store.state.IdEditVide"(a){
         console.log(a)
+        if(this.$store.state.IdEditVide!==null)
+        {
+          this.form=this.$store.state.DetteVides;  
+        }
+        else{
+          this.form={}
+        }
+
         
-                this.form=this.$store.state.DetteVides;
-                this.saveEditBtn="Modifier"
-            
-    
+             
       }
+      ,"$store.state.DetteVides.nouveau_casier"(val){
+        this.form.nouveau_casier=this.$store.state.DetteVides.nouveau_casier
+        //this.form.reste=val.reste
+
+
+      },
+      "$store.state.DetteVides.reste"(val){
+        this.form.reste=this.$store.state.DetteVides.reste
+
+      },
+      
      },
+     
     
       methods: {
         close(){
           this.$emit('close')
         },
         saveInformation() {
-         // if (this.form["produit","Quantite"]=="") return; 
-    
-         
-            
-             api.patch(
+          if (this.form.nouveau_casier > this.form.reste)
+          {
+            Swal.fire({
+                   icon: 'info',
+                   title: 'error',
+                   text: 'quantity entered is  not valid!',  
+                  });
+
+
+          }
+          else{
+           api.patch(
            "getDetteVides/"+this.$store.state.IdEditVide,
               this.form )
             .then((resp) => {
               this.stocks = resp.data;
-              
+              this.$store.state.DetteVides=resp.data
+              console.log(this.$store.state.DetteVides)
               Swal.fire({
                    icon: 'success',
                    title: 'success',
@@ -99,6 +126,9 @@
             });
     
            }
+           
+          }  
+
           }
      
         }

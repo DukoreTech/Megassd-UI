@@ -276,7 +276,7 @@ export default {
                 quantite : '',                    
                 montant: '',  
                 vides:'',
-                datepayed:'',
+                datepayed: new Date().toISOString().slice(0,10),
                 client:this.$store.state.selectClient_id, 
                 client_name:'',
                 montant_paye:'',

@@ -25,26 +25,7 @@
                         </option>
                     </select>             
                </label>
-               <span>{{ errors?.product_id }}</span>
-               <span>direction</span>
-                 <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="product_id">
-                        <option v-for="zone in address" :key="zone.id" :value="zone.id"  selected>
-                        {{ zone.name }}
-                        </option>
-                    </select>             
-                </label>
-
-            </div>
-
-             <div class="col">
-              <label for="price_vente">
-                    <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
-                    <span>Prix de vente</span>
-                </label>
-                <span>{{ errors?.price_vente }}</span> 
-                  <br>
-              <span>type client</span>
+               <span>type client</span>
                  <label for="product_id" class="d-block dateWidth">
                     <select  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
                         <option v-for="client in typeClients" :key="client.id" :value="client.id"  selected>
@@ -52,6 +33,27 @@
                         </option>
                     </select>             
                </label> 
+               <span>{{ errors?.product_id }}</span>
+               
+
+            </div>
+
+             <div class="col">
+              <span>direction</span>
+                 <label for="product_id" class="d-block dateWidth">
+                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="product_id" multiple>
+                        <option v-for="zone in address" :key="zone.id" :value="zone.id"  selected>
+                        {{ zone.name }}
+                        </option>
+                    </select>             
+                </label>
+              <label for="price_vente">
+                    <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
+                    <span>Prix de vente</span>
+                </label>
+                <span>{{ errors?.price_vente }}</span> 
+                  <br>
+              
 
                <span>Description</span><br>
                 <label for="description">
