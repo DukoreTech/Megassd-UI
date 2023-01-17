@@ -147,8 +147,6 @@ export default {
 
 <style  scoped>
 
-*{
-}
 .title{
   font-weight: bolder;
   font-size: 20px;
@@ -162,6 +160,7 @@ export default {
 form{
     width:45vw;
     max-width:768px;
+    height: 500px;
     font-family:sans-serif;
     padding:0 3vw;
     display:flex;
@@ -172,14 +171,14 @@ form{
 }
 
 label{
-    margin-bottom:15px;
+    margin-bottom:5px;
     position:relative;
     border-bottom:1px solid #ddd;
 }
 input,select,textarea{
     width:100%;
     padding:10px 0px;
-    margin-top:20px;
+    margin-top:10px;
     border:none;
     outline:none;
 }
@@ -214,7 +213,7 @@ label span{
 }
 button{
     padding:5px 0px; 
-    margin-top:20px;
+    margin-top:10px;
     color:#fff;
     cursor:pointer;
     border-radius:3px;
