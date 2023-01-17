@@ -47,9 +47,9 @@
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deletePerte(perte.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editPerte(perte,perte.id)" >
+                                   <!-- <button class="btn btn-sm btn-default" @click="modalActive = true,editPerte(perte,perte.id)" >
                                     <font-awesome-icon icon="fa-solid fa-edit"/>
-                                    </button>
+                                    </button>-->
                                 </td>
                               </tr>
                             </tbody>

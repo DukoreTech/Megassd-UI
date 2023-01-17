@@ -94,11 +94,7 @@ export default {
       )
         .then(resp => {
           this.products = resp.data
-          Swal.fire({
-               icon: 'success',
-               title: 'Ajouter',
-               text: 'Enregister avec succès',  
-              });
+          
         })
         .catch(err => {
           console.log(err)
@@ -118,7 +114,12 @@ export default {
         )
         .then((resp) => {
           this.pertes = resp.data;
-          this.form = {} 
+          this.form = {}
+          Swal.fire({
+               icon: 'success',
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
+              });
         })
         .catch((err) => {
           console.error(err.response.data.errors);

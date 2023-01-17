@@ -6,6 +6,7 @@
 								<h3 class="page-title">Client</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="" @click="$router.push('/Client')">Clients</a></li>
 									<li class="breadcrumb-item active">{{ clients.nom }}</li>
 								</ul>
 							</div>
@@ -51,6 +52,9 @@
                             </thead>
                       
                             <tbody>
+                              <div v-if="orders.length==0">
+                                <p class="text-center vh-30">No order yet</p>
+                              </div>                   
                                <tr v-for="order in orders" :key="order.id">
                                 <th scope="row">{{ order.id }}</th>
                                   <td>
@@ -71,7 +75,7 @@
                          </table>
                     </div>
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="tab-pane fade mt-5" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <div class="table-responsive ">
                     
                     <table v-if="orders!==[0]" class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
@@ -89,6 +93,10 @@
                         </thead>
                   
                         <tbody>
+                          <div v-if="DetteVides.length==0">
+                          <p>No debt</p>
+
+                        </div>
                                    <tr v-for="dette in DetteVides" :key="dette.id">
                                     <th scope="row">{{ dette.id }}</th>
                                     <td>{{ dette.order_id }} </td>
@@ -108,7 +116,7 @@
                      </table>
                 </div>
             </div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="tab-pane fade mt-5" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
               <div class="table-responsive">
                     <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                         <thead>                              
@@ -122,7 +130,11 @@
                             <th scope="col">montant_rembourse</th>
                             <th scope="col">Status</th>
                          </tr>
-                        </thead>                     
+                        </thead>  
+                        <div v-if="DetteMoney.length==0">
+                          <p class="text-center vh-30">No debt</p>
+
+                        </div>                   
                         <tbody>
                            <tr v-for="money in DetteMoney" :key="money.id">
                             <th scope="row">{{ money.id }}</th>

@@ -98,33 +98,33 @@ router.beforeEach((to, from, next) => {
   if(localStorage.getItem('user'))
   {
 
-  
   let user =JSON.parse(localStorage.getItem('user')); 
  let role=user.user.role_id
   let accessToken = localStorage.getItem('token');
+  if (to.meta.requiresAuth) {
+    if (!role || !accessToken) {
+    router.push({path: '/login'});
+    } else {
+    if (to.meta.adminAuth) {
+    if (role == 1) {
+    next();
+    } else {
+    router.push({path: '/'});
+    }
+    } else if (to.meta.userAuth) {
+    if (role == 2) {
+     next();
+    } else {
+      router.push({path: '/'});
+    }
+    }
+    }
+    } else {
+     next();
+    }
 }
   
-  if (to.meta.requiresAuth) {
-  if (!role || !accessToken) {
-  router.push({path: '/login'});
-  } else {
-  if (to.meta.adminAuth) {
-  if (role == 1) {
-  next();
-  } else {
-  router.push({path: '/'});
-  }
-  } else if (to.meta.userAuth) {
-  if (role == 2) {
-   next();
-  } else {
-    router.push({path: '/'});
-  }
-  }
-  }
-  } else {
-   next();
-  }
+  
   
   });
   

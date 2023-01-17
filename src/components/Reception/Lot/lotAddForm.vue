@@ -41,7 +41,8 @@
              <div class="col">
               <span>direction</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" class="bg-white" multiple>
+                  <!--<div>{{ form.adresses_id }}</div>-->
+                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect"  multiple>
                         <option v-for="zone in address" :key="zone.id" :value="zone.id" class="bg-white"  selected>
                         {{ zone.name }}
                         </option>
