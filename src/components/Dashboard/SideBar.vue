@@ -169,7 +169,7 @@
                              <router-link :to="{name:'Videsrestant'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
                                
-                                  Vides Vides 
+                                  Dettes Vides 
                              </router-link> 
                              <router-link :to="{name:'MontantNonpayes'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
@@ -198,11 +198,7 @@
                    
                     <div class="collapse" id="collapPerte" data-bs-parent="#accordionSidebar">
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Location'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
-                                aria-expanded="true" aria-controls="collapsPerte">
-                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Location 
-                             </router-link>          
+    
                            <router-link :to="{name:'Perte'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
                              aria-expanded="true" aria-controls="collapsPerte">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />

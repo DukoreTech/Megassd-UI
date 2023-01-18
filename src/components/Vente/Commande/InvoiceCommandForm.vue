@@ -56,7 +56,7 @@
 												<p class="invoice-details invoice-details-two">
 													{{ data.type_paiement }} <br>
 													<span>Paied : {{data.payed_amount}}</span>
-													<span v-if="data.type_paiement='Bordereau'">{{data.num_bordereau}}</span> <br>
+													<span v-if="data.type_paiement=='Bordereau'">{{data.num_bordereau}}</span> <br>
 													Ecobank Bank<br>
 												</p>
 												
