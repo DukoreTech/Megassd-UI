@@ -9,8 +9,8 @@
                
               </div>    
                
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
-                    <add-form @close="modalActive = !modalActive"/>
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
+                    <add-form @close="modalActive = !modalActive ,fetchData()" />
                 </modal-component>
         </div>
 
@@ -47,9 +47,9 @@
                                 <td>
                                     <button class="btn btn-sm btn-default m-2"  @click="deletePerte(perte.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
-                                    <button class="btn btn-sm btn-default" @click="modalActive = true,editPerte(perte,perte.id)" >
+                                   <!-- <button class="btn btn-sm btn-default" @click="modalActive = true,editPerte(perte,perte.id)" >
                                     <font-awesome-icon icon="fa-solid fa-edit"/>
-                                    </button>
+                                    </button>-->
                                 </td>
                               </tr>
                             </tbody>
@@ -68,6 +68,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
+import Swal from 'sweetalert2';
 import ModalComponent from '@/components/Global/ModalComponent';
 import AddForm from './PerteAddForm';
 import api from '../../../../api';
@@ -105,14 +106,27 @@ export default {
         },
         
         deletePerte(id) {
+            Swal.fire({
+                title: 'vous etes sure de vouloir supprimer ces informations',
+            // showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'supprimer'
+             })
+            .then((result) => {
+                if (result.isConfirmed) {
             api.delete("pertes/" + id)
             .then(resp => {
                 this.pertes = resp.data
+                Swal.fire('suppression avec succès', '', 'success')
                 this.fetchData()
+
             })
             .catch(err => {
                 console.error(err)
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
             })
+        }
+    })
             
         },
 

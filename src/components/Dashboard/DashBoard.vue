@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-xl-3 col-sm-6 col-12">
                         <div class="card">
                             <div class="card-body">
@@ -124,7 +124,90 @@
                             </div>
                         </div>
                      </div>
-                    </div>
+                </div>
+                <div class="row">
+						<div class="col-md-6 d-flex">
+						
+							<!-- Recent Orders -->
+							<div class="card card-table flex-fill">
+								<div class="card-header">
+									<h4 class="card-title">Today's purchase</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>N°</th>
+													<th>products</th>
+													<th>quantity</th>
+													<th>Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+                                              <span v-if="purchase.length==0">No data</span>
+                                                <tr v-for="reception in purchase" :key="reception.id">
+                                                    
+                                                    <th scope="row">{{ reception.id }}</th>
+                                                    <td>{{ reception.products.name }} </td>
+                                                    <td>{{ reception.quantity }} </td>                   
+                                                    <td>{{ reception.montant_total }} Fbu</td>  
+                                                </tr>
+											
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /Recent Orders -->
+							
+						</div>
+						<div class="col-md-6 d-flex">
+						
+							<!-- Feed Activity -->
+							<div class="card  card-table flex-fill">
+								<div class="card-header">
+									<h4 class="card-title">Today's sales</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-hover table-center mb-0">
+											<thead>
+												<tr>
+                                                    <th>order ID</th>													
+													<th>Products</th>
+													<th>client</th>
+                                                    <th>Amount</th>
+													<th>Paid</th>													
+												</tr>
+											</thead>
+                                            
+											<tbody>
+                                                <center><p v-if="sales.length==0"  class=" m-3">No order made for today</p></center>    
+                                                <tr v-for="order in sales" :key="order.id">
+                                                    <th scope="row">{{ order.id }}</th>
+                                                    <td>
+                                                        <div v-for="val in JSON.parse(order.products)" :key="val">
+                                                            {{ val.product_name }},
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ order.clients.nom}} </td>
+                                                    <td>{{ order.total_amount}} </td>
+                                                    <td>{{ order.payed_amount}} </td>
+                                                    
+                                                    
+                                                </tr>
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /Feed Activity -->
+							
+						</div>
+					</div>
 
               
               
@@ -148,7 +231,10 @@ export default {
             totalP:'',
             Nbachat:'',
             Nbvente:'',
-            username:''
+            username:'',
+            sales:[],
+            purchase:[],
+            date:new Date().toISOString().slice(0,10)
             
         }
     },
@@ -156,6 +242,8 @@ export default {
     {
         this.fetchData()
         this.getuser()
+        this.gettodaysales()
+        this.gettodaypurchase()
         
     },
     methods:{
@@ -181,7 +269,31 @@ export default {
         getuser(){
       let userlogged= JSON.parse(this.$store.state.user)
       this.username=Object.values(userlogged)[0].name
+    },
+    gettodaysales(){
+        api.get("gettodaysales",{params:{
+        dateorder:this.date
+
+      }}).then(resp=>{
+            this.sales=resp.data;
+        }).catch(err=>{
+            console.log(err)
+
+        })
+
+    },
+    gettodaypurchase(){
+        api.get("gettodaypurchase",{params:{
+            dateT:this.date
+
+      }}).then(resp=>{
+            this.purchase=resp.data;
+        }).catch(err=>{
+            console.log(err)
+        })
+
     }
+
       
        
     }

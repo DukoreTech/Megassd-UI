@@ -19,7 +19,7 @@
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
             <div class="text-center " style="margin-top:-50px;">
-              <img src="@/assets/patient8.jpg"
+              <img src="@/assets/user.png"
                 class="rounded-circle img-fluid m-2" style="width: 100px;margin-top:-60px; border:1px solid aliceblue;" />
             </div>
             <h4 class="mb-2 text-center">{{ client.nom }}</h4>

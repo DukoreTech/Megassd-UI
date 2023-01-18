@@ -11,13 +11,7 @@
         
         <form action="" @submit.prevent="saveInformation">
     
-                    <span>Product</span>
-                     <label for="produit" class="">
-                      <input type="tel" disabled id="Quantite" placeholder="Quantite" v-model="form.product_id">
-                                   
-                      </label>
-                     <span>{{ errors?.produit }}</span>
-                    <br>
+                 
 
                     <label for="Quantite" v-if="form.montant_en_dette!=0">
                         <input type="tel" disabled id="Quantite" placeholder="Quantite" v-model="form.montant_en_dette">
@@ -45,7 +39,7 @@
                     
                   <div class="d-flex justify-content-around">
                     <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-                    <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+                   
                   </div>
               </form>
     </div>
@@ -112,6 +106,16 @@
           this.$emit('close')
         }, 
         saveInformation(){
+          if (this.form.montant_amene > this.form.montant_en_dette || this.form.montant_rembourse > this.form.montant_en_exces)
+          {
+            Swal.fire({
+                   icon: 'info',
+                   title: 'error',
+                   text: 'Montant entered is  not valid!',  
+                  })
+          }
+          else{
+
 
              api.patch(
            "getDetteArgent/"+this.$store.state.IdEditDetteArgent,
@@ -128,11 +132,14 @@
             .catch((err) => {
               
             });
+
+         
+
     
            
      
         }
-        
+      }
     }
     }
     </script>

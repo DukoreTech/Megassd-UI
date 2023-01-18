@@ -60,6 +60,7 @@
 <script>
 //import axios from "axios";
 import api from '../../../../api';
+import Swal from 'sweetalert2';
 export default {
   props:["modalActive"],
   data() {
@@ -93,6 +94,7 @@ export default {
       )
         .then(resp => {
           this.products = resp.data
+          
         })
         .catch(err => {
           console.log(err)
@@ -112,7 +114,12 @@ export default {
         )
         .then((resp) => {
           this.pertes = resp.data;
-          this.form = {} 
+          this.form = {}
+          Swal.fire({
+               icon: 'success',
+               title: 'Ajouter',
+               text: 'Enregister avec succès',  
+              });
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -140,8 +147,6 @@ export default {
 
 <style  scoped>
 
-*{
-}
 .title{
   font-weight: bolder;
   font-size: 20px;
@@ -155,6 +160,7 @@ export default {
 form{
     width:45vw;
     max-width:768px;
+    height: 500px;
     font-family:sans-serif;
     padding:0 3vw;
     display:flex;
@@ -165,14 +171,14 @@ form{
 }
 
 label{
-    margin-bottom:15px;
+    margin-bottom:5px;
     position:relative;
     border-bottom:1px solid #ddd;
 }
 input,select,textarea{
     width:100%;
     padding:10px 0px;
-    margin-top:20px;
+    margin-top:10px;
     border:none;
     outline:none;
 }
@@ -207,7 +213,7 @@ label span{
 }
 button{
     padding:5px 0px; 
-    margin-top:20px;
+    margin-top:10px;
     color:#fff;
     cursor:pointer;
     border-radius:3px;

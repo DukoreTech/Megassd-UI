@@ -8,6 +8,10 @@ const api = axios.create({
 api.interceptors.request.use(
    
     config => {
+      
+      config.headers['Access-Control-Allow-Origin']='*';
+      config.headers['Content-Type']='application/json';
+      config.headers['Access-Control-Allow-Methods']='GET,PUT,POST,DELETE,PATCH,OPTIONS';
       const token = localStorage.getItem("token");
       if (token) {
         config.headers.Authorization =  `Bearer ${token}` ;
@@ -17,6 +21,7 @@ api.interceptors.request.use(
     },
     error => {
       return Promise.reject(error);
+      console.log(error);
     }
 )
 

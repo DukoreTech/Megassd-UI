@@ -31,7 +31,7 @@
                                     <th scope="col">Prix de vente</th>
                                     <th scope="col">zone</th>
                                     <th scope="col">type client</th>
-                                    <th scope="col">Description</th>
+                                   
                                     <th scope="col">Actions</th>
                                  </tr>
                                 </thead>
@@ -45,11 +45,11 @@
                                        
                                     <td>{{lot.adresses.name }}</td>  
                                     <td>{{lot.type_clients.name}}</td>
-                                    <td>{{ lot.description }} </td>  
+                                    
                                           
-                                    <td>
-                                        <button class="btn btn-sm btn-danger m-2"  @click="deleteLot(lot.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                        suppprimer</button>
+                                    <td class="d-flex">
+                                        <button class="btn btn-sm btn-danger"  @click="deleteLot(lot.id)">
+                                        suppprimer<font-awesome-icon icon="fa-solid fa-trash"/></button>
                                         <button class="btn btn-sm btn-primary" @click="modalActive = true,editlot(lot,lot.id)" >
                                        Modifier<font-awesome-icon icon="fa-solid fa-edit"/>
                                         </button>
