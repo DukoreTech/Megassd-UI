@@ -396,13 +396,26 @@ export default {
             console.log(this.produits)
             
             let result= this.produits.find((item) => item.id === this.form.product.product_id)
-                if(this.form.quantite < result.plein){
+        if(this.form.quantite < result.plein ){
+        
             let exist=this.commandes.find((item)=>item.product_id===this.form.product.product_id)
             if(exist)
             {
                 exist.product_quantity+=this.form.quantite
+                exist.caisse_vide =(exist.caisse_vide*1) + (this.form.vides*1);
             }
             else{
+                if(this.form.vides > this.form.quantite)
+                {
+                   Swal.fire({
+                  icon: 'error',
+                  title: ' oups ',
+                  text: 'nombre de casier vides est superieur a celle des produits' 
+                });
+                    
+                    
+                }
+                else{
                 this.commandes.push({product_id: this.form.product.product_id, product_quantity: this.form.quantite, amount: this.form.montant , product_name:this.form.product.products.name,caisse_vide:this.form.vides});   
                 console.log(this.commandes)
                 this.getprice()
@@ -410,10 +423,10 @@ export default {
                // this.commandes.sort(ordonner);
                 }
                 }
+            }
               
                 else{
-
-                    Swal.fire({
+               Swal.fire({
                icon: 'error',
                title: ' oups ',
                text: 'quantity not available' 

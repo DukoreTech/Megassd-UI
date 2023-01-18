@@ -9,13 +9,13 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="invoice-logo">
-												<p>{{id}}</p>
+												<p>MEGASSD</p>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<p class="invoice-details">
 												<strong>Order:</strong>{{this.data.id}} <br>
-												<strong>Issued:</strong> {{this.data.created_at}}
+												<strong>Issued:</strong> {{date}}
 											</p>
 										</div>
 									</div>
@@ -28,7 +28,7 @@
 											<div class="invoice-info">
 												<strong class="customer-text">Invoice From</strong>
 												<p class="invoice-details invoice-details-two">
-													{{data.user_id}}<br>
+													{{users.name}}<br>
 													Ruziba<br>
 													bujumbura, burundi <br>
 												</p>
@@ -38,9 +38,8 @@
 											<div class="invoice-info invoice-info2">
 												<strong class="customer-text">Invoice To</strong>
 												<p class="invoice-details">
-													{{data.clients}} <br>
-													299 Star Trek Drive, Panama City, <br>
-													Florida, 32405, USA <br>
+													{{clients.nom}} <br>
+													
 												</p>
 											</div>
 										</div>
@@ -55,10 +54,12 @@
 											<div class="invoice-info">
 												<strong class="customer-text">Payment Method</strong>
 												<p class="invoice-details invoice-details-two">
-													Debit Card <br>
-													{{data.num_bordereau}} <br>
+													{{ data.type_paiement }} <br>
+													<span>Paied : {{data.payed_amount}}</span>
+													<span v-if="data.type_paiement='Bordereau'">{{data.num_bordereau}}</span> <br>
 													Ecobank Bank<br>
 												</p>
+												
 											</div>
 										</div>
 									</div>
@@ -130,14 +131,17 @@ export default {
     data()
     {
         return{
-            data:{},
-			products: [],  
+            data:[],
+			products: [],
+			clients:"",  
+			users:"",
+			date:"",
         }
+
     },
     mounted(){
         
         this.getorder(this.id)
-		console.log(this.products)
 
     },
     
@@ -154,13 +158,23 @@ export default {
             axios.get(this.$store.state.baseurl + "ventes/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
                     axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
-                this.data = resp.data
-				let pr=JSON.parse(resp.data.products)
+                this.data = resp.data[0]
+				this.date=resp.data[0].created_at.substr(0, 10)
+				console.log(this.date)
+				
+				let pr=JSON.parse(resp.data[0].products);
+				let client=JSON.stringify(resp.data[0].clients)
+				let user=JSON.stringify(resp.data[0].users)
+				this.users=JSON.parse(user)
+				
+				this.clients=JSON.parse(client)
+				console.log(this.clients);
+			
 			pr.forEach(function(element){
 				x.push(element)
-
-					
+				
 				});
+				
 				console.log(x)
 				this.products.push(x)
 				
