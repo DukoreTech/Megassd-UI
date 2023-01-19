@@ -58,21 +58,23 @@
                    
                     <div class="collapse" id="collapseClients" data-bs-parent="#accordionSidebar">
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Client'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
-                                aria-expanded="true" aria-controls="collapseClient">
-                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Client 
-                             </router-link>          
-                           <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
-                             aria-expanded="true" aria-controls="collapseClient">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Adresse
-                            </router-link>  
                             <router-link :to="{name:'TyClient'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
                              aria-expanded="true" aria-controls="collapseClient">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Type de client
                             </router-link>  
+                            <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                             aria-expanded="true" aria-controls="collapseClient">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Adresse
+                            </router-link> 
+                             <router-link :to="{name:'Client'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                                aria-expanded="true" aria-controls="collapseClient">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Client 
+                             </router-link>          
+                            
+                            
                         </div>
                     </div> 
     
@@ -198,11 +200,11 @@
                    
                     <div class="collapse" id="collapPerte" data-bs-parent="#accordionSidebar">
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Location'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
+                             <!-- <router-link :to="{name:'Location'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
                                 aria-expanded="true" aria-controls="collapsPerte">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   Location 
-                             </router-link>          
+                             </router-link>           -->
                            <router-link :to="{name:'Perte'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapsPerte"
                              aria-expanded="true" aria-controls="collapsPerte">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />

@@ -98,7 +98,7 @@ export default {
       form: {
         quantity:"",
         lot_id:"",
-        tva:0,
+        tva:1,
         stock_id:"",
         stock:"",
         product_id:"",
@@ -232,6 +232,7 @@ export default {
         .then((resp) => {
           this.receptions = resp.data;
           this.form = {}
+          //this.form["product_id","lot_id","stock_id","quantity","montant_total","montant"]=""
           Swal.fire({
                icon: 'success',
                title: 'Ajouter',
