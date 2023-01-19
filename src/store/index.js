@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state:{
+    // baseurl: baseUrl+'/api/',
     //baseurl: 'http://127.0.0.1:8000/api/',
     baseurl: process.env.VUE_APP_url+'api/',
     token: localStorage.getItem('token'),
