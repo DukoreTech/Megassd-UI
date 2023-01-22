@@ -11,14 +11,14 @@
   <div class="register">
     <form action="" @submit.prevent="saveInformation">   
           <label for="etablis">
-              <input type="text" v-model="form.name" placeholder="zone">              
+              <input type="text" required="required" v-model="form.name" placeholder="zone">              
              <span>Zone</span>
           </label>
          <span class="error">{{ errors?.zone}}</span>
 
         <span>Description</span>
          <label for="description">
-            <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+            <textarea  id="description" required="required"  placeholder="Description"  v-model="form.description"></textarea>
         </label>
         <span class="error">{{ errors?.description }}</span>
         <!-- <button type="button">Register</button> -->

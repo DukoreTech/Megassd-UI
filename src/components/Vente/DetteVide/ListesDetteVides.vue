@@ -12,16 +12,16 @@
              <div class="container-fluid">
                 <div class="card  mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-mute">Liste des Vides</h6>
+                        <h6 class="m-0 font-weight-bold text-mute">Liste des vides en dettes</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                                 <thead>                              
                                   <tr>                    
-                                    <th scope="col">number</th>
-                                    <th scope="col">order Id</th>
-                                    <th scope="col">product</th>
+                                    <th scope="col">numero</th>
+                                    <th scope="col">commande</th>
+                                    <th scope="col">produits</th>
                                     <th scope="col">client</th>
                                     <!--<th scope="col">Stock</th>--> 
                                     <th scope="col">Quantité depart</th>
@@ -43,7 +43,7 @@
                                     <td>
                                        <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                         delete</button>-->
-                                        <span class="bg-success p-2 text-white" v-if="dette.reste==0">Done</span>
+                                        <span class="bg-success p-2 text-white" v-if="dette.reste==0">Payés</span>
                                         <button v-if="dette.reste!==0" class="btn btn-sm btn-primary" @click="modalActive = true, editDette(dette,dette.id)" >
                                         <font-awesome-icon icon="fa-solid fa-edit"/>Modifier
                                         </button>

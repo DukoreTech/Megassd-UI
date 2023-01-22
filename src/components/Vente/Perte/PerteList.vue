@@ -2,7 +2,7 @@
 <div>
         <div>    
             <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="modalActive = true,$store.state.IdEditPerte=null">
+                <button class="btn btn-info  ml-5 ajout" @click="modalActive = true,$store.state.IdEditPerte=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter perte
                   </button>
@@ -15,17 +15,17 @@
         </div>
 
          <div class="container-fluid">
-            <div class="card  mb-4">
+            <div class="card">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des pertes</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable">
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
-                                <th scope="col">Product</th>
+                                <th scope="col">produits</th>
                                 <th scope="col">Nature</th>
                                 <th scope="col">Nb bouteilles</th>
                                 <th scope="col">Stock</th>
@@ -45,7 +45,7 @@
                                 <td>{{ perte.casier }} </td>
                                 <td>{{ perte.restant }} </td>
                                 <td>
-                                    <button class="btn btn-sm btn-default m-2"  @click="deletePerte(perte.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    <button class="btn btn-sm btn-danger btn-default "  @click="deletePerte(perte.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
                                    <!-- <button class="btn btn-sm btn-default" @click="modalActive = true,editPerte(perte,perte.id)" >
                                     <font-awesome-icon icon="fa-solid fa-edit"/>

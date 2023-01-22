@@ -13,7 +13,7 @@
             <div class="col">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.product_id"  id="product_id">
+                    <select  v-model="form.product_id"  id="product_id" required="required">
                         <option v-for="product in stocks" :key="product.id" :value="product.product_id" selected>
                         {{ product.products.name }}
                         </option>
@@ -22,7 +22,7 @@
                <span>{{ errors?.product_id }}</span>  
                  <br>
                  <label for="lot_id" class="d-block dateWidth">
-                   <input type="number" v-model="form.lot_id" placeholder="price">
+                   <input type="number" v-model="form.lot_id" placeholder="price" required="required">
                    <span>Price</span>
                   </label>
                <span>{{ errors?.lot_id }}</span>  
@@ -30,12 +30,12 @@
               
 
                 <label for="quantity">
-                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
+                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity" required="required">
                     <span>Quantity</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
                 <label for="tva" class="">
-                    <input type="number" step="0.01" id="tva" placeholder="tva" v-model="form.tva">
+                    <input type="number" required="required" disabled="disabled" step="1" id="tva" placeholder="tva" v-model="form.tva">
                     <span>TVA(%)</span>
                 </label>
                 <span>{{ errors?.tva }}</span>
@@ -48,23 +48,25 @@
                 </label>
                 <span>{{ errors?.tva }}</span> -->
                 <label for="date_achat" class="d-block dateWidth">
-                    <input type="date" id="date_achat" placeholder="date_achat" v-model="form.date_achat">
+                    
+                    <input type="date" id="date_achat"   v-model="form.date_achat">
+                    
                     <span>Date d'achat</span>
                 </label>
                 <span>{{ errors?.date_achat }}</span>
 
                 <label for="montant" class="">
-                    <input type="text" id="montant" v-model="form.montant">
+                    <input type="text" id="montant" required="required" v-model="form.montant">
                     <span>Montant</span>
                 </label>
                 <span>{{ errors?.montant }}</span> 
                 <label for="montant" class="">
-                    <input type="hidden" id="montant" v-model="form.stock_id">
+                    <input type="hidden" id="montant" required="required" v-model="form.stock_id">
         
                 </label>    
 
                 <label for="montant_total" class="">
-                    <input type="number" id="montant_total" placeholder="montant"  v-model="form.montant_total">
+                    <input type="number"  id="montant_total" required="required" placeholder="montant"  v-model="form.montant_total">
                     <span>Montant total</span>
                 </label>
                 <span>{{ errors?.montant_total }}</span>            
@@ -98,7 +100,7 @@ export default {
       form: {
         quantity:"",
         lot_id:"",
-        tva:0,
+        tva:1,
         stock_id:"",
         stock:"",
         product_id:"",
@@ -125,12 +127,23 @@ export default {
     console.log(a)
     if(this.$store.state.IdEditReception==null){
       this.getuser()
-         this.form={};
-         this.saveEditBtn="Ajouter"
+       //  this.form={};
+       this.form.product_id="",
+      this.form.date_achat=new Date().toISOString().slice(0,10),
+      this.form.montant_total=0,
+      this.form.montant=0,
+      this.form.quantity="",
+      this.form.lot_id="",
+      this.form.tva=1,
+      this.form.stock_id="",
+      this.form.stock="",
+
+     this.saveEditBtn="Ajouter"
 
         }else{
           
             this.form=this.$store.state.receptions;
+            this.form.date_achat=(this.$store.state.receptions.date_achat).substr(0, 10)
             this.saveEditBtn="Modifier"
             console.log(this.$store.state.receptions)
         }
@@ -231,7 +244,16 @@ export default {
         )
         .then((resp) => {
           this.receptions = resp.data;
-          this.form = {}
+          this.form.date_achat=new Date().toISOString().slice(0,10),
+          this.form.product_id="",
+          this.form.montant_total=0,
+          this.form.montant=0,
+          this.form.quantity="",
+          this.form.lot_id="",
+          this.form.tva=1,
+          this.form.stock_id="",
+          this.form.stock="",
+
           Swal.fire({
                icon: 'success',
                title: 'Ajouter',
@@ -249,12 +271,15 @@ export default {
           this.form )
         .then((resp) => {
           this.receptions = resp.data;
+          
           this.$emit('close')
+          
           Swal.fire({
                icon: 'success',
                title: 'Modification',
                text: 'Modification réussi!',  
               });
+             
          })
         .catch((err) => {
           console.error(err.response.data.errors);

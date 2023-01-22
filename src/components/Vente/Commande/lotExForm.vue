@@ -7,7 +7,13 @@
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
 									<li class="breadcrumb-item active">Ajouter commandes</li>
+                                
 								</ul>
+                                <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
+                             aria-expanded="true" aria-controls="collapseStock">
+                               <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
+                             Back
+                            </router-link>
 							</div>
 						</div>
 	</div>
@@ -15,14 +21,14 @@
            <div class="col-md-12">
              <form class="" @submit.prevent="envoyer()" >
                 <div class="container">
-                    <div class="row">
+                    <div class="row d-flex justify-content-around">
                         
                             <!-- Contact Details -->
-							<div class="card contact-card col-6">
-								<div class="card-body">
-									<h4 class="card-title">Add product to sell</h4>
-									<div class="row form-row">
-										<div class="col-md-6 pb-3">
+							<div class="card contact-card col-lg-5">
+								<div class="card-body container">
+									<h4 class="card-title">Produits A vendre</h4>
+									<div class="row  form-row">
+										<div class="col-md-6 pb-3 ">
 											<div class="form-group">
 												<label>Product</label>
 												<select  v-model="form.product" name="produit_id" class="form-control">
@@ -74,9 +80,9 @@
 							<!-- /Contact Details -->
 							
 							<!-- Pricing -->
-							<div class="card col-6">
+							<div class="card col-lg-5">
 								<div class="card-body">
-									<h4 class="card-title">Pricing</h4>
+									<h4 class="card-title">Paiment</h4>
 
                                     <div class="row form-row  ">
                                         <div class="col-md-6  pb-3">
@@ -137,7 +143,7 @@
                     </div>
 
                 </div>
-                
+                <div class="mt-4 mb-4 text-white"> <span style="font-size:20px;" class="bg-info p-2"><font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />Panier</span>  </div>
                 <table class="table table-bordered table-striped table-responsive">
                   <!-- <thead class="thead-dark">
                     
@@ -183,7 +189,7 @@
                     </td>
                     <td><input type="number" class="form-control" v-model="form.montantsup"></td>
                 </tr>-->
-                    <p class="m-4">Panier</p>
+                    
                     <tr>
                            <th scope="col">Produit</th>
                            <th scope="col">Quantité</th>
@@ -202,8 +208,9 @@
                        <td>{{ commande.amount }}</td>
                        <td>{{ commande.caisse_vide }}</td>
                        <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }}F</td>
-                       <td class="d-flex"><a class="btn btn-info btn-block" @click="modifier(index)">Modifier</a>
-                      <a class="btn btn-danger btn-block" @click="supprimer(index)">supprimer</a></td>
+                       <td class="d-flex">
+                      <a class="btn btn-info btn-block mx-2" @click="modifier(index)"><font-awesome-icon icon="fa-solid fa-edit"/></a>
+                      <a class="btn btn-danger  btn-block" @click="supprimer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
                       
                        </tr>
                    <tr>
@@ -223,11 +230,12 @@
                    </tbody>
                    <tfoot class="d-flex justify_content_around mt-5">
                    <button class="button btn btn-xs btn-success" type="submit">Valider</button>
+                    
                    </tfoot>
                </table>
             </form>
            <div class="panel panel-danger" v-show="poubelle.length">
-               <div class="panel-heading">Poubelle</div>
+            <div class="mt-4 mb-4 "> <span style="font-size:20px;" class="bg-danger  p-2 "><font-awesome-icon icon="fa-solid fa-trash" class="icon" />Trash</span>  </div>
                <table class="table table-bordered table-striped table-responsive">
                    <thead>
                    <tr>
@@ -245,8 +253,8 @@
                        <td>{{ commande.product_quantity }}</td>
                        <td>{{ commande.amount}} F</td>
                        <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }} F</td>
-                       <td><a class="btn btn-success btn-block" @click="retablir(index)">Rétablir</a></td>
-                       <td><a class="btn btn-danger btn-block" @click="eliminer(index)">Supprimer</a></td>
+                       <td><a class="btn btn-success btn-block" @click="retablir(index)"><font-awesome-icon icon="fa-solid fa-check" class="text-white"/></a></td>
+                       <td><a class="btn btn-danger btn-block" @click="eliminer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
                    </tr>
                    </tbody>
                </table>

@@ -12,63 +12,83 @@
         <div class="d-flex">
             <div class="col">
                 <label for="name">
-                    <input type="text" id="name" placeholder="name" v-model="form.name">
+                    <input type="text" required="required" id="name" placeholder="name" v-model="form.name">
                     <span>name</span>
                 </label>
                 <span>{{ errors?.name }}</span>
                  <br>
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                    <select required="required"  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
                         <option v-for="product in products" :key="product.id" :value="product.id"  selected>
                         {{ product.name }}
                         </option>
                     </select>             
                </label>
                <span>type client</span>
-                 <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
+                 <label  for="product_id" class="d-block dateWidth">
+                    <select required="required"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
                         <option v-for="client in typeClients" :key="client.id" :value="client.id"  selected>
                         {{ client.name }}
                         </option>
                     </select>             
                </label> 
                <span>{{ errors?.product_id }}</span>
+
                
 
             </div>
 
              <div class="col">
+              
               <span>direction</span>
-                 <label for="product_id" class="d-block dateWidth">
+        <div>
+        <div>
+      <Multiselect v-if="saveEditBtn=='Ajouter'" 
+        mode="tags"
+         required="required"
+        :close-on-select="false"
+        :searchable="true"
+        value-prop="id" 
+        :object="false"
+        v-model="form.adresses_id"
+        @select="onSelect"
+        :options="options"
+        
+      
+    />
+  </div>
+        </div>
+
+                  <br>
+                
+                <label  v-if="saveEditBtn=='Modifier'" for="product_id" class="d-block dateWidth">
                   <!--<div>{{ form.adresses_id }}</div>-->
-                    <select  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect"  multiple>
+                    <select required="required"  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" >
                         <option v-for="zone in address" :key="zone.id" :value="zone.id" class="bg-white"  selected>
                         {{ zone.name }}
                         </option>
                     </select>             
-                </label>
-              <label for="price_vente">
-                    <input type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
+                  </label>
+              <label  for="price_vente">
+                    <input required="required" type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
                     <span>Prix de vente</span>
                 </label>
-                <span>{{ errors?.price_vente }}</span> 
+              <span>{{ errors?.price_vente }}</span> 
                   <br>
-              
-
-               <span>Description</span><br>
-                <label for="description">
-                    <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
-                </label>
-                <span>{{ errors?.description }}</span>
          </div>
         </div>  
         
         <!-- <button type="button">Register</button> -->
         <div class="d-flex justify-content-around">
+          
           <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
           <button type="reset" class="btn btn-sm btn-primary" >vider</button>
         </div>
+        <div>
+        
+  </div>
+
     </form>
 </div>
 
@@ -80,10 +100,17 @@
 import axios from "axios";
 import Swal from 'sweetalert2';
 import api from '../../../../api'
+import Multiselect from '@vueform/multiselect'
 export default {
+   components: {
+      Multiselect,
+    },
   props:["modalActive"],
   data() {
     return {
+      
+      options: [     
+            ],
       form: {
         name:"",
         //quantity:"",
@@ -92,12 +119,12 @@ export default {
         price_vente:"",
         description:"",
         user_id:"",
-        adresses_id:"",
+        adresses_id:[ ],
         type_Clients_id:""
     
       },
       //myOptions: ['op1', 'op2', 'op3'], // or [{id: key, text: value}, {id: key, text: value}]
-      address:[],
+      address:this.$store.state.adresses,
       errors: {},
       products:[],
       lots:[],
@@ -108,6 +135,7 @@ export default {
     };
   },
     mounted(){
+     
       this.getproducts()
       //this.getuser()
       this.getaddress()
@@ -119,19 +147,32 @@ export default {
     if(this.$store.state.IdEditLot==null){
      /// this.getuser()
          this.form={};
+         
          this.saveEditBtn="Ajouter"
 
         }else{
-          
+            
             this.form=this.$store.state.lots;
+            this.form.type_Clients_id=this.form.type_clients_id
+
             this.saveEditBtn="Modifier"
-            console.log(this.$store.state.lots)
+            console.log(this.form)
         }
 
   },
   "this.$store.state.lots"(val){
-    console.log(val)
+   
     this.lots=val;
+  },
+  "address"(val){
+    //console.log(val)
+    this.address=val
+    val.forEach(element => {
+      this.options.push({id:element.id,name:element.name,label:element.name})
+      
+    });
+    console.log(this.options)
+
   }
  },
 
@@ -140,6 +181,9 @@ export default {
 
 
   methods: {
+    onSelect(value) {
+            console.log(value) // this will log the value as { id: 1, text: 'vue' }
+        },
     gettyclient() {
             api.get("typeclient"
             )
@@ -168,13 +212,8 @@ export default {
     }, 
         saveInformation() {
       if (this.form["product_id","price_vente","quantity","name"]=="") return;
-
-
+      
        if(this.$store.state.IdEditLot==null){
-
-        let result= this.$store.state.lots.find((item) => item.product_id == this.form.product_id && item.adresses_id==this.form.adresses_id && item.type_clients_id==this.form.type_Clients_id
-         )
-
        // console.log(result)
         if(result){
           Swal.fire({
@@ -332,3 +371,4 @@ input:not(:placeholder-shown) + span{
 
 
 </style>
+<style src="@vueform/multiselect/themes/default.css"></style>

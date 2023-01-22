@@ -32,7 +32,7 @@
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
                            <router-link :to="{name:'User'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                              aria-expanded="true" aria-controls="collapseTwo">
-                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"/>
                              Utilisateur
                             </router-link>  
                                   
@@ -58,11 +58,7 @@
                    
                     <div class="collapse" id="collapseClients" data-bs-parent="#accordionSidebar">
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
-                             <router-link :to="{name:'Client'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
-                                aria-expanded="true" aria-controls="collapseClient">
-                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  Client 
-                             </router-link>          
+                                     
                            <router-link :to="{name:'Adresse'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
                              aria-expanded="true" aria-controls="collapseClient">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
@@ -72,7 +68,12 @@
                              aria-expanded="true" aria-controls="collapseClient">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Type de client
-                            </router-link>  
+                            </router-link> 
+                            <router-link :to="{name:'Client'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseClient"
+                                aria-expanded="true" aria-controls="collapseClient">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Client 
+                             </router-link>  
                         </div>
                     </div> 
     
@@ -163,17 +164,20 @@
                         <div class="bg-light py-2 mt-2 px-3 collapse-inner rounded d-block">
                              <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
-                               
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                 
                                   Commande 
                              </router-link>          
                              <router-link :to="{name:'Videsrestant'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                
                                   Dettes Vides 
                              </router-link> 
                              <router-link :to="{name:'MontantNonpayes'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
-                                  Montant non Payés 
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Dette Argent
                              </router-link> 
                              
                         </div>
@@ -217,7 +221,7 @@
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-file" class="icon" />
-                            <span class=" ml-2 label "> Reports </span>
+                            <span class=" ml-2 label "> Rapports </span>
                          </span>
                        <font-awesome-icon v-if="!isShowarrowReports" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
                        <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
@@ -230,17 +234,17 @@
                              <router-link :to="{name:'salesreport'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                                 aria-expanded="true" aria-controls="collapseVente">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                                  DetailsVentes 
+                                  Détails Ventes 
                              </router-link>          
                            <router-link :to="{name:'DetailStocksView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                               Details stocks
+                              Détails stocks
                             </router-link>  
                             <router-link :to="{name:'DetailsStocksView'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseVente"
                              aria-expanded="true" aria-controls="collapseVente">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                              Detais des vides
+                              Détails des vides
                             </router-link> 
                             
                         </div>

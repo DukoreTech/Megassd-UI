@@ -2,7 +2,7 @@
 <div>
         <div> 
           <div class="d-md-flex m-3 justify-content-between" >
-                <button class="btn btn-info mt-5 mb-5 ml-5 ajout" @click="this.$router.push({name:'lotExForm'})">
+                <button class="btn btn-info  ml-5 ajout" @click="this.$router.push({name:'lotExForm'})">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter command
                   </button>
@@ -16,7 +16,7 @@
          <div class="container-fluid">
             <div class="card  mb-2">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-mute">Liste des reception</h6>
+                    <h6 class="m-0 font-weight-bold text-mute">Liste des ventes</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -25,13 +25,13 @@
                               <tr>                    
                                 <th scope="col">Id</th>
                                 <th scope="col-lg-4">Produit</th>
-                                <th scope="col">Total Amount</th>
-                                <th scope="col">Paied Amount</th>
-                                <th scope="col">To:client</th>
-                                <th scope="col">Date effectue</th>
+                                <th scope="col">Montant Total</th>
+                                <th scope="col">Montant Payé</th>
+                                <th scope="col">client</th>
+                                <th scope="col">Date effectué</th>
                                 <th scope="col">Date confirmer</th>
                                 <th scope="col">status</th>
-                                <th scope="col">Added by</th>
+                                <th scope="col">Fait par:</th>
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>                     
@@ -48,16 +48,16 @@
                                 <td>{{ order.payed_amount}} </td>
                                 <td>{{ order.clients.nom}} </td>
                                 <td>{{ order.date_facturation}} </td>
-                                <td>{{ order.updated_at}}</td>
-                                <td><span v-if="order.status==1" style="background:turquoise;color:white; padding:4px;">Finished</span><span style="background-color:#495057;color:white ;padding:4px;" 
-                                     v-if="order.status==0">Pending</span></td>            
+                                <td>{{ (order.updated_at.substr(0, 10))}}</td>
+                                <td><span v-if="order.status==1" style="color:black; width:50px;"><font-awesome-icon icon="fa-solid fa-check" /></span><span style="background-color:#495057;color:white ;padding:4px;" 
+                                     v-if="order.status==0">En cours</span></td>            
                                 <td>{{ order.users.name}}</td>                       
                                 <td>
                                     
-                                    <router-link :to="{name:'InvoiceOrderView',params:{id:order.id}}" class="nav-link collapsed bg-success text-white" data-toggle="collapse" data-target="#collapseStock"
-                                        aria-expanded="true" aria-controls="collapseStock">view Invoice</router-link>
+                                    <router-link :to="{name:'InvoiceOrderView',params:{id:order.id}}" class="nav-link collapsed  text-black" 
+                                        aria-expanded="true" aria-controls="collapseStock"><font-awesome-icon icon="fa-solid fa-file-invoice" /> </router-link>
                                     <button v-if="order.status==0" class="btn btn-sm btn-primary" @click="confirmpayment(order)">
-                                       <font-awesome-icon icon="fa-solid fa-edit"/>confirm
+                                        <font-awesome-icon icon="fa-solid fa-check" />
                                     </button>
                                 </td>
                               </tr>

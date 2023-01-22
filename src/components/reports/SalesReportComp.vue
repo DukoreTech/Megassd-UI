@@ -6,59 +6,67 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col">
-								<h3 class="page-title">Details ventes</h3>
+								<h3 class="page-title">Détails ventes</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Dashboard</a></li>
-									<li class="breadcrumb-item active">detail ventes</li>
+									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
+									<li class="breadcrumb-item active">Détails ventes</li>
 								</ul>
 							</div>
 						</div>
 					</div>
-					<!-- /Page Header -->
-					
+
 					<div class="row">
 						<div class="col-sm-12">
-							<div class="card">
+							<div class="card" id="table">
 								<div class="card-header">
-									<h4 class="card-title">Details ventes</h4>
+									<h4 class="card-title">Détails ventes</h4>
 									<p class="card-text">
 										
 									</p>
 								</div>
 								<div class="card-body">
-									<div class="table-responsive">
+									<div class="table-responsive" >
 										<table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
 											<thead>
 												<tr class="p-5">
 													<th>#</th>
-													<th>order_id</th>
-													<th>product_name</th>
-													<th>product_quantity</th>
-                                                    <th>quantite_stock</th>
-                                                    <th>Prix de vente</th>
-													<th>done by:</th>
-                                                    <th>on date:</th>
+													<th>commande</th>
+													<th>Produits</th>
+													<th>Qté</th>
+                                                    <th>Qté Stock</th>
+                                                    <th>Prix</th>
+                                                    <th>Fait le:</th>
 													
 												</tr>
 											</thead>
                                             <tbody>
+                                                
                                                 <tr v-for="detail in detailsorder" :key="detail.id">
 													<td>{{detail.id}}</td>	
 													<td>{{detail.order_id}}</td>
                                                     <td>{{detail.name}}</td>
-													
 													<td>{{detail.product_quantity}}Casier</td>
 													<td>{{detail.quantite_stock}}</td>
 													<td>{{detail.price_unitaire}}</td>
-                                                    <td>{{detail.user_id}}</td>
-                                                    <td>{{detail.created_at	}}</td>
-													
-                                                    
-                                                    
+                                                    <td>{{(detail.created_at.substr(0, 10))	}}</td>
                                                 </tr>
+                                                <tr rowspan="2">
+                                                 <th ></th>
+                                                 <th >Total #{{detailsorder.length}}</th>
+                                                 <th ></th>
+                                                 
+                                                 <th ></th> 
+												                 
+                                                 <th ></th>
+												 <th >Total Rs.{{totalAmount}}</th> 
+												 <th></th>
+                                                
+                                             </tr>
+                                            
 
 
                                             </tbody>
+                                            
 											
 										</table>
 									</div>
@@ -77,13 +85,26 @@ import axios from 'axios'
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
+
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import "datatables.net-buttons/js/dataTables.buttons.js"
+import "datatables.net-buttons/js/buttons.colVis.js"
+import "datatables.net-buttons/js/buttons.flash.js"
+import "datatables.net-buttons/js/buttons.html5.js"
+import "datatables.net-buttons/js/buttons.print.js"
 import $ from "jquery";
+
+
+
 export default {
     data()
     {
         return{
+			
             detailsorder:[],
+			totalAmount :"",
+			fromDate: "",
+            toDate: "", 
         }
     },
 	
@@ -92,11 +113,24 @@ export default {
     },
 	watch: {
             detailsorder(val) {
-              console.log(val)
-              $('#datatable').DataTable().destroy();
+                $('#datatable').DataTable().destroy();
               this.$nextTick(()=> {
-                $('#datatable').DataTable()
+                $('#datatable').DataTable(
+                    {
+                        scrollX:true,
+                        scrollY:true,
+                        dom: 'Bfrtip',
+                    buttons: ['copy', 'csv', 'print'
+                    ]
+                    }
+                )
               });
+                                        
+              
+		
+			  const _ = require("lodash");
+			  this.totalAmount = _.sumBy(this.detailsorder, "price_unitaire")
+			  console.log(this.totalAmount)
             }
        },
     methods:{
@@ -116,7 +150,10 @@ export default {
             })
         },
 
-    },
+	}
+  
+		
+	
 
 }
 </script>

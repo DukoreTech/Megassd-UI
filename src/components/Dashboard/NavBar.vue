@@ -6,10 +6,10 @@
                      <span class="navbar-toggler-icon rounded-circle border-0"></span>
                 </button>
                 <div class="navbar-brand">
-                    <img class="rounded-circle  mx-auto img " src="@/assets/logo.png">
+                    <img class="rounded-circle  mx-auto img " src="@/assets/Produit-brarudi.jpg">
                     MEGA S.S.D
                 </div>
-                <div class="collapse navbar-collapse justify-content-end " id="navbarNavDropdown">
+                <div class="collapse navbar-collapse justify-content-start " id="navbarNavDropdown">
                 <div class="navbar-nav">
 
                     <div class="nav-item dropdown" id="profileDrop">
@@ -27,7 +27,7 @@
                             </a> -->
                             <router-link :to="{name:'Profile'}" class="dropdown-item">
                                 <font-awesome-icon icon="fa-solid fa-user"/>
-                                changePassword
+                                Motdepasse
                              </router-link> 
                         </li>
                         <!-- <li>
@@ -39,7 +39,7 @@
                         <li>
                             <router-link to="" @click="logout" class="dropdown-item">
                               <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
-                             logout
+                             deconnexion
                             </router-link> 
                         </li>
                     </ul>

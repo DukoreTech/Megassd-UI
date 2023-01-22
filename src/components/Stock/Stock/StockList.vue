@@ -22,7 +22,7 @@
 							<div class="col">
 								<h3 class="page-title">Stock</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
 									<li class="breadcrumb-item active">stock</li>
 								</ul>
 							</div>
@@ -31,8 +31,8 @@
             <div class="card  mb-4">
                
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+                    <div class="table-responsive" >
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0" style="overflow-x:auto !important;">
                             <thead>
                               <tr>                    
                                 <th scope="col">Id</th>
@@ -51,12 +51,12 @@
                                 <td v-if="stock.products && stock.products.name">{{ stock.products.name }} </td>
                                 <td>{{ stock.vide }} </td>
                                 <td>{{ stock.plein }} </td>
-                                <td>{{stock.date}}</td>
+                                <td>{{(stock.date.substr(0, 10))}}</td>
                                 <td>
                                     <!--<button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
                                     </button>-->
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editStock(stock,stock.id)" >
-                                    ajouter des vides <font-awesome-icon icon="fa-solid fa-edit"/>
+                                     vides <font-awesome-icon icon="fa-solid fa-plus" />
                                     </button>
                                 </td>
                               </tr>
@@ -103,8 +103,12 @@ export default {
             lengthMenu: [
               [5,10, 25, 50, -1],
               [5,10, 25, 50, "All"],
+
             ],
             pageLength: 5,
+            scrollY: true,
+            scrollCollapse: true,
+       
           });
                
               });
@@ -155,5 +159,6 @@ export default {
     .ajout{
         color: white;
     }
+  
 
 </style>

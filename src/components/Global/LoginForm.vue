@@ -1,5 +1,8 @@
 <template>
-<main style="background:linear-gradient(90deg, #C7C5F4, #776BCC);">
+<main style="background:linear-gradient(90deg, #C7C5F4, #776BCC);display: flex;justify-content: center; padding:30px;
+	">
+	
+    
 
   <div class="container">
    
@@ -7,16 +10,27 @@
 		<div class="screen__content">
 			<form class="login" @submit.prevent="login">
 				<div class="login__field">
-					<i class="login__icon fas fa-user"></i>
-					<input type="text" v-model="form.email" class="login__input" placeholder=" Email">
+					
+					<font-awesome-icon icon="fa-solid fa-user" class="icon login__icon" />
+					<input type="text" required="required" v-model="form.email" class="login__input" placeholder=" Email">
 				</div>
 				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input type="password" v-model="form.password" class="login__input" placeholder="Mot de passe">
+					
+					<font-awesome-icon icon="fa-solid fa-lock" class="icon login__icon" />
+					<input type="password" required="required" v-model="form.password" class="login__input" placeholder="Mot de passe">
 				</div>
 				<button class="button login__submit">
-					<span class="button__text">Connexion</span>
-					<i class="button__icon fas fa-chevron-right"></i>
+					<div v-if="loading" class="d-flex justify-content-center mx-2">
+						<span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                          
+                         </div>
+                    </div>
+
+					<span v-if="!loading" class="button__text">Connexion</span>
+                     
+                    <font-awesome-icon v-if="!loading" icon="fas fa-chevron-right" class="icon " />
+
 				</button>				
 			</form>
 			
@@ -46,6 +60,7 @@ export default {
                 password: "",
                 
             },
+			loading: false,
             errors: [],
         }
 
@@ -57,6 +72,7 @@ export default {
     },
     login:function()
        {
+		this.loading = true ;
 
 if (!this.form.password) {
 this.errors.push('password required');
@@ -65,22 +81,33 @@ if (!this.form.email) {
 this.errors.push('Email required');
 }
 else if(!this.validEmail(this.form.email)){
-    this.errors.push('invalid amail');
+    this.errors.push('email invalide');
 }
 
 if(this.errors.length > 0)
 {
-   
+
+	
+	   
+        
         Swal.fire({
                icon: 'error',
                title: 'error',
                text:  this.errors
+			   
               });
+			  this.loading=false;
+			   
+			  
               this.errors=[]
+			  
+				  
     
 }
 
+
 else{
+	
     
 	api.post("login",this.form)
         .then( (response) =>{
@@ -94,6 +121,7 @@ else{
 		 this.$store.state.role=response.data.user.Role
 
 		 console.log(this.$store.state.role)
+		 this.loading = false;
          
          //window.location('/')
            this.$router.push({name:'Dashboard'}) 
@@ -107,8 +135,9 @@ else{
             Swal.fire({
                icon: 'error',
                title: 'error',
-               text:  'invalid email or password try again'
+               text:  ' email ou motdepasse invalide '
               });
+			  this.loading = false;
               
           });
         } 
@@ -142,15 +171,16 @@ else{
 .container {
    /* background: linear-gradient(90deg, #C7C5F4, #776BCC);*/
 	display: flex;
-	align-items: center;
 	justify-content: center;
-	min-height: 100vh;
-    min-width: 100vh;  
+	align-items:center;
+	
+	height: fit-content;
 	overflow: hidden;
+		
+
 }
 
-.screen {		
-	background: linear-gradient(90deg, #5D54A4, #7C78B8);		
+.screen {	
 	position: relative;	
 	height: 600px;
 	width: 360px;	
@@ -281,31 +311,58 @@ else{
 	color: #7875B5;
 }
 
-.social-login {	
+
+
+@media screen and (max-width: 400px) {
+	
+	.screen {
+			
+
+		
+			position: relative;	
+			height: 500px;
+			width: 560px;	
+	
+		
+		}
+		.login__icon {
 	position: absolute;
-	height: 140px;
-	width: 160px;
-	text-align: center;
-	bottom: 0px;
-	right: 0px;
-	color: #fff;
+	top: 20px;
+	left:20px;
+	color: #7875B5;
+}
+		.login__field {
+	padding: 10px 0px;
+	margin-left:5px;	
+	
+}
+		main{
+			height:650px;
+		}
+		
+.login__submit {
+	margin-top: 30px;
+	width: 80%;
+	margin-left:30px;
+	
+}
+.login__input {
+	
+	
+	padding: 10px;
+	margin-left: 30px;
+	font-weight: 700;
+	width: 80%;
+	
 }
 
-.social-icons {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
-.social-login__icon {
-	padding: 20px 10px;
-	color: #fff;
-	text-decoration: none;	
-	text-shadow: 0px 0px 8px #7875B5;
-}
 
-.social-login__icon:hover {
-	transform: scale(1.5);	
-}
+
+
+
+
+
 </style>
 

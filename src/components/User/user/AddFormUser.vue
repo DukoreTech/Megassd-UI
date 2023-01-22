@@ -11,13 +11,13 @@
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <label for="nom">
-            <input type="text" id="nom" placeholder="nom" v-model="form.name">
+            <input type="text"  required="required" id="nom" placeholder="nom" v-model="form.name" disabled="disabled">
             <span>Nom</span>
         </label>
          <span>{{ errors?.nom }}</span>
 
          <label for="mail">
-            <input type="email" id="mail" placeholder="Telephone" v-model="form.email">
+            <input type="email" id="mail"   required="required" placeholder="Telephone" v-model="form.email" disabled="disabled">
             <span>Email</span>
          </label>
          <span>{{ errors?.mail }}</span>
@@ -51,11 +51,11 @@
         <span>{{ errors?.nomDUtilisateur }}</span>-->
 
          <label for="motDePasse">
-            <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.password">
+            <input type="password" id="motDePasse"  required="required" placeholder="Mot de passe" v-model="form.password">
             <span>Mot de passe</span>
         </label>
         <label for="confirm">
-            <input type="password" placeholder="Mot de passe" v-model="form.password_confirmation">
+            <input type="password" placeholder="Mot de passe"  required="required" v-model="form.password_confirmation">
             <span>Confirmer Mot de passe</span>
         </label>
          <span>{{ errors?.motDePasse }}</span>

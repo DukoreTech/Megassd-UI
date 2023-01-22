@@ -11,13 +11,8 @@
     
     <form action="" @submit.prevent="saveInformation">
 
-                <span>Produit</span>
-                 <label for="produit" class="">
-                  <input type="tel" disabled id="Quantite" placeholder="Quantite" v-model="form.product_id">
-                               
-                  </label>
-                 <span>{{ errors?.produit }}</span>
-                <br>
+                
+                
 
                  <label for="Quantite">
                     <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.vide">

@@ -9,25 +9,25 @@
    <div class="register">
         <form @submit.prevent="saveInformation">
             <label for="name">
-                <input type="text" id="name" placeholder="name" v-model="form.name">
+                <input type="text" required="required" id="name" placeholder="name" v-model="form.name">
                 <span>Nom</span>
             </label>
             <span>{{ errors?.name }}</span>
     
             <label for="unite_mesure">
-                <input type="text" id="unite_mesure" placeholder="unite_mesure" v-model="form.unite_mesure">
+                <input type="text" required="required" id="unite_mesure" placeholder="unite_mesure" v-model="form.unite_mesure">
                 <span>Unite De Mesure</span>
             </label>
             <span>{{ errors?.unite_mesure }}</span>
     
            <label for="caisse">
-                <input type="number" id="caisse" placeholder="caisse" v-model="form.caisse">
+                <input type="number" required="required" id="caisse" placeholder="caisse" v-model="form.caisse">
                 <span>caisse</span>
             </label>
             <span>{{ errors?.caisse }}</span>
     
             <label for="nombre_bouteille">
-                <input type="number" id="nombre_bouteille" placeholder="Nombres des Bouteilles" v-model="form.nombre_bouteille">
+                <input type="number" required="required" id="nombre_bouteille" placeholder="Nombres des Bouteilles" v-model="form.nombre_bouteille">
                 <span>Nombres des Bouteilles</span>
              </label>
              <span>{{ errors?.nombre_bouteille }}</span>

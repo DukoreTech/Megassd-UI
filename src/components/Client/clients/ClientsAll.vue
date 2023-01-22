@@ -44,16 +44,16 @@
             </div>
           </div>
           <div class="cart-footer">
-            <div class="d-flex justify-content-around align-items-cente">
+            <div class="d-flex justify-content-center align-items-center">
                 <router-link :to="{name:'Clientshistoric',params:{id:client.id,client: JSON.stringify(client)}}" class="btn  btn-success text-white m-2" 
-                                        aria-expanded="true" aria-controls="collapseStock">View</router-link>
-                 
+                                        aria-expanded="true" aria-controls="collapseStock"><font-awesome-icon icon="fa-solid fa-eye" /></router-link>
+                                        
                 
-                <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                 delete
+                <button class="btn btn btn-danger m-2"  @click="deleteUser(client.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                 
                 </button>
-                <button class="btn btn-sm btn-primary m-2" @click="modalActive = true,editUser(client,client.id)" >
-                edit<font-awesome-icon icon="fa-solid fa-edit"/>
+                <button class="btn btn btn-primary m-2" @click="modalActive = true,editUser(client,client.id)" >
+                <font-awesome-icon icon="fa-solid fa-edit"/>
                 </button>
 
             </div>

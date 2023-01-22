@@ -61,26 +61,26 @@
                 <form class="mb-5">
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Type paiement</label>
-                    <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                    <input type="text" required="required" id="typeText" class="form-control form-control-lg" siez="17"
                       v-model="paiement" minlength="19" maxlength="19" />
                   </div>
                   
 
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Numero de bordereaux</label>
-                    <input type="number" id="typeText" class="form-control form-control-lg" siez="17"
+                    <input type="number" required="required" id="typeText" class="form-control form-control-lg" siez="17"
                       v-model="numero" minlength="19" maxlength="19" />
                   </div>
                   <div class="form-outline mb-5">
                     <label class="form-label" for="typeText">Montant sur bordereaux</label>
-                    <input type="number" id="typeText" class="form-control form-control-lg" siez="17"
+                    <input type="number" required="required" id="typeText" class="form-control form-control-lg" siez="17"
                       v-model="montatsurbordereau" minlength="19" maxlength="19" />
                   </div>
 
                     <div class="form-outline mb-5">
                         <label class="form-label" for="typeName">client</label>
-                        <label for="typeClient" class="d-block dateWidth">
-                    <select  v-model="client" aria-placeholder="Type de client" id="typeClient" v-on:change="getprice" >
+                        <label for="typeClient"  class="d-block dateWidth">
+                    <select required="required"  v-model="client" aria-placeholder="Type de client" id="typeClient" v-on:change="getprice" >
                         <option v-for="client in clients" :key="client" :value="client" selected>
                             {{ client.nom }}
                          </option>

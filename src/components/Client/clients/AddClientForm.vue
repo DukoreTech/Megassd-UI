@@ -13,14 +13,14 @@
             <div class="col">
 
                 <label for="nom">
-                    <input type="text" id="nom" placeholder="nom" v-model="form.nom">
+                    <input type="text" required="required" id="nom" placeholder="nom" v-model="form.nom">
                     <span>Nom</span>
                 </label>
                 <span class="error">{{ errors?.nom }}</span>
                   <br>
                 <span>Type de client</span>
                  <label for="typeClient" class="d-block dateWidth">
-                    <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient">
+                    <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient" required="required">
                         <option v-for="typeClient in typeClients" :key="typeClient.id" :value="typeClient.id" selected>
                             {{ typeClient.name }}
                          </option>
@@ -33,14 +33,14 @@
 
              <div class="col">
               <label for="telephone">
-                        <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone">
+                        <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone" required="required">
                         <span>Telephone</span>
                   </label>
                 <span class="error">{{ errors?.telephone }}</span> 
                  <br>
                 <span>Adresse</span>
                  <label for="adresse" class="d-block dateWidth">
-                    <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse">
+                    <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse" required="required">
                         <option v-for="adresse in adresses" :value="adresse.id" :key="adresse.id" selected>
                         {{ adresse.name }}
                         </option>

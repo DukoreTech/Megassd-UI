@@ -11,14 +11,14 @@
   <div class="register">
     <form action="" @submit.prevent="saveInformation">     
           <label>
-             <input type="text" v-model="form.name" placeholder="type de client">
+             <input type="text" required="required" v-model="form.name" placeholder="type de client">
              <span>Type de Client</span>
           </label>
          <span>{{ errors?.name }}</span>
 
         <span>Description</span>
          <label for="description">
-            <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+            <textarea  id="description"  placeholder="Description"  v-model="form.description"></textarea>
         </label>
         <span>{{ errors?.description }}</span>
 

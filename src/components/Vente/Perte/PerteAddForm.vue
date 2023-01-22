@@ -13,7 +13,7 @@
 
                 <span>Produit</span>
                  <label for="produit" class="">
-                    <select  v-model="form.product_id" aria-placeholder="produit" id="produit">
+                    <select  required="required" v-model="form.product_id" aria-placeholder="produit" id="produit">
                         <option v-for="produit in products" :key="produit.id" :value="produit.id" selected>
                             {{ produit.name }}
                          </option>
@@ -23,7 +23,7 @@
                 <br>
                 <span>Nature</span>
                  <label for="client" class="">
-                    <select  v-model="form.nature" aria-placeholder="client" id="client">
+                    <select  required="required" v-model="form.nature" aria-placeholder="client" id="client">
                         <option  selected>Non conforme </option>
                         <option >ouvert</option>
                         <option >cassé</option>
@@ -33,7 +33,7 @@
                 <br>
                 <span>Stock</span>
                  <label for="client" class="">
-                    <select  v-model="form.stock" aria-placeholder="client" id="client">
+                    <select required="required" v-model="form.stock" aria-placeholder="client" id="client">
                         <option>Vides</option>
                         <option >plein</option>
                      </select>             
@@ -41,12 +41,12 @@
                  <span>{{ errors?.type_perte }}</span>
                 <br>
                 <label for="quantity">
-                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
+                    <input required="required" type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
                     <span>Quantite</span>
                 </label>
                 <span>{{ errors?.quantity }}</span>
                 <label for="quantity">
-                    <input type="number" id="quantity" placeholder="quantity" v-model="form.casier">
+                    <input type="number" required="required" id="quantity" placeholder="quantity" v-model="form.casier">
                     <span>casier</span>
                 </label>
                 
@@ -159,14 +159,14 @@ export default {
 }
 form{
     width:45vw;
-    max-width:768px;
+    max-width:350px;
     height: 500px;
     font-family:sans-serif;
     padding:0 3vw;
     display:flex;
     flex-direction:column;
     border-radius:5px;
-    margin-left:20px;
+    margin-left:10px;
     margin-top: 20px;
 }
 

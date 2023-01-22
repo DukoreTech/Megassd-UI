@@ -42,16 +42,13 @@
                                     <td>{{ lot.name }} </td>
                                     <td>{{ lot.products.name }} </td>            
                                     <td>{{ lot.price_vente }} </td>            
-                                       
                                     <td>{{lot.adresses.name }}</td>  
-                                    <td>{{lot.type_clients.name}}</td>
-                                    
-                                          
-                                    <td class="d-flex">
-                                        <button class="btn btn-sm btn-danger"  @click="deleteLot(lot.id)">
-                                        suppprimer<font-awesome-icon icon="fa-solid fa-trash"/></button>
+                                    <td>{{lot.type_clients.name}}</td>  
+                                    <td >
+                                        <button class="btn btn-sm btn-danger mx-2"  @click="deleteLot(lot.id)" >
+                                        <font-awesome-icon icon="fa-solid fa-trash"/></button>
                                         <button class="btn btn-sm btn-primary" @click="modalActive = true,editlot(lot,lot.id)" >
-                                       Modifier<font-awesome-icon icon="fa-solid fa-edit"/>
+                                       <font-awesome-icon icon="fa-solid fa-edit"/>
                                         </button>
                                     </td>
                                   </tr>
@@ -99,7 +96,12 @@ import Swal from 'sweetalert2';
               $('#datatable').DataTable().destroy();
               this.$nextTick(()=> {
                 $('#datatable').DataTable()
+                scroll: '50vh';
+                scrollCollapse : true
+        
+                
               });
+              
             }
        },
         methods:{

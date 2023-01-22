@@ -17,7 +17,7 @@
          <div class="container-fluid">
             <div class="card  mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-mute">Liste des products</h6>
+                    <h6 class="m-0 font-weight-bold text-mute">Liste des produits</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -41,10 +41,10 @@
                                 <td>{{ product.unite_mesure }} </td>
                                 <td>{{ product.nombre_bouteille }} </td>
                                 <td>
-                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteProduit(product.id)"><font-awesome-icon icon="fa-solid fa-trash"/>supprimer
+                                    <button class="btn btn-sm btn-danger mx-2"  @click="deleteProduit(product.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editProduit(product,product.id)" >
-                                    <font-awesome-icon icon="fa-solid fa-edit"/>modifier
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>

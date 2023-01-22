@@ -35,10 +35,10 @@
                                 <td>{{ typeClient.name }} </td>
                                 <td>{{ typeClient.description }} </td>         
                                 <td>
-                                    <button class="btn btn-sm btn-danger m-2"  @click="deleteTClient(typeClient.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    supprimer</button>
+                                    <button class="btn btn-sm btn-danger mx-2"  @click="deleteTClient(typeClient.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
+                                    </button>
                                     <button class="btn btn-sm btn-primary" @click="modalActive = true,editTypeClient(typeClient,typeClient.id)" >
-                                    Modifier<font-awesome-icon icon="fa-solid fa-edit"/>
+                                    <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
                               </tr>

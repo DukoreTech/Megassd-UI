@@ -6,10 +6,10 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col">
-								<h3 class="page-title">Stock details</h3>
+								<h3 class="page-title">Détails Stock</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Dashboard</a></li>
-									<li class="breadcrumb-item active">stock details</li>
+									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de Bord</a></li>
+									<li class="breadcrumb-item active">Détails Stock</li>
 								</ul>
 							</div>
 						</div>
@@ -32,13 +32,13 @@
                                                     <th scope="col">Numero</th>
 
 													<th scope="col">Produit</th>
-													<th scope="col">Activity_Realisé</th>
-													<th scope="col">quantite sortie</th>
-													<th scope="col">quantite_entre</th>
-                                                    <th scope="col">quantite_actuel</th>
+													<th scope="col">Activité</th>
+													<th scope="col">sortie</th>
+													<th scope="col">Entrée</th>
+                                                    <th scope="col">stock_actuel</th>
                                                     <th scope="col">stock_initial</th>
-                                                    <th scope="col">date:</th>
-                                                    <th scope="col">Fait par:</th>
+                                                    <th scope="col-3">date effectué</th>
+                                                    
 													
 												</tr>
 											</thead>
@@ -52,8 +52,8 @@
 													<td>{{detail.quantite_entre}}</td>
                                                     <td>{{detail.quantite_actuel}}</td>
                                                     <td>{{detail.stock_quantite_initial	}}</td>
-                                                    <td>{{detail.created_at	}}</td>
-                                                    <td>{{detail.user_id}}</td>
+                                                    <td>{{(detail.created_at.substr(0, 10))}}</td>
+                                                    
                                                     
                                                     
                                                     
@@ -96,7 +96,13 @@ export default {
               console.log(val)
               $('#datatable').DataTable().destroy();
               this.$nextTick(()=> {
-                $('#datatable').DataTable()
+                $('#datatable').DataTable(
+                    {
+                        dom: 'Bfrtip',
+                    buttons: ['copy', 'csv', 'print'
+                    ]
+                    }
+                )
               });
             }
        },

@@ -11,7 +11,7 @@
      <div class="container-fluid">
         <div class="card  mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-mute">Liste des reception</h6>
+                <h6 class="m-0 font-weight-bold text-mute">Liste des dettes</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -43,9 +43,9 @@
                             <td>
                                <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                 delete</button>-->
-                                <span class="bg-success p-2 text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0">Payed</span>
+                                <span class="bg-success p-2 text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0">Payé</span>
                                 <button v-if="money.montant_en_exces!=0 || money.montant_en_dette!=0" class="btn btn-sm btn-primary" @click="modalActive = true,editMoney(money,money.id)" >
-                                <font-awesome-icon icon="fa-solid fa-edit"/><span v-if=" money.montant_en_dette !=0">Payer</span><span v-if=" money.montant_en_exces !=0"> Rembourse</span>
+                                <font-awesome-icon icon="fa-solid fa-edit"/><span v-if=" money.montant_en_dette !=0">Payer</span><span v-if=" money.montant_en_exces !=0"> Rembourser</span>
                                 </button>
                             </td>
                           </tr>
