@@ -54,8 +54,6 @@
         v-model="form.adresses_id"
         @select="onSelect"
         :options="options"
-        
-      
     />
   </div>
         </div>
@@ -135,6 +133,7 @@ export default {
     };
   },
     mounted(){
+      console.log(this.$store.state.lots)
      
       this.getproducts()
       //this.getuser()
@@ -212,9 +211,26 @@ export default {
     }, 
         saveInformation() {
       if (this.form["product_id","price_vente","quantity","name"]=="") return;
+
+      let result=""
+      let add= []
+      add.push(this.form.adresses_id),
+      
+      add.forEach(element => {
+         result= this.$store.state.lots.find((item) => item.product_id == this.form.product_id && item.adresses_id==this.form.adresses_id && item.type_clients_id==this.form.type_Clients_id)
+        
+      });
+       
+      
+      
+     
       
        if(this.$store.state.IdEditLot==null){
-       // console.log(result)
+        
+
+        console.log(result)
+        console.log(add)
+        
         if(result){
           Swal.fire({
                icon: 'info',
