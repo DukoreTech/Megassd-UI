@@ -1,10 +1,19 @@
 <template>
   <div class="content">
 				<div class="container-fluid">
+					
 
 					<div class="row">
-						<div class="col-lg-8 offset-lg-2">
-							<div class="invoice-content">
+						<div class="col-lg-8 offset-lg-2" >
+						    <div class="d-flex justify-content-between">
+							<router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
+                             aria-expanded="true" aria-controls="collapseStock">
+                               <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
+                             Back
+                            </router-link>
+							<button class="btn btn-lg btn-dark mb-4" ><font-awesome-icon icon="fa-solid fa-print" @click="print"/></button>
+						</div>
+							<div class="invoice-content" id="printMe">
 								<div class="invoice-item">
 									<div class="row">
 										<div class="col-md-6">
@@ -14,8 +23,8 @@
 										</div>
 										<div class="col-md-6">
 											<p class="invoice-details">
-												<strong>Order:</strong>{{this.data.id}} <br>
-												<strong>Issued:</strong> {{date}}
+												<strong>commande:</strong>#{{this.data.id}} <br>
+												<strong>Fait le:</strong> {{date}}
 											</p>
 										</div>
 									</div>
@@ -26,7 +35,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="invoice-info">
-												<strong class="customer-text">Invoice From</strong>
+												<strong class="customer-text">Facture De:</strong>
 												<p class="invoice-details invoice-details-two">
 													{{users.name}}<br>
 													Ruziba<br>
@@ -36,7 +45,7 @@
 										</div>
 										<div class="col-md-6">
 											<div class="invoice-info invoice-info2">
-												<strong class="customer-text">Invoice To</strong>
+												<strong class="customer-text">Facture A:</strong>
 												<p class="invoice-details">
 													{{clients.nom}} <br>
 													
@@ -52,10 +61,10 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="invoice-info">
-												<strong class="customer-text">Payment Method</strong>
+												<strong class="customer-text">Mode de paiment:</strong>
 												<p class="invoice-details invoice-details-two">
 													{{ data.type_paiement }} <br>
-													<span>Paied : {{data.payed_amount}}</span>
+													<span>Payé : {{data.payed_amount}}FBU</span>
 													<span v-if="data.type_paiement=='Bordereau'">{{data.num_bordereau}}</span> <br>
 													Ecobank Bank<br>
 												</p>
@@ -75,8 +84,8 @@
 													<thead>
 														<tr>
 															<th>Description</th>
-															<th class="text-center">Quantity</th>
-															<th class="text-right">Amount</th>
+															<th class="text-center">Quantité</th>
+															<th class="text-right">Montant</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -97,7 +106,7 @@
 													
 													
 													<tr>
-														<th>Total Amount:</th>
+														<th>Montant Total:</th>
 														<td><span>{{data.total_amount}} Fbu</span></td>
 													</tr>
 													</tbody>
@@ -186,7 +195,11 @@ export default {
                 console.error(err)
             })
 
-        }
+        },
+		print () {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
+    }
        
             
         

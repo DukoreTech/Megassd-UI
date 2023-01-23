@@ -13,22 +13,37 @@
             <div class="col">
                 <label for="name">
                     <input type="text" required="required" id="name" placeholder="name" v-model="form.name">
-                    <span>name</span>
+                    <span>nom</span>
                 </label>
                 <span>{{ errors?.name }}</span>
                  <br>
                 <span>Produit</span>
-                 <label for="product_id" class="d-block dateWidth">
+                 <label v-if="saveEditBtn=='Ajouter'" for="product_id" class="d-block dateWidth">
                     <select required="required"  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
                         <option v-for="product in products" :key="product.id" :value="product.id"  selected>
                         {{ product.name }}
                         </option>
                     </select>             
-               </label>
+                </label>
+                <label v-if="saveEditBtn=='Modifier'" for="product_id" class="d-block dateWidth">
+                    <select required="required" disabled="disabled"  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                        <option v-for="product in products" :key="product.id" :value="product.id"  selected>
+                        {{ product.name }}
+                        </option>
+                    </select>             
+                </label>
+
                <span>type client</span>
-                 <label  for="product_id" class="d-block dateWidth">
+                 <label  v-if="saveEditBtn=='Ajouter'" for="product_id" class="d-block dateWidth">
                     <select required="required"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
-                        <option v-for="client in typeClients" :key="client.id" :value="client.id"  selected>
+                        <option v-for="client in typeClients"  :key="client.id" :value="client.id"  selected>
+                        {{ client.name }}
+                        </option>
+                    </select>             
+               </label> 
+               <label v-if="saveEditBtn=='Modifier'"  for="product_id" class="d-block dateWidth">
+                    <select required="required" disabled="disabled"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
+                        <option v-for="client in typeClients"   :key="client.id" :value="client.id"  selected>
                         {{ client.name }}
                         </option>
                     </select>             
@@ -62,7 +77,7 @@
                 
                 <label  v-if="saveEditBtn=='Modifier'" for="product_id" class="d-block dateWidth">
                   <!--<div>{{ form.adresses_id }}</div>-->
-                    <select required="required"  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" >
+                    <select required="required" disabled="disabled"  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" >
                         <option v-for="zone in address" :key="zone.id" :value="zone.id" class="bg-white"  selected>
                         {{ zone.name }}
                         </option>
@@ -153,7 +168,6 @@ export default {
             
             this.form=this.$store.state.lots;
             this.form.type_Clients_id=this.form.type_clients_id
-
             this.saveEditBtn="Modifier"
             console.log(this.form)
         }
@@ -209,35 +223,30 @@ export default {
       this.$emit('close')
 
     }, 
-        saveInformation() {
+    saveInformation() {
       if (this.form["product_id","price_vente","quantity","name"]=="") return;
-
-      let result=""
-      let add= []
-      add.push(this.form.adresses_id),
-      
-      add.forEach(element => {
-         result= this.$store.state.lots.find((item) => item.product_id == this.form.product_id && item.adresses_id==this.form.adresses_id && item.type_clients_id==this.form.type_Clients_id)
-        
-      });
-       
-      
-      
-     
-      
-       if(this.$store.state.IdEditLot==null){
-        
-
+      let result=[]
+      let reply=[]
+      let type=""
+       if(this.$store.state.IdEditLot==null){  
+        result= this.$store.state.lots.filter((item) => item.product_id == this.form.product_id && this.form.adresses_id.some(y => y === item.adresses_id) && item.type_clients_id==this.form.type_Clients_id)
         console.log(result)
-        console.log(add)
-        
-        if(result){
+        console.log(this.form.adresses_id)
+        if(result.length>0){
+          result.forEach(element => {
+          reply.push(element.adresses.name)
+          type=element.type_clients.name
+          
+        });
+        let x =JSON.stringify(reply)
           Swal.fire({
                icon: 'info',
                title: 'erreur',
-               text: 'prix deja existant pour cette zone et type de client!',  
+               text: 'vous avez déja définit un  prix pour le  '+type+ ' se trouvant à  ' + reply
+                
               });
         }
+       
         else{
         api.post(
           "lots",
@@ -247,7 +256,7 @@ export default {
          
           this.lots = resp.data;
           this.$emit('fetch')
-       // console.log(this.$store.state.lots)
+      
           this.form={}
           this.$emit("fetch")
           Swal.fire({
@@ -255,7 +264,7 @@ export default {
                title: 'Ajouter',
                text: 'Enregister avec succès',  
               });
-          //this.form = { name:"",description:"",price_vente:"", quantity:"",price_unitaire:"",product_id:""} 
+          
         })
         .catch((err) => {
           console.error(err.response.data.errors);
@@ -275,7 +284,7 @@ export default {
               });
               this.$store.state.lots=resp.data
          this.$emit('close')
-        // this.$emit('fetch')
+        
          
          })
         .catch((err) => {
