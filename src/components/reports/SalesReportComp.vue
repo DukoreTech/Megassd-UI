@@ -158,7 +158,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 th{
 	padding:10px;
 	text-align: center;

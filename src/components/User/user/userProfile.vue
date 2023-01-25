@@ -9,13 +9,13 @@
 
         <form action="" @submit.prevent="saveInformation">
             <label for="nom">
-                <input type="text" id="nom" placeholder="nom" v-model="form.name">
+                <input type="text" disabled="disabled" id="nom" placeholder="nom" v-model="form.name">
                 <span>Nom</span>
             </label>
              <span>{{ errors?.name }}</span>
     
              <label for="mail">
-                <input type="email" id="mail" placeholder="email" v-model="form.email">
+                <input type="email" id="mail" disabled="disabled" placeholder="email" v-model="form.email">
                 <span>Email</span>
              </label>
              <span>{{ errors?.email }}</span>
@@ -39,7 +39,7 @@
     
              <div class="d-flex justify-content-around">
                   <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-                  <button type="reset" class="btn btn-sm btn-primary" >Annuler</button>
+                  
                 </div>
         </form>
     </div>

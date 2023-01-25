@@ -26,7 +26,7 @@
 								<div class="card-body">
 
 									<div class="table-responsive">
-										<table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+										<table class="table table-bordered  table-striped table-hover text-center dt-responsive nowrap" id="datatable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
                                                     <th scope="col">Numero</th>
@@ -130,19 +130,6 @@ export default {
 
 <style>
 
-th{
-    padding:10px;
-	text-align: center;
-        text-transform: capitalize;
-        text-align: center;
-        font-size: 13px;
-        font-weight: bold;
-        
-    }
-    td{
-        text-align: center;
-        font-size: 16px;  
-        
-    }
+
 
 </style>

@@ -47,7 +47,7 @@
                     </select>             
               </label>
                <span class="error">{{ errors?.address_id }}</span>       
-               <button type="reset" class="btn btn-sm btn-primary float-start" >vider</button>
+               <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary float-start" >vider</button>
          </div>
         </div>  
     </form>

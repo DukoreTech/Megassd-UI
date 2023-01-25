@@ -86,7 +86,7 @@ export default {
         return{
             modalActive: false,
             search:'',
-            clients : [ ]
+            clients : this.$store.state.clients
         }
     },
     mounted(){
@@ -97,6 +97,10 @@ export default {
             let val="";
             return this.clients.filter(val.includes(this.search))
             }*/
+            clients(){
+                return this.$store.state.clients
+            }
+            
     },
     watch: {
         clients(val) {
@@ -112,7 +116,7 @@ export default {
             api.get("client",this.form)
             .then(resp => {
                 this.clients = resp.data
-                this.$store.state.typeClients=resp.data    
+                this.$store.state.clients=resp.data    
             })
             .catch(err => {
                 console.error(err)

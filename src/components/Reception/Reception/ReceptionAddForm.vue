@@ -13,8 +13,8 @@
             <div class="col">
                 <span>Produit</span>
                  <label for="product_id" class="d-block dateWidth">
-                    <select  v-model="form.product_id"  id="product_id" required="required">
-                        <option v-for="product in stocks" :key="product.id" :value="product.product_id" selected>
+                    <select :disabled="saveEditBtn=='Modifier'"  v-model="form.product_id"  id="product_id" required="required">
+                        <option v-for="product in stocks"  :key="product.id" :value="product.product_id" selected>
                         {{ product.products.name }}
                         </option>
                     </select>             
@@ -56,7 +56,7 @@
                 <span>{{ errors?.date_achat }}</span>
 
                 <label for="montant" class="">
-                    <input type="text" id="montant" required="required" v-model="form.montant">
+                    <input type="text" id="montant" :disabled="saveEditBtn=='Modifier'" required="required" v-model="form.montant">
                     <span>Montant</span>
                 </label>
                 <span>{{ errors?.montant }}</span> 
@@ -66,7 +66,7 @@
                 </label>    
 
                 <label for="montant_total" class="">
-                    <input type="number"  id="montant_total" required="required" placeholder="montant"  v-model="form.montant_total">
+                    <input type="number"  id="montant_total" disabled="saveEditBtn=='Modifier'" required="required" placeholder="montant"  v-model="form.montant_total">
                     <span>Montant total</span>
                 </label>
                 <span>{{ errors?.montant_total }}</span>            
@@ -81,7 +81,7 @@
         <!-- <button type="button">Register</button> -->
         <div class="d-flex justify-content-around">
           <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-          <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+          <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
         </div>
     </form>
 </div>

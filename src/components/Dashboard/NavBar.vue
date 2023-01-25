@@ -100,5 +100,9 @@ img,.img{
 #profileDrop{
     margin-right: 30px;
 }
+@media screen and (max-width:980px) {
+
+   
+}
 
 </style>

@@ -14,10 +14,10 @@ import Select2 from 'vue3-select2-component';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import {faWarehouse,faFile,faCartFlatbedSuitcase,faScaleUnbalancedFlip,faWineBottle,faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar,faEye,faCheck,faFileInvoice,faLock,faChevronRight,faPrint} from '@fortawesome/free-solid-svg-icons'
+import {faWarehouse,faFile,faCartFlatbedSuitcase,faScaleUnbalancedFlip,faWineBottle,faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight ,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar,faEye,faCheck,faFileInvoice,faLock,faChevronRight,faPrint,faBars} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons tPlus,o the library */
-library.add(faWarehouse,faFile,faCartFlatbedSuitcase,faScaleUnbalancedFlip,faWineBottle,faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar,faEye,faCheck,faFileInvoice,faLock,faChevronRight,faPrint)
+library.add(faWarehouse,faFile,faCartFlatbedSuitcase,faScaleUnbalancedFlip,faWineBottle,faMinus,faTimes,faAngleLeft,faCheckCircle,faAngleDown,faCalendarCheck,faMoneyBill,faUsersBetweenLines,faCircleDot,faAngleRight,faUserSecret,faUser,faTachometerAlt,faHouse,faShoppingCart,faCartPlus,faCog,faPlus,faPlusCircle,faEdit,faUserEdit,faTrash,faTrashAlt,faSignOutAlt,faUsers,faMoneyCheckDollar,faEye,faCheck,faFileInvoice,faLock,faChevronRight,faPrint,faBars)
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import VueSweetalert2 from 'vue-sweetalert2';
@@ -35,7 +35,8 @@ const options = {
     ],
     styles: [
       'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-      'https://unpkg.com/kidlat-css/css/kidlat.css'
+      'https://unpkg.com/kidlat-css/css/kidlat.css',
+      'assets/print.css'
     ]
   }
   

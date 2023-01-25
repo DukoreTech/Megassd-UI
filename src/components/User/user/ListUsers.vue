@@ -38,13 +38,7 @@
                                     <td>{{ user.name }} </td>
                                     <td>{{ user.email }} </td>
                                     <td>{{ user.roles.name}} </td>
-                                   <!-- <td>
-                                        <button class="btn btn-sm btn-danger m-2"  @click="deleteUser(user.id)"><font-awesome-icon icon="fa-solid fa-trash"/>supprimer
-                                        </button>
-                                        <button class="btn btn-sm btn-primary" @click="modalActive = true,editUser(user,user.id)" >
-                                        <font-awesome-icon icon="fa-solid fa-edit"/>modifier
-                                        </button>
-                                    </td>-->
+                                   
                                   </tr>
                                 </tbody>
                              </table>
@@ -73,7 +67,7 @@
             return{
                 modalActive: false,
                 search:'',
-                users : [ ],
+                users :this.$store.state.users,
                 token:this.$store.state.token
             }
         },
@@ -84,7 +78,11 @@
         computed:{
             searchEvery(){
                 return this.users.filter(val=>val.includes(this.search))
-                }
+                },
+            users(){
+                return this.users
+
+            }
         },
         watch: {
             users(val) {
@@ -100,6 +98,8 @@
                 api.get("users")
                 .then(resp => {
                     this.users = resp.data
+                    this.$store.state.users=resp.data
+                
               
                 })
                 .catch(err => {

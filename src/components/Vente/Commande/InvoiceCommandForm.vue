@@ -23,7 +23,7 @@
 										</div>
 										<div class="col-md-6">
 											<p class="invoice-details">
-												<strong>commande:</strong>#{{this.data.id}} <br>
+												<strong>Commande:</strong>#{{this.data.id}} <br>
 												<strong>Fait le:</strong> {{date}}
 											</p>
 										</div>

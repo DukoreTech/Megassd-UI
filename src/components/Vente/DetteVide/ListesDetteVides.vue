@@ -43,7 +43,7 @@
                                     <td>
                                        <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                         delete</button>-->
-                                        <span class="bg-success p-2 text-white" v-if="dette.reste==0">Payés</span>
+                                        <button v-if="dette.reste==0" class="btn btn-success p-2 text-white mt-2"><span  >Payés</span></button>
                                         <button v-if="dette.reste!==0" class="btn btn-sm btn-primary" @click="modalActive = true, editDette(dette,dette.id)" >
                                         <font-awesome-icon icon="fa-solid fa-edit"/>Modifier
                                         </button>

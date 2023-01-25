@@ -96,7 +96,7 @@
         <div class="d-flex justify-content-around">
           
           <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-          <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+          <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
         </div>
         <div>
         

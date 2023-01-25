@@ -43,8 +43,9 @@
                             <td>
                                <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                 delete</button>-->
-                                <span class="bg-success p-2 text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0">Payé</span>
-                                <button v-if="money.montant_en_exces!=0 || money.montant_en_dette!=0" class="btn btn-sm btn-primary" @click="modalActive = true,editMoney(money,money.id)" >
+                                <button class="mt-2 btn btn-success  text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0"><span>Payé</span>
+                                </button>
+                                <button v-if="money.montant_en_exces!=0 || money.montant_en_dette!=0" class="btn btn-sm btn-primary mt-2" @click="modalActive = true,editMoney(money,money.id)">
                                 <font-awesome-icon icon="fa-solid fa-edit"/><span v-if=" money.montant_en_dette !=0">Payer</span><span v-if=" money.montant_en_exces !=0"> Rembourser</span>
                                 </button>
                             </td>

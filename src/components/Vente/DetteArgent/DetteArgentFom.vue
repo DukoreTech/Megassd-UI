@@ -110,8 +110,8 @@
           {
             Swal.fire({
                    icon: 'info',
-                   title: 'error',
-                   text: 'Montant entered is  not valid!',  
+                   title: 'erreur',
+                   text: 'Montant entré pas valide!',  
                   })
           }
           else{
@@ -123,9 +123,9 @@
             .then((resp) => {
               this.stocks = resp.data;
               Swal.fire({
-                   icon: 'success',
-                   title: 'success',
-                   text: 'data updated successfully!',  
+                icon: 'success',
+               title: 'Modification',
+               text: 'Modification réussi!', 
                   });
               this.$emit('close')
              })

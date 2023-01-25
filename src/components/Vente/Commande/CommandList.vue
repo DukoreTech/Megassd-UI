@@ -36,7 +36,7 @@
                              </tr>
                             </thead>                     
                             <tbody>
-                               <tr v-for="order in orders" :key="order.id">
+                               <tr v-for="order in ventes" :key="order.id">
                                 <th scope="row">{{ order.id }}</th>
                                 <td>
                                     <div v-for="val in JSON.parse(order.products)" :key="val">
@@ -49,7 +49,7 @@
                                 <td>{{ order.clients.nom}} </td>
                                 <td>{{ order.date_facturation}} </td>
                                 <td>{{ (order.updated_at.substr(0, 10))}}</td>
-                                <td><span v-if="order.status==1" style="color:black; width:50px;"><font-awesome-icon icon="fa-solid fa-check" /></span><span style="background-color:#495057;color:white ;padding:4px;" 
+                                <td><span v-if="order.status==1" style="color:black;"><font-awesome-icon icon="fa-solid fa-check" /></span><span class="bg-secondary text-white mt-5" style=" width:120px;" 
                                      v-if="order.status==0">En cours</span></td>            
                                 <td>{{ order.users.name}}</td>                       
                                 <td>
@@ -88,7 +88,7 @@ export default {
         return{
             modalActive: false,
             search:'',
-            orders : [ ]
+            orders :this.$store.state.vantes
         }
     },
     mounted(){
@@ -97,7 +97,10 @@ export default {
     computed:{
         searchEvery(){
             return this.receptions.filter(val=>val.includes(this.search))
-            }
+            },
+         ventes(){
+            return  this.$store.state.vantes;
+         }
     },
     watch: {
         orders(val) {
@@ -117,6 +120,7 @@ export default {
             api.get("ventes")
             .then(resp => {
                 this.orders = resp.data
+                this.$store.state.vantes=resp.data
                 console.log(this.orders)
               
             })
@@ -157,11 +161,11 @@ export default {
             
         },
 
-        editReception(reception,id){
+       /* editReception(reception,id){
         this.$store.state.IdEditReception=id
         this.$store.state.receptions=reception
         
-        }
+        }*/
     }
     
 }

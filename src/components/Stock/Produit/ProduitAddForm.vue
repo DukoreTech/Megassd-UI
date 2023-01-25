@@ -21,7 +21,7 @@
             <span>{{ errors?.unite_mesure }}</span>
     
            <label for="caisse">
-                <input type="number" required="required" id="caisse" placeholder="caisse" v-model="form.caisse">
+                <input type="number" disabled="disabled" required="required" id="caisse" placeholder="caisse" v-model="form.caisse">
                 <span>caisse</span>
             </label>
             <span>{{ errors?.caisse }}</span>
@@ -38,7 +38,7 @@
              </label> -->
              <div class="d-flex justify-content-around">
               <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-              <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+              <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
             </div>
           </form>
     </div>

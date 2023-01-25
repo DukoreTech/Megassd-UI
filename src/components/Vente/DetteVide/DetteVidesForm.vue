@@ -49,7 +49,8 @@
           form: {
            
             nouveau_casier:this.$store.state.DetteVides.nouveau_casier,
-            reste:this.$store.state.DetteVides.reste
+            reste:this.$store.state.DetteVides.reste,
+            product_id:this.$store.state.DetteVides.product_id
         
           },
           errors: {},
@@ -85,7 +86,10 @@
         this.form.reste=this.$store.state.DetteVides.reste
 
       },
-      
+      "$store.state.DetteVides.product_id"(val){
+        this.form.product_id=this.$store.state.DetteVides.product_id
+
+      },
      },
      
     
@@ -98,8 +102,8 @@
           {
             Swal.fire({
                    icon: 'info',
-                   title: 'error',
-                   text: 'quantity entered is  not valid!',  
+                   title: 'erreur',
+                   text: 'quantité  entrée  est supérieur a ceux qui reste',  
                   });
 
 
@@ -113,9 +117,9 @@
               this.$store.state.DetteVides=resp.data
               console.log(this.$store.state.DetteVides)
               Swal.fire({
-                   icon: 'success',
-                   title: 'success',
-                   text: 'data updated successfully!',  
+                icon: 'success',
+               title: 'Modification',
+               text: 'Modification réussi!', 
                   });
               this.$emit('close')
               this.$store.state.DetteVides=resp.data

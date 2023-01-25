@@ -126,27 +126,9 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
-th{
-    padding:10px;
-	text-align: center;
-        text-transform: capitalize;
-        text-align: center;
-        font-size: 13px;
-        font-weight: bold;
-        
-    }
-    td{
-        text-align: center;
-        font-size: 16px;  
-        
-    }
 
-    .table-responsive {
-  max-height: 200px;
-  overflow: scroll;
-  overflow: visible;
-}
+
 
 </style>

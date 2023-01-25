@@ -11,13 +11,13 @@
   <div class="register">
     <form action="" @submit.prevent="saveInformation">
         <label for="nom">
-            <input type="text"  required="required" id="nom" placeholder="nom" v-model="form.name" disabled="disabled">
+            <input type="text"  required="required" id="nom" placeholder="nom" v-model="form.name">
             <span>Nom</span>
         </label>
          <span>{{ errors?.nom }}</span>
 
          <label for="mail">
-            <input type="email" id="mail"   required="required" placeholder="Telephone" v-model="form.email" disabled="disabled">
+            <input type="email" id="mail"   required="required" placeholder="Telephone" v-model="form.email">
             <span>Email</span>
          </label>
          <span>{{ errors?.mail }}</span>
@@ -62,7 +62,7 @@
 
          <div class="d-flex justify-content-around">
               <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-              <button type="reset" class="btn btn-sm btn-primary" >vider</button>
+              <button type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
             </div>
     </form>
 </div>

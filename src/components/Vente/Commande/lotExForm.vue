@@ -235,7 +235,7 @@
                </table>
             </form>
            <div class="panel panel-danger" v-show="poubelle.length">
-            <div class="mt-4 mb-4 "> <span style="font-size:20px;" class="bg-danger  p-2 "><font-awesome-icon icon="fa-solid fa-trash" class="icon" />Trash</span>  </div>
+            <div class="mt-4 mb-4 "> <span style="font-size:20px;" class="bg-danger  text-white p-2 "><font-awesome-icon icon="fa-solid fa-trash" class="icon" />poubelle</span>  </div>
                <table class="table table-bordered table-striped table-responsive">
                    <thead>
                    <tr>
@@ -483,6 +483,7 @@ export default {
         )
         .then((resp) => {
             this.data=resp.data
+            //this.$store.state.vantes=resp.data
          
 
          // this.commandes = []; 
