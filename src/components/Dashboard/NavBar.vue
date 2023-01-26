@@ -98,6 +98,5 @@ export default {
 #showTitle{
   display:block;
 }
-
 }
 </style>
