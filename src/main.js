@@ -36,7 +36,7 @@ const options = {
     styles: [
       'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
       'https://unpkg.com/kidlat-css/css/kidlat.css',
-      'assets/print.css'
+     
     ]
   }
   
@@ -48,7 +48,7 @@ const options = {
 createApp(App)
     .use(store)
     .use(router)
-    .use(VueHtmlToPaper, options)
+   // .use(VueHtmlToPaper, options)
     .component('font-awesome-icon', FontAwesomeIcon)
     .use(VueSweetalert2)
     .component('Select2', Select2)
