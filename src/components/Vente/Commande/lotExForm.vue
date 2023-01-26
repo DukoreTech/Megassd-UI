@@ -79,7 +79,7 @@
                         
                         <!-- Pricing -->
                         <div class="card col-lg-5">
-                          <div class="card-title  mt-2 font-weight-bolder">Paiment</div>
+                          <div class="card-title  mt-2 font-weight-bolder">Paiement</div>
                             <div class="card-body">
                                 <div class="row form-row ">
 

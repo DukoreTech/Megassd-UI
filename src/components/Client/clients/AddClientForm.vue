@@ -20,7 +20,7 @@
                 <span class="error">{{ errors?.nom }}</span>
               </div>
               <div>
-                <div class="font-weight-bold">Type de client</div>
+                <div class="">Type de client</div>
                     <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient" required="required" class="form-select">
                         <option v-for="typeClient in typeClients" :key="typeClient.id" :value="typeClient.id" selected>
                             {{ typeClient.name }}
@@ -39,7 +39,7 @@
                     <span class="error">{{ errors?.telephone }}</span> 
                 </div>
                 <div>
-                  <div class="font-weight-bold">Adresse</div>
+                  <div class="">Adresse</div>
                     <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse" required="required" class="form-select">
                       <option v-for="adresse in adresses" :value="adresse.id" :key="adresse.id" selected>
                       {{ adresse.name }}

@@ -23,7 +23,7 @@
 
           <div>
               <label for="mail">
-                  <input type="email" id="mail"   required="required" placeholder="Telephone" v-model="form.email">
+                  <input type="email" id="mail"   required="required" placeholder="Email" v-model="form.email">
                   <span>Email</span>
               </label>
               <span>{{ errors?.mail }}</span>
