@@ -1,57 +1,9 @@
 <template>
-      <!-- <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                     <span class="navbar-toggler-icon rounded-circle border-0"></span>
-                </button>
-                <div class="navbar-brand">
-                    <img class="rounded-circle  mx-auto img " src="@/assets/Produit-brarudi.jpg">
-                    MEGA S.S.D
-                </div>
-                <div class="collapse navbar-collapse justify-content-start " id="navbarNavDropdown">
-                <div class="navbar-nav">
-
-                    <div class="nav-item dropdown" id="profileDrop">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small mr-2">{{username}}</span>                        
-                         </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li>
-
-                            <router-link :to="{name:'Profile'}" class="dropdown-item">
-                                <font-awesome-icon icon="fa-solid fa-user"/>
-                                Motdepasse
-                             </router-link> 
-                        </li>
-
-                        <li>
-                            <router-link to="" @click="logout" class="dropdown-item">
-                              <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
-                             deconnexion
-                            </router-link> 
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </nav>
-  </div> -->
-
-
-<!-- new div -->
+     
 <div>
-     <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light shadow  layout-navbar-fixed">
-    <!-- Left navbar links -->
+
     <ul class="navbar-nav">
-        <!-- <li class="nav-item">    
-            <span  class="nav-link">
-            <span class="brand-text font-weight-light h5">MEGA SSD</span>
-            </span>
-        </li>     -->
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button">
                 <font-awesome-icon icon="fa-solid fa-bars"/></a>
@@ -66,7 +18,6 @@
         </li>    
     </ul>
 
-    <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown" id="profileDrop">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -92,7 +43,6 @@
         </li>
     </ul>
   </nav>
-  <!-- /.navbar -->
   </div>
 
 </template>

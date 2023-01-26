@@ -4,7 +4,7 @@
 <div>
   <aside class="main-sidebar sidebar-dark-primary text-white position-fixed ">
 
-    <!-- Brand Logo -->
+    <!--  Logo -->
     <span  class="brand-link bg-white shadow">
       <img src="@/assets/Produit-brarudi.jpg" alt="Mega SSD" class="brand-image img-circle" style="opacity: .8">
       <span class="brand-text font-weight-light">MEGA SSD</span>
@@ -304,10 +304,6 @@ export default {
 
     },
     
-   
-
-    
-
     methods:{
     
         
