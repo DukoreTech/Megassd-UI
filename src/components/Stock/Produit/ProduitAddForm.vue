@@ -6,40 +6,40 @@
     </div>
   <span class="d-none">{{$store.state.products}}{{$store.state.IdEditProduit}}</span>
     <!-- retrieve data -->
-   <div class="register">
+   <div class="col-12 mt-2">
         <form @submit.prevent="saveInformation">
+          <div>
             <label for="name">
-                <input type="text" required="required" id="name" placeholder="name" v-model="form.name">
+                <input type="text" required="required" id="name" placeholder="Nom" v-model="form.name">
                 <span>Nom</span>
             </label>
-            <span>{{ errors?.name }}</span>
-    
+            <div>{{ errors?.name }}</div>
+          </div>
+          <div>
             <label for="unite_mesure">
-                <input type="text" required="required" id="unite_mesure" placeholder="unite_mesure" v-model="form.unite_mesure">
+                <input type="text" required="required" id="unite_mesure" placeholder="Unite De Mesure" v-model="form.unite_mesure">
                 <span>Unite De Mesure</span>
             </label>
-            <span>{{ errors?.unite_mesure }}</span>
-    
+            <div>{{ errors?.unite_mesure }}</div>
+          </div>
+          <div>
            <label for="caisse">
                 <input type="number" disabled="disabled" required="required" id="caisse" placeholder="caisse" v-model="form.caisse">
                 <span>caisse</span>
             </label>
-            <span>{{ errors?.caisse }}</span>
-    
+            <div>{{ errors?.caisse }}</div>
+          </div>
+          <div>
             <label for="nombre_bouteille">
                 <input type="number" required="required" id="nombre_bouteille" placeholder="Nombres des Bouteilles" v-model="form.nombre_bouteille">
                 <span>Nombres des Bouteilles</span>
              </label>
-             <span>{{ errors?.nombre_bouteille }}</span>
-             <!-- <label for="nombre_bouteille">
-              <input type="text" v-model="form.user_id" >
-                <span>User_id</span>
-                
-             </label> -->
-             <div class="d-flex justify-content-around">
-              <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-              <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
-            </div>
+             <div>{{ errors?.nombre_bouteille }}</div>
+          </div>   
+          <div class="d-flex justify-content-around">
+            <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+            <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+          </div>
           </form>
     </div>
   </div>
@@ -155,80 +155,6 @@ export default{
   }
 }
 </script>
-<style  scoped>
- .title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:30vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-}
+<style  scoped src="@/assets/css/form.css">
 
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
-span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-    </style>
+</style>

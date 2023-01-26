@@ -8,26 +8,23 @@
 <span class="d-none">{{$store.state.typeClients}}{{$store.state.IdEditTypClient}}</span>
 <!-- retrieve data -->
    
-  <div class="register">
-    <form action="" @submit.prevent="saveInformation">     
+  <div class="col-12 mt-3">
+    <form action="" @submit.prevent="saveInformation">
+
+         <div>      
           <label>
              <input type="text" required="required" v-model="form.name" placeholder="type de client">
              <span>Type de Client</span>
           </label>
          <span>{{ errors?.name }}</span>
-
-        <span>Description</span>
-         <label for="description">
-            <textarea  id="description"  placeholder="Description"  v-model="form.description"></textarea>
-        </label>
-        <span>{{ errors?.description }}</span>
-
-        <!-- <span>User_id</span>
-         <label for="description">
-            <input   disabled placeholder="Description"  v-model="form.user_id">
-        </label> -->
-        
-        <!-- <button type="button">Register</button> -->
+        </div>
+        <div>  
+          <div>Description</div>
+          <label for="description">
+              <textarea  id="description"  placeholder="Description"  v-model="form.description"></textarea>
+          </label>
+          <span>{{ errors?.description }}</span>
+        </div>
         <div class="d-flex justify-content-around">
           <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
           <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
@@ -146,84 +143,6 @@ export default {
 }
 </script>
 
-<style  scoped>
-
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:30vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-}
-
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
- span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-
-
+<style  scoped src="@/assets/css/form.css">
 
 </style>

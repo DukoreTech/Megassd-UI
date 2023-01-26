@@ -5,10 +5,7 @@
                 <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditAdresse=null">
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Adresse
-                  </button>
-                <!---<div class="mt-3">
-                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-                </div>-->
+                  </button>                
              </div>  
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,fetchData()">
                     <add-form  @close="modalActive = !modalActive,fetchData()"/>
@@ -25,7 +22,7 @@
                         <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>
                               <tr>                    
-                                <th scope="col">Id</th>
+                                <th scope="col">#</th>
                                 <th scope="col">Zone</th>
                                 <th scope="col">Description</th>                           
                                 <th scope="col">Actions</th>

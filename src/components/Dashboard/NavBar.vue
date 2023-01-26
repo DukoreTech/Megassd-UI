@@ -44,15 +44,26 @@
 <!-- new div -->
 <div>
      <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light shadow  layout-navbar-fixed ">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light shadow  layout-navbar-fixed">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
+        <!-- <li class="nav-item">    
+            <span  class="nav-link">
+            <span class="brand-text font-weight-light h5">MEGA SSD</span>
+            </span>
+        </li>     -->
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <font-awesome-icon icon="fa-solid fa-bars"/></a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-            <font-awesome-icon icon="fa-solid fa-bars"/></a>
-      </li>
-
+    </ul>
+     <ul class="navbar-nav " id="showTitle">
+        <li class="nav-item">    
+            <span  class="nav-link">
+            <span class="brand-text font-weight-light h5">MEGA SSD</span>
+            </span>
+        </li>    
     </ul>
 
     <!-- Right navbar links -->
@@ -62,22 +73,22 @@
                 <img class="rounded-circle  mx-auto img " src="@/assets/user.png">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small mr-2">{{username}}</span>                        
                 </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li>
 
-                <router-link :to="{name:'Profile'}" class="dropdown-item">
-                    <font-awesome-icon icon="fa-solid fa-user"/>
-                    Motdepasse
+                    <router-link :to="{name:'Profile'}" class="dropdown-item">
+                        <font-awesome-icon icon="fa-solid fa-user"/>
+                        Mot de passe
+                        </router-link> 
+                </li>
+
+                <li>
+                    <router-link to="" @click="logout" class="dropdown-item">
+                        <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
+                        Déconnexion
                     </router-link> 
-            </li>
-
-            <li>
-                <router-link to="" @click="logout" class="dropdown-item">
-                    <font-awesome-icon icon="fa-solid fa-sign-out-alt"/>
-                    deconnexion
-                </router-link> 
-            </li>
-        </ul>
+                </li>
+            </ul>
         </li>
     </ul>
   </nav>
@@ -127,7 +138,16 @@ export default {
     height:25px;
 }
 #profileDrop{
-    margin-right: 30px;
+    margin-right: 10px;
+}
+#showTitle{
+  display:none;
+}
+@media (max-width:900px){
+  
+#showTitle{
+  display:block;
 }
 
+}
 </style>

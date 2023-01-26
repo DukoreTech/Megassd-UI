@@ -15,7 +15,7 @@
                 
 
                  <label for="Quantite">
-                    <input type="tel" id="Quantite" placeholder="Quantite" v-model="form.vide">
+                    <input type="text" id="Quantite" placeholder="Quantite" v-model="form.vide">
                     <span>Quantite Vide</span>
                  </label>
                 <span>{{ errors?.Quantite }}</span>
@@ -127,82 +127,5 @@ export default {
 }
 </script>
 
-<style  scoped>
-
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:30vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-}
-
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
- span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-
+<style src="@/assets/css/form.css" scoped>
 </style>

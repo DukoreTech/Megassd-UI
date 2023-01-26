@@ -29,14 +29,14 @@
 										<table class="table table-bordered  table-striped table-hover text-center dt-responsive nowrap" id="datatable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-                                                    <th scope="col">Numero</th>
+                                                    <th scope="col">Numéro</th>
 
 													<th scope="col">Produit</th>
 													<th scope="col">Activité</th>
 													<th scope="col">sortie</th>
 													<th scope="col">Entrée</th>
-                                                    <th scope="col">stock_actuel</th>
-                                                    <th scope="col">stock_initial</th>
+                                                    <th scope="col">stock actuel</th>
+                                                    <th scope="col">stock initial</th>
                                                     <th scope="col-3">date effectué</th>
                                                     
 													

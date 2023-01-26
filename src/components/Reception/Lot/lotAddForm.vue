@@ -7,103 +7,102 @@
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.lots}}{{$store.state.IdEditLot}}</span>
 <!-- retrieve data -->
-  <div class="register">
+  <div class="col-12 mt-2">
     <form action="" @submit.prevent="saveInformation">
-        <div class="d-flex">
-            <div class="col">
+          <div class=" col-12 d-md-flex d-sm-block">
+            <div class="col-md-6 col-sm-12">
+              <div>
                 <label for="name">
-                    <input type="text" required="required" id="name" placeholder="name" v-model="form.name">
-                    <span>nom</span>
+                    <input type="text" required="required" id="name" placeholder="Nom" v-model="form.name">
+                    <span>Nom</span>
                 </label>
-                <span>{{ errors?.name }}</span>
-                 <br>
-                <span>Produit</span>
-                 <label v-if="saveEditBtn=='Ajouter'" for="product_id" class="d-block dateWidth">
-                    <select required="required"  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                <div>{{ errors?.name }}</div>
+              </div>
+              <div>
+                <div>Produit</div>
+                 <span v-if="saveEditBtn=='Ajouter'" for="product_id">
+                    <select required="required"  v-model="form.product_id" aria-placeholder="product_id" id="product_id" class="form-select">
                         <option v-for="product in products" :key="product.id" :value="product.id"  selected>
                         {{ product.name }}
                         </option>
                     </select>             
-                </label>
-                <label v-if="saveEditBtn=='Modifier'" for="product_id" class="d-block dateWidth">
-                    <select required="required" disabled="disabled"  v-model="form.product_id" aria-placeholder="product_id" id="product_id">
+                </span>
+              </div>  
+              <div>
+                <span v-if="saveEditBtn=='Modifier'" for="product_id">
+                    <select required="required" disabled="disabled"  v-model="form.product_id" aria-placeholder="product_id" id="product_id" class="form-select">
                         <option v-for="product in products" :key="product.id" :value="product.id"  selected>
                         {{ product.name }}
                         </option>
                     </select>             
-                </label>
-
-               <span>type client</span>
-                 <label  v-if="saveEditBtn=='Ajouter'" for="product_id" class="d-block dateWidth">
-                    <select required="required"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
+                </span>
+              </div>
+              <div class="mt-2">
+               <div>Type client</div>
+                 <span  v-if="saveEditBtn=='Ajouter'" for="product_id">
+                    <select required="required"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id" class="form-select">
                         <option v-for="client in typeClients"  :key="client.id" :value="client.id"  selected>
                         {{ client.name }}
                         </option>
                     </select>             
-               </label> 
-               <label v-if="saveEditBtn=='Modifier'"  for="product_id" class="d-block dateWidth">
-                    <select required="required" disabled="disabled"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id">
+               </span> 
+              </div> 
+              <div class="mt-2">
+               <span v-if="saveEditBtn=='Modifier'"  for="product_id" class="">
+                    <select required="required" disabled="disabled"  v-model="form.type_Clients_id" aria-placeholder="product_id" id="product_id" class="form-select">
                         <option v-for="client in typeClients"   :key="client.id" :value="client.id"  selected>
                         {{ client.name }}
                         </option>
                     </select>             
-               </label> 
-               <span>{{ errors?.product_id }}</span>
-
+               </span> 
+               <div>{{ errors?.product_id }}</div>
+              </div>
                
-
             </div>
 
-             <div class="col">
-              
-              <span>direction</span>
-        <div>
-        <div>
-      <Multiselect v-if="saveEditBtn=='Ajouter'" 
-        mode="tags"
-         required="required"
-        :close-on-select="false"
-        :searchable="true"
-        value-prop="id" 
-        :object="false"
-        v-model="form.adresses_id"
-        @select="onSelect"
-        :options="options"
-    />
-  </div>
-        </div>
-
-                  <br>
-                
-                <label  v-if="saveEditBtn=='Modifier'" for="product_id" class="d-block dateWidth">
+            <div class="col-md-6 col-sm-12">                
+              <div>
+                <label  for="price_vente">
+                      <input required="required" type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
+                      <span>Prix de vente</span>
+                  </label>
+                <div>{{ errors?.price_vente }}</div> 
+              </div>
+              <div>
+                  <div >Direction</div>
+                  <div class="mt-1">
+                    <Multiselect v-if="saveEditBtn=='Ajouter'" 
+                      mode="tags"
+                      required="required"
+                      :close-on-select="false"
+                      :searchable="true"
+                      value-prop="id" 
+                      :object="false"
+                      v-model="form.adresses_id"
+                      @select="onSelect"
+                      :options="options"
+                    />
+                  </div>
+              </div>
+               <div>
+                <span  v-if="saveEditBtn=='Modifier'" for="product_id" class="">
                   <!--<div>{{ form.adresses_id }}</div>-->
-                    <select required="required" disabled="disabled"  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" >
+                    <select required="required" disabled="disabled"  v-model="form.adresses_id" aria-placeholder="product_id" id="multiselect" class="form-select">
                         <option v-for="zone in address" :key="zone.id" :value="zone.id" class="bg-white"  selected>
                         {{ zone.name }}
                         </option>
                     </select>             
-                  </label>
-              <label  for="price_vente">
-                    <input required="required" type="text" id="price_vente" placeholder="Prix de vente" v-model="form.price_vente">
-                    <span>Prix de vente</span>
-                </label>
-              <span>{{ errors?.price_vente }}</span> 
-                  <br>
-         </div>
-        </div>  
-        
-        <!-- <button type="button">Register</button> -->
-        <div class="d-flex justify-content-around">
-          
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-          <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
-        </div>
-        <div>
-        
-  </div>
-
+                  </span>
+              </div> 
+             
+            </div>  
+         </div>        
+          <div class="d-flex justify-content-around">         
+            <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+            <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+          </div>        
     </form>
-</div>
+  </div>
 
 </div>
 
@@ -312,88 +311,5 @@ export default {
 }
 </script>
 
-<style  scoped>
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:45vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-    margin-left:20px;
-}
-
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
- span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-.dateWidth{
-    width: 80%;
-}
-
-
-
-</style>
+<style  scoped src="@/assets/css/form.css"></style>
 <style src="@vueform/multiselect/themes/default.css"></style>

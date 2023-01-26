@@ -24,7 +24,7 @@
                         <table class="table table-bordered  table-striped table-hover text-center" id="datatable">
                             <thead>
                               <tr>                    
-                                <th scope="col">Id</th>
+                                <th scope="col">#</th>
                                 <th scope="col">produits</th>
                                 <th scope="col">Nature</th>
                                 <th scope="col">Nb bouteilles</th>

@@ -24,10 +24,10 @@
                         <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>
                               <tr> 
-                                <th scope="col">Id</th>
+                                <th scope="col">#</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">caisse</th>
-                                <th scope="col">Unite de mesure</th>
+                                <th scope="col">Unité de mesure</th>
                                 <th scope="col">Nombres de bouteilles</th>
                                 <th scope="col">Actions</th>
                              </tr>

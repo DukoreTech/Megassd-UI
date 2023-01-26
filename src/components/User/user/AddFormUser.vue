@@ -8,20 +8,27 @@
 <span class="d-none">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
 <!-- retrieve data -->
    
-  <div class="register">
+  <div class="col-md-12">
     <form action="" @submit.prevent="saveInformation">
-        <label for="nom">
-            <input type="text"  required="required" id="nom" placeholder="nom" v-model="form.name">
-            <span>Nom</span>
-        </label>
-         <span>{{ errors?.nom }}</span>
 
-         <label for="mail">
-            <input type="email" id="mail"   required="required" placeholder="Telephone" v-model="form.email">
-            <span>Email</span>
-         </label>
-         <span>{{ errors?.mail }}</span>
+      <div class="col-12 d-md-flex d-sm-block">
+        <div class="col-md-6 col-sm-12">
+            <div>
+              <label for="nom">
+                  <input type="text"  required="required" id="nom" placeholder="nom" v-model="form.name">
+                  <span>Nom</span>
+              </label>
+                <span>{{ errors?.nom }}</span>
+            </div>
 
+          <div>
+              <label for="mail">
+                  <input type="email" id="mail"   required="required" placeholder="Telephone" v-model="form.email">
+                  <span>Email</span>
+              </label>
+              <span>{{ errors?.mail }}</span>
+          </div>
+        </div>
        <!-- <label for="prenom">
             <input type="text" id="prenom" placeholder="prenom" v-model="form.prenom">
             <span>Prenom</span>
@@ -50,21 +57,27 @@
         </label>
         <span>{{ errors?.nomDUtilisateur }}</span>-->
 
-         <label for="motDePasse">
-            <input type="password" id="motDePasse"  required="required" placeholder="Mot de passe" v-model="form.password">
-            <span>Mot de passe</span>
-        </label>
-        <label for="confirm">
-            <input type="password" placeholder="Mot de passe"  required="required" v-model="form.password_confirmation">
-            <span>Confirmer Mot de passe</span>
-        </label>
-         <span>{{ errors?.motDePasse }}</span>
-
-         <div class="d-flex justify-content-around">
-              <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-              <button type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
-            </div>
-    </form>
+        <div class="col-md-6 col-sm-12">
+            <div>
+              <label for="motDePasse">
+                  <input type="password" id="motDePasse"  required="required" placeholder="Mot de passe" v-model="form.password">
+                  <span>Mot de passe</span>
+              </label>
+          </div>
+          <div>
+              <label for="confirm">
+                  <input type="password" placeholder="Confirmer Mot de passe"  required="required" v-model="form.password_confirmation">
+                  <span>Confirmer Mot de passe</span>
+              </label>
+              <span>{{ errors?.motDePasse }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-around">
+          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
+        </div>
+</form>
 </div>
 
 </div>
@@ -167,95 +180,5 @@ export default {
 }
 </script>
 
-<style  scoped>
-
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-body{
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-    font-family:sans-serif;
-    color:#6b6b6b;
- 
-}
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:30vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-}
-
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
-span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-
+<style  scoped src="@/assets/css/form.css">
 </style>

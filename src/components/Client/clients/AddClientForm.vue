@@ -7,49 +7,52 @@
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.clients}}{{$store.state.IdEditClient}}</span>
 <!-- retrieve data -->
-  <div class="register">
+  <div class="col-12 mt-1">
     <form action="" @submit.prevent="saveInformation">
-        <div class="d-flex">
-            <div class="col">
 
+        <div class=" col-12 d-md-flex d-sm-block">
+            <div class="col-md-6 col-sm-12">
+              <div>
                 <label for="nom">
                     <input type="text" required="required" id="nom" placeholder="nom" v-model="form.nom">
                     <span>Nom</span>
                 </label>
                 <span class="error">{{ errors?.nom }}</span>
-                  <br>
-                <span>Type de client</span>
-                 <label for="typeClient" class="d-block dateWidth">
-                    <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient" required="required">
+              </div>
+              <div>
+                <div class="font-weight-bold">Type de client</div>
+                    <select  v-model="form.type_client_id" aria-placeholder="Type de client" id="typeClient" required="required" class="form-select">
                         <option v-for="typeClient in typeClients" :key="typeClient.id" :value="typeClient.id" selected>
                             {{ typeClient.name }}
                          </option>
                      </select>             
-                  </label>
-                <span class="error">{{ errors?.type_client_id}}</span>
-                
-                <button type="submit" class="btn btn-sm btn-danger float-start" >{{saveEditBtn}}</button>
+                <div class="error">{{ errors?.type_client_id}}</div>
+              </div>                 
             </div>
 
-             <div class="col">
-              <label for="telephone">
-                        <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone" required="required">
-                        <span>Telephone</span>
-                  </label>
-                <span class="error">{{ errors?.telephone }}</span> 
-                 <br>
-                <span>Adresse</span>
-                 <label for="adresse" class="d-block dateWidth">
-                    <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse" required="required">
-                        <option v-for="adresse in adresses" :value="adresse.id" :key="adresse.id" selected>
-                        {{ adresse.name }}
-                        </option>
+             <div class="col-md-6 col-sm-12">
+               <div>  
+                  <label for="telephone">
+                      <input type="tel" id="telephone" placeholder="Telephone" v-model="form.telephone" required="required">
+                      <span>Telephone</span>
+                      </label>
+                    <span class="error">{{ errors?.telephone }}</span> 
+                </div>
+                <div>
+                  <div class="font-weight-bold">Adresse</div>
+                    <select  v-model="form.address_id" aria-placeholder="Adresse" id="adresse" required="required" class="form-select">
+                      <option v-for="adresse in adresses" :value="adresse.id" :key="adresse.id" selected>
+                      {{ adresse.name }}
+                      </option>
                     </select>             
-              </label>
-               <span class="error">{{ errors?.address_id }}</span>       
-               <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary float-start" >vider</button>
-         </div>
+                  <div class="error">{{ errors?.address_id }}</div>  
+                </div>             
+              </div>
         </div>  
+        <div class="d-flex justify-content-around mt-2">
+          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
+         </div>
     </form>
 </div>
 
@@ -184,85 +187,5 @@ export default {
 }
 </script>
 
-<style  scoped>
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:45vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-    margin-left:20px;
-}
-
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
- span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-.dateWidth{
-    width: 80%;
-}
-
+<style  scoped src="@/assets/css/form.css">
 </style>

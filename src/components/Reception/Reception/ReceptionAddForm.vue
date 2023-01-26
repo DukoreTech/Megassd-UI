@@ -3,92 +3,90 @@
     <div class="d-flex">
         <span class="mx-auto h3 title">Reception</span>
         <span @click="close" class="h2 close ">x</span>
-      </div>
-<!-- retrieve data -->
-<span class="d-none">{{$store.state.receptions}}{{$store.state.IdEditReception}}</span>
-<!-- retrieve data -->
-  <div class="register">
-    <form action="" @submit.prevent="saveInformation">
-        <div class="d-flex">
-            <div class="col">
-                <span>Produit</span>
-                 <label for="product_id" class="d-block dateWidth">
-                    <select :disabled="saveEditBtn=='Modifier'"  v-model="form.product_id"  id="product_id" required="required">
-                        <option v-for="product in stocks"  :key="product.id" :value="product.product_id" selected>
-                        {{ product.products.name }}
-                        </option>
-                    </select>             
+    </div>
+      <!-- retrieve data -->
+    <span class="d-none">{{$store.state.receptions}}{{$store.state.IdEditReception}}</span>
+      <!-- retrieve data -->
+    <div class="col-12 mt-2">
+      <form action="" @submit.prevent="saveInformation">
+          <div class=" col-12 d-md-flex d-sm-flex d-xsm-flex">
+              <div class="col">
+                <div>
+                  <div>Produit</div>
+                      <select :disabled="saveEditBtn=='Modifier'"  v-model="form.product_id"  id="product_id" required="required" class="form-select">
+                          <option v-for="product in stocks"  :key="product.id" :value="product.product_id" selected>
+                          {{ product.products.name }}
+                          </option>
+                      </select>             
+                    <div>{{ errors?.product_id }}</div>  
+                </div> 
+                <div>
+                  <label for="lot_id">
+                    <input type="number" v-model="form.lot_id" placeholder="price" required="required">
+                    <span>Price</span>
                   </label>
-               <span>{{ errors?.product_id }}</span>  
-                 <br>
-                 <label for="lot_id" class="d-block dateWidth">
-                   <input type="number" v-model="form.lot_id" placeholder="price" required="required">
-                   <span>Price</span>
+                  <div>{{ errors?.lot_id }}</div>  
+                </div>
+                <div>
+                  <label for="quantity">
+                      <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity" required="required">
+                      <span>Quantity</span>
                   </label>
-               <span>{{ errors?.lot_id }}</span>  
-                <br>
-              
+                  <div>{{ errors?.quantity }}</div>
+                </div>  
+                <div>
+                  <label for="tva" >
+                      <input type="number" required="required" disabled="disabled" step="1" id="tva" placeholder="tva" v-model="form.tva">
+                      <span>TVA(%)</span>
+                  </label>
+                  <div>{{ errors?.tva }}</div>
+                </div>  
+                <div>  
+                  <label for="date_achat">                    
+                      <input type="date" id="date_achat" class="dateWidth" v-model="form.date_achat">
+                      <span>Date d'achat</span>
+                  </label>
+                  <div>{{ errors?.date_achat }}</div>
+                </div>
+              </div>
 
-                <label for="quantity">
-                    <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity" required="required">
-                    <span>Quantity</span>
-                </label>
-                <span>{{ errors?.quantity }}</span>
-                <label for="tva" class="">
-                    <input type="number" required="required" disabled="disabled" step="1" id="tva" placeholder="tva" v-model="form.tva">
-                    <span>TVA(%)</span>
-                </label>
-                <span>{{ errors?.tva }}</span>
-            </div>
+              <div class="col-md-6 col">
+                
+                <div>
+                  <label for="montant" class="">
+                      <input type="text" id="montant" :disabled="saveEditBtn=='Modifier'" required="required" v-model="form.montant">
+                      <span>Montant</span>
+                  </label>
+                  <div>{{ errors?.montant }}</div>                 
+                  <label for="montant" class="">
+                      <input type="hidden" id="montant" required="required" v-model="form.stock_id">
+                  </label>   
+               </div>
+                <div>
+                  <label for="montant_total">
+                      <input type="number"  id="montant_total" disabled="saveEditBtn=='Modifier'" required="required" placeholder="montant"  v-model="form.montant_total">
+                      <span>Montant total</span>
+                  </label>
+                  <div>{{ errors?.montant_total }}</div>            
+                </div>
+                <div>  
+                <div>Description</div>
+                  <label for="description">
+                      <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
+                  </label>
+                  <div>{{ errors?.description }}</div>
+                </div>  
+              </div>
+          </div>  
+          <div class="d-flex justify-content-around">
+            <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+            <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+          </div>
+      </form>
+    </div>
 
-             <div class="col">
-                  <!-- <label for="tva" class="">
-                    <input type="number" step="0.01" id="tva" placeholder="tva" v-model="form.tva">
-                    <span>TVA(%)</span>
-                </label>
-                <span>{{ errors?.tva }}</span> -->
-                <label for="date_achat" class="d-block dateWidth">
-                    
-                    <input type="date" id="date_achat"   v-model="form.date_achat">
-                    
-                    <span>Date d'achat</span>
-                </label>
-                <span>{{ errors?.date_achat }}</span>
-
-                <label for="montant" class="">
-                    <input type="text" id="montant" :disabled="saveEditBtn=='Modifier'" required="required" v-model="form.montant">
-                    <span>Montant</span>
-                </label>
-                <span>{{ errors?.montant }}</span> 
-                <label for="montant" class="">
-                    <input type="hidden" id="montant" required="required" v-model="form.stock_id">
-        
-                </label>    
-
-                <label for="montant_total" class="">
-                    <input type="number"  id="montant_total" disabled="saveEditBtn=='Modifier'" required="required" placeholder="montant"  v-model="form.montant_total">
-                    <span>Montant total</span>
-                </label>
-                <span>{{ errors?.montant_total }}</span>            
-                    <br>
-               <span>Description</span><br>
-                <label for="description">
-                    <textarea  id="description" placeholder="Description"  v-model="form.description"></textarea>
-                </label>
-                <span>{{ errors?.description }}</span>
-         </div>
-        </div>  
-        <!-- <button type="button">Register</button> -->
-        <div class="d-flex justify-content-around">
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-          <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
-        </div>
-    </form>
-</div>
-
-</div>
+  </div>
 </template>
-
 <script>
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -300,86 +298,17 @@ export default {
 
 </script>
 
-<style  scoped>
+<style  scoped src="@/assets/css/form.css">
+</style>
+<style scoped>
 
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:45vw;
-    max-width:768px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-    margin-left:20px;
-    margin-top: 20px;
+@media (max-width:575px){
+
+.form {
+    margin-top:120px;
+    overflow: scroll;
 }
 
-label{
-    margin-bottom:15px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:20px;
-    border:none;
-    outline:none;
 }
 
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
- span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:20px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-.dateWidth{
-    width: 80%;
-}
 </style>

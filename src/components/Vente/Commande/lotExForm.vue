@@ -1,267 +1,254 @@
 <template>
    <div class="container">
     <div class="page-header ">
-						<div class="row texx-white">
-							<div class="col">
-								<h3 class="page-title">Ventes</h3>
-								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
-									<li class="breadcrumb-item active">Ajouter commandes</li>
-                                
-								</ul>
-                                <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
-                             aria-expanded="true" aria-controls="collapseStock">
-                               <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
-                             Back
-                            </router-link>
-							</div>
-						</div>
+        <div class="row texx-white">
+            <div class="col">
+                <h3 class="page-title">Ventes</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
+                    <li class="breadcrumb-item active">Ajouter commandes</li>                
+                </ul>
+                <router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
+                aria-expanded="true" aria-controls="collapseStock">
+                <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
+                Retour
+            </router-link>
+            </div>
+        </div>
 	</div>
-       <div class="row justify-content-center mt-5">
-           <div class="col-md-12">
-             <form class="" @submit.prevent="envoyer()" >
-                <div class="container">
-                    <div class="row d-flex justify-content-around">
-                        
-                            <!-- Contact Details -->
-							<div class="card contact-card col-lg-5">
-								<div class="card-body container">
-									<h4 class="card-title">Produits A vendre</h4>
-									<div class="row  form-row">
-										<div class="col-md-6 pb-3 ">
-											<div class="form-group">
-												<label>Product</label>
-												<select  v-model="form.product" name="produit_id" class="form-control">
-                                                 <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
-                                                 </select>
-											</div>
-										</div>
-										<div class="col-md-6 pb-3">
-											<div class="form-group">
-												<label class="control-label">Quantity</label>
-												<input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite">
-											</div>
-										</div>
-										<div class="col-md-6 pb-3">
-											<div class="form-group">
-												<label class="control-label">Vides Amenés</label>
-												<input type="text" v-model="form.vides" class="form-control">
-											</div>
-										</div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
+            <form class="" @submit.prevent="envoyer()" >
+            <div class="container">
+                <div class="row d-flex justify-content-around">                   
+                    <!-- Contact Details -->
+                    <div class="card contact-card col-lg-5">
+                     <div class="h4 card-title mt-2 font-weight-bolder">Produits à vendre</div>
+                        <div class="card-body container">
+                            <div class="row  form-row">
+                                <div class="col-md-6 pb-3 ">
+                                    <div class="form-group">
+                                        <span>Produit</span>
+                                        <select  v-model="form.product" name="produit_id" class="form-select">
+                                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pb-3">
+                                    <div class="form-group">
+                                        <span class="control-label">Quantité</span>
+                                        <input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pb-3">
+                                    <div class="form-group">
+                                        <span class="control-label">Vides Amenés</span>
+                                        <input type="text" v-model="form.vides" class="form-control">
+                                    </div>
+                                </div>
 
-										<!--<div class="col-md-6">
-											<div class="form-group">
-												<label class="control-label">State / Province</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="control-label">Country</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="control-label">Postal Code</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>-->
-                                        <div class="row mt-3">
-											<div class="form-group">
-												<a class="btn btn-success btn-block" @click="ajouter">Ajouter</a>
-											</div>
-										</div>
-                                        
-                                        
-									</div>
-								</div>
-							</div>
-							<!-- /Contact Details -->
-							
-							<!-- Pricing -->
-							<div class="card col-lg-5">
-								<div class="card-body">
-									<h4 class="card-title">Paiment</h4>
-
-                                    <div class="row form-row  ">
-                                        <div class="col-md-6  pb-3">
-											<div class="form-group">
-												<label>Type of paiement</label>
-												<select v-model="form.TypePaiment" aria-placeholder="typepaiment"  class="form-control">
-                                                  <option>cash</option>  
-                                                  <option>Bordereau</option>                                 
-                                                 </select>                            
-                                                
-											</div>
-										</div>
-                                    
-
-										   <div class="col-md-6  pb-3">
-                                            <div v-if="form.TypePaiment=='Bordereau'">
-                                                <label>Numero bordereau</label >
-                                                 <input  type="text" v-model="form.nbbordereau" class="form-control" id="custom_rating_input" name="custom_rating_count"  placeholder="20">
-
-                                            </div>
-                                            
-										   	  
-										   </div>
-									   
-                                    
-                                       <div class="col-md-6  pb-3">
-											<div class="form-group">
-												<label>Client</label>
-												<select v-model="form.client"  name="produit_id" class="form-control">
-                                                  <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
-                                                 </select>                            
-                                                
-											</div>
-										</div>
-
-                                    
-									    <div class="col-md-6  pb-3">
-											<div class="form-group">
-												<label>PayedAmount</label>
-                                                <input type="number" class="form-control" v-model="form.montant_paye">
-												
-											</div>
-										</div>
-                                        <div class="col-md-6  pb-3">
-											<div class="form-group">
-												<label>Date Payed</label>
-												<input v-model="form.datepayed" type="date" class="form-control">
-											</div>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<!-- /Pricing -->
-
-                      
-                         
-                    </div>
-
-                </div>
-                <div class="mt-4 mb-4 text-white"> <span style="font-size:20px;" class="bg-info p-2"><font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />Panier</span>  </div>
-                <table class="table table-bordered table-striped table-responsive">
-                  <!-- <thead class="thead-dark">
-                    
-                    <p class="m-4">Ajouter des produits</p>
-                   <tr>
-                    <th> produits</th>
-                    <th>Quantité</th>
-                    <th>Action</th>
-                    <th>au:client</th>
-                    <th> Numero Bordereau</th>
-                    <th>Montant sur bordereau</th>
-                    <th>montant supplementaire</th>
-                   </tr>
-                   </thead>-->
-                   <tbody>
-                    <!--<tr>
-                    
-                    <td>
-                        <div class="form-group">                            
-                        <select  v-model="form.product" name="produit_id" class="form-control">
-                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
-                        </select>
-
-
+                                <!--<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">State / Province</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Country</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Postal Code</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>-->
+                                <div class="row mt-3">
+                                    <div class="form-group">
+                                        <a class="btn btn-success btn-block" @click="ajouter">Ajouter</a>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
                         </div>
-                    </td>
-                    <td><input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite"></td>
+                    </div>
+                    <!-- /Contact Details -->
+                        
+                        <!-- Pricing -->
+                        <div class="card col-lg-5">
+                          <div class="card-title  mt-2 font-weight-bolder">Paiment</div>
+                            <div class="card-body">
+                                <div class="row form-row ">
 
-                    <td><a class="btn btn-success btn-block" @click="ajouter">Ajouter</a></td>
-                    
-                    <td>
+                                    <div class="col-md-6  pb-3">
+                                        <div class="form-group">
+                                            <span>Type of paiement</span>
+                                            <select v-model="form.TypePaiment" aria-placeholder="typepaiment"  class="form-select">
+                                                <option>cash</option>  
+                                                <option>Bordereau</option>                                 
+                                            </select>                            
+                                        </div>
+                                    </div>
 
-                     <select v-model="form.client"  name="produit_id" class="form-control">
-                            <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
-                     </select>
-                     <span class="error">{{ errors?.client_id}}</span>
-                    </td>
-                    <td><input type="text" aria-required="required" class="form-control" v-model="form.nbbordereau">
-                        <span class="error">{{ errors?.num_bordereau}}</span>
-                    </td>
-                    <td><input type="number" class="form-control" v-model="form.montant_paye">
-                        <span class="error">{{ errors?.payed_amount}}</span>
-                    </td>
-                    <td><input type="number" class="form-control" v-model="form.montantsup"></td>
-                </tr>-->
-                    
-                    <tr>
-                           <th scope="col">Produit</th>
-                           <th scope="col">Quantité</th>
-                           <th scope="col">montant</th>
-                           <th scope="col">Vides Amenés</th>
-                           <th scope="col">Total</th>
-                           <th scope="col">Actions</th>
-                           <th scope="col">client</th>
-                           <th scope="col">type Paiments</th>
-                           <th scope="col">Nbbordereau</th>
-                           <th scope="col">montant payé</th>
-                       </tr>
-                   <tr v-for="(commande, index) in commandes" :key="commande.index">
-                       <td>{{ commande.product_name }}</td>
-                       <td>{{ commande.product_quantity }}</td>
-                       <td>{{ commande.amount }}</td>
-                       <td>{{ commande.caisse_vide }}</td>
-                       <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }}F</td>
-                       <td class="d-flex">
-                      <a class="btn btn-info btn-block mx-2" @click="modifier(index)"><font-awesome-icon icon="fa-solid fa-edit"/></a>
-                      <a class="btn btn-danger  btn-block" @click="supprimer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
-                      
-                       </tr>
-                   <tr>
-                    
-                       <td colspan="4"></td>
-                       <td><input type="text" :disabled="disabled"  class="form-control" v-model="totalMontant" Fbu></td>
-                       <td colspan="1"></td>
-                       <td>{{form.client_name}}</td>
-                       <td>{{ form.TypePaiment }}</td>
-                       <td>{{form.nbbordereau}}</td>
-                       <td>{{form.montant_paye}}</td>
-                       
-                   </tr>
-                   
+                                     <div class="col-md-6  pb-3">
+                                      <div class="form-group">
+                                       <span>Client</span>
+                                        <select v-model="form.client"  name="produit_id" class="form-select">
+                                          <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
+                                        </select>
+                                        </div>
+                                    </div>
 
-                  
-                   </tbody>
-                   <tfoot class="d-flex justify_content_around mt-5">
-                   <button class="button btn btn-xs btn-success" type="submit">Valider</button>
+                                    <div class="col-md-6  pb-3"  v-if="form.TypePaiment=='Bordereau'">
+                                     <div class="form-group">
+                                        <div>
+                                            <span>Numéro bordereau</span >
+                                                <input  type="text" v-model="form.nbbordereau" class="form-control" id="custom_rating_input" name="custom_rating_count"  placeholder="20">
+                                        </div>  
+                                     </div>           
+                                    </div>                               
+                                                                   
+                                    <div class="col-md-6  pb-3">
+                                        <div class="form-group">
+                                            <span class="mb-3">Montant payés</span>
+                                            <input type="number" class="form-control" v-model="form.montant_paye">                                          </div>
+                                    </div>
+                                    <div class="col-md-6  pb-3">
+                                        <div class="form-group">
+                                            <span class="mb-3">Date de paiement</span>
+                                            <input v-model="form.datepayed" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- /Pricing -->                        
+                </div>
+            </div>
+
+            <div class="mt-4 mb-4 text-white"> <span style="font-size:20px;" class="bg-info p-2 m-3"><font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />Panier</span>  </div>
+            <table class="table table-bordered table-striped table-responsive">
+                <!-- <thead class="thead-dark">
+                
+                <p class="m-4">Ajouter des produits</p>
+                <tr>
+                <th> produits</th>
+                <th>Quantité</th>
+                <th>Action</th>
+                <th>au:client</th>
+                <th> Numero Bordereau</th>
+                <th>Montant sur bordereau</th>
+                <th>montant supplementaire</th>
+                </tr>
+                </thead>-->
+                <tbody>
+                <!--<tr>
+                
+                <td>
+                    <div class="form-group">                            
+                    <select  v-model="form.product" name="produit_id" class="form-control">
+                        <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
+                    </select>
+
+
+                    </div>
+                </td>
+                <td><input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite"></td>
+
+                <td><a class="btn btn-success btn-block" @click="ajouter">Ajouter</a></td>
+                
+                <td>
+
+                    <select v-model="form.client"  name="produit_id" class="form-control">
+                        <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
+                    </select>
+                    <span class="error">{{ errors?.client_id}}</span>
+                </td>
+                <td><input type="text" aria-required="required" class="form-control" v-model="form.nbbordereau">
+                    <span class="error">{{ errors?.num_bordereau}}</span>
+                </td>
+                <td><input type="number" class="form-control" v-model="form.montant_paye">
+                    <span class="error">{{ errors?.payed_amount}}</span>
+                </td>
+                <td><input type="number" class="form-control" v-model="form.montantsup"></td>
+            </tr>-->
+                
+                <tr>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">montant</th>
+                        <th scope="col">Vides Amenés</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Actions</th>
+                        <th scope="col">client</th>
+                        <th scope="col">type Paiments</th>
+                        <th scope="col">Nbbordereau</th>
+                        <th scope="col">montant payé</th>
+                    </tr>
+                <tr v-for="(commande, index) in commandes" :key="commande.index">
+                    <td>{{ commande.product_name }}</td>
+                    <td>{{ commande.product_quantity }}</td>
+                    <td>{{ commande.amount }}</td>
+                    <td>{{ commande.caisse_vide }}</td>
+                    <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }}F</td>
+                    <td class="d-flex">
+                    <a class="btn btn-info btn-block mx-2" @click="modifier(index)"><font-awesome-icon icon="fa-solid fa-edit"/></a>
+                    <a class="btn btn-danger  btn-block" @click="supprimer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
                     
-                   </tfoot>
-               </table>
+                    </tr>
+                <tr>
+                
+                    <td colspan="4"></td>
+                    <td><input type="text" :disabled="disabled"  class="form-control" v-model="totalMontant" Fbu></td>
+                    <td colspan="1"></td>
+                    <td>{{form.client_name}}</td>
+                    <td>{{ form.TypePaiment }}</td>
+                    <td>{{form.nbbordereau}}</td>
+                    <td>{{form.montant_paye}}</td>
+                    
+                </tr>
+                
+
+                
+                </tbody>
+                <tfoot class="d-flex justify_content_around mt-5">
+                <button class="button btn btn-sm btn-success m-4" type="submit">Valider</button>
+                
+                </tfoot>
+            </table>
             </form>
-           <div class="panel panel-danger" v-show="poubelle.length">
-            <div class="mt-4 mb-4 "> <span style="font-size:20px;" class="bg-danger  text-white p-2 "><font-awesome-icon icon="fa-solid fa-trash" class="icon" />poubelle</span>  </div>
-               <table class="table table-bordered table-striped table-responsive">
-                   <thead>
-                   <tr>
-                       <th class="col-sm-4">Produit</th>
-                       <th class="col-sm-2">Quantité</th>
-                       <th class="col-sm-2">montant</th>
-                       <th class="col-sm-2">Total</th>
-                       <th class="col-sm-1"></th>
-                       <th class="col-sm-1"></th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                   <tr v-for="(commande, index) in poubelle" :key="index">
-                       <td>{{ commande.product_id }}</td>
-                       <td>{{ commande.product_quantity }}</td>
-                       <td>{{ commande.amount}} F</td>
-                       <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }} F</td>
-                       <td><a class="btn btn-success btn-block" @click="retablir(index)"><font-awesome-icon icon="fa-solid fa-check" class="text-white"/></a></td>
-                       <td><a class="btn btn-danger btn-block" @click="eliminer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
-                   </tr>
-                   </tbody>
-               </table>
-               
-           </div>
-           </div>            
-       </div>
+        <div class="panel panel-danger" v-show="poubelle.length">
+        <div class="mt-4 mb-4 "> <span style="font-size:20px;" class="bg-danger  text-white p-2 "><font-awesome-icon icon="fa-solid fa-trash" class="icon" />poubelle</span>  </div>
+            <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                <tr>
+                    <th class="col-sm-4">Produit</th>
+                    <th class="col-sm-2">Quantité</th>
+                    <th class="col-sm-2">montant</th>
+                    <th class="col-sm-2">Total</th>
+                    <th class="col-sm-1"></th>
+                    <th class="col-sm-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(commande, index) in poubelle" :key="index">
+                    <td>{{ commande.product_id }}</td>
+                    <td>{{ commande.product_quantity }}</td>
+                    <td>{{ commande.amount}} F</td>
+                    <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }} F</td>
+                    <td><a class="btn btn-success btn-block" @click="retablir(index)"><font-awesome-icon icon="fa-solid fa-check" class="text-white"/></a></td>
+                    <td><a class="btn btn-danger btn-block" @click="eliminer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
+                </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        </div>            
+    </div>
    </div>
 </template>
 <script>

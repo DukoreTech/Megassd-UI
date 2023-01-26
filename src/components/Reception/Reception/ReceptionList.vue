@@ -23,11 +23,11 @@
                         <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
                             <thead>                              
                               <tr>                    
-                                <th scope="col">Id</th>
+                                <th scope="col">#</th>
                                 <th scope="col">Produit</th>
                                 <th scope="col">prix d'achats</th>
                                <!--<th scope="col">Stock</th>--> 
-                                <th scope="col">Quantite</th>
+                                <th scope="col">Quantité</th>
                                 <th scope="col">TVA %</th>
                                 <th scope="col">Date d'achat</th>
                                 <th scope="col">Montant</th>

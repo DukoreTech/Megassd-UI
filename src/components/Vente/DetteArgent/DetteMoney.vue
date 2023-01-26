@@ -22,10 +22,10 @@
                             <th scope="col">Produit</th>
                             <th scope="col">Client</th>
                             <th scope="col">prix payés </th>
-                            <th scope="col">montant_en_exces</th>
-                            <th scope="col">montant_en_dette</th>
+                            <th scope="col">montant en exces</th>
+                            <th scope="col">montant en dette</th>
                             <th scope="col">Montant Amenée</th>
-                            <th scope="col">montant_rembourse</th>
+                            <th scope="col">montant remboursé</th>
                             <th scope="col">Actions</th>
                          </tr>
                         </thead>                     

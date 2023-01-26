@@ -35,11 +35,11 @@
                         <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0" style="overflow-x:auto !important;">
                             <thead>
                               <tr>                    
-                                <th scope="col">Id</th>
+                                <th scope="col">#</th>
                                 <th scope="col">Produit</th>
-                                <th scope="col">Nbvides</th>
-                                <th scope="col">Nbpleins</th>
-                                <th scope="col">Date created</th>
+                                <th scope="col">Nb des vides</th>
+                                <th scope="col">Nb des pleins</th>
+                                <th scope="col">Date de création</th>
                                
                                 <th scope="col">Actions</th>
                              </tr>

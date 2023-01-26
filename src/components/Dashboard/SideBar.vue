@@ -1,14 +1,30 @@
 <template>
-    <div>
-            <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ml-4 w-sm-20 " id="accordionSidebar">
-             
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item mt-3">           
+
+<!-- new sidebar -->
+<div>
+  <aside class="main-sidebar sidebar-dark-primary text-white position-fixed ">
+
+    <!-- Brand Logo -->
+    <span  class="brand-link bg-white shadow">
+      <img src="@/assets/Produit-brarudi.jpg" alt="Mega SSD" class="brand-image img-circle" style="opacity: .8">
+      <span class="brand-text font-weight-light">MEGA SSD</span>
+    </span>
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Sidebar Menu -->
+      <nav class="">
+
+        <ul class="navbar-nav nav-sidebar flex-column accordion sidebar" data-widget="treeview" role="menu" data-accordion="false" id="accordionSidebar">
+
+                     <!-- Nav Item - Dashboard -->
+            <li class="nav-item mt-3 ">
+                <div class="text-light">           
                   <router-link :to="{name:'Dashboard'}" class="nav-link" >
                         <font-awesome-icon icon="fa-solid fa-tachometer-alt" class="icon"/> 
                         <span class="ml-2 label"> Tableau de Bord </span>
                 </router-link> 
+                </div>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -213,7 +229,7 @@
                     </div> 
                     
     
-            </li>--> 
+            </li>
              <hr class="sidebar-divider">
             <!-- Nav Item - report -->
             <li class="nav-item" v-if="Role=='1'">
@@ -251,10 +267,14 @@
                     </div> 
     
             </li>
-           
         </ul>
-        <!-- End of Sidebar -->
+      </nav>
+      <!-- /.sidebar-menu -->
     </div>
+    <!-- /.sidebar -->
+  </aside>
+
+ </div>
 
 
 </template>
@@ -366,49 +386,7 @@ export default {
 .link{
     cursor: pointer;
 }
-.label{
-    font-size: 13px;
-    text-align: center;
-}
-span,.icon,.iconAngle{
-    color: white;
-    text-align: center;
-}
-
-#navbar{
-    color:white;
-}
 #collapseExample{
     cursor: pointer;
 }
-li{
-    margin: auto 20px;
-} 
-/* media query */
-@media screen and (max-width:980px) {
-   .icon,.label,.Title{
-       display: block;
-       text-align: center;
-        margin: auto;
-       
-   }
-   .iconAngle{
-       display: none;
-   }
-
-   li{
-       display: block;
-       text-align: center;
-       margin: auto;
-   }
-}
-
-@media screen and (max-width:580px) {
-   li .label,img,.iconAngle{
-       display: none;
-   }
-
-}
-
-
 </style>

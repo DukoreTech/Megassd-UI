@@ -41,7 +41,7 @@ export default {
 .modal-inner {
     position: relative;
     max-width:max-content;
-    width:min-content;
+    width:max-content;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     background-color: #fff;
     padding:0px 0px 30px 0px;
@@ -78,4 +78,19 @@ export default {
     margin-right:10px;
     cursor:pointer;
 }
+
+
+@media (max-width:767px){
+
+.modal-inner {
+    max-width:max-content;
+    width:max-content;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background-color: #fff;
+    padding:0px 0px 30px 0px;  
+    overflow: scroll;
+}
+
+}
+
 </style>

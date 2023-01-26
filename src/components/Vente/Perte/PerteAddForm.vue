@@ -7,52 +7,56 @@
 <!-- retrieve data -->
 <span class="d-none">{{$store.state.pertes}}{{$store.state.IdEditPerte}}</span>
 <!-- retrieve data -->
-  <div class="register">
-    
+  <div class="col-12 mt-2"> 
     <form action="" @submit.prevent="saveInformation">
-
-                <span>Produit</span>
-                 <label for="produit" class="">
-                    <select  required="required" v-model="form.product_id" aria-placeholder="produit" id="produit">
-                        <option v-for="produit in products" :key="produit.id" :value="produit.id" selected>
-                            {{ produit.name }}
-                         </option>
-                     </select>             
-                  </label>
-                 <span>{{ errors?.product_id }}</span>
-                <br>
-                <span>Nature</span>
-                 <label for="client" class="">
-                    <select  required="required" v-model="form.nature" aria-placeholder="client" id="client">
-                        <option  selected>Non conforme </option>
-                        <option >ouvert</option>
-                        <option >cassé</option>
-                     </select>             
-                  </label>
-                 <span>{{ errors?.type_perte }}</span>
-                <br>
-                <span>Stock</span>
-                 <label for="client" class="">
-                    <select required="required" v-model="form.stock" aria-placeholder="client" id="client">
-                        <option>Vides</option>
-                        <option >plein</option>
-                     </select>             
-                  </label>
-                 <span>{{ errors?.type_perte }}</span>
-                <br>
-                <label for="quantity">
-                    <input required="required" type="number" id="quantity" placeholder="quantity" v-model="form.quantity">
-                    <span>Quantite</span>
-                </label>
-                <span>{{ errors?.quantity }}</span>
-                <label for="quantity">
-                    <input type="number" required="required" id="quantity" placeholder="quantity" v-model="form.casier">
-                    <span>casier</span>
-                </label>
-                
-            <button type="submit" class="btn btn-sm btn-danger float-end button" >{{saveEditBtn}}</button>
+      <div class="col-12 d-md-flex d-sm-block">
+        <div class="col-md-6 col-sm-12">
+          <div>
+            <div>Produit</div>
+                <select  required="required" v-model="form.product_id" aria-placeholder="produit" id="produit" class="form-select">
+                    <option v-for="produit in products" :key="produit.id" :value="produit.id" selected>
+                        {{ produit.name }}
+                      </option>
+                  </select>             
+              <div>{{ errors?.product_id }}</div>
+          </div> 
+          <div class="mt-2">   
+            <div>Nature </div>
+                <select  required="required" v-model="form.nature" aria-placeholder="client" id="client" class="form-select">
+                    <option  selected>Non conforme </option>
+                    <option >ouvert</option>
+                    <option >cassé</option>
+                  </select>             
+              <div>{{ errors?.type_perte }}</div>
+          </div>
+          <div class="mt-2">  
+            <div>Stock</div>
+              <select required="required" v-model="form.stock" aria-placeholder="client" id="client" class="form-select">
+                  <option>Vides</option>
+                  <option >plein</option>
+                </select>             
+            <div>{{ errors?.type_perte }}</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div>
+            <label for="quantity">
+                <input required="required" type="number" id="quantity" placeholder="Quantite" v-model="form.quantity">
+                <span>Quantite</span>
+            </label>
+            <div>{{ errors?.quantity }}</div>
+          </div>  
+          <div>    
+            <label for="casier">
+                <input type="number" required="required" id="casier" placeholder="casier" v-model="form.casier">
+                <span>casier</span>
+            </label>
+          </div>   
+        </div>   
+      </div>      
+      <button type="submit" class="btn btn-sm btn-danger button" >{{saveEditBtn}}</button>
     </form>
-</div>
+  </div>
 
 </div>
 </template>
@@ -145,88 +149,4 @@ export default {
 }
 </script>
 
-<style  scoped>
-
-.title{
-  font-weight: bolder;
-  font-size: 20px;
-}
-.close{
-  font-weight: bolder;
-  margin-right: 20px;
-  font-size: 23px;
-  cursor:pointer;
-}
-form{
-    width:45vw;
-    max-width:350px;
-    height: 500px;
-    font-family:sans-serif;
-    padding:0 3vw;
-    display:flex;
-    flex-direction:column;
-    border-radius:5px;
-    margin-left:10px;
-    margin-top: 20px;
-}
-
-label{
-    margin-bottom:5px;
-    position:relative;
-    border-bottom:1px solid #ddd;
-}
-input,select,textarea{
-    width:100%;
-    padding:10px 0px;
-    margin-top:10px;
-    border:none;
-    outline:none;
-}
-
-input::placeholder{
-    opacity:0;
-}
-.error{
-  color: red;
-}
-
-select::placeholder{
-    opacity:0;
-}
-textarea::placeholder{
-    opacity:0;
-}
-label span{
-    position:absolute;
-    top:0;
-    left:0;
-    transform:translateY(30px);
-    font-size:0.825em;
-    transition-duration:300ms;
-}
- span{
-    position:relative;
-    bottom:10;
-    left:0;
-    transform:translateY(10px);
-    font-size:0.825em;
-}
-button{
-    padding:5px 0px; 
-    margin-top:10px;
-    color:#fff;
-    cursor:pointer;
-    border-radius:3px;
-    width: 100px;
-    float:right;
-}
-label:focus-within > span,
-input:not(:placeholder-shown) + span{
-    color:purple;
-    transform:translateY(0px);
-}
-.dateWidth{
-    width: 80%;
-}
-
-</style>
+<style  src="@/assets/css/form.css" scoped></style>
