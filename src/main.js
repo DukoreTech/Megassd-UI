@@ -23,6 +23,10 @@ import "bootstrap"
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Vue from "vue";
+import "@/assets/css/megaSSD.css"
+import "@/assets/css/MegaScrollbars.css"
+import "@/assets/js/megaSSD.js"
+import $ from 'jquery'
 
 
 
