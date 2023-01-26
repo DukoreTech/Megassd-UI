@@ -5,9 +5,9 @@
   <aside class="main-sidebar sidebar-dark-primary text-white position-fixed ">
 
     <!--  Logo -->
-    <span  class="brand-link bg-white shadow">
+    <span  class="brand-link brandLogo">
       <img src="@/assets/Produit-brarudi.jpg" alt="Mega SSD" class="brand-image img-circle" style="opacity: .8">
-      <span class="brand-text font-weight-light">MEGA SSD</span>
+      <span class="brand-text">MEGA SSD</span>
     </span>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -384,5 +384,21 @@ export default {
 }
 #collapseExample{
     cursor: pointer;
+}
+.brandLogo{
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  background-color:white  !important;
+  /* background-color: #dadfe4 !important; */
+  border-color: #ced4da !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+@media (max-width:900px){
+  
+.brandLogo{
+   background-color: #343a40 !important;
+  color:white !important;
+  box-shadow: none !important;
+}
 }
 </style>
