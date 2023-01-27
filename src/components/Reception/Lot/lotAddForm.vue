@@ -98,8 +98,15 @@
             </div>  
          </div>        
           <div class="d-flex justify-content-around">         
-            <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-            <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+            <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+              <div v-if="loading" class="d-flex justify-content-center mx-2">
+						       <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+              </div>
+              <span v-if="!loading">{{saveEditBtn}}</span>
+              </button>
+            <button type="reset" :disabled="loading" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
           </div>        
     </form>
   </div>
@@ -135,6 +142,7 @@ export default {
         type_Clients_id:""
     
       },
+      loading:false,
       //myOptions: ['op1', 'op2', 'op3'], // or [{id: key, text: value}, {id: key, text: value}]
       address:this.$store.state.adresses,
       errors: {},
@@ -224,6 +232,7 @@ export default {
     }, 
     saveInformation() {
       if (this.form["product_id","price_vente","quantity","name"]=="") return;
+      this.loading=true
       let result=[]
       let reply=[]
       let type=""
@@ -232,6 +241,7 @@ export default {
         console.log(result)
         console.log(this.form.adresses_id)
         if(result.length>0){
+          this.loading=false
           result.forEach(element => {
           reply.push(element.adresses.name)
           type=element.type_clients.name
@@ -247,11 +257,13 @@ export default {
         }
        
         else{
+          this.loading=true
         api.post(
           "lots",
           this.form
         )
         .then((resp) => {
+          this.loading=false
          
           this.lots = resp.data;
           this.$emit('fetch')
@@ -266,14 +278,17 @@ export default {
           
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
       } }else{
+        this.loading=true
          api.patch(
           "lots/"+this.$store.state.IdEditLot,
           this.form )
         .then((resp) => {
+          this.loading=false
           this.form={}
           this.lots = resp.data;        
           Swal.fire({
@@ -287,6 +302,7 @@ export default {
          
          })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
 

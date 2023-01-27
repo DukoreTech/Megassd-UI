@@ -52,7 +52,7 @@ const options = {
 createApp(App)
     .use(store)
     .use(router)
-   // .use(VueHtmlToPaper, options)
+    .use(VueHtmlToPaper, options)
     .component('font-awesome-icon', FontAwesomeIcon)
     .use(VueSweetalert2)
     .component('Select2', Select2)

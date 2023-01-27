@@ -8,7 +8,7 @@
    
 	<div class="screen">
 		<div class="screen__content">
-			<img class="img-profile mt-2 rounded-circle w-20 h-20 bg-light d-flex justify-content-center " width="130" height="110"  src="@/assets/Produit-brarudi.jpg"/>
+			<img class="img-profile mt-2 rounded-circle bg-light d-flex justify-content-center "  src="@/assets/Produit-brarudi.jpg"/>
 			<div class="ml-4 font-weight-bolder h4 title">MEGA MUGERE SSD</div>
 			<form class="login" @submit.prevent="login">
 				<div class="login__field">					
@@ -319,6 +319,8 @@ else{
         display: block;
         text-align: center;
         margin:auto;
+		width:120px !important;
+		height:120px !important;
       
     }
 

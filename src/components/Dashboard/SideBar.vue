@@ -6,7 +6,7 @@
 
     <!--  Logo -->
     <span  class="brand-link brandLogo">
-      <img src="@/assets/Produit-brarudi.jpg" alt="Mega SSD" class="brand-image img-circle" style="opacity: .8">
+      <img src="@/assets/Produit-brarudi.jpg" alt="Mega SSD" class="brand-image img-circle imgLogo" style="opacity: .8">
       <span class="brand-text">MEGA SSD</span>
     </span>
     <!-- Sidebar -->
@@ -391,6 +391,10 @@ export default {
   /* background-color: #dadfe4 !important; */
   border-color: #ced4da !important;
   color: rgba(0, 0, 0, 0.6) !important;
+}
+.imgLogo{
+  width:33px !important;
+  height:33px!important;
 }
 
 @media (max-width:900px){

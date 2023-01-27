@@ -216,7 +216,12 @@
                 
                 </tbody>
                 <tfoot class="d-flex justify_content_around mt-5">
-                <button class="button btn btn-sm btn-success m-4" type="submit">Valider</button>
+                <button :disabled="loading" class="button btn btn-sm btn-success m-4" type="submit">
+                    <div v-if="loading" class="d-flex justify-content-center mx-2">
+						       <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+                   </div><span v-if="!loading">Valider</span></button>
                 
                 </tfoot>
             </table>
@@ -263,6 +268,7 @@ export default {
             produits: [], 
             clients:{},
             errors:{},
+            loading:false,
             
             lots:{},
             form: {
@@ -448,6 +454,7 @@ export default {
                 this.poubelle.sort(ordonner);
             },
             envoyer() {
+                this.loading=true
 
     
 
@@ -463,12 +470,15 @@ export default {
       montantsup:this.form.montantsup
     }
     console.log(v)
+    
 
     api.post(
+      
           "ventes",
           v
         )
         .then((resp) => {
+            this.loading=false
             this.data=resp.data
             //this.$store.state.vantes=resp.data
          
@@ -484,6 +494,7 @@ export default {
          // this.form = { description:"",quantity:"",product_id:"",date_achat:"",lot_id:"",stock_id:"", tva:"",montant:"",montant_total:""} 
         })
         .catch((err) => {
+            this.loading=false
             Swal.fire({
                icon: 'error',
                title: ' oups ',

@@ -25,7 +25,13 @@
                  </label> -->
                 
               <div class="d-flex justify-content-around">
-                <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+                <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+                  <div v-if="loading" class="d-flex justify-content-center mx-2">
+						       <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+              </div>
+                 <span v-if="!loading"> {{saveEditBtn}}</span></button>
                 
               </div>
           </form>
@@ -52,6 +58,7 @@ export default {
       stocks:[],
       produits:[],
       saveEditBtn:"Ajouter",
+      loading:false
     };
   },
  mounted(){
@@ -86,6 +93,7 @@ export default {
     }, 
     saveInformation() {
       if (this.form["produit","Quantite"]=="") return; 
+      this.loading=true
 
        if(this.$store.state.IdEditStock==null){
              
@@ -93,19 +101,23 @@ export default {
           this.form
         )
         .then((resp) => {
+          this.loading=false
           this.stocks = resp.data;
           alert("data is saved")
           this.form = { produit:"",Quantite:""} 
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
+        this.loading=true
          api.patch(
        "stock/"+this.$store.state.IdEditStock,
           this.form )
         .then((resp) => {
+          this.loading=false
           this.stocks = resp.data;
           Swal.fire({
                icon: 'success',
@@ -115,6 +127,7 @@ export default {
           this.$emit('close')
          })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });

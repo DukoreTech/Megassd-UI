@@ -74,8 +74,15 @@
         </div>
       </div>
       <div class="d-flex justify-content-around">
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-          <button type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
+          <button :disabled="loading" type="submit" class="btn btn-sm btn-danger" >
+            <div v-if="loading" class="d-flex justify-content-center mx-2">
+						  <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                          
+                         </div>
+            </div>
+            <span v-if="!loading" class="button__text">{{saveEditBtn}}</span></button>
+          <button :disabled="loading" type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
         </div>
 </form>
 </div>
@@ -97,11 +104,12 @@ export default {
        // dateDenaissance:"",
        // telephone:"",
         email:"",
+        loading:false,
        // adresse:"",
        // nomDUtilisateur:"",
         password:"" ,
         password_confirmation:"",
-        role_id:2
+        
 
       },
       errors: {},
@@ -131,6 +139,9 @@ export default {
     saveInformation() {
       if (this.form["name", "password", "mail","role_id"]=="") return; 
 
+         
+      this.loading=true
+
        if(this.$store.state.IdEditUser==null){
         if(this.form.password==this.form.password_confirmation)
         {
@@ -139,6 +150,7 @@ export default {
           this.form
         )
         .then((resp) => {
+          this.loading=false
           this.users = resp.data;
           Swal.fire({
                icon: 'success',
@@ -149,6 +161,7 @@ export default {
           this.form = {} 
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });

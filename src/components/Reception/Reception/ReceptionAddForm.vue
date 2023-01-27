@@ -79,8 +79,15 @@
               </div>
           </div>  
           <div class="d-flex justify-content-around">
-            <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-            <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+            <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+              <div v-if="loading" class="d-flex justify-content-center mx-2">
+						       <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+              </div>
+              <span v-if="!loading">{{saveEditBtn}}</span>
+              </button>
+            <button type="reset" :disabled="loading" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
           </div>
       </form>
     </div>
@@ -113,6 +120,7 @@ export default {
       //products:[],
       stocks:[],
       saveEditBtn:"Ajouter",
+      loading:false
     };
   },
 
@@ -217,12 +225,14 @@ export default {
       console.log(this.$refs.product)
      
       if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
+      this.loading=true
       
       let result= this.stocks.find((item) => item.id === this.form.product_id)
       //this.form.product_id=this.form.stock.product_id
       
       if(this.form.quantity > result.vide)
       {
+        this.loading=false
         Swal.fire({
                icon: 'error',
                title: 'oups',
@@ -230,6 +240,7 @@ export default {
               });
       }
       else{
+        this.loading=true
 
        if(this.$store.state.IdEditReception==null){
        console.log(this.result)
@@ -241,6 +252,7 @@ export default {
           this.form
         )
         .then((resp) => {
+          this.loading=false
           this.receptions = resp.data;
           this.form.date_achat=new Date().toISOString().slice(0,10),
           this.form.product_id="",
@@ -259,15 +271,18 @@ export default {
               });
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
 
       }else{
+        this.loading=true
          api.patch(
           "reception/"+this.$store.state.IdEditReception,
           this.form )
         .then((resp) => {
+          this.loading=false
           this.receptions = resp.data;
           
           this.$emit('close')
@@ -280,6 +295,7 @@ export default {
              
          })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });

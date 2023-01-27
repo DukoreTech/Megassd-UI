@@ -50,7 +50,15 @@
               </div>
         </div>  
         <div class="d-flex justify-content-around mt-2">
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+            <div v-if="loading" class="d-flex justify-content-center mx-2">
+						  <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                          
+                         </div>
+            </div>
+            <span v-if="!loading" class="button__text"> {{saveEditBtn}}</span>
+          </button>
           <button type="reset" v-if="saveEditBtn=='Ajouter'"  class="btn btn-sm btn-primary" >vider</button>
          </div>
     </form>
@@ -80,6 +88,7 @@ export default {
     
       },
       errors: {},
+      loading:false,
       clients:[],
       adresses:[],
       typeClients:[],
@@ -95,10 +104,10 @@ export default {
   "$store.state.IdEditClient"(a){
     console.log(a)
     if(this.$store.state.IdEditClient==null){
-        this.form={};
+        
         this.saveEditBtn="Ajouter"
       }else{
-         this.form=this.$store.state.clients;
+        this.form=this.$store.state.clients;
         this.saveEditBtn="Modifier"
       }
  
@@ -141,12 +150,16 @@ export default {
    
     saveInformation() {
       if (this.form["prenom","type_client_id","telephone","nom"]=="") return; 
+      this.loading=true
 
        if(this.$store.state.IdEditClient==null){
+         
+        
              
         api.post(
           "client",  this.form)
         .then((resp) => {
+          this.loading=false
           this.clients = resp.data;
 
           this.form = { nom:"",prenom:"",type_client_id:"", assujet_tva:"",nif:"",address_id:""}
@@ -158,13 +171,16 @@ export default {
          // this.getuser() 
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
+        this.loading=true
          api.patch("client/"+this.$store.state.IdEditClient,
           this.form )
         .then((resp) => {
+          this.loading=false
           this.clients = resp.data;
           this.closemodal()
           Swal.fire({
@@ -175,6 +191,7 @@ export default {
           
          })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });

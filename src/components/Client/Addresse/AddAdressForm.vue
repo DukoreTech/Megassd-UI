@@ -25,7 +25,13 @@
           <div class="error">{{ errors?.description }}</div>
         </div>
         <div class="d-flex justify-content-around">
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+            <div v-if="loading" class="d-flex justify-content-center mx-2">
+						  <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+            </div>
+            <span v-if="!loading" class="button__text">{{saveEditBtn}}</span></button>
           <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
         </div>
     </form>
@@ -50,6 +56,7 @@ export default {
       errors: {},
       adresses:[],
       saveEditBtn:"Ajouter",
+      loading:false,
     };
   },
 
@@ -77,11 +84,14 @@ export default {
     saveInformation() {
       if (this.form[ "zone"]=="") return; 
 
+      this.loading=true
+
        if(this.$store.state.IdEditAdresse==null){
              
         api.post("Address",
           this.form)
         .then((resp) => {
+          this.loading=false
           this.adresses = resp.data;
           this.form = {} 
           this.$store.state.adresses=resp.data
@@ -93,13 +103,16 @@ export default {
           
           })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
+        this.loading=true
          api.patch("Address/"+this.$store.state.IdEditAdresse,
           this.form)
         .then((resp) => {
+          this.loading=false
           this.adresses = resp.data.data;
           Swal.fire({
                icon: 'success',
@@ -113,6 +126,7 @@ export default {
           
          })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });

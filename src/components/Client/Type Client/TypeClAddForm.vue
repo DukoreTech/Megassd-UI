@@ -26,7 +26,15 @@
           <span>{{ errors?.description }}</span>
         </div>
         <div class="d-flex justify-content-around">
-          <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+          <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+            <div v-if="loading" class="d-flex justify-content-center mx-2">
+						  <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                          
+                         </div>
+            </div>
+            <span v-if="!loading" class="button__text"> {{saveEditBtn}}</span>
+          </button>
           <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
         </div>
       </form>
@@ -54,6 +62,7 @@ export default {
       errors: {},
       typeClients:[],
       saveEditBtn:"Ajouter",
+      loading:false,
     };
   },
  mounted(){
@@ -89,11 +98,14 @@ export default {
     saveInformation() {
       if (this.form[ "typeClient"]=="") return; 
 
+          this.loading=true
+
        if(this.$store.state.IdEditTypClient==null){
              
         api.post("typeclient",
           this.form )
         .then((resp) => {
+          this.loading=false
           this.typeClients = resp.data.data;
           this.$store.state.typeClients=resp.data
           this.form = { name:"",description:""}
@@ -106,14 +118,17 @@ export default {
           
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
-        
+        this.loading=true
          api.patch("typeclient/"+this.$store.state.IdEditTypClient,
           this.form)
         .then((resp) => {
+          this.loading=false
+          
           this.typeClients = resp.data;
           this.$store.state.typeClients=resp.data
           this.close()
@@ -126,12 +141,13 @@ export default {
               this.$store.state.IdEditTypClient=null
           })
         .catch((err) => {
+          this.loading=false
           console.log(err.response.data);
           this.errors = err.response.data;
           Swal.fire({
                icon: 'error',
                title: ' oups ',
-               text: 'une erreur est survenue réessayer plustard!'
+               text: 'une erreur est survenue réessayer plus tard!'
               });
         });
 

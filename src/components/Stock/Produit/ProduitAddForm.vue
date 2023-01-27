@@ -37,8 +37,15 @@
              <div>{{ errors?.nombre_bouteille }}</div>
           </div>   
           <div class="d-flex justify-content-around">
-            <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-            <button type="reset" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+            <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
+              <div v-if="loading" class="d-flex justify-content-center mx-2">
+						       <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+              </div>
+              <span v-if="!loading">{{saveEditBtn}}</span>
+            </button>
+            <button type="reset" :disabled="loading" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
           </div>
           </form>
     </div>
@@ -57,7 +64,7 @@ export default{
           form: {
             name:"",
             unite_mesure:"",
-            caisse:"",
+            caisse:1,
             nombre_bouteille:"",
             user_id:"",
           },
@@ -66,7 +73,8 @@ export default{
           products:[],
           users:localStorage.getItem('user'),
           saveEditBtn:"Enregistrer",
-          token:this.$store.state.token
+          token:this.$store.state.token,
+          loading:false
         }
       },
       
@@ -107,7 +115,8 @@ export default{
       this.$emit('close')
     },   
     saveInformation() {
-          if (this.form["unite_mesure","caisse","name"]=="") return; 
+          if (this.form["unite_mesure","caisse","name"]=="") return;
+          this.loading=true 
     
            if(this.$store.state.IdEditProduit==null){
                  
@@ -116,9 +125,11 @@ export default{
               this.form
             )
             .then((resp) => {
+              this.loading=false
               this.products = resp.data;
            //   this.getuser()
-              this.form = { name:"",unite_mesure:"",nombre_bouteille:"", caisse:""} 
+              this.form = { name:"",unite_mesure:"",nombre_bouteille:""} 
+              this.form.caisse=1
               Swal.fire({
                icon: 'success',
                title: 'Ajouter',
@@ -126,10 +137,12 @@ export default{
               });
             })
             .catch((err) => {
+              this.loading=false
               console.error(err.response.data.errors);
               this.errors = err.response.data.errors;
             });
            }else{
+            this.loading=true
              api.patch("products/"+this.$store.state.IdEditProduit,
               this.form )
             .then((resp) => {
@@ -142,6 +155,7 @@ export default{
           this.$emit('close')
              })
             .catch((err) => {
+              this.loading=false
               console.error(err.response.data.errors);
               this.errors = err.response.data.errors;
             });
