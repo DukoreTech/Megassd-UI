@@ -30,7 +30,14 @@
                      </label> -->
                     
                   <div class="d-flex justify-content-around">
-                    <button type="submit" class="btn btn-sm btn-danger" >Modifier</button>
+                    <button type="submit" class="btn btn-sm btn-danger" >
+                      <div v-if="loading" class="d-flex justify-content-center mx-2">
+						               <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+                      </div>
+                      <span v-if="!loading">Modifier</span>
+                      </button>
                    
                   </div>
               </form>
@@ -56,6 +63,7 @@
           errors: {},
           stocks:[],
           produits:[],
+          loading:false
 
         };
       },
@@ -98,21 +106,25 @@
           this.$emit('close')
         },
         saveInformation() {
+          this.loading=true
+          
           if (this.form.nouveau_casier > this.form.reste)
           {
+            this.loading=false
             Swal.fire({
                    icon: 'info',
                    title: 'erreur',
                    text: 'quantité  entrée  est supérieur a ceux qui reste',  
                   });
-
-
           }
           else{
+            this.loading=true
+            
            api.patch(
            "getDetteVides/"+this.$store.state.IdEditVide,
               this.form )
             .then((resp) => {
+              this.loading=false
               this.stocks = resp.data;
               this.$store.state.DetteVides=resp.data
               console.log(this.$store.state.DetteVides)
@@ -125,6 +137,7 @@
               this.$store.state.DetteVides=resp.data
              })
             .catch((err) => {
+              this.loading=false
               console.error(err.response.data.errors);
               this.errors = err.response.data.errors;
             });

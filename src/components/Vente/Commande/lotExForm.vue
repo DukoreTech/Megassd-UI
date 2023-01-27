@@ -12,7 +12,7 @@
                 aria-expanded="true" aria-controls="collapseStock">
                 <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
                 Retour
-            </router-link>
+              </router-link>
             </div>
         </div>
 	</div>

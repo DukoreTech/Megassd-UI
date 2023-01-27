@@ -54,7 +54,13 @@
           </div>   
         </div>   
       </div>      
-      <button type="submit" class="btn btn-sm btn-danger button" >{{saveEditBtn}}</button>
+      <button type="submit" :disabled="loading" class="btn btn-sm btn-danger button" >
+          <div v-if="loading" class="d-flex justify-content-center mx-2">
+						    <span class="">Loading...</span>
+               <div class="spinner-border" role="status">
+               </div>
+          </div>
+              <span v-if="!loading">{{saveEditBtn}}</span></button>
     </form>
   </div>
 
@@ -81,6 +87,7 @@ export default {
       errors: {},
       pertes:[],
       products:[],
+      loading:false,
       saveEditBtn:"Enregistrer",
     };
   },
@@ -107,7 +114,7 @@ export default {
     },
 
     saveInformation() {
-      
+      this.loading=true
 
        if(this.$store.state.IdEditPerte==null){
              
@@ -117,6 +124,7 @@ export default {
           
         )
         .then((resp) => {
+          this.loading=false
           this.pertes = resp.data;
           this.form = {}
           Swal.fire({
@@ -126,17 +134,21 @@ export default {
               });
         })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });
        }else{
+        this.loading=true
          api.patch(pertes/"+this.$store.state.IdEditPerte",
           this.form )
         .then((resp) => {
+          this.loading=false
           this.pertes = resp.data;
           this.$emit('close')
          })
         .catch((err) => {
+          this.loading=false
           console.error(err.response.data.errors);
           this.errors = err.response.data.errors;
         });

@@ -6,7 +6,13 @@
 								<h3 class="page-title">Client</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
-                  <li class="breadcrumb-item"><a href="" @click="$router.push('/Client')">Clients</a></li>
+                  
+                  <li class="breadcrumb-item"> <router-link :to="{name:'Client'}" class=""
+                aria-expanded="true" aria-controls="collapseStock">
+                  
+                 Clients
+                 </router-link>
+            </li>
 									<li class="breadcrumb-item active">{{ clients.nom }}</li>
 								</ul>
 							</div>
@@ -118,8 +124,8 @@
                                     <td>
                                        <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                         delete</button>-->
-                                        <span class="bg-success p-2 text-white" v-if="dette.reste==0">Payés</span>
-                                        <span class="bg-success p-2 text-white" v-if="dette.reste!==0">En cours</span>
+                                        <button class="btn btn-success p-2 mt-2 text-white" v-if="dette.reste==0">Payés</button>
+                                        <button class="btn btn-success p-2 mt-2 text-white" v-if="dette.reste!==0">En cours</button>
                 
                                     </td>
                                   </tr>
@@ -167,8 +173,8 @@
                             <td>
                                <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                 delete</button>-->
-                                <span class="bg-success p-2 text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0">Payés</span>
-                                <span class="bg-success p-2 text-white" v-if="money.montant_en_exces!==0 && money.montant_en_dette!==0">En cours</span>
+                                <button class="btn btn-success p-2 mt-2 text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0">Payés</button>
+                                <button class="btn btn-success p-2 mt-2 text-white" v-if="money.montant_en_exces!==0 && money.montant_en_dette!==0">En cours</button>
                                 
                             </td>
                           </tr>

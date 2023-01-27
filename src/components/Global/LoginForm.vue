@@ -56,8 +56,8 @@ export default {
     data(){
         return{
             form:{
-                email: "AdminMega@gmail.com",
-                password: "admin123",
+                email: "",
+                password: "",
                 
             },
 			loading: false,

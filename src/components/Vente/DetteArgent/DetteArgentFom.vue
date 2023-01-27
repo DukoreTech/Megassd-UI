@@ -38,7 +38,14 @@
                      </label> -->
                     
                   <div class="d-flex justify-content-around">
-                    <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
+                    <button type="submit" class="btn btn-sm btn-danger" >
+                      <div v-if="loading" class="d-flex justify-content-center mx-2">
+						               <span class="">Loading...</span>
+                         <div class="spinner-border" role="status">
+                         </div>
+                      </div>
+                      <span v-if="!loading">{{saveEditBtn}}</span>
+                      </button>
                    
                   </div>
               </form>
@@ -65,6 +72,7 @@
           stocks:[],
           produits:[],
          saveEditBtn:"Modifier",
+         loading:false
         };
       },
       mounted()
@@ -106,8 +114,10 @@
           this.$emit('close')
         }, 
         saveInformation(){
+          this.loading=true
           if (this.form.montant_amene > this.form.montant_en_dette || this.form.montant_rembourse > this.form.montant_en_exces)
           {
+            this.loading=false
             Swal.fire({
                    icon: 'info',
                    title: 'erreur',
@@ -115,12 +125,14 @@
                   })
           }
           else{
+            this.loading=true
 
 
              api.patch(
            "getDetteArgent/"+this.$store.state.IdEditDetteArgent,
               this.form)
             .then((resp) => {
+              this.loading=false
               this.stocks = resp.data;
               Swal.fire({
                 icon: 'success',
@@ -130,6 +142,7 @@
               this.$emit('close')
              })
             .catch((err) => {
+              this.loading=false
               
             });
 
