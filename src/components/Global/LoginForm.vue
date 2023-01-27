@@ -50,15 +50,14 @@
 <script>
 import axios from "axios"
 import Swal from 'sweetalert2'
-import api from '../../../api'
 ///import   "../"
 export default {
     
     data(){
         return{
             form:{
-                email: "",
-                password: "",
+                email: "AdminMega@gmail.com",
+                password: "admin123",
                 
             },
 			loading: false,
@@ -110,7 +109,7 @@ if(this.errors.length > 0)
 else{
 	
     
-	api.post("login",this.form)
+	axios.post(this.$store.state.baseurl + "login",this.form)
         .then( (response) =>{
     
         this.$store.commit("login", JSON.stringify(response.data

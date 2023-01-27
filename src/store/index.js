@@ -5,7 +5,7 @@ export default createStore({
     // baseurl: baseUrl+'/api/',
     //baseurl: 'http://127.0.0.1:8000/api/',
      baseurl: process.env.VUE_APP_url+'api/',
-   // baseurl:'https://api.megamugere.com/api/',
+    //baseurl:'https://api.megamugere.com/api/',
 
     token: localStorage.getItem('token'),
     selectClient_id : "",
