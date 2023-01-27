@@ -8,9 +8,10 @@
    
 	<div class="screen">
 		<div class="screen__content">
+			<img class="img-profile mt-2 rounded-circle w-20 h-20 bg-light d-flex justify-content-center " width="130" height="110"  src="@/assets/Produit-brarudi.jpg"/>
+			<div class="ml-4 font-weight-bolder h4 title">MEGA MUGERE SSD</div>
 			<form class="login" @submit.prevent="login">
-				<div class="login__field">
-					
+				<div class="login__field">					
 					<font-awesome-icon icon="fa-solid fa-user" class="icon login__icon" />
 					<input type="text" required="required" v-model="form.email" class="login__input" placeholder=" Email">
 				</div>
@@ -182,7 +183,7 @@ else{
 
 .screen {	
 	position: relative;	
-	height: 600px;
+	height:600px;
 	width: 360px;	
 	box-shadow: 0px 0px 24px #5C5696;
 }
@@ -248,7 +249,7 @@ else{
 .login {
 	width: 320px;
 	padding: 30px;
-	padding-top: 156px;
+	/* padding-top: 156px; */
 }
 
 .login__field {
@@ -311,7 +312,16 @@ else{
 	color: #7875B5;
 }
 
-
+.title{
+	margin-top:10px;
+	color: #6C63AC;	
+}
+.img-profile {
+        display: block;
+        text-align: center;
+        margin:auto;
+      
+    }
 
 @media screen and (max-width: 400px) {
 	

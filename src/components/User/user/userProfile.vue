@@ -4,44 +4,48 @@
     <span class="d-none">{{$store.state.users}}{{$store.state.IdEditUser}}</span>
     <!-- retrieve data -->
        
-      <div class="register">
-        <img class="img-profile rounded-circle w-30 h-30 bg-light ml-2" width="250" height="230"  src="@/assets/Produit-brarudi.jpg">
+      <div class="col-12 d-flex justify-content-center mt-3">
+        <div class="col-6 card">
+        <img class="img-profile rounded-circle w-25 h-25 bg-light d-flex justify-content-center mt-2" width="250" height="230"  src="@/assets/user.png"/>
 
-        <form action="" @submit.prevent="saveInformation">
-            <label for="nom">
-                <input type="text" disabled="disabled" id="nom" placeholder="nom" v-model="form.name">
-                <span>Nom</span>
-            </label>
-             <span>{{ errors?.name }}</span>
-    
-             <label for="mail">
-                <input type="email" id="mail" disabled="disabled" placeholder="email" v-model="form.email">
-                <span>Email</span>
-             </label>
-             <span>{{ errors?.email }}</span>
-    
-             <label for="motDePasse">
-                <input type="password" id="motDePasse" placeholder="Mot de passe" v-model="form.password">
-                <span>Ancien Mot de passe</span>
-            </label>
-            <span>{{ errors?.password }}</span>
+        <form action="" @submit.prevent="saveInformation" class="col-12">
+          <div class="mt-2">
+            <label for="nom"> Nom </label>
+                <input type="text" disabled="disabled" id="nom" placeholder="Nom" v-model="form.name" class="form-control">
+                <!-- <span>Nom</span> -->
+             <div>{{ errors?.name }}</div>
+            </div>  
 
-            <label for="confirm">
-                <input type="password" placeholder="Mot de passe" v-model="form.new_password">
-                <span>Nouveau mot de passe</span>
-            </label>
-             <span>{{ errors?.password_confirmation }}</span>
-             <label for="confirm">
-                <input type="password" placeholder="Mot de passe" v-model="form.password_confirmation">
-                <span>Confirmer Nouveau mot de passe</span>
-            </label>
-             <span>{{ errors?.password_confirmation }}</span>
-    
-             <div class="d-flex justify-content-around">
-                  <button type="submit" class="btn btn-sm btn-danger" >{{saveEditBtn}}</button>
-                  
-                </div>
+            <div class="mt-3 ">
+             <label for="mail">Email</label>
+                <input type="email" id="mail" disabled="disabled" placeholder="Email" v-model="form.email" class="form-control">
+             <div>{{ errors?.email }}</div>
+            </div> 
+
+             <div class="mt-3"> 
+             <label for="motDePasse"> Ancien Mot de passe </label>
+                <input type="password" id="motDePasse" placeholder="Ancien Mot de passe" v-model="form.password" class="form-control">           
+            <div>{{ errors?.password }}</div>
+           </div>
+
+           <div class="mt-3"> 
+            <label>Nouveau mot de passe</label>
+                <input type="password" placeholder="Nouveau mot de passe" v-model="form.new_password" class="form-control">
+             <div>{{ errors?.password_confirmation }}</div>
+           </div>
+
+           <div class="mt-3"> 
+             <label class="form-label">Confirmer Nouveau mot de passe</label>
+                <input type="password" placeholder="Confirmer Nouveau mot de passe" v-model="form.password_confirmation" class="form-control">
+                <!-- <span>Confirmer Nouveau mot de passe</span> -->
+             <div>{{ errors?.password_confirmation }}</div>
+            </div>
+
+             <div class="mt-3 mb-3">
+                  <button type="submit" class="btn btn-danger" >{{saveEditBtn}}</button>                 
+              </div>
         </form>
+      </div>  
     </div>
     
     </div>
@@ -145,92 +149,12 @@
     }
     </script>
     
-    <style  scoped>
+    <style  scoped >
     .img-profile {
         display: block;
         text-align: center;
         margin:auto;
       
     }
-    .form{
-        display: flex;
-        justify-content: center;
-        align-self: center;
-    }
-    .title{
-      font-weight: bolder;
-      font-size: 20px;
-    }
-    .close{
-      font-weight: bolder;
-      margin-right: 20px;
-      font-size: 23px;
-      cursor:pointer;
-    }
-    form{
-        width:30vw;
-        max-width:768px;
-        font-family:sans-serif;
-        padding:0 3vw;
-        display:flex;
-        flex-direction:column;
-        border-radius:5px;
-    }
     
-    label{
-        margin-bottom:15px;
-        position:relative;
-        border-bottom:1px solid #ddd;
-    }
-    input,select,textarea{
-        width:100%;
-        padding:10px 0px;
-        margin-top:20px;
-        border:none;
-        outline:none;
-    }
-    
-    input::placeholder{
-        opacity:0;
-    }
-    .error{
-      color: red;
-    }
-    
-    select::placeholder{
-        opacity:0;
-    }
-    textarea::placeholder{
-        opacity:0;
-    }
-    label span{
-        position:absolute;
-        top:0;
-        left:0;
-        transform:translateY(30px);
-        font-size:0.825em;
-        transition-duration:300ms;
-    }
-    span{
-        position:relative;
-        bottom:10;
-        left:0;
-        transform:translateY(10px);
-        font-size:0.825em;
-    }
-    button{
-        padding:5px 0px; 
-        margin-top:20px;
-        color:#fff;
-        cursor:pointer;
-        border-radius:3px;
-        width: 100px;
-        float:right;
-    }
-    label:focus-within > span,
-    input:not(:placeholder-shown) + span{
-        color:purple;
-        transform:translateY(0px);
-    }
-    
-    </style>
+ </style>

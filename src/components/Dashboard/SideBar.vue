@@ -397,6 +397,7 @@ export default {
   
 .brandLogo{
    background-color: #343a40 !important;
+   border-color: #343a40 !important;
   color:white !important;
   box-shadow: none !important;
 }

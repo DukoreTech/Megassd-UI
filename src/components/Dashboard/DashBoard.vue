@@ -7,7 +7,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Bienvenue {{username}}!</h3>
+                            <h3 class="page-title">Bienvenue à <span class="font-weight-bolder"> Mega Mugere SSD </span></h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item active">Tableau de Bord</li>
                             </ul>
