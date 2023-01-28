@@ -9,7 +9,7 @@
 							<router-link :to="{name:'Commande'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
                              aria-expanded="true" aria-controls="collapseStock">
                                <font-awesome-icon icon="fa-solid fa-angle-left me-2"/>
-                             Back
+                             Retour
                             </router-link>
 							<button class="btn btn-lg btn-dark mb-4" ><font-awesome-icon icon="fa-solid fa-print" @click="print"/></button>
 						</div>
@@ -61,7 +61,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="invoice-info">
-												<strong class="customer-text">Mode de paiment:</strong>
+												<strong class="customer-text">Mode de paiement:</strong>
 												<p class="invoice-details invoice-details-two">
 													{{ data.type_paiement }} <br>
 													<span>Payé : {{data.payed_amount}}FBU</span>
