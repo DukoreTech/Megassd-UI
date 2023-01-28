@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VueHtmlToPaper from "vue-html-to-paper";
+import VueHtmlToPaper from "./plugins/VueHtmlToPaper";
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
