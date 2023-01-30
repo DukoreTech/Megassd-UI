@@ -322,6 +322,7 @@ export default {
     
     methods:{
         getstock(){
+            
           api.get("stock")
             .then(resp => {
                 
@@ -349,6 +350,9 @@ export default {
             .then(resp => {
                 this.clients = resp.data
                 this.$store.state.typeClients=resp.data
+                
+                console.log(this.$store.state.typeClients)
+               
             })
             .catch(err => {
                 console.error(err)
@@ -356,7 +360,10 @@ export default {
 
         },
         getprice(){
+           
+            
             this.form.client_name=this.form.client.nom
+            
  
         api.get("getprice",{params:{
         address_id:this.form.client.address_id,
@@ -364,20 +371,37 @@ export default {
 
       }})
             .then(resp => {
+                
                 this.lots = resp.data
-                //console.log(this.lots)
+                let i=Object.keys(this.lots)
+                console.log(i.length)
+                
+                if(i.length==0)
+                {
+                   
+                   this.commandes.forEach((array1Obj) => {
+                      array1Obj.amount=0;
+                      console.log(array1Obj.amount)
+                    })
+                        
+
+                }
+                else{
                 this.lots.forEach((obj) => {
                 this.commandes.forEach((array1Obj) => {
+                    
                 if (obj.product_id == array1Obj.product_id) {
                   array1Obj.amount=obj.price_vente;
                     
-                }
+                      }
+                
                 
                });
                
-              });
-              console.log(this.commandes)
+               
+            });
              
+           }
               
              
             })
@@ -420,9 +444,15 @@ export default {
                 this.commandes.push({product_id: this.form.product.product_id, product_quantity: this.form.quantite, amount: this.form.montant , product_name:this.form.product.products.name,caisse_vide:this.form.vides});   
                 console.log(this.commandes)
                 this.getprice()
+                this.form.vides=""
+                this.form.product=""
+                this.form.quantite=""
+                
+
                  // this.form = {};
                // this.commandes.sort(ordonner);
                 }
+
                 }
             }
               

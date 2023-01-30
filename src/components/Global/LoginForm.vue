@@ -57,8 +57,7 @@ export default {
         return{
             form:{
                 email: "",
-                password: "",
-                
+                password: "", 
             },
 			loading: false,
             errors: [],
