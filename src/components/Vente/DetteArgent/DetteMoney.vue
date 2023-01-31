@@ -9,6 +9,8 @@
             </modal-component>
     </div>
      <div class="container-fluid">
+        <loading v-if="isLoading"></loading>
+            
         <div class="card  mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-mute">Liste des dettes</h6>
@@ -76,7 +78,8 @@ data() {
     return{
         modalActive: false,
         search:'',
-        DetteMoney : [ ]
+        DetteMoney : [ ],
+        isLoading:false
     }
 },
 mounted(){
@@ -102,9 +105,11 @@ watch: {
 
 methods:{
     fetchData() {
+        this.isLoading=true
         api.get("getDetteArgent",
       )
         .then(resp => {
+            this.isLoading=false
             this.DetteMoney = resp.data
         })
         .catch(err => {

@@ -17,6 +17,7 @@
         </div>
 
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
             <div class="card  mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des locations</h6>
@@ -68,7 +69,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            locations : []
+            locations : [],
+            isLoading:false
         }
     },
     mounted(){
@@ -81,8 +83,10 @@ export default {
     },
     methods:{
         fetchData() {
+            this.isLoading=true
             axios.get(this.$store.state.baseUrl + "/locations/")
             .then(resp => {
+                this.isLoading=false
                 this.locations = resp.data
             })
             .catch(err => {

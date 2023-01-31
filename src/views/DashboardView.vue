@@ -1,5 +1,7 @@
 <template>
+    
     <DashBoard/>
+    
 </template>
 <script>
 export default {

@@ -1,6 +1,8 @@
 <template>
     <div class="page-wrapper">
                 <div class="content container-fluid">
+                    <loading v-if="isLoading"></loading>
+
 
 					<!-- Page Header -->
 					<div class="page-header">
@@ -105,6 +107,7 @@ export default {
 			totalAmount :"",
 			fromDate: "",
             toDate: "", 
+            isLoading:false
         }
     },
 	
@@ -137,10 +140,12 @@ export default {
 		
       
         fetchData() {
+            this.isLoading=true
             axios.get(this.$store.state.baseurl + "getorderdetail",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
+                this.loading=false
                 this.detailsorder =resp.data
 				
                // this.$store.state.typeClients=resp.data

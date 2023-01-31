@@ -14,6 +14,7 @@
                 </modal-component>
         </div>
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
             <div class="card  mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des reception</h6>
@@ -83,7 +84,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            receptions : [ ]
+            receptions : [ ],
+            isLoading:false
         }
     },
     mounted(){
@@ -108,9 +110,11 @@ export default {
     
     methods:{
         fetchData() {
+            this.isLoading=true
             api.get("reception",
           )
             .then(resp => {
+                this.isLoading=false
                 this.receptions = resp.data
             })
             .catch(err => {

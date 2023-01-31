@@ -12,6 +12,7 @@
                     <add-form @close="modalActive = !modalActive,fetchData()"/>
                 </modal-component>
 <section class="">
+    <loading v-if="isLoading"></loading>
   <div class="container py-5 h-50">
     <div class="row  align-items-center h-50">
       <div class="col-md-4 col-xl-4 mb-5" v-for="client in clients" :key="client.id">
@@ -86,7 +87,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            clients : []
+            clients : [],
+            isLoading : false,
         }
     },
     mounted(){
@@ -113,10 +115,12 @@ export default {
        },
     methods:{
         fetchData() {
+            this.isLoading = true;
             api.get("client",this.form)
             .then(resp => {
                 this.clients = resp.data
-                //this.$store.state.clients=resp.data    
+                //this.$store.state.clients=resp.data 
+                this.isLoading = false;   
             })
             .catch(err => {
                 console.error(err)

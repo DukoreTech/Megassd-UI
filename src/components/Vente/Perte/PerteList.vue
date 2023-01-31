@@ -15,6 +15,7 @@
         </div>
 
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
             <div class="card">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des pertes</h6>
@@ -78,7 +79,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            pertes : []
+            pertes : [],
+            isLoading:false
         }
     },
     mounted(){
@@ -96,8 +98,10 @@ export default {
    
     methods:{
         fetchData() {
+            this.isLoading=true
                 api.get("pertes")
             .then(resp => {
+                isLoading=false
                 this.pertes = resp.data
             })
             .catch(err => {

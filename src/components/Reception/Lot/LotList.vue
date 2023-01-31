@@ -1,6 +1,7 @@
 <template>
     <div>
-            <div> 
+            <div>
+               
               <div class="d-md-flex m-3 justify-content-between" >
                     <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditLot=null">
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
@@ -16,6 +17,7 @@
                     </modal-component>
             </div>
              <div class="container-fluid">
+                <loading v-if="isLoading"></loading>
                 <div class="card  mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-mute">Liste des lots</h6>
@@ -79,7 +81,8 @@ import Swal from 'sweetalert2';
             return{
                 modalActive: false,
                 search:'',
-                lots : [ ]
+                lots : [ ],
+                isLoading:false,
             }
         },
         mounted(){
@@ -106,13 +109,17 @@ import Swal from 'sweetalert2';
        },
         methods:{
             fetchData() {
+                this.isLoading=true
                 api.get("lots")
                 .then(resp => {
+                    this.isLoading=false
                     this.lots = resp.data
                     this.$store.state.lots=resp.data
               
                 })
                 .catch(err => {
+
+
                     console.error(err)
                 })
             },

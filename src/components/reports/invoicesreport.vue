@@ -2,6 +2,7 @@
 
 <div class="page-wrapper">
                 <div class="content container-fluid">
+					<loading v-if="isLoading"></loading>
 				
 					<!-- Page Header -->
 					<div class="page-header">

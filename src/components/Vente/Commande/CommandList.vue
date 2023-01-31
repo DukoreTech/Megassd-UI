@@ -14,6 +14,8 @@
                 </modal-component>
         </div>
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
+            
             <div class="card  mb-2">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des ventes</h6>
@@ -88,6 +90,7 @@ export default {
         return{
             modalActive: false,
             search:'',
+            isLoading:false,
             orders :this.$store.state.vantes
         }
     },
@@ -117,8 +120,10 @@ export default {
             this.$router.push({name:'AddCommande'})
         },
         fetchData() {
+            this.isLoading=true
             api.get("ventes")
             .then(resp => {
+                this.isLoading=false
                 this.orders = resp.data
                 this.$store.state.vantes=resp.data
                 console.log(this.orders)

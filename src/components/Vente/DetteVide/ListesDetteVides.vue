@@ -10,6 +10,7 @@
                     </modal-component>
             </div>
              <div class="container-fluid">
+                <loading v-if="isLoading"></loading>
                 <div class="card  mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-mute">Liste des vides en dettes</h6>
@@ -77,6 +78,7 @@
                 modalActive: false,
                 search:'',
                 DetteVides : [],
+                isLoading:false
             }
         },
         mounted(){
@@ -109,9 +111,11 @@
         
         methods:{
             fetchData() {
+                this.isLoading=true
                 api.get("getDetteVides",
               )
                 .then(resp => {
+                    this.isLoading=false
                     this.DetteVides = resp.data
                     this.$store.state.DetteVides=resp.data
                 })

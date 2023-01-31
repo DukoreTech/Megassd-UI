@@ -15,6 +15,7 @@
         </div>
 
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
             <div class="card  mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des produits</h6>
@@ -76,7 +77,8 @@ export default {
             modalActive: false,
             search:'',
             products : [ ],
-            token:this.$store.state.token
+            token:this.$store.state.token,
+            isLoading:false
         }
     },
     mounted(){
@@ -99,8 +101,10 @@ export default {
        },
     methods:{
         fetchData() {
+           this.isLoading=true
             api.get("products")
             .then(resp => {
+                this.isLoading=false
                 this.products = resp.data
           
             })

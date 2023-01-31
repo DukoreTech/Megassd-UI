@@ -13,6 +13,7 @@
         </div>
 
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
             <div class="card  mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Liste des type des clients</h6>
@@ -70,7 +71,8 @@ export default {
         return{
             modalActive: false,
             search:'',
-            typeClients :[]
+            typeClients :[],
+            isLoading:false,
         }
     },
     created(){
@@ -92,10 +94,12 @@ export default {
     },
     methods:{
         fetchData() {
+            this.isLoading=true
             
             api.get("typeclient",
             )
             .then(resp => {
+                this.isLoading=false
                 this.typeClients = resp.data
                 this.$store.state.typeClients=resp.data
                

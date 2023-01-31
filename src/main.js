@@ -27,6 +27,7 @@ import "@/assets/css/megaSSD.css"
 import "@/assets/css/MegaScrollbars.css"
 import "@/assets/js/megaSSD.js"
 import $ from 'jquery'
+import Loading from "@/components/Global/Loading.vue"
 
 
 
@@ -54,6 +55,7 @@ createApp(App)
     .use(router)
     .use(VueHtmlToPaper, options)
     .component('font-awesome-icon', FontAwesomeIcon)
+    .component('loading', Loading)
     .use(VueSweetalert2)
     .component('Select2', Select2)
     .mount('#app')

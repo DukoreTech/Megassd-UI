@@ -1,6 +1,7 @@
 <template>
     <div class="page-wrapper">
                 <div class="content container-fluid">
+                    <loading v-if="isLoading"></loading>
 
 					<!-- Page Header -->
 					<div class="page-header">
@@ -86,6 +87,7 @@ export default {
     {
         return{
             detailsstock:[],
+            isLoading:false,
         }
     },
     mounted(){
@@ -109,10 +111,12 @@ export default {
     methods:{
         
         fetchData() {
+            this.isLoading=true
             axios.get(this.$store.state.baseurl + "getstockdetails",
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
+                this.isLoading=false
                 this.detailsstock = resp.data
                 console.log(this.detailsstock)
                 

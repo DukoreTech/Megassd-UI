@@ -2,6 +2,7 @@
  <div class="page-wrapper">
 			
             <div class="content container-fluid ">
+                <loading v-if="isLoading"></loading>
                 
                 <!-- Page Header -->
                 <div class="page-header">
@@ -232,6 +233,7 @@ export default {
             Nbachat:'',
             Nbvente:'',
             username:'',
+            isLoading:false,
             sales:[],
             purchase:[],
             date:new Date().toISOString().slice(0,10)
@@ -248,9 +250,11 @@ export default {
     },
     methods:{
         fetchData() {
+            this.isLoading=true
             console.log(this.$store.state.token)
             api.get("dashboard")
             .then(resp => {
+                this.isLoading=false
                 this.dashboard = resp.data
                 console.log(this.dashboard)
                 this.totalA=this.dashboard.montant_total

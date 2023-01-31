@@ -17,6 +17,7 @@
         </div>
 
          <div class="container-fluid">
+            <loading v-if="isLoading"></loading>
             <div class="page-header mb-5 pt-4">
 						<div class="row">
 							<div class="col">
@@ -89,6 +90,7 @@ export default {
             search:'',
             stocks : [ ],
             products:[],
+            isLoading:false
         }
     },
     mounted(){
@@ -122,8 +124,10 @@ export default {
     methods:{
         
         fetchData() {
+            this.isLoading=true
             api.get("stock")
             .then(resp => {
+                this.isLoading=false
                 this.stocks = resp.data
            
             })
