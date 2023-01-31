@@ -27,10 +27,10 @@
         
             <div class="d-flex justify-content-around  mt-5 mb-2">
               <div>
-                <p class="text-muted mb-0">Client ID:</p>
-                <p class="text-muted mb-0">client Type:</p>
-                <p class="text-muted mb-0">client Address:</p>
-                <p class="text-muted mb-0">Phone Number:</p>
+                <p class="text-muted mb-0">ID Client:</p>
+                <p class="text-muted mb-0">Type Client :</p>
+                <p class="text-muted mb-0">Addresse Client :</p>
+                <p class="text-muted mb-0">Télephone:</p>
               </div>
               <div>
                 <p class="text-muted mb-0">#{{ client.id }}</p>

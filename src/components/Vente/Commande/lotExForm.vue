@@ -30,20 +30,20 @@
                                     <div class="form-group">
                                         <span>Produit</span>
                                         <select  v-model="form.product" name="produit_id" class="form-select">
-                                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit">{{ produit.products.name }}</option>                                
+                                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit" required="required">{{ produit.products.name }}</option>                                
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pb-3">
                                     <div class="form-group">
                                         <span class="control-label">Quantité</span>
-                                        <input type="number" class="form-control" max="produit.plein" min="1" v-model="form.quantite">
+                                        <input type="number" class="form-control" required="required" max="produit.plein" min="1" v-model="form.quantite">
                                     </div>
                                 </div>
                                 <div class="col-md-6 pb-3">
                                     <div class="form-group">
                                         <span class="control-label">Vides Amenés</span>
-                                        <input type="text" v-model="form.vides" class="form-control">
+                                        <input type="text" v-model="form.vides" required="required" class="form-control">
                                     </div>
                                 </div>
 
@@ -86,7 +86,7 @@
                                     <div class="col-md-6  pb-3">
                                         <div class="form-group">
                                             <span>Type of paiement</span>
-                                            <select v-model="form.TypePaiment" aria-placeholder="typepaiment"  class="form-select">
+                                            <select required="required" v-model="form.TypePaiment" aria-placeholder="typepaiment"  class="form-select">
                                                 <option>cash</option>  
                                                 <option>Bordereau</option>                                 
                                             </select>                            
@@ -96,7 +96,7 @@
                                      <div class="col-md-6  pb-3">
                                       <div class="form-group">
                                        <span>Client</span>
-                                        <select v-model="form.client"  name="produit_id" class="form-select">
+                                        <select required="required" v-model="form.client"  name="produit_id" class="form-select">
                                           <option v-for="client in clients" :key="client" :value="client" >{{ client.nom }}</option>                                
                                         </select>
                                         </div>
@@ -114,12 +114,12 @@
                                     <div class="col-md-6  pb-3">
                                         <div class="form-group">
                                             <span class="mb-3">Montant payés</span>
-                                            <input type="number" class="form-control" v-model="form.montant_paye">                                          </div>
+                                            <input type="number" required="required" class="form-control" v-model="form.montant_paye">                                          </div>
                                     </div>
                                     <div class="col-md-6  pb-3">
                                         <div class="form-group">
                                             <span class="mb-3">Date de paiement</span>
-                                            <input v-model="form.datepayed" type="date" class="form-control">
+                                            <input v-model="form.datepayed" required="required" type="date" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +192,12 @@
                 <tr v-for="(commande, index) in commandes" :key="commande.index">
                     <td>{{ commande.product_name }}</td>
                     <td>{{ commande.product_quantity }}</td>
-                    <td>{{ commande.amount }}</td>
+                    <td>
+                        <div v-if="load" class="d-flex justify-content-center mx-2">
+                         <div class="spinner-border" role="status">
+                         </div>
+                   </div>
+                        <span v-if="!load">{{ commande.amount }}</span></td>
                     <td>{{ commande.caisse_vide }}</td>
                     <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }}F</td>
                     <td class="d-flex">
@@ -221,7 +226,8 @@
 						       <span class="">Loading...</span>
                          <div class="spinner-border" role="status">
                          </div>
-                   </div><span v-if="!loading">Valider</span></button>
+                   </div>
+                   <span v-if="!loading">Valider</span></button>
                 
                 </tfoot>
             </table>
@@ -243,7 +249,10 @@
                 <tr v-for="(commande, index) in poubelle" :key="index">
                     <td>{{ commande.product_id }}</td>
                     <td>{{ commande.product_quantity }}</td>
-                    <td>{{ commande.amount}} F</td>
+                    <td>
+                       
+                        {{ commande.amount}} F
+                    </td>
                     <td>{{ (commande.product_quantity * commande.amount).toFixed(2) }} F</td>
                     <td><a class="btn btn-success btn-block" @click="retablir(index)"><font-awesome-icon icon="fa-solid fa-check" class="text-white"/></a></td>
                     <td><a class="btn btn-danger btn-block" @click="eliminer(index)"><font-awesome-icon icon="fa-solid fa-trash" class="text-white"/></a></td>
@@ -269,8 +278,10 @@ export default {
             clients:{},
             errors:{},
             loading:false,
+            load:false,
             
             lots:{},
+            
             form: {
                 TypePaiment:'',                                  
                 product : '',                    
@@ -290,6 +301,7 @@ export default {
         },
         watch: {
         "form.client"(val) {
+            this.load=true
             console.log(val)
             this.form.client=val
               this.getprice();
@@ -360,6 +372,7 @@ export default {
 
         },
         getprice(){
+            this.load=true
            
             
             this.form.client_name=this.form.client.nom
@@ -371,12 +384,12 @@ export default {
 
       }})
             .then(resp => {
-                
+                this.load=false
                 this.lots = resp.data
                 let i=Object.keys(this.lots)
                 console.log(i.length)
                 
-                if(i.length==0)
+                if(i.length===0)
                 {
                    
                    this.commandes.forEach((array1Obj) => {
@@ -387,6 +400,7 @@ export default {
 
                 }
                 else{
+                  
                 this.lots.forEach((obj) => {
                 this.commandes.forEach((array1Obj) => {
                     
@@ -406,6 +420,7 @@ export default {
              
             })
             .catch(err => {
+                this.load=false
                 console.error(err)
             })
 
@@ -472,9 +487,10 @@ export default {
             },
 
             modifier(index) {
-                this.form.produit_id = this.commandes[index].product_id;
+                this.form.product = this.commandes[index].product_name;
                 this.form.quantite = this.commandes[index].product_quantity;
                 this.form.montant = this.commandes[index].montant;
+                this.form.vides=this.commandes[index].caisse_vide
                 this.commandes.splice(index, 1);
             },
 

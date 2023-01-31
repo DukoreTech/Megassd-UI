@@ -29,7 +29,7 @@
 
                     <router-link :to="{name:'Profile'}" class="dropdown-item">
                         <font-awesome-icon icon="fa-solid fa-user"/>
-                        Mot de passe
+                        Mot de Passe
                         </router-link> 
                 </li>
 

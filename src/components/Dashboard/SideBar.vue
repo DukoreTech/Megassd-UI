@@ -135,7 +135,7 @@
                      <div class="d-flex justify-content-between">
                          <span>
                             <font-awesome-icon icon="fa-solid fa-cart-plus" class="icon" />
-                            <span class=" ml-2 label "> Reception </span>
+                            <span class=" ml-2 label "> Réception </span>
                          </span>
                         <font-awesome-icon v-if="!isShowarrowReception" icon="fa-solid fa-angle-right" class=" iconAngle mt-1" />
                         <font-awesome-icon v-else icon="fa-solid fa-angle-down" class=" iconAngle mt-1" />
@@ -153,7 +153,7 @@
                            <router-link :to="{name:'Reception'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                              aria-expanded="true" aria-controls="collapseReception">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
-                             Reception
+                             Réception
                             </router-link>  
                           
                         </div>

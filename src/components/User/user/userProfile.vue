@@ -5,7 +5,7 @@
     <!-- retrieve data -->
        
       <div class="col-12 d-flex justify-content-center mt-3">
-        <div class="col-6 card">
+        <div class="col-md-6 col-sm-12 card">
         <img class="img-profile rounded-circle w-25 h-25 bg-light d-flex justify-content-center mt-2" width="250" height="230"  src="@/assets/user.png"/>
 
         <form action="" @submit.prevent="saveInformation" class="col-12">

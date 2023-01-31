@@ -8,7 +8,7 @@
 									<li class="breadcrumb-item"><a href="" @click="$router.push('/')">Tableau de bord</a></li>
                   
                   <li class="breadcrumb-item"> <router-link :to="{name:'Client'}" class=""
-                aria-expanded="true" aria-controls="collapseStock">
+                   aria-expanded="true" aria-controls="collapseStock">
                   
                  Clients
                  </router-link>

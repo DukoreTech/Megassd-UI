@@ -66,7 +66,7 @@
 													{{ data.type_paiement }} <br>
 													<span>Payé : {{data.payed_amount}}FBU</span><br>
 													<span v-if="data.type_paiement=='Bordereau'">Numéro bordereau:{{data.num_bordereau}}</span> <br>
-													Ecobank Bank<br>
+													BANCOBU<br>
 												</p>
 												
 											</div>
