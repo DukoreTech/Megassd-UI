@@ -130,12 +130,22 @@ else{
           
             //alert(err.message)
             console.log(err)
-           
-            Swal.fire({
+			if (err.message == "Network Error"){
+                    //this.errorMessage = "Vous n'êtes pas connecté au serveur"
+					Swal.fire({
+               icon: 'error',
+               title: 'error',
+               text:  ' problème de connexion '
+              });
+                }else{
+                Swal.fire({
                icon: 'error',
                title: 'error',
                text:  ' email ou motdepasse invalide '
               });
+                }
+           
+            
 			  this.loading = false;
               
           });
