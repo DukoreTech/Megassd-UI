@@ -145,7 +145,7 @@ export default {
           this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
         axios.defaults.headers.common['Accept'] = `Application/json`)
             .then(resp => {
-                this.loading=false
+                this.isLoading=false
                 this.detailsorder =resp.data
 				
                // this.$store.state.typeClients=resp.data

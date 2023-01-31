@@ -101,7 +101,7 @@ export default {
             this.isLoading=true
                 api.get("pertes")
             .then(resp => {
-                isLoading=false
+                this.isLoading=false
                 this.pertes = resp.data
             })
             .catch(err => {
