@@ -32,7 +32,7 @@
                                 <th scope="col">TVA %</th>
                                 <th scope="col">Date d'achat</th>
                                 <th scope="col">Montant</th>
-                                <th scope="col">Montant Total</th>
+                                
                                
                                 <th scope="col">Actions</th>
                              </tr>
@@ -47,7 +47,7 @@
                                 <td>{{ reception.tva }} </td>            
                                 <td>{{ (reception.date_achat).substr(0, 10) }} </td>            
                                 <td>{{ reception.montant }} </td>            
-                                <td>{{ reception.montant_total }} </td>            
+
                                             
                                 <td>
                                    <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
