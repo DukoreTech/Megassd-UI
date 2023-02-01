@@ -30,20 +30,20 @@
                                     <div class="form-group">
                                         <span>Produit</span>
                                         <select  v-model="form.product" name="produit_id" class="form-select">
-                                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit" required="required">{{ produit.products.name }}</option>                                
+                                            <option v-for="produit in produits" :key="produit.id" v-bind:value="produit" >{{ produit.products.name }}</option>                                
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pb-3">
                                     <div class="form-group">
                                         <span class="control-label">Quantité</span>
-                                        <input type="number" class="form-control" required="required" max="produit.plein" min="1" v-model="form.quantite">
+                                        <input type="number" class="form-control"  max="produit.plein" min="1" v-model="form.quantite">
                                     </div>
                                 </div>
                                 <div class="col-md-6 pb-3">
                                     <div class="form-group">
                                         <span class="control-label">Vides Amenés</span>
-                                        <input type="text" v-model="form.vides" required="required" class="form-control">
+                                        <input type="text" v-model="form.vides"  class="form-control">
                                     </div>
                                 </div>
 
@@ -106,7 +106,7 @@
                                      <div class="form-group">
                                         <div>
                                             <span>Numéro bordereau</span >
-                                                <input  type="text" v-model="form.nbbordereau" class="form-control" id="custom_rating_input" name="custom_rating_count"  placeholder="20">
+                                                <input type="text" v-model="form.nbbordereau" class="form-control" id="custom_rating_input" name="custom_rating_count"  placeholder="20">
                                         </div>  
                                      </div>           
                                     </div>                               
@@ -434,9 +434,21 @@ export default {
             
         ajouter() {
             console.log(this.produits)
-            
+            if (this.form.product=="" || this.form.vides=="" || this.form.quantite=="")
+            {
+                Swal.fire({
+                  icon: 'error',
+                  title: ' oups ',
+                  text: 'veuillez entrer tous les données' 
+                });
+
+            } 
+        
+        else{
+
+        
             let result= this.produits.find((item) => item.id === this.form.product.product_id)
-        if(this.form.quantite < result.plein ){
+           if(this.form.quantite < result.plein ){
         
             let exist=this.commandes.find((item)=>item.product_id===this.form.product.product_id)
             if(exist)
@@ -482,7 +494,7 @@ export default {
            
                
 
-                 
+        }   
             
             },
 

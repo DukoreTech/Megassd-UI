@@ -46,7 +46,7 @@
                                 <td>{{ reception.quantity }} </td>            
                                 <td>{{ reception.tva }} </td>            
                                 <td>{{ (reception.date_achat).substr(0, 10) }} </td>            
-                                <td>{{ reception.montant }} </td>            
+                                <td>{{ parseFloat(reception.montant).toFixed(2) }} </td>            
 
                                             
                                 <td>
