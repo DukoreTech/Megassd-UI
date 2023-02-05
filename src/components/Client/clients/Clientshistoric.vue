@@ -48,31 +48,46 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive ">
-                        <table v-if="orders!==[0]" class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+                        <table v-for="order in orders" :key="order.id"   class="table table-bordered mb-5  table-hover text-center"   width="100%" cellspacing="0">
+                          
                             <thead>
                               <tr>                    
 
-                                <th scope="col">commande</th>
-                                <th scope="col">produits</th>
+                                <th rowspan="2">commande</th>
+                                <th colspan="3">produits</th>
                                 <th scope="col">Montant total</th>
                                 <th scope="col">Montant payé</th>
                                 <th scope="col">Date:</th>
                                 <th scope="col">Status</th>
                              </tr>
+                              <tr>
+                                <td>Nom</td>
+                                <td>Quantité</td>
+                                <td>Montant</td>
+                              </tr>
+                             
                             </thead>
                       
                             <tbody>
                               <div v-if="orders.length==0">
                                 <p class="text-center vh-30">No order yet</p>
                               </div>                   
-                               <tr v-for="order in orders" :key="order.id">
-                                <th scope="row">{{ order.id }}</th>
-                                  <td>
-                                      <div v-for="val in JSON.parse(order.products)" :key="val">
-                                          {{ val.product_name }},
-                                      </div>
-                                      
-                                </td>
+                              <tr>
+                                <th scope="row">#{{ order.id }}</th>  
+                                <td> <h6 style="border-bottom:1px solid ;" v-for="val in JSON.parse(order.products)" :key="val">
+                                        {{ val.product_name }}
+                                </h6></td>
+                                <td> <h6 style="border-bottom:1px solid ;" v-for="val in JSON.parse(order.products)" :key="val">
+                                        {{ val.product_quantity }}
+                                </h6></td>
+                                <td><h6 style="border-bottom:1px solid ;" v-for="val in JSON.parse(order.products)" :key="val">
+                                        {{ val.amount }}
+                                </h6></td>  
+                                   
+                               
+                                  
+                                   
+                     
                                 <td>{{ order.total_amount}} </td>
                                 <td>{{ order.payed_amount}} </td>
                                 <td>{{ order.date_facturation}} </td>                                                                                                                                                                                                       
@@ -200,6 +215,12 @@
 
 <script>
 import  api from '../../../../api';
+import Swal from 'sweetalert2';
+import "jquery/dist/jquery.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from "jquery";
 export default {
     props:['id','client'],
     data(){
@@ -226,6 +247,15 @@ export default {
     this.getargent()
 
 },
+watch: {
+  orders(val) {
+              console.log(val)
+              $('#datatable').DataTable().destroy();
+              this.$nextTick(()=> {
+                $('#datatable').DataTable()
+              });
+            }
+       },
 methods:{
   getcommands()
   {

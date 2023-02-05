@@ -31,9 +31,7 @@
                                 <th scope="col">Quantité</th>
                                 <th scope="col">TVA %</th>
                                 <th scope="col">Date d'achat</th>
-                                <th scope="col">Montant</th>
-                                
-                               
+                                <th scope="col">Montant</th>   
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>                     
