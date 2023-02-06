@@ -42,17 +42,19 @@
         </div>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active mt-5" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              <div class="card  mb-4">
+              <div class="card  mb-4 d-flex justify-content-flex-end">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-mute">Commandes</h6>
                 </div>
+
                 <div class="card-body">
+                  <div class="col-lg-4 col-sm-6 col-xs-12 mb-4">
+                        <input type="text" class="form-control"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
+                  </div>
                     <div class="table-responsive ">
-                        <table v-for="order in orders" :key="order.id"   class="table table-bordered mb-5  table-hover text-center"   width="100%" cellspacing="0">
-                          
+                        <table v-for="order,i  in filteredItems" :key="i"   class="table table-bordered mb-5  table-hover text-center"   width="100%" cellspacing="0">
                             <thead>
                               <tr>                    
-
                                 <th rowspan="2">commande</th>
                                 <th colspan="3">produits</th>
                                 <th scope="col">Montant total</th>
@@ -231,7 +233,8 @@ export default {
             typeclient:'',
             orders:[],
             DetteVides:[],
-            DetteMoney:[]
+            DetteMoney:[],
+            search:""
         }
        
     },
@@ -247,6 +250,13 @@ export default {
     this.getargent()
 
 },
+computed: {
+    
+    filteredItems () {
+      return this.searchInArray(this.orders, this.search)
+      
+    }
+  },
 watch: {
   orders(val) {
               console.log(val)
@@ -257,6 +267,17 @@ watch: {
             }
        },
 methods:{
+  searchInArray(arrayList, searchText) {
+            //Methode pour faire une rechercher dans le tableau
+            if(Array.isArray(arrayList) ){
+                return arrayList.filter(
+                e => JSON.stringify(e)
+                         .toLowerCase()
+                         .includes(searchText.toLowerCase())
+            )
+            }
+            return arrayList
+        },
   getcommands()
   {
     api.get("getcommands",{params:{
