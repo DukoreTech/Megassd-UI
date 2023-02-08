@@ -19,6 +19,8 @@ export default createStore({
     IdEditVide:null,
     user:"",
     IdEditUser:null,
+    IdEditvide:null,
+    vides:[],
     roles:[],
     IdEditRole:null,
     adresses:[],

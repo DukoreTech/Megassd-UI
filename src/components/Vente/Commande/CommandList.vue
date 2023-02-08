@@ -23,34 +23,37 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
-                            <thead>                              
-                              <tr>                    
-                                <th scope="col">Id</th>
-                                <th scope="col-lg-4">Produit</th>
-                                <th scope="col">Montant Total</th>
-                                <th scope="col">Montant Payé</th>
+                            <thead> 
+                               
+                                
+                                <th scope="col">N0</th>
                                 <th scope="col">client</th>
+                                <th  v-for="product in products" :key="product.id">{{ product.name }}</th>
+                                <!---<th scope="col">Montant Total</th>
+                                <th scope="col">Montant Payé</th>
                                 <th scope="col">Date effectué</th>
-                                <th scope="col">Date confirmer</th>
                                 <th scope="col">status</th>
                                 <th scope="col">Fait par:</th>
-                                <th scope="col">Actions</th>
-                             </tr>
+                                <th scope="col">Actions</th>-->
+                             
+                               
+                             
+                             
                             </thead>                     
                             <tbody>
+
                                <tr v-for="order in ventes" :key="order.id">
                                 <th scope="row">{{ order.id }}</th>
-                                <td>
-                                    <div v-for="val in JSON.parse(order.products)" :key="val">
-                                        {{ val.product_name }},
-                                    </div>
-                                    
+                                <td>{{ order.clients.nom}} </td>
+                                 <td v-for="product in JSON.parse(order.products)" :key="product.product_id"><div>{{product.product_quantity }}</div>
                                 </td>
+                                <!--
+                               
                                 <td>{{ order.total_amount}} </td>
                                 <td>{{ order.payed_amount}} </td>
-                                <td>{{ order.clients.nom}} </td>
+                                
                                 <td>{{ order.date_facturation}} </td>
-                                <td>{{ (order.updated_at.substr(0, 10))}}</td>
+                              
                                 <td><span v-if="order.status==1" style="color:black;"><font-awesome-icon icon="fa-solid fa-check" /></span><span class="bg-secondary text-white mt-5" style=" width:120px;" 
                                      v-if="order.status==0">En cours</span></td>            
                                 <td>{{ order.users.name}}</td>                       
@@ -61,7 +64,7 @@
                                     <button v-if="order.status==0" class="btn btn-sm btn-primary" @click="confirmpayment(order)">
                                         <font-awesome-icon icon="fa-solid fa-check" />
                                     </button>
-                                </td>
+                                </td>-->
                               </tr>
                             </tbody>
                          </table>
@@ -91,11 +94,15 @@ export default {
             modalActive: false,
             search:'',
             isLoading:false,
-            orders :this.$store.state.vantes
+            orders :this.$store.state.vantes,
+            products:[],
+            prod:[],
+            produits:[],
         }
     },
     mounted(){
         this.fetchData()
+        this.getproducts()
     },
     computed:{
         searchEvery(){
@@ -106,8 +113,9 @@ export default {
          }
     },
     watch: {
+        
         orders(val) {
-              console.log(val)
+            //  console.log(val)
               $('#datatable').DataTable().destroy();
               this.$nextTick(()=> {
                 $('#datatable').DataTable()
@@ -116,6 +124,28 @@ export default {
        },
     
     methods:{
+        getproducts() {
+            api.get("products")
+            .then(resp => {
+                this.products = resp.data
+
+                
+                this.products.forEach((element) => {
+                    this.produits.push({id:element.id,name:element.name,quantite:0,})
+                  
+                    
+                
+                
+                
+                
+               });
+            
+                
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
         ajout(){
             this.$router.push({name:'AddCommande'})
         },
@@ -126,7 +156,35 @@ export default {
                 this.isLoading=false
                 this.orders = resp.data
                 this.$store.state.vantes=resp.data
-                console.log(this.orders)
+                this.orders.forEach(element1 => {
+                console.log(JSON.parse(element1.products))
+                    JSON.parse(element1.products).forEach(element => {
+                    console.log(element.product_id)
+                   this.prod.push({id:element.product_id, quantite:element.product_quantity})
+  
+               });
+               this.prod.forEach(obj => {
+                        this.produits.forEach(element2 => {
+                            if (obj.id == element2.id) {
+                                element2.quantite=obj.quantite;
+                                element2.quantite=obj.quantite;
+                 //this.produits.push({id:element.id,name:element.name,quantite:obj.quantite})
+                    
+                }
+                else{
+                    element1.quantite='-';
+
+                }
+
+                            
+                        });
+               
+
+                });
+                    
+                });
+                
+            console.log(this.produits)
               
             })
             .catch(err => {

@@ -230,7 +230,7 @@ export default {
       let result= this.stocks.find((item) => item.id === this.form.product_id)
       //this.form.product_id=this.form.stock.product_id
       
-      if(this.form.quantity > result.vide)
+      /*if(this.form.quantity > result.vide)
       {
         this.loading=false
         Swal.fire({
@@ -238,8 +238,8 @@ export default {
                title: 'oups',
                text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result.vide,  
               });
-      }
-      else{
+      }*/
+     // else{
         this.loading=true
 
        if(this.$store.state.IdEditReception==null){
@@ -308,7 +308,7 @@ export default {
 },
 
   }
-}
+//}
     
 
 

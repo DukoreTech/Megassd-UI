@@ -122,6 +122,11 @@
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                              Stock
                             </router-link>  
+                            <router-link :to="{name:'Stockvide'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseStock"
+                             aria-expanded="true" aria-controls="collapseStock">
+                              <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                             Stock vides 
+                            </router-link>  
                           
                         </div>
                     </div> 
