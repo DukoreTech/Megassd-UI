@@ -95,7 +95,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import Swal from 'sweetalert2';
 import api from '../../../../api'
 export default {
@@ -120,13 +119,15 @@ export default {
       //products:[],
       stocks:[],
       saveEditBtn:"Ajouter",
-      loading:false
+      loading:false,
+      vides:[]
     };
   },
 
     mounted(){
       this.getuser()
       this.getStocks()
+      this.getvides()
   },
   watch:{
   "$store.state.IdEditReception"(a){
@@ -217,33 +218,57 @@ export default {
         })
 
     },
+    getvides() {
+      api.get("vides"
+          )
+        .then(resp => {
+          this.vides = resp.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+    },
 
     close(){
       this.$emit('close')
     }, 
     saveInformation() {
-      console.log(this.$refs.product)
+     // console.log(this.$refs.product)
      
       if (this.form["product_id","lot_id","stock_id","quantity"]=="") return; 
       this.loading=true
+      let result=[]
+      this.vides.forEach(item => {
+      JSON.parse(item.products).forEach(element => {
+        console.log(element)
+          if(element==this.form.product_id)
+          {
+            result=item
+
+          }
+        
+          
+        });
+        
+      });
+      console.log(this.result)
+    //  let result= this.vides.find((item) => item.products.find() === this.form.product_id)
+    //  this.form.product_id=this.form.stock.product_id
       
-      let result= this.stocks.find((item) => item.id === this.form.product_id)
-      //this.form.product_id=this.form.stock.product_id
-      
-      /*if(this.form.quantity > result.vide)
+      if(this.form.quantity > result.quantite)
       {
         this.loading=false
         Swal.fire({
                icon: 'error',
                title: 'oups',
-               text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result.vide,  
+               text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result.quantite,  
               });
-      }*/
-     // else{
+      }
+     else{
         this.loading=true
 
        if(this.$store.state.IdEditReception==null){
-       console.log(this.result)
         //this.form.product_id=this.form.stock.product_id
            this.form.stock_id=result.id,
              console.log(this.form.stock_id)
@@ -308,7 +333,7 @@ export default {
 },
 
   }
-//}
+}
     
 
 

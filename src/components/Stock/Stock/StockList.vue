@@ -42,7 +42,6 @@
                                 <th scope="col">Nb des pleins</th>
                                 <th scope="col">Date de création</th>
                                
-                                <th scope="col">Actions</th>
                              </tr>
                             </thead>
                       
@@ -53,13 +52,7 @@
                                 <td>{{ stock.vide }} </td>
                                 <td>{{ stock.plein }} </td>
                                 <td>{{(stock.date.substr(0, 10))}}</td>
-                                <td>
-                                    <!--<button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
-                                    </button>-->
-                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editStock(stock,stock.id)" >
-                                     vides <font-awesome-icon icon="fa-solid fa-plus" />
-                                    </button>
-                                </td>
+                                
                               </tr>
                             </tbody>
                          </table>

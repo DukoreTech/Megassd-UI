@@ -57,9 +57,9 @@
                                 <td>
                                     <button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>delete
                                     </button>
-                                    <!--<button class="btn btn-sm btn-primary" @click="modalActive = true,editStock(stock,stock.id)" >
-                                     vides <font-awesome-icon icon="fa-solid fa-plus" />
-                                    </button>-->
+                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editStock(stock,stock.id)" >
+                                     Nouveau <font-awesome-icon icon="fa-solid fa-plus" />
+                                    </button>
                                </td>
                               </tr>
                             </tbody>

@@ -36,6 +36,13 @@
              </label>
              <div>{{ errors?.nombre_bouteille }}</div>
           </div>   
+          <div>
+            <label for="nombre_bouteille">
+                <input type="number" required="required" id="nombre_bouteille" placeholder="Quantité initial" v-model="form.qte">
+                <span>Quantité initial</span>
+             </label>
+             <div>{{ errors?.nombre_bouteille }}</div>
+          </div> 
           <div class="d-flex justify-content-around">
             <button type="submit" :disabled="loading" class="btn btn-sm btn-danger" >
               <div v-if="loading" class="d-flex justify-content-center mx-2">
@@ -67,6 +74,7 @@ export default{
             caisse:1,
             nombre_bouteille:"",
             user_id:"",
+            qte:"",
           },
           errors: {},
           //user:"",
