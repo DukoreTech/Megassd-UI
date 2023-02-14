@@ -269,8 +269,8 @@ export default {
         this.loading=true
 
        if(this.$store.state.IdEditReception==null){
-        //this.form.product_id=this.form.stock.product_id
-           this.form.stock_id=result.id,
+         
+           this.form.stock_id=this.form.product_id,
              console.log(this.form.stock_id)
         api.post(
           "reception",

@@ -17,12 +17,17 @@
 						</div>
                        <div class="row">
                             <div class="col-lg-6 d-flex px-3">
+
+                                
                              
                                 <label>De:</label><br>
-                                <input type="date" class="form-control col-4"  v-model="date1" placeholder="Search" />
+                                <input type="date" class="form-control col-4"  v-model="fromDate" placeholder="Search" />
                                
                                 <label>A:</label><br>
-                                <input type="date" class="form-control col-4"  v-model="date2" placeholder="Search" />
+                                <input type="date" class="form-control col-4"  v-model="toDate" placeholder="Search" />
+
+                                <input type="button" class="btn btn-danger" @click="getventes()" />
+                                
 
                             </div>
                             <div class="col-lg-4">
@@ -92,10 +97,20 @@
                                                    </tr>
                                             
                                                 <tr rowspan="2">
-                                                <th>Total #{{orders.length}}</th>
+                                                <th >Total #{{orders.length}}</th>
                                                 <th></th>
-                                                 <th v-for="pro in products" :key="pro.id">
-                                                    {{  totalAmount  }}
+                                                <th v-for="pro in products" :key="pro.id">
+
+                                                    <div v-for="total in finaltotal" :key="total.id">
+                                                        <div v-if="pro.id == total.id">
+
+                                                                 {{ total.quantite }}
+                                                        </div>
+
+                                                    </div>
+                                                    
+                                                    
+                                                    
                                                 </th>
 												 
 												 <th></th>
@@ -143,9 +158,10 @@ export default {
 			
             i:0,
             detailsorder:[],
-			totalAmount :"",
-			fromDate: "",
-            toDate: "", 
+			totalAmount :[],
+            finaltotal:[],
+			fromDate: new Date().toISOString().slice(0,10),
+            toDate: new Date().toISOString().slice(0,10), 
             isLoading:false,
             products:[],
             prod:[],
@@ -155,9 +171,10 @@ export default {
     },
 	
     mounted(){
-        this.fetchData()
+       // this.fetchData()
         this.getproducts()
         this.getventes()
+        //console.log(this.totalAmount)
     },
 	watch: {
             detailsorder(val) {
@@ -173,22 +190,25 @@ export default {
                     }
                 )
               });
+            
+             
                                         
-			  console.log(this.totalAmount)
+			 
             },
+            
             orders(val)
             {
-                
-			  const _ = require("lodash"); 
-              this.orders.forEach(element => {
-                JSON.parse(element.products).forEach(element1 => {
-			  this.totalAmount = _.sumBy(element1, "product_quantity")
-                });
-                   
-              });
+              console.log(this.finaltotal)
             }
        },
-    methods:{
+     methods:{
+         calculateSum(array, property) {
+  const total = array.reduce((accumulator, object) => {
+    return accumulator + object[property];
+  }, 0);
+
+  return total;
+},
 		getproducts() {
             api.get("products")
             .then(resp => {
@@ -205,9 +225,8 @@ export default {
       
         fetchData() {
             this.isLoading=true
-            axios.get(this.$store.state.baseurl + "getorderdetail",
-          this.form,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
-        axios.defaults.headers.common['Accept'] = `Application/json`)
+            api.get("getorderdetail",{params:{from:this.fromDate,to:this.toDate}})
+         
             .then(resp => {
                 this.isLoading=false
                 this.detailsorder =resp.data
@@ -219,22 +238,55 @@ export default {
             })
         },
         getventes() {
-                api.get("ventes")
+            api.get("getorderdetail",{params:{from:this.fromDate,to:this.toDate}})
                 .then(resp => {
                     this.orders = resp.data
-                    this.$store.state.vantes=resp.data
-                    console.log(this.orders)
+                 //   this.$store.state.vantes=resp.data
+
+                 this.prod=[];
+                 this.totalAmount=[]
+                 //   console.log(this.orders)
                     this.orders.forEach(element => {
                       JSON.parse(element.products).forEach(element1 => {
-
                         this.prod.push({order_id:element.id,product_id:element1.product_id,quantite:element1.product_quantity,client:element.clients.nom})
                             
                         });
+
                         console.log(this.prod)
+
+                        
+
+                        this.products.forEach(element2 => {
+                         JSON.parse(element.products).forEach(element1 => {
+                             if(element2.id==element1.product_id)
+                             {
+                                 this.totalAmount.push({quantite:(element1.product_quantity*1),id:element2.id})
+
+                             }
+                             
+                    });
+                    console.log(this.totalAmount)
+                    
+
+                    var result = this.totalAmount.reduce(function(acc, val){
+                     var o = acc.filter(function(obj){
+                         return obj.id==val.id;
+                     }).pop() || {id:val.id, quantite:0};
+                     
+                     o.quantite += val.quantite;
+                     acc.push(o);
+                     return acc;
+               },[]);
+               this.finaltotal = result.filter(function(itm, i, a) {
+                            return i == a.indexOf(itm);
+                        });
+              });
                         
                         
                         
                     });
+
+
                   
                 })
                 .catch(err => {

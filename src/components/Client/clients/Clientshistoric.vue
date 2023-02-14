@@ -1,5 +1,12 @@
 <template>
     <div class="container">
+      <div>
+        <modal-component :modalActive="modalActive" @close="modalActive = !modalActive , fetchData()">
+                        <DetteVidesForm v-if="dettevide==true && dettemoney==false" @close="modalActive = !modalActive,getvides(),getcommands()"/>
+                        <DetteArgentForm v-if="dettemoney==true && dettevide==false" @close="modalActive = !modalActive,getargent(),getcommands()"/>
+      </modal-component>
+      </div>
+     
         <div class="page-header">
 						<div class="row">
 							<div class="col">
@@ -113,7 +120,7 @@
                 <div class="card-body">
               <div class="table-responsive">
                     
-                    <table v-if="orders!==[0]" class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+                    <table v-if="orders!==[0]" class="table table-bordered  table-striped table-hover text-center" id="" width="100%" cellspacing="0">
                         <thead>
                           <tr>                    
 
@@ -127,7 +134,7 @@
                         </thead>
                   
                         <tbody>
-                          <div v-if="DetteVides.length==0" class="text-center">
+                          <div v-if="DetteVides.length==[0]" class="text-center">
                           <p>Pas de dette</p>
 
                         </div>
@@ -136,15 +143,17 @@
                                     <td>{{ dette.order_id }} </td>
                                     <td>{{ dette.products.name }}</td>
                                     <td>{{ dette.quantite_depart }}</td>
-                                    <td>{{ dette.reste }} </td>           
-                                                  
+                                    <td>{{ dette.reste }} </td>  
                                     <td>
                                        <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                         delete</button>-->
-                                        <button class="btn btn-success p-2 mt-2 text-white" v-if="dette.reste==0">Payés</button>
-                                        <button class="btn btn-success p-2 mt-2 text-white" v-if="dette.reste!==0">En cours</button>
-                
-                                    </td>
+                                        <button v-if="dette.reste==0" class="btn btn-success p-2 text-white mt-2"><span  >Payés</span></button>
+                                        <button v-if="dette.reste!==0" class="btn btn-sm btn-primary" @click="modalActive = true, editDette(dette,dette.id),dettevide=true" >
+                                        <font-awesome-icon icon="fa-solid fa-edit"/>Modifier
+                                        </button>
+                                    </td>         
+                                                  
+                                    
                                   </tr>
                                 </tbody>
                      </table>
@@ -159,7 +168,7 @@
                 </div>
                 <div class="card-body">
               <div class="table-responsive">
-                    <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0">
+                    <table class="table table-bordered  table-striped table-hover text-center"  width="100%" cellspacing="0">
                         <thead>                              
                           <tr>                    
                             <th scope="col">Id</th>
@@ -186,14 +195,17 @@
                             <td>{{ money.montant_en_exces }} </td>            
                             <td>{{ money.montant_en_dette }}</td>            
                             <td>{{ money.montant_amene}}</td>            
-                            <td>{{ money.montant_rembourse }}</td>                      
+                            <td>{{ money.montant_rembourse }}</td> 
                             <td>
                                <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                 delete</button>-->
-                                <button class="btn btn-success p-2 mt-2 text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0">Payés</button>
-                                <button class="btn btn-success p-2 mt-2 text-white" v-if="money.montant_en_exces!==0 && money.montant_en_dette!==0">En cours</button>
-                                
-                            </td>
+                                <button class="mt-2 btn btn-success  text-white" v-if="money.montant_en_exces==0 && money.montant_en_dette==0"><span>Payé</span>
+                                </button>
+                                <button v-if="money.montant_en_exces!=0 || money.montant_en_dette!=0" class="btn btn-sm btn-primary mt-2" @click="modalActive = true,editMoney(money,money.id),dettemoney=true ,dettevide=false">
+                                <font-awesome-icon icon="fa-solid fa-edit"/><span v-if=" money.montant_en_dette !=0">Payer</span><span v-if=" money.montant_en_exces !=0"> Rembourser</span>
+                                </button>
+                            </td>                     
+                            
                           </tr>
                         </tbody>
                      </table>
@@ -223,7 +235,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
+import ModalComponent from '@/components/Global/ModalComponent';
+import DetteVidesForm from '@/components/Vente/DetteVide/DetteVidesForm.vue';
+import DetteArgentForm from '@/components/Vente/DetteArgent/DetteArgentFom.vue'
 export default {
+  components: { ModalComponent, DetteVidesForm,DetteArgentForm },
     props:['id','client'],
     data(){
         return{
@@ -231,6 +247,9 @@ export default {
             clients: '',
             address:'',
             typeclient:'',
+            modalActive: false,
+            dettemoney:false,
+            dettevide:false,
             orders:[],
             DetteVides:[],
             DetteMoney:[],
@@ -298,7 +317,7 @@ methods:{
       }})
             .then(resp => {
                 this.DetteVides = resp.data
-               
+               console.log(this.DetteVides)
               })
             .catch(err => {
                 console.error(err)
@@ -317,7 +336,19 @@ methods:{
                 console.error(err)
             })
 
-  }
+  },
+  editDette(Dette,id){
+            this.$store.state.IdEditVide=id
+            this.$store.state.DetteVides=Dette
+            console.log(this.$store.state.DetteVides)
+            
+            },
+            editMoney(Money,id){
+    this.$store.state.IdEditDetteArgent=id
+    this.$store.state.DetteArgent=Money
+    console.log(this.$store.state.DetteArgent)
+    
+    }
 
 }
 

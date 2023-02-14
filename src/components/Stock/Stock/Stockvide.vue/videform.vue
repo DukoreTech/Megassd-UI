@@ -4,7 +4,7 @@
       <span class="mx-auto h3 title">Stock Vides</span>
       <span @click="close" class="h2 close ">x</span>
     </div>
-  <span class="d-none">{{$store.state.products}}{{$store.state.IdEditProduit}}</span>
+  <span class="d-none">{{$store.state.vides}}{{$store.state.IdEditvide}}{{$store.state.newvide}}</span>
     <!-- retrieve data -->
    <div class="col-12 mt-2">
         <form @submit.prevent="saveInformation">
@@ -18,17 +18,23 @@
           <div>
                   <div >products</div>
                   <div class="mt-1">
-                    <Multiselect
-                      mode="tags"
-                      required="required"
-                      :close-on-select="false"
-                      :searchable="true"
-                      value-prop="id"
-                      :object="false"
-                      v-model="form.products"
-                      @select="onSelect"
-                      :options="options"
+
+                    <VueMultiselect
+                     v-model="form.products"
+                     :options="options"
+                     :multiple="true"
+                     :close-on-select="true"
+                     placeholder="Pick some"
+                     label="name"
+                     track-by="id"
                     />
+
+                 
+                 
+
+                    
+                
+
                   </div>
               </div>
           
@@ -56,16 +62,14 @@
 </template>
 
 <script>
-import Multiselect from '@vueform/multiselect'
 import Swal from 'sweetalert2';
 import api from '../../../../../api'
 
-
+import VueMultiselect from 'vue-multiselect'
    
 export default {
-    components: {
-      Multiselect,
-    },
+  components: { VueMultiselect },
+   
     data(){
         return{
             form:{
@@ -79,8 +83,10 @@ export default {
             products:[],
             value:[],
             vides:[],
-            options:[],
-            saveEditBtn:"Enregistrer",
+            value: null,
+            options: [],
+    
+            saveEditBtn:"",
             
         }
     },
@@ -90,36 +96,43 @@ export default {
 
     },
     watch:{
+
+      "$store.state.IdEditvide"(a){
+    console.log(a)
+    if(this.$store.state.IdEditvide==null){
+      //this.getuser()
+         this.form={};
+         this.saveEditBtn="new"
+
+        }else{
+          this.saveEditBtn="Modifier"
+            this.form.name=this.$store.state.vides.name;
+           // this.form.products=this.$store.state.vides.products;
+            this.form.quantite=this.$store.state.vides.quantite;
+           
+        }
+
+  },
      
      "products"(val){
  //console.log(val)
  this.address=val
  val.forEach(element => {
-   this.options.push({id:element.id,name:element.name,label:element.name})
-  
-   
+   this.options.push({id:element.id,name:element.name})
  });
  
 },
-"form.products"(val){
-  console.log(this.form.products)
 
-},
-"$store.state.IdEditvide"(a){
- console.log(a)
- if(this.$store.state.IdEditvide==null){
-  // this.getuser()
-      this.form={};
-      this.saveEditBtn="Ajouter"
-
-     }else{
-         this.form=this.$store.state.vides;
-         this.saveEditBtn="Modifier"
-     }
-
-}
  },
     methods:{
+      addTag (newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      this.options.push(tag)
+      this.value.push(tag)
+    },
         close(){
       this.$emit('close')
     },
@@ -192,4 +205,6 @@ export default {
 
 <style  scoped src="@/assets/css/form.css">
 
+
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

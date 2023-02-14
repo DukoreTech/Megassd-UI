@@ -5,10 +5,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueHtmlToPaper from "./plugins/VueHtmlToPaper";
-
+import VueMultiselect from 'vue-multiselect'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
-import Select2 from 'vue3-select2-component';
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -28,6 +27,11 @@ import "@/assets/css/MegaScrollbars.css"
 import "@/assets/js/megaSSD.js"
 import $ from 'jquery'
 import Loading from "@/components/Global/Loading.vue"
+
+
+
+// register globally
+
 
 
 
@@ -57,6 +61,7 @@ createApp(App)
     .component('font-awesome-icon', FontAwesomeIcon)
     .component('loading', Loading)
     .use(VueSweetalert2)
-    .component('Select2', Select2)
+    //.component('Select2', Select2)
+    
     .mount('#app')
 

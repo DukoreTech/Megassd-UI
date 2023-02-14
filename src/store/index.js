@@ -21,6 +21,8 @@ export default createStore({
     IdEditUser:null,
     IdEditvide:null,
     vides:[],
+    detailsventes:[],
+    newvide:null,
     roles:[],
     IdEditRole:null,
     adresses:[],

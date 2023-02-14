@@ -36,7 +36,7 @@
              </label>
              <div>{{ errors?.nombre_bouteille }}</div>
           </div>   
-          <div>
+          <div v-if="saveEditBtn=='Ajouter'">
             <label for="nombre_bouteille">
                 <input type="number" required="required" id="nombre_bouteille" placeholder="Quantité initial" v-model="form.qte">
                 <span>Quantité initial</span>
@@ -80,7 +80,7 @@ export default{
           //user:"",
           products:[],
           users:localStorage.getItem('user'),
-          saveEditBtn:"Enregistrer",
+          saveEditBtn:"Ajouter",
           token:this.$store.state.token,
           loading:false
         }

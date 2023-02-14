@@ -27,6 +27,7 @@
     "jspdf": "^2.5.1",
     "vue": "^3.2.13",
     "vue-ionicons": "^3.0.5",
+    "vue-multiselect": "^3.0.0-beta.1",
     "vue-router": "^4.1.6",
     "vue-sweetalert2": "^5.0.5",
     "vue3-select2-component": "^0.1.7",

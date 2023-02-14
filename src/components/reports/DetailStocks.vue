@@ -109,19 +109,58 @@
                                                 </tr>
 
 											</thead>
-                                            <tbody>
+                                            <tbody v-if="stokD.length!=0">
                                                 <tr v-for="pro in products" :key="pro.id">
                                                    <td scope="col">{{ pro.products.name }}</td>
-                                                   <td>
-                                                    <div v-for="det in stockinitial" :key="det.id">
-                                                        <span v-if="det.id == pro.product_id">
+                                                   <td >
+                                                    <div  v-for="det in stockinitial" :key="det.id" >
+                                                        <span v-if="det.id === pro.product_id">
                                                             {{  det.stockinitial }}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        {{ 
+                                                            pro.plein }}
+                                                        
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                   </td>
+                                                   <td>
+                                                    <div v-for="det in ventes" :key="det.id">
+                                                        <span v-if="det.id == pro.product_id " >
+                                                            {{  det.vente }}
 
                                                         </span>
-                                                
-
-                                                       
+                        
+   
                                                     </div>
+
+                                                   </td>
+                                                   <td>
+                                                    <div v-for="det in receptions" :key="det.id">
+                                                        <span v-if="det.id == pro.product_id" >
+                                                            {{  det.reception }}
+
+                                                        </span>
+                                     
+   
+                                                    </div>
+
+                                                    
+                                                   </td>
+                                                   <td>
+                                                    <div v-for="det in stockfinal" :key="det.id">
+                                                        <span v-if="det.id == pro.product_id " >
+                                                            {{  det.stockfinal }}
+
+                                                        </span>
+   
+                                                    </div>
+                                           
+                                                   
+
                                                    </td>
                                                 </tr>
                                                 
@@ -163,16 +202,19 @@ export default {
             dateT:new Date().toISOString().slice(0,10),
             stokD:[],
             a:[],
+            exist:false,
             b:[],
             stockinitial:[],
             stockfinal:[],
-
+            ventes:[],
+            receptions:[]
         }
     },
     mounted(){
         this.fetchData()
         this.getproducts()
         this.saveInformation()
+        
     },
     watch: {
             detailsstock(val) {
@@ -191,8 +233,10 @@ export default {
             },
             "dateT"(val){
                 console.log(val)
+                this.a["id","stockinitial"]=""
+                 this.b["id","stockfinal"]=""
                 this.saveInformation()
-            }
+            },
        },
     methods:{
         
@@ -213,6 +257,9 @@ export default {
                 console.error(err)
             })
         },
+        
+
+
         getproducts() {
             console.log(this.dateT)
           api.get("stock")
@@ -224,7 +271,9 @@ export default {
                 console.error(err)
             })
         },
+ 
         saveInformation(){
+          
         api.get("stockD",{params:{
 
             dateT:this.dateT
@@ -232,46 +281,107 @@ export default {
 
       }}).then(resp=>{
             this.stokD=resp.data;
+            let c=[]
+                let d=[]
+
             this.stokD.forEach(element => {
+                
                 //let a=[]
                 this.products.forEach(element1 => {
+
                     
                     if(element1.id==element.product_id)
                     {
+
                         this.a.push({stockinitial:element.stock_quantite_initial,id:element1.id})
                         this.b.push({stockfinal:element.quantite_actuel,id:element1.id})
-                    } 
+                        if(element.activity_realise=="VENTE")
+                        {
+                            c.push({id:element1.id,vente:element.quantite_sortie})
+
+                            
+                        }
+                        else if(element.activity_realise=="Achats")
+                        {
+                            d.push({id:element1.id,reception:element.quantite_entre})
+
+                        }
+                    }
+                  
                 });
                 
                 
             });
-            
 
-            for (const item of this.a) {
-              const isDuplicate = this.stockinitial.find((obj) => obj.id === item.id && obj.stockinitial > item.stockinitial);
-              if (!isDuplicate) {
-                this.stockinitial.push(item);
-              }
-            }
-            this.b.forEach((el, i) => {
-  this.b.forEach((element, index) => {
-   
-    if (element.id === el.id && element.stockfinal < el.stockfinal) {
-      if (!this.stockfinal.includes(el)) this.stockfinal.push(el);
-    }
-  });
-});
+            var ventes = c.reduce(function(acc, val){
+                     var o = acc.filter(function(obj){
+                         return obj.id==val.id;
+                     }).pop() || {id:val.id, vente:0};
+                     
+                     o.vente += val.vente;
+                     acc.push(o);
+                     return acc;
+               },[]);
+               var reception = d.reduce(function(acc, val){
+                     var o = acc.filter(function(obj){
+                         return obj.id==val.id;
+                     }).pop() || {id:val.id, reception:0};
+                     
+                     o.reception += val.reception;
+                     acc.push(o);
+                     return acc;
+               },[]);
+               this.ventes = ventes.filter(function(itm, i, a) {
+                            return i == a.indexOf(itm);
+                        });
+               this.receptions=reception.filter(function(itm, i, a) {
+                            return i == a.indexOf(itm);
+                        });
+          /*  const uniqBy = (arr, key) => Object.values(
+            arr.reduce((a, c) => {
+              a[c[key]] = a[c[key]]?.stockinitial > c.stockinitial
+                ? a[c[key]]
+                : c
+              return a
+            }, {}))*/
 
-                console.log(this.stockfinal)
-                console.log(this.stockinitial)
-                console.log(this.b)
+         
+
+           /* const uniqbyf=
+            (arr, key) => Object.values(
+            arr.reduce((a, c) => {
+              a[c[key]] = a[c[key]]?.stockfinal < c.stockfinal
+                ? a[c[key]]
+                : c
+              return a
+            }, {}))*/
+
+          //  this.stockinitial= uniqBy(this.a, 'id')
+
+          
+
+
+
+            this.stockfinal = [...new Map(this.b.map(item =>
+                             [item.id, item])).values()];
+            this.stockinitial = Object.values(this.a.reduce((acc, d) => (!acc[d.id] ? { ...acc, [d.id]: d } : acc), {}));
+             
+            //console.log(this.ventes)
+            //console.log(this.receptions)
+          //  console.log(this.stockfinal)
+            console.log(this.stockinitial)
+            console.log(this.a)
+           
+          
+  
                 
 
         }).catch(err=>{
             console.log(err)
         })
 
-    }
+    },
+ 
 
     },
 
