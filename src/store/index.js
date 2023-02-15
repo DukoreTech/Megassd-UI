@@ -43,8 +43,11 @@ export default createStore({
     IdEditReception:null,
     locations:[],
     IdEditLocation:null,
+    restant:"",
+    quantiteR:0,
     pertes:[],
     IdEditPerte:null,
+    
 
 
   },

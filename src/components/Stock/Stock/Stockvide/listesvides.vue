@@ -3,11 +3,11 @@
 <div>
        <div>    
                 <div class="d-md-flex m-3 justify-content-between" >
-                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditvide=null ,addM=true,newM==false">
+                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditvide=null ,addM=true,newM=false">
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
                         Nouveau stock
                       </button>
-                      <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditvide=null, addM=false,newM==false">
+                      <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditLocation=null, addM=false,newM=false,location=true">
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
                         Louer les vides
                       </button>
@@ -17,9 +17,10 @@
                 </div>
            
                
-                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive, fetchData()">
-                    <videform v-if="newM==false && addM==true" @close="modalActive = !modalActive ,fetchData()"/>
-                    <newvide v-if="newM==true && addM==false" @close="modalActive=!modalActive ,fetchData()"/>
+                <modal-component :modalActive="modalActive" @close="modalActive = !modalActive, fetchData(),getlocation()">
+                    <videform v-if="newM==false && addM==true" @close="modalActive = !modalActive ,fetchData(),getlocation()"/>
+                    <newvide v-if="newM==true && addM==false" @close="modalActive=!modalActive ,fetchData(),getlocation()"/>
+                    <location v-if="location==true && addM==false && newM==false" @close="modalActive=!modalActive,location==true ,fetchData(),getlocation()"/> 
                 </modal-component>
         </div>
 
@@ -115,18 +116,38 @@
                
                 <div class="card-body">
                     <div class="table-responsive" >
-                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable" width="100%" cellspacing="0" style="overflow-x:auto !important;">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datalocation" width="100%" cellspacing="0" style="overflow-x:auto !important;">
                             <thead>
                               <tr>                    
                                 <th scope="col">#</th>
                                 <th scope="col">Nom du stock</th>
-                                <th scope="col">Quantité</th>
-                                <th scope="col">Date de création</th>
+                                <th scope="col">Quantité louer</th>
+                                <th scope="col">clients</th>
+                                <th scope="col">Quantité Restant</th>
+                                <th scope="col">Quantité remboursé</th>
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>
                       
                            <tbody>
+                            <tr v-for="loc in locations" :key="loc.id">
+                                <td>{{ loc.id }}</td>
+                                <td>{{ loc.stocks_vides.name }}</td>
+                                <td>{{ loc.quantity }}</td>
+                                <td>{{ loc.clients.nom }}</td>
+                                <td>{{ loc.restant }}</td>
+                                <td>{{ loc.rembourse}}</td>
+                                <td>
+                                    <button v-if="loc.status==0" class="btn btn-sm btn-primary" @click="modalActive = true,addM=false,newM=false,location=true,editstatus(loc,loc.id),this.$store.state.IdEditLocation=loc.id">
+                                      <font-awesome-icon icon="fa-solid fa-plus" />
+                                    </button>
+                                    <button v-if="loc.status==1" class="btn btn-sm btn-secondary">rembourser
+                                    </button>
+
+                                </td>
+
+
+                            </tr>
                               
                             </tbody>
                          </table>
@@ -148,12 +169,14 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 import axios from "axios";
 import ModalComponent from '@/components/Global/ModalComponent';
-import videform from '../Stockvide.vue/videform.vue';
-import newvide from '../Stockvide.vue/newvide.vue';
+import videform from '../Stockvide/videform.vue';
+import newvide from '../Stockvide/newvide.vue';
+import location from '../Stockvide/locationvides.vue';
+
 
 import api from '../../../../../api';
 export default {
-    components: { ModalComponent, videform ,newvide},
+    components: { ModalComponent, videform ,newvide,location},
     data() {
         return{
             modalActive: false,
@@ -162,12 +185,15 @@ export default {
             products:[],
             addM:false,
             newM:false,
+            location:false,
+            locations:[],
 
             isLoading:false
         }
     },
     mounted(){
         this.fetchData()
+        this.getlocation()
     },
     watch: {
         stocks(val) {
@@ -187,7 +213,25 @@ export default {
           });
                
               });
-            }
+            },
+           /* "locations"(val){
+                $('#datalocation').DataTable().destroy();
+              this.$nextTick(()=> {
+                $("#datalocation").DataTable({
+            lengthMenu: [
+              [5,10, 25, 50, -1],
+              [5,10, 25, 50, "All"],
+
+            ],
+            pageLength: 5,
+            scrollY: true,
+            scrollCollapse: true,
+       
+          });
+              
+              });
+                
+            }*/
        },
     computed:{
         searchEvery(){
@@ -202,6 +246,18 @@ export default {
             .then(resp => {
                 this.isLoading=false
                 this.stocks = resp.data
+           
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
+        getlocation() {
+            this.isLoading=true
+            api.get("location")
+            .then(resp => {
+                this.isLoading=false
+                this.locations = resp.data
            
             })
             .catch(err => {
@@ -231,6 +287,12 @@ export default {
         {
             this.$store.state.newvide=id
             this.$store.state.vides=stock 
+        },
+        editstatus(loca,id)
+        {
+            this.$store.state.IdEditLocation=id
+            this.$store.state.locations=loca 
+
         }
     }
     

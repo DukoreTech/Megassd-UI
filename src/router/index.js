@@ -26,7 +26,7 @@ import Profile from "@/views/UserProfileView.vue"
 import Videsrestant from "@/views/DetteVidesView.vue"
 import Clientshistoric from "@/components/Client/clients/Clientshistoric.vue"
 import MontantNonpayes from "@/components/Vente/DetteArgent/DetteMoney.vue"
-import Stockvide from "@/components/Stock/Stock/Stockvide.vue/listesvides"
+import Stockvide from "@/components/Stock/Stock/Stockvide/listesvides.vue"
 import store from '../store/index.js'
 
 const routes = [
