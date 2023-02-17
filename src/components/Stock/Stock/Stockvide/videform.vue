@@ -10,7 +10,7 @@
         <form @submit.prevent="saveInformation">
           <div>
             <label for="name">
-                <input type="text" required="required" id="name" placeholder="Nom" v-model="form.name">
+                <input type="text" :disabled="this.$store.state.IdEditvide!==null" required="required" id="name" placeholder="Nom" v-model="form.name">
                 <span>Nom stock</span>
             </label>
             <div>{{ errors?.name }}</div>
@@ -28,19 +28,12 @@
                      label="name"
                      track-by="id"
                     />
-
-                 
-                 
-
-                    
-                
-
                   </div>
               </div>
           
           <div>
             <label for="nombre_bouteille">
-                <input type="number" required="required" id="nombre_bouteille" placeholder="Nombres des Bouteilles" v-model="form.quantite">
+                <input type="number" :disabled="this.$store.state.IdEditvide!==null" required="required" id="nombre_bouteille" placeholder="Nombres des Bouteilles" v-model="form.quantite">
                 <span>Quantité</span>
              </label>
              <div>{{ errors?.nombre_bouteille }}</div>
@@ -75,24 +68,20 @@ export default {
             form:{
               products:[],
                 name:"",
-                quantite:"",
-                
+                quantite:"", 
             },
-            
-
             products:[],
             value:[],
             vides:[],
             value: null,
             options: [],
-    
             saveEditBtn:"",
+            op:[]
             
         }
     },
     mounted(){
         this.getproducts()
-        console.log(this.options)
 
     },
     watch:{
@@ -101,15 +90,21 @@ export default {
     console.log(a)
     if(this.$store.state.IdEditvide==null){
       //this.getuser()
+      this.options=[]
          this.form={};
+         this.products.forEach(element => {
+   this.options.push({id:element.id,name:element.name})
+ });
          this.saveEditBtn="new"
 
         }else{
-          this.saveEditBtn="Modifier"
+
+        //  this.options=[]
+            this.saveEditBtn="Modifier"
             this.form.name=this.$store.state.vides.name;
-           // this.form.products=this.$store.state.vides.products;
-            this.form.quantite=this.$store.state.vides.quantite;
-           
+            this.form.products=JSON.parse(this.$store.state.vides.products);
+            console.log(this.form.products)
+            this.form.quantite=this.$store.state.vides.quantite;    
         }
 
   },
@@ -117,14 +112,19 @@ export default {
      "products"(val){
  //console.log(val)
  this.address=val
- val.forEach(element => {
+ 
+  val.forEach(element => {
    this.options.push({id:element.id,name:element.name})
  });
+
+
+ 
  
 },
 
  },
     methods:{
+    
       addTag (newTag) {
       const tag = {
         name: newTag,
@@ -147,50 +147,112 @@ export default {
         },
         saveInformation() {
           if (this.form["products_id","quantite","name"]=="") return;
-    
-           if(this.$store.state.IdEditvide==null){
+        let result=[]  
+		let rep=[]
+          if(this.$store.state.IdEditvide==null){
+            this.$store.state.vides.filter(element => {
+
+            JSON.parse(element.products).forEach(element1 => {
+            
+              this.form.products.forEach(element2 => {
+                if(element2.id == element1.id)
+                {
+                  result.push(element1)
+                }
+            });
+            
+            });
+            
+            });
+            if(result.length>0){
+          this.loading=false
+       
+          Swal.fire({
+               icon: 'info',
+               title: 'erreur',
+               text: 'stock deja existant '
+                
+              });
+        }
+        else{
+
+        
+                
+                 api.post(
+                   "vides",
+                   this.form
+                 )
+                 .then((resp) => {
+                   this.loading=false
+                   this.vides= resp.data;
+				   this.$store.state.vides=resp.data
+                   this.form = { name:"",products:"",quantite:""} 
+                  
+                   Swal.fire({
+                    icon: 'success',
+                    title: 'Ajouter',
+                    text: 'Enregister avec succès',  
+                   });
+                 })
+                 .catch((err) => {
+                   this.loading=false
+                   console.error(err.response.data.errors);
+                   this.errors = err.response.data.errors;
+                 });
+                }
+              }else{
+
+                this.products
+				.filter(element => {
+
+                element.products.forEach(element1 => {
+                
+                  this.form.products.forEach(element2 => {
+                    if(element2.id == element1.id)
+                    {
+                      rep.push(element1)
+                    }
+                });
+                
+                });
+                
+                });
+
+				if(re.length>0)
+				{
+					alert('hi')
+
+				}
+				else{
+					api.patch("vides/"+this.$store.state.IdEditvide,
+                   this.form )
+                 .then((resp) => {
+					this.loading=false
+                   this.vides = resp.data;
+                   this.$store.state.vides=resp.data
+                   Swal.fire({
+                    icon: 'success',
+                    title: 'Modification',
+                    text: 'Modification réussi!',  
+                   });
+               this.$emit('close')
+                  })
+                 .catch((err) => {
+                   this.loading=false
+                   console.error(err.response.data.errors);
+                   this.errors = err.response.data.errors;
+                 });
+
+				}
+
                  
-            api.post(
-              "vides",
-              this.form
-            )
-            .then((resp) => {
-              this.loading=false
-              this.vides= resp.data;
-           //   this.getuser()
-              this.form = { name:"",products_id:"",quantite:""} 
-             
-              Swal.fire({
-               icon: 'success',
-               title: 'Ajouter',
-               text: 'Enregister avec succès',  
-              });
-            })
-            .catch((err) => {
-              this.loading=false
-              console.error(err.response.data.errors);
-              this.errors = err.response.data.errors;
-            });
-           }else{
-            this.loading=true
-             api.patch("vides/"+this.$store.state.IdEditvide,
-              this.form )
-            .then((resp) => {
-              this.vides = resp.data;
-              Swal.fire({
-               icon: 'success',
-               title: 'Modification',
-               text: 'Modification réussi!',  
-              });
-          this.$emit('close')
-             })
-            .catch((err) => {
-              this.loading=false
-              console.error(err.response.data.errors);
-              this.errors = err.response.data.errors;
-            });
+                  
+         
+                }
+
+        
     
-           }
+           
      
         },
 

@@ -5,8 +5,11 @@
                     <font-awesome-icon icon="fa-solid fa-plus-circle" />
                     Ajouter Client
                   </button>
-               
-             </div>  
+                 
+             </div> 
+             <div class="col-lg-6 col-sm-6 col-xs-12 mb-4" style="margin-left:280px;">
+                       <center><input type="text" class="form-control"  v-model="search" placeholder="rechercher" @keypress.enter="searchEvery"/></center> 
+            </div> 
 
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
                     <add-form @close="modalActive = !modalActive,fetchData()"/>
@@ -15,7 +18,7 @@
     <loading v-if="isLoading"></loading>
   <div class="container py-5 h-50">
     <div class="row  align-items-center h-50">
-      <div class="col-md-4 col-xl-4 mb-5" v-for="client in clients" :key="client.id">
+      <div class="col-md-4 col-xl-4 mb-5" v-for="client in filteredItems" :key="client.id">
 
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
@@ -89,6 +92,7 @@ export default {
             search:'',
             clients : [],
             isLoading : false,
+            search:""
         }
     },
     mounted(){
@@ -102,9 +106,14 @@ export default {
            /* clients(){
                 return this.$store.state.clients
             }*/
+            filteredItems () {
+      return this.searchInArray(this.clients, this.search)
+      
+    }
             
     },
     watch: {
+        
         clients(val) {
               console.log(val)
               $('#datatable').DataTable().destroy();
@@ -114,6 +123,17 @@ export default {
             }
        },
     methods:{
+        searchInArray(arrayList, searchText) {
+            //Methode pour faire une rechercher dans le tableau
+            if(Array.isArray(arrayList) ){
+                return arrayList.filter(
+                e => JSON.stringify(e)
+                         .toLowerCase()
+                         .includes(searchText.toLowerCase())
+            )
+            }
+            return arrayList
+        },
         fetchData() {
             this.isLoading = true;
             api.get("client",this.form)

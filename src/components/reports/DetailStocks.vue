@@ -65,7 +65,7 @@
 													<td>{{detail.quantite_entre}}</td>
                                                     <td>{{detail.quantite_actuel}}</td>
                                                     <td>{{detail.stock_quantite_initial	}}</td>
-                                                    <td>{{(detail.created_at.substr(0, 10))}}</td>
+                                                    <td>{{(detail.date.substr(0, 10))}}</td>
                                                     
                                                     
                                                     
@@ -112,29 +112,25 @@
                                             <tbody v-if="stokD.length!=0">
                                                 <tr v-for="pro in products" :key="pro.id">
                                                    <td scope="col">{{ pro.products.name }}</td>
-                                                   <td >
-                                                    <div  v-for="det in stockinitial" :key="det.id" >
-                                                        <span v-if="det.id === pro.product_id">
-                                                            {{  det.stockinitial }}
-                                                        </span>
+                                                   <td>
+                                                <div v-show="(pro.updated_at.substr(0, 10))==dateT">
+                                                    <div  v-for="det in stockinitial"  :key="det.id" >
+                                                        <div v-if="det.id === pro.product_id" :exist=true>
+                                                           {{  det.stockinitial }}
+                                                        </div>     
                                                     </div>
-                                                    <div>
-                                                        {{ 
-                                                            pro.plein }}
-                                                        
+                                                </div>
+                                                    <div v-show="(pro.updated_at.substr(0, 10))!==dateT  || (pro.updated_at)==null">
+                                                            {{  pro.plein }}
                                                     </div>
-                                                    
-                                                    
-                                                    
+                                       
                                                    </td>
                                                    <td>
                                                     <div v-for="det in ventes" :key="det.id">
-                                                        <span v-if="det.id == pro.product_id " >
+                                                        <span v-if="det.id == pro.product_id">
                                                             {{  det.vente }}
 
                                                         </span>
-                        
-   
                                                     </div>
 
                                                    </td>
@@ -151,12 +147,17 @@
                                                     
                                                    </td>
                                                    <td>
+                                                    <div v-show="(pro.updated_at.substr(0, 10))==dateT">
                                                     <div v-for="det in stockfinal" :key="det.id">
                                                         <span v-if="det.id == pro.product_id " >
                                                             {{  det.stockfinal }}
 
                                                         </span>
    
+                                                    </div>
+                                                    </div>
+                                                    <div v-show="(pro.updated_at.substr(0, 10))!==dateT  || (pro.updated_at)==null">
+                                                            {{  pro.plein }}
                                                     </div>
                                            
                                                    
@@ -207,7 +208,8 @@ export default {
             stockinitial:[],
             stockfinal:[],
             ventes:[],
-            receptions:[]
+            receptions:[],
+            sample:[],
         }
     },
     mounted(){
@@ -238,6 +240,34 @@ export default {
                 this.saveInformation()
             },
        },
+       computed:
+       {
+          stockslist :function()
+          {
+            this.products.forEach(element => {
+                
+                stockinitial.forEach(element1 => {
+
+                    stockfinal.forEach(element2 => {
+
+                        if(element1.id==element.product_id && element2.id==element.id)
+                        {
+                            this.sample.push({id:element.product_id,name:element.product_name,si:element1.stockinitial,sf:element2.stockfinal})
+
+                        }
+                        
+                    });
+                    
+                });
+                
+            });
+            return stockslist;
+
+
+          }
+          
+
+        },
     methods:{
         
         fetchData() {

@@ -3,7 +3,7 @@
 <div>
        <div>    
                 <div class="d-md-flex m-3 justify-content-between" >
-                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditvide=null ,addM=true,newM=false">
+                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditvide=null ,addM=true,newM=false,location=false">
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
                         Nouveau stock
                       </button>
@@ -89,7 +89,7 @@
                                 <td class="mx-3">
                                     <button class="btn btn-sm btn-danger m-2"  @click="deleteStock(stock.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
                                     </button>
-                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,newstock(stock,stock.id),newM=true,addM=false">
+                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,newstock(stock,stock.id),newM=true,addM=false ,this.$store.state.newvide=stock.id">
                                       <font-awesome-icon icon="fa-solid fa-plus" />
                                     </button>
                                     <button class="btn btn-sm btn-primary " @click="modalActive = true,editStock(stock,stock.id),addM=true,newM=false" >
@@ -116,7 +116,7 @@
                
                 <div class="card-body">
                     <div class="table-responsive" >
-                        <table class="table table-bordered  table-striped table-hover text-center" id="datalocation" width="100%" cellspacing="0" style="overflow-x:auto !important;">
+                        <table class="table table-bordered  table-striped table-hover text-center" id="datatable2" width="100%" cellspacing="0" style="overflow-x:auto !important;">
                             <thead>
                               <tr>                    
                                 <th scope="col">#</th>
@@ -155,13 +155,14 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     </div>
 </div>
   
 </template>
 
 <script>
+ import Swal from 'sweetalert2';
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -214,10 +215,10 @@ export default {
                
               });
             },
-           /* "locations"(val){
-                $('#datalocation').DataTable().destroy();
+          /*  "locations"(val){
+                $('#datatable2').DataTable().destroy();
               this.$nextTick(()=> {
-                $("#datalocation").DataTable({
+                $("#datatable2").DataTable({
             lengthMenu: [
               [5,10, 25, 50, -1],
               [5,10, 25, 50, "All"],
@@ -231,8 +232,9 @@ export default {
               
               });
                 
-            }*/
-       },
+            },*/
+        },
+       
     computed:{
         searchEvery(){
             return this.stocks.filter(val=>val.includes(this.search))
@@ -246,6 +248,7 @@ export default {
             .then(resp => {
                 this.isLoading=false
                 this.stocks = resp.data
+                this.$store.state.vides=resp.data
            
             })
             .catch(err => {
@@ -266,16 +269,29 @@ export default {
         },
         
         deleteStock(id) {
-            api.delete("stock/" + id,axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`,
+
+            Swal.fire({
+                title: 'vous etes sure de vouloir supprimer ces informations',
+            // showDenyButton: true,
+             showCancelButton: true,
+             confirmButtonText: 'supprimer'
+             })
+            .then((result) => {
+            if (result.isConfirmed) {
+
+            api.delete("vides/" + id
             )
             .then(resp => {
                 this.stocks = resp.data
+                Swal.fire('suppression avec succès', '', 'success')
                 this.fetchData()
             })
             .catch(err => {
                 console.error(err)
+                Swal.fire('une erreur est survenue veuillez réessayer plus tard', '', 'error')
             })
-            
+        }
+    })
         },
 
         editStock(stock,id){

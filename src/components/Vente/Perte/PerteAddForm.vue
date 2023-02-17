@@ -126,7 +126,7 @@ export default {
         .then((resp) => {
           this.loading=false
           this.pertes = resp.data;
-          this.form = {}
+          //this.form = {}
           Swal.fire({
                icon: 'success',
                title: 'Ajouter',

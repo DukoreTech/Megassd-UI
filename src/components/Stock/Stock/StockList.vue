@@ -38,7 +38,6 @@
                               <tr>                    
                                 <th scope="col">#</th>
                                 <th scope="col">Produit</th>
-                                <th scope="col">Nb des vides</th>
                                 <th scope="col">Nb des pleins</th>
                                 <th scope="col">Date de création</th>
                                
@@ -49,10 +48,8 @@
                                <tr v-for="stock in stocks" :key="stock.id">
                                 <th scope="row">{{ stock.id }}</th>
                                 <td v-if="stock.products && stock.products.name">{{ stock.products.name }} </td>
-                                <td>{{ stock.vide }} </td>
                                 <td>{{ stock.plein }} </td>
-                                <td>{{(stock.date.substr(0, 10))}}</td>
-                                
+                                <td>{{(stock.date.substr(0, 10))}}</td>   
                               </tr>
                             </tbody>
                          </table>

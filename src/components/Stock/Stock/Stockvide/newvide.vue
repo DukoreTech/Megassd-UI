@@ -53,18 +53,16 @@
          return{
              form:{
               
-               name:"",
+               name:this.$store.state.vides.name,
                quantite:"",
                  
              },
-             
- 
              products:[],
              value:[],
              vides:[],
              options:[],
-             newvide:this.$store.state.newvide,
-             saveEditBtn:"modifier",
+             newvide:"",
+             saveEditBtn:"aj",
              
          }
      },
@@ -74,12 +72,23 @@
  
      },
      watch:{
+
+      
  
-       "newvide"(val){
-     console.log(val)
-     
-      this.form.name=this.$store.state.vides.name;
-      this.saveEditBtn="Modifier"  
+         "$store.state.newvide"(val){
+          console.log(val)
+          if(this.$store.state.newvide!=null)
+          {
+            this.form.name=this.$store.state.vides.name;
+          this.saveEditBtn="Modifier"
+          
+
+          }
+          else{
+            this.saveEditBtn="Modifier"
+
+          }
+            
  
    },
       

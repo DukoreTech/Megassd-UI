@@ -114,8 +114,11 @@
             </div>
             <div class="tab-pane fade mt-5" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <div class="card  mb-4">
-                <div class="card-header py-3">
+                <div class="card-header py-3 d-flex">
                     <h6 class="m-0 font-weight-bold text-mute">Bouteilles en dette</h6>
+                  <div class="col-lg-4 col-sm-6 col-xs-12 mb-4">
+                        <input type="text" class="form-control"  v-model="searchVides" placeholder="Search" @keypress.enter="searchEvery"/>
+                  </div>
                 </div>
                 <div class="card-body">
               <div class="table-responsive">
@@ -124,7 +127,7 @@
                         <thead>
                           <tr>                    
 
-                            <th scope="col">number</th>
+                            <th scope="col">  </th>
                                     <th scope="col">commande</th>
                                     <th scope="col">produits</th>
                                     <th scope="col">Quantité depart</th>
@@ -138,7 +141,7 @@
                           <p>Pas de dette</p>
 
                         </div>
-                                   <tr v-for="dette in DetteVides" :key="dette.id">
+                                   <tr v-for="dette in searchvides" :key="dette.id">
                                     <th scope="row">{{ dette.id }}</th>
                                     <td>{{ dette.order_id }} </td>
                                     <td>{{ dette.products.name }}</td>
@@ -163,8 +166,11 @@
             </div>
             <div class="tab-pane fade mt-5" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
               <div class="card  mb-4">
-                <div class="card-header py-3">
+                <div class="card-header py-3 d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-mute">Dettes</h6>
+                    <div class="col-lg-4 col-sm-6 col-xs-12 mb-4">
+                        <input type="text" class="form-control"  v-model="searchmoney" placeholder="Search" @keypress.enter="searchEvery"/>
+                  </div>
                 </div>
                 <div class="card-body">
               <div class="table-responsive">
@@ -186,7 +192,7 @@
 
                         </div>                   
                         <tbody>
-                           <tr v-for="money in DetteMoney" :key="money.id">
+                           <tr v-for="money in searchmoney" :key="money.id">
                             <th scope="row">{{ money.id }}</th>
                             <!--<td>{{JSON.parse(money.orders.products)[0].product_name }} </td>-->
                             <td>{{ money.order_id}}</td>
@@ -253,7 +259,10 @@ export default {
             orders:[],
             DetteVides:[],
             DetteMoney:[],
-            search:""
+            search:"",
+            searchmoney:"",
+            searchvide:""
+
         }
        
     },
@@ -274,7 +283,16 @@ computed: {
     filteredItems () {
       return this.searchInArray(this.orders, this.search)
       
-    }
+    },
+    searchvides () {
+      return this.searchInArray(this.DetteVides, this.searchvide)
+      
+    },
+    searchmoney () {
+      return this.searchInArray(this.DetteMoney, this.searchmoney)
+      
+    },
+    
   },
 watch: {
   orders(val) {

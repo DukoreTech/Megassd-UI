@@ -31,7 +31,7 @@
 											<thead>
 												<tr>
 													<th scope="col">N॰</th>
-                                                    <th scope="col">produit</th>
+                                                    <th scope="col">Stock</th>
 													<th scope="col">Activité Realisé</th>
 													<th scope="col">sortie</th>
 													<th scope="col">entrée</th>
@@ -45,7 +45,7 @@
                                             <tbody>
                                                 <tr v-for="detail in detailsstock" :key="detail.id">
                                                     <td>{{detail.id}}</td>
-													<td>{{detail.product_name}}</td>
+													<td>{{detail.stock_name}}</td>
                                                     <td>{{detail.activity_realise}}</td>
 													<td>{{detail.quantite_sortie}}</td>
 													<td>{{detail.quantite_entre}}</td>
