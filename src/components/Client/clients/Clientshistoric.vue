@@ -114,9 +114,9 @@
             </div>
             <div class="tab-pane fade mt-5" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <div class="card  mb-4">
-                <div class="card-header py-3 d-flex">
+                <div class="card-header py-3 ">
                     <h6 class="m-0 font-weight-bold text-mute">Bouteilles en dette</h6>
-                  <div class="col-lg-4 col-sm-6 col-xs-12 mb-4">
+                  <div class="col-lg-4 col-sm-6 col-xs-12 mb-4 mt-3">
                         <input type="text" class="form-control"  v-model="searchVides" placeholder="Search" @keypress.enter="searchEvery"/>
                   </div>
                 </div>
@@ -169,7 +169,7 @@
                 <div class="card-header py-3 d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-mute">Dettes</h6>
                     <div class="col-lg-4 col-sm-6 col-xs-12 mb-4">
-                        <input type="text" class="form-control"  v-model="searchmoney" placeholder="Search" @keypress.enter="searchEvery"/>
+                        <input type="text" class="form-control"  v-model="searchM" placeholder="Search" @keypress.enter="searchEvery"/>
                   </div>
                 </div>
                 <div class="card-body">
@@ -260,7 +260,7 @@ export default {
             DetteVides:[],
             DetteMoney:[],
             search:"",
-            searchmoney:"",
+            searchM:"",
             searchvide:""
 
         }
@@ -289,7 +289,7 @@ computed: {
       
     },
     searchmoney () {
-      return this.searchInArray(this.DetteMoney, this.searchmoney)
+      return this.searchInArray(this.DetteMoney, this.searchM)
       
     },
     

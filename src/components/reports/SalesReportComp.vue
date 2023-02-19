@@ -15,25 +15,25 @@
 							</div>
                             
 						</div>
-                       <div class="row">
-                            <div class="col-lg-6 d-flex px-3">
+                       <div class="row mt-3" >
+                            <div class="col-lg-10 d-flex ">
 
                                 
-                             
-                                <label>De:</label><br>
-                                <input type="date" class="form-control col-4"  v-model="fromDate" placeholder="Search" />
+                                <div>De:</div>
+                                
+                                  <input type="date" class="form-control col-4"  v-model="fromDate" placeholder="Search" />
                                
-                                <label>A:</label><br>
-                                <input type="date" class="form-control col-4"  v-model="toDate" placeholder="Search" />
-
-                                <input type="button" class="btn btn-danger" @click="getventes()" />
+                                <div>A:</div>
+                               
+                                   <input type="date" class="form-control col-4"  v-model="toDate" placeholder="Search" />
+                               
+                                <button  class="btn btn-sm btn-primary mx-3"  @click="getventes()">rechercher</button>
+                                
+                                <button class="btn btn-sm btn-dark mb-4" ><font-awesome-icon icon="fa-solid fa-print" @click="print('printMe')"/></button>
                                 
 
                             </div>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control col-6"  v-model="search" placeholder="Search" @keypress.enter="searchEvery"/>
-
-                            </div>
+            
                         </div>
                         
                         
@@ -41,7 +41,7 @@
                     
 					
 
-					<div class="row">
+					<div class="row" id="printMe">
 						<div class="col-sm-12">
 							<div class="card" id="table">
 								<div class="card-header">
@@ -202,6 +202,36 @@ export default {
             }
        },
      methods:{
+
+        
+        print(element_id, title="Document") {
+            const prtHtml = document.getElementById(element_id).innerHTML;
+                // Get all stylesheets HTML
+                let stylesHtml = '';
+                for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+                    stylesHtml += node.outerHTML;
+                }
+                
+                // Open the print window
+                const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                
+                WinPrint.document.write(`<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${title} </title>
+                    ${ stylesHtml }
+                </head>
+                <body>
+                    ${ prtHtml }
+                </body>
+                </html>`);
+                
+               WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+
+        },
+
          calculateSum(array, property) {
   const total = array.reduce((accumulator, object) => {
     return accumulator + object[property];
@@ -222,6 +252,7 @@ export default {
                 console.error(err)
             })
         },
+      
       
         fetchData() {
             this.isLoading=true

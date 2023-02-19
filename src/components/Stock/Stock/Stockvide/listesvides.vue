@@ -108,9 +108,10 @@
             <div class="card  mb-4">
                 <div class="card-header">
 					<h4 class="card-title">Vides Louer</h4>
-					<p class="card-text">
-						
-					</p>
+                    <div class="col-lg-4 col-sm-6 col-xs-12 mb-4 mt-3">
+                        <input type="text" class="form-control"  v-model="searchVides" placeholder="Search" @keypress.enter="searchEvery"/>
+                  </div>
+					
 				</div>
 
                
@@ -130,7 +131,7 @@
                             </thead>
                       
                            <tbody>
-                            <tr v-for="loc in locations" :key="loc.id">
+                            <tr v-for="loc in searchvide" :key="loc.id">
                                 <td>{{ loc.id }}</td>
                                 <td>{{ loc.stocks_vides.name }}</td>
                                 <td>{{ loc.quantity }}</td>
@@ -188,6 +189,7 @@ export default {
             newM:false,
             location:false,
             locations:[],
+            searchVides:"",
 
             isLoading:false
         }
@@ -236,11 +238,24 @@ export default {
         },
        
     computed:{
-        searchEvery(){
-            return this.stocks.filter(val=>val.includes(this.search))
-            }
+        searchvide () {
+      return this.searchInArray(this.locations, this.searchVides)
+      
+    }
     },
     methods:{
+
+        searchInArray(arrayList, searchText) {
+            //Methode pour faire une rechercher dans le tableau
+            if(Array.isArray(arrayList) ){
+                return arrayList.filter(
+                e => JSON.stringify(e)
+                         .toLowerCase()
+                         .includes(searchText.toLowerCase())
+            )
+            }
+            return arrayList
+        },
         
         fetchData() {
             this.isLoading=true

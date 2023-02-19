@@ -154,7 +154,12 @@
                                 aria-expanded="true" aria-controls="collapseReception">
                                 <font-awesome-icon icon="fa-solid fa-circle-dot"  />
                                   Prix de vente 
-                             </router-link>          
+                             </router-link> 
+                             <router-link :to="{name:'price'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
+                                aria-expanded="true" aria-controls="collapseReception">
+                                <font-awesome-icon icon="fa-solid fa-circle-dot"  />
+                                  Prix d'Achats 
+                             </router-link>         
                            <router-link :to="{name:'Reception'}" class="nav-link collapsed" data-toggle="collapse" data-target="#collapseReception"
                              aria-expanded="true" aria-controls="collapseReception">
                               <font-awesome-icon icon="fa-solid fa-circle-dot"  />

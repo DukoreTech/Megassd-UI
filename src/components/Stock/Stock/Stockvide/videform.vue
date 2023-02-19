@@ -75,7 +75,7 @@ export default {
             vides:[],
             value: null,
             options: [],
-            saveEditBtn:"",
+            saveEditBtn:"Ajouter",
             op:[]
             
         }
@@ -95,7 +95,7 @@ export default {
          this.products.forEach(element => {
    this.options.push({id:element.id,name:element.name})
  });
-         this.saveEditBtn="new"
+         this.saveEditBtn="AJouter"
 
         }else{
 
@@ -106,13 +106,11 @@ export default {
             console.log(this.form.products)
             this.form.quantite=this.$store.state.vides.quantite;    
         }
-
   },
      
-     "products"(val){
+"products"(val){
  //console.log(val)
- this.address=val
- 
+  this.address=val
   val.forEach(element => {
    this.options.push({id:element.id,name:element.name})
  });

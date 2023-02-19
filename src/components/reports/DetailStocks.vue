@@ -83,14 +83,17 @@
 					</div>
                     <div class="row tab-pane fade" id="report-tab-pane" role="tabpanel" aria-labelledby="report-tab" tabindex="0">
 						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header" >
-									<h4 class="card-title">Rapport</h4>  
-								</div>
-                                <div class="p-3">
+                            <button class="btn btn-sm btn-dark mb-4" ><font-awesome-icon icon="fa-solid fa-print" @click="print('printMe')"/></button>
+                            <div class="mb-4">
                                         <input type="date" v-model="dateT">
 
                                     </div>
+							<div class="card" id="printMe">
+								<div class="card-header d-flex" >
+									<h4 class="card-title">Rapport du: {{  dateT }}</h4>  
+                                   
+								</div>
+                                
 								<div class="card-body">
 
 									<div class="table-responsive">
@@ -113,16 +116,19 @@
                                                 <tr v-for="pro in products" :key="pro.id">
                                                    <td scope="col">{{ pro.products.name }}</td>
                                                    <td>
-                                                <div v-show="(pro.updated_at.substr(0, 10))==dateT">
-                                                    <div  v-for="det in stockinitial"  :key="det.id" >
-                                                        <div v-if="det.id === pro.product_id" :exist=true>
+                                                <div>
+                                                
+                                                    <div  v-for="det in initialstock"  :key="det.id" >
+                                                        <div v-if="det.id === pro.product_id">
                                                            {{  det.stockinitial }}
                                                         </div>     
                                                     </div>
                                                 </div>
-                                                    <div v-show="(pro.updated_at.substr(0, 10))!==dateT  || (pro.updated_at)==null">
+                                                
+                                                    <!--<div v-if="(pro.updated_at.substr(0, 10))!==dateT  ">
                                                             {{  pro.plein }}
-                                                    </div>
+                                                    </div>-->
+                                                    
                                        
                                                    </td>
                                                    <td>
@@ -147,18 +153,21 @@
                                                     
                                                    </td>
                                                    <td>
-                                                    <div v-show="(pro.updated_at.substr(0, 10))==dateT">
-                                                    <div v-for="det in stockfinal" :key="det.id">
+                                                    <div>
+                                                    
+                                                    <div v-for="det in finalstock" :key="det.id">
                                                         <span v-if="det.id == pro.product_id " >
                                                             {{  det.stockfinal }}
 
                                                         </span>
    
                                                     </div>
-                                                    </div>
-                                                    <div v-show="(pro.updated_at.substr(0, 10))!==dateT  || (pro.updated_at)==null">
+                                                </div>
+                                                    
+                                                 <!---<div v-show="(pro.updated_at.substr(0, 10))!==dateT  || (pro.updated_at)==null">
                                                             {{  pro.plein }}
-                                                    </div>
+                                                    </div>-->
+                                                    
                                            
                                                    
 
@@ -235,36 +244,23 @@ export default {
             },
             "dateT"(val){
                 console.log(val)
-                this.a["id","stockinitial"]=""
-                 this.b["id","stockfinal"]=""
+                this.a=[]
+                 this.b=[]
                 this.saveInformation()
             },
        },
        computed:
        {
-          stockslist :function()
+         
+          initialstock:function()
           {
-            this.products.forEach(element => {
-                
-                stockinitial.forEach(element1 => {
-
-                    stockfinal.forEach(element2 => {
-
-                        if(element1.id==element.product_id && element2.id==element.id)
-                        {
-                            this.sample.push({id:element.product_id,name:element.product_name,si:element1.stockinitial,sf:element2.stockfinal})
-
-                        }
-                        
-                    });
-                    
-                });
-                
-            });
-            return stockslist;
-
-
+            return this.stockinitial;
+          },
+          finalstock: function()
+          {
+            return this.stockfinal;
           }
+
           
 
         },
@@ -343,15 +339,19 @@ export default {
                 
             });
 
-            var ventes = c.reduce(function(acc, val){
-                     var o = acc.filter(function(obj){
-                         return obj.id==val.id;
-                     }).pop() || {id:val.id, vente:0};
-                     
-                     o.vente += val.vente;
-                     acc.push(o);
-                     return acc;
-               },[]);
+                this.stockfinal = [...new Map(this.b.map(item =>
+                                 [item.id, item])).values()];
+                this.stockinitial = Object.values(this.a.reduce((acc, d) => (!acc[d.id] ? { ...acc, [d.id]: d } : acc), {}));
+    
+                var ventes = c.reduce(function(acc, val){
+                         var o = acc.filter(function(obj){
+                             return obj.id==val.id;
+                         }).pop() || {id:val.id, vente:0};
+                         
+                         o.vente += val.vente;
+                         acc.push(o);
+                         return acc;
+                   },[]);
                var reception = d.reduce(function(acc, val){
                      var o = acc.filter(function(obj){
                          return obj.id==val.id;
@@ -367,40 +367,9 @@ export default {
                this.receptions=reception.filter(function(itm, i, a) {
                             return i == a.indexOf(itm);
                         });
-          /*  const uniqBy = (arr, key) => Object.values(
-            arr.reduce((a, c) => {
-              a[c[key]] = a[c[key]]?.stockinitial > c.stockinitial
-                ? a[c[key]]
-                : c
-              return a
-            }, {}))*/
-
-         
-
-           /* const uniqbyf=
-            (arr, key) => Object.values(
-            arr.reduce((a, c) => {
-              a[c[key]] = a[c[key]]?.stockfinal < c.stockfinal
-                ? a[c[key]]
-                : c
-              return a
-            }, {}))*/
-
-          //  this.stockinitial= uniqBy(this.a, 'id')
-
+     
+            
           
-
-
-
-            this.stockfinal = [...new Map(this.b.map(item =>
-                             [item.id, item])).values()];
-            this.stockinitial = Object.values(this.a.reduce((acc, d) => (!acc[d.id] ? { ...acc, [d.id]: d } : acc), {}));
-             
-            //console.log(this.ventes)
-            //console.log(this.receptions)
-          //  console.log(this.stockfinal)
-            console.log(this.stockinitial)
-            console.log(this.a)
            
           
   
@@ -411,9 +380,37 @@ export default {
         })
 
     },
+    print(element_id, title="Document") {
+            const prtHtml = document.getElementById(element_id).innerHTML;
+                // Get all stylesheets HTML
+                let stylesHtml = '';
+                for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+                    stylesHtml += node.outerHTML;
+                }
+                
+                // Open the print window
+                const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                
+                WinPrint.document.write(`<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${title} </title>
+                    ${ stylesHtml }
+                </head>
+                <body>
+                    ${ prtHtml }
+                </body>
+                </html>`);
+                
+               WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+
+        },
  
 
     },
+    
 
 }
 </script>

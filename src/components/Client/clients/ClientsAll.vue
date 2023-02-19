@@ -9,7 +9,7 @@
              </div> 
              <div class="col-lg-6 col-sm-6 col-xs-12 mb-4" style="margin-left:280px;">
                        <center><input type="text" class="form-control"  v-model="search" placeholder="rechercher" @keypress.enter="searchEvery"/></center> 
-            </div> 
+             </div> 
 
                 <modal-component :modalActive="modalActive" @close="modalActive = !modalActive ,fetchData()">
                     <add-form @close="modalActive = !modalActive,fetchData()"/>

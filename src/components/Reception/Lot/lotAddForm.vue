@@ -312,6 +312,7 @@ export default {
        
  
     },
+    
     getproducts() {
             api.get("products")
             .then(resp => {

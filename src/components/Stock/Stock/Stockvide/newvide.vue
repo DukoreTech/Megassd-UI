@@ -62,7 +62,7 @@
              vides:[],
              options:[],
              newvide:"",
-             saveEditBtn:"aj",
+             saveEditBtn:"ajouter",
              
          }
      },
@@ -73,8 +73,6 @@
      },
      watch:{
 
-      
- 
          "$store.state.newvide"(val){
           console.log(val)
           if(this.$store.state.newvide!=null)
@@ -84,10 +82,7 @@
           
 
           }
-          else{
-            this.saveEditBtn="Modifier"
-
-          }
+          
             
  
    },

@@ -168,6 +168,7 @@
            if(this.$store.state.IdEditLocation==null){
 
             this.form.restant=this.form.quantity
+
                  
             api.post(
               "location",
@@ -177,7 +178,15 @@
             .then((resp) => {
               this.loading=false
               this.locations = resp.data;
-           //   this.form = {}
+              this.stocks_vides_id="",
+              this.form.nature="emprunt",
+              this.form.quantity="",
+              this.form.client_id="",
+              this.form.quantity=""
+            
+              
+              
+              
               Swal.fire({
                    icon: 'success',
                    title: 'Ajouter',

@@ -22,15 +22,15 @@
                 </div> 
                 <div>
                   <label for="lot_id">
-                    <input type="number" v-model="form.lot_id" placeholder="price" required="required">
-                    <span>Price</span>
+                    <input type="number" disabled v-model="form.lot_id" placeholder="price" required="required">
+                    <span>Prix</span>
                   </label>
                   <div>{{ errors?.lot_id }}</div>  
                 </div>
                 <div>
                   <label for="quantity">
                       <input type="number" id="quantity" placeholder="quantity" v-model="form.quantity" required="required">
-                      <span>Quantity</span>
+                      <span>Quantité</span>
                   </label>
                   <div>{{ errors?.quantity }}</div>
                 </div>  
@@ -155,9 +155,20 @@ export default {
             console.log(this.$store.state.receptions)
         }
 
-  }
-  ,"form.lot_id"(val)
+  },
+  "form.product_id"(val)
   {
+    this.getpriceA();
+    if(this.quantity!=0 || this.form.tva!=0)
+    {
+      this.onChange();
+      this.onchangetva();
+    }
+
+  },
+  "form.lot_id"(val)
+  {
+    
     if(this.quantity!=0 || this.form.tva!=0)
     {
       this.onChange();
@@ -229,6 +240,17 @@ export default {
         })
 
     },
+    getpriceA()
+    {
+      api.get("getpriceA",{params:{product_id:this.form.product_id}})
+      .then(resp=>{
+        this.form.lot_id= resp.data[0].prix
+        console.log((resp.data[0].prix))
+      }).catch(err => {
+                console.error(err)
+            })
+
+    },
 
     close(){
       this.$emit('close')
@@ -242,27 +264,39 @@ export default {
       this.vides.forEach(item => {
       JSON.parse(item.products).forEach(element => {
         console.log(element)
-          if(element==this.form.product_id)
+          if(element.id==this.form.product_id)
           {
-            result=item
+            result.push(item)
 
           }
+          
         
           
         });
         
       });
-      console.log(this.result)
-    //  let result= this.vides.find((item) => item.products.find() === this.form.product_id)
-    //  this.form.product_id=this.form.stock.product_id
-      
-      if(this.form.quantity > result.quantite)
+     
+      if(result.length==0)
       {
         this.loading=false
         Swal.fire({
                icon: 'error',
                title: 'oups',
-               text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result.quantite,  
+               text: "veuillez definir un stock de vide pour ce produit"  
+              });
+
+      }
+    //  let result= this.vides.find((item) => item.products.find() === this.form.product_id)
+    //  this.form.product_id=this.form.stock.product_id
+      
+      else if(this.form.quantity > result[0].quantite)
+    //  let result= this.vides.find()
+      {
+        this.loading=false
+        Swal.fire({
+               icon: 'error',
+               title: 'oups',
+               text: "Vous n'avez pas assez de vide pour effecctuer cette achat: nb vide dispnible! : "+result[0].quantite,  
               });
       }
      else{

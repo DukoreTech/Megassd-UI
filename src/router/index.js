@@ -27,6 +27,7 @@ import Videsrestant from "@/views/DetteVidesView.vue"
 import Clientshistoric from "@/components/Client/clients/Clientshistoric.vue"
 import MontantNonpayes from "@/components/Vente/DetteArgent/DetteMoney.vue"
 import Stockvide from "@/components/Stock/Stock/Stockvide/listesvides.vue"
+import price from "@/components/Reception/prixachat/prixliste.vue"
 import store from '../store/index.js'
 
 const routes = [
@@ -57,6 +58,7 @@ const routes = [
   { path: '/Clientshistoric/:id,:client', name: 'Clientshistoric', component: Clientshistoric, props: true },
 
   { path: '/lot', name: 'lot', component: lot },
+  { path: '/price', name: 'price', component: price },
   { path: '/Reception', name: 'Reception', component: Reception },
   { path: '/Stockvide', name: 'Stockvide', component: Stockvide },
   { path: '/Commande', name: 'Commande', component: Commande },

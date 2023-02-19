@@ -23,6 +23,8 @@ export default createStore({
     vides:[],
     detailsventes:[],
     newvide:null,
+    IdEditprice:null,
+    price:[],
     roles:[],
     IdEditRole:null,
     adresses:[],

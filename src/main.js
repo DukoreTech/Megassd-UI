@@ -21,6 +21,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+//import mixins from '../src/mixins';
 import Vue from "vue";
 import "@/assets/css/megaSSD.css"
 import "@/assets/css/MegaScrollbars.css"
@@ -57,6 +58,7 @@ const options = {
 createApp(App)
     .use(store)
     .use(router)
+   // .mixin(mixins)
     .use(VueHtmlToPaper, options)
     .component('font-awesome-icon', FontAwesomeIcon)
     .component('loading', Loading)

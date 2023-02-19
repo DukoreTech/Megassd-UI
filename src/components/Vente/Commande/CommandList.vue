@@ -6,6 +6,7 @@
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
                         Ajouter command
                       </button>
+                      
                     
                  </div>  
     
@@ -17,6 +18,7 @@
                 <div class="card  mb-2">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-mute">Liste des ventes</h6>
+                        <input type="text" class="form-control col-lg-4 col-sm-6 mt-2"  v-model="search" placeholder="rechercher" @keypress.enter="searchEvery"/>
                         
                     </div>
                     <div class="card-body">
@@ -42,7 +44,7 @@
                               </tr>
                                 </thead>                     
                                 <tbody>
-                                   <tr v-for="order in ventes" :key="order.id">
+                                   <tr v-for="order in filteredItems" :key="order.id">
                                     <th scope="row">{{ order.id }}</th>
                                     <td> <h6 style="border-bottom:1px solid ;" v-for="val in JSON.parse(order.products)" :key="val">
                                         {{ val.product_name }}
@@ -104,15 +106,17 @@
             this.fetchData()
         },
         computed:{
-            searchEvery(){
-                return this.receptions.filter(val=>val.includes(this.search))
-                },
+           
              ventes(){
                 return  this.$store.state.vantes;
-             }
+             },
+             filteredItems () {
+      return this.searchInArray(this.ventes, this.search)
+      
+    }
         },
         watch: {
-            
+
             orders(val) {
                   console.log(val)
                   $('#datatable').DataTable().destroy();
@@ -123,6 +127,17 @@
            },
         
         methods:{
+            searchInArray(arrayList, searchText) {
+            //Methode pour faire une rechercher dans le tableau
+            if(Array.isArray(arrayList) ){
+                return arrayList.filter(
+                e => JSON.stringify(e)
+                         .toLowerCase()
+                         .includes(searchText.toLowerCase())
+            )
+            }
+            return arrayList
+        },
             ajout(){
                 this.$router.push({name:'AddCommande'})
             },
@@ -138,6 +153,7 @@
                     console.error(err)
                 })
             },
+            
             confirmpayment(order) {
     
                let form={
