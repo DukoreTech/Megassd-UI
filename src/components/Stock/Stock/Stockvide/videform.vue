@@ -182,7 +182,7 @@ else{
                  .then((resp) => {
                    this.loading=false
                    this.vides= resp.data;
-				           this.$store.state.Allvides=resp.data
+				           //this.$store.state.Allvides=resp.data
                    this.form = { name:"",products:"",quantite:""} 
                   
                    Swal.fire({
@@ -204,7 +204,7 @@ else{
                  .then((resp) => {
 					this.loading=false
                    this.vides = resp.data;
-                   this.$store.state.vides=resp.data
+                  // this.$store.state.vides=resp.data
                    Swal.fire({
                     icon: 'success',
                     title: 'Modification',
