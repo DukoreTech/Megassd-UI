@@ -14,6 +14,7 @@ export default createStore({
     users:[],
     vantes:[],
     DetteVides:[],
+    Allvides:[],
     DetteArgent:[],
     IdEditDetteArgent:null,
     IdEditVide:null,

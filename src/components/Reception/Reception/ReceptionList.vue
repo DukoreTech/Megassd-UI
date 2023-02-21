@@ -31,7 +31,8 @@
                                 <th scope="col">Quantité</th>
                                 <th scope="col">TVA %</th>
                                 <th scope="col">Date d'achat</th>
-                                <th scope="col">Montant</th>   
+                                <th scope="col">Montant</th>  
+                                <th scope="col">Status</th>  
                                 <th scope="col">Actions</th>
                              </tr>
                             </thead>                     
@@ -44,13 +45,14 @@
                                 <td>{{ reception.quantity }} </td>            
                                 <td>{{ reception.tva }} </td>            
                                 <td>{{ (reception.date_achat).substr(0, 10) }} </td>            
-                                <td>{{ parseFloat(reception.montant).toFixed(2) }} </td>            
+                                <td>{{ parseFloat(reception.montant).toFixed(2) }} </td> 
+                                <td><div v-if="reception.status==0">En cours</div><div v-else>confirmer</div></td>            
 
                                             
                                 <td>
-                                   <!-- <button class="btn btn-sm btn-danger m-2"  @click="deleteReception(reception.id)"><font-awesome-icon icon="fa-solid fa-trash"/>
-                                    delete</button>-->
-                                    <button class="btn btn-sm btn-primary" @click="modalActive = true,editReception(reception,reception.id)" >
+                                    <button v-if="reception.status==0"  class="btn btn-sm btn-danger"  @click="confirmer(reception.id)"><font-awesome-icon icon="fa-solid fa-check"/>
+                                    </button>
+                                    <button v-if="reception.status==0" class="btn btn-sm btn-primary" @click="modalActive = true,editReception(reception,reception.id)">
                                     <font-awesome-icon icon="fa-solid fa-edit"/>
                                     </button>
                                 </td>
@@ -140,6 +142,33 @@ export default {
            
             
         },
+        confirmer(id) {
+    
+         Swal.fire({
+             icon:'info',
+             title: 'en cliquant sur confirmez  vous ne pouvez plus modifier cette achats',
+         // showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'confirmer'
+          })
+         .then((result) => {
+             if (result.isConfirmed) {
+            api.get(
+              "confirmAchats",{params:{id:id}}
+              )
+            .then((resp) => {
+                this.receptions=resp.data
+                this.fetchData()
+            })
+                .catch(err => {
+                    console.error(err)
+                })
+            
+                    }
+            
+                });
+        },
+
         editReception(reception,id){
         this.$store.state.IdEditReception=id
         this.$store.state.receptions=reception

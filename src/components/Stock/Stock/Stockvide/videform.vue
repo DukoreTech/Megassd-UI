@@ -24,7 +24,7 @@
                      :options="options"
                      :multiple="true"
                      :close-on-select="true"
-                     placeholder="Pick some"
+                     
                      label="name"
                      track-by="id"
                     />
@@ -47,7 +47,7 @@
               </div>
               <span v-if="!loading">{{saveEditBtn}}</span>
             </button>
-            <button type="reset" :disabled="loading" v-if="saveEditBtn=='Ajouter'" class="btn btn-sm btn-primary" >vider</button>
+            <button type="reset" :disabled="loading" v-if="this.$store.state.IdEditvide==null" class="btn btn-sm btn-primary" >vider</button>
           </div>
           </form>
     </div>
@@ -84,11 +84,12 @@ export default {
         this.getproducts()
 
     },
+   
     watch:{
 
       "$store.state.IdEditvide"(a){
     console.log(a)
-    if(this.$store.state.IdEditvide==null){
+  if(this.$store.state.IdEditvide==null){
       //this.getuser()
       this.options=[]
          this.form={};
@@ -146,36 +147,34 @@ export default {
         saveInformation() {
           if (this.form["products_id","quantite","name"]=="") return;
         let result=[]  
-		let rep=[]
+        this.$store.state.Allvides.filter(element => {
+
+JSON.parse(element.products).forEach(element1 => {
+
+  this.form.products.forEach(element2 => {
+    if(element2.id == element1.id)
+    {
+      result.push(element1)
+    }
+});
+
+});
+
+});
+if(result.length>0){
+this.loading=false
+
+Swal.fire({
+   icon: 'info',
+   title: 'erreur',
+   text: 'stock deja existant '
+    
+  });
+}
+else{
+	
           if(this.$store.state.IdEditvide==null){
-            this.$store.state.vides.filter(element => {
-
-            JSON.parse(element.products).forEach(element1 => {
-            
-              this.form.products.forEach(element2 => {
-                if(element2.id == element1.id)
-                {
-                  result.push(element1)
-                }
-            });
-            
-            });
-            
-            });
-            if(result.length>0){
-          this.loading=false
-       
-          Swal.fire({
-               icon: 'info',
-               title: 'erreur',
-               text: 'stock deja existant '
-                
-              });
-        }
-        else{
-
-        
-                
+          
                  api.post(
                    "vides",
                    this.form
@@ -183,7 +182,7 @@ export default {
                  .then((resp) => {
                    this.loading=false
                    this.vides= resp.data;
-				   this.$store.state.vides=resp.data
+				           this.$store.state.Allvides=resp.data
                    this.form = { name:"",products:"",quantite:""} 
                   
                    Swal.fire({
@@ -198,30 +197,8 @@ export default {
                    this.errors = err.response.data.errors;
                  });
                 }
-              }else{
+              else{
 
-                this.products
-				.filter(element => {
-
-                element.products.forEach(element1 => {
-                
-                  this.form.products.forEach(element2 => {
-                    if(element2.id == element1.id)
-                    {
-                      rep.push(element1)
-                    }
-                });
-                
-                });
-                
-                });
-
-				if(re.length>0)
-				{
-					alert('hi')
-
-				}
-				else{
 					api.patch("vides/"+this.$store.state.IdEditvide,
                    this.form )
                  .then((resp) => {
@@ -242,17 +219,13 @@ export default {
                  });
 
 				}
+      }
 
                  
                   
          
                 }
 
-        
-    
-           
-     
-        },
 
 
     },

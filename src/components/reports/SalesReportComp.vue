@@ -75,7 +75,7 @@
 													
 												</tr>
 											</thead>
-                                            <tbody>
+                                            <tbody v-if="orders.length>0">
                                                 
                                                 <tr v-for="detail in orders" :key="detail.id">
 														
@@ -103,7 +103,6 @@
 
                                                     <div v-for="total in finaltotal" :key="total.id">
                                                         <div v-if="pro.id == total.id">
-
                                                                  {{ total.quantite }}
                                                         </div>
 

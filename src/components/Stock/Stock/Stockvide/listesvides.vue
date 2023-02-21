@@ -140,7 +140,7 @@
                                 <td>{{ loc.rembourse}}</td>
                                 <td>
                                     <button v-if="loc.status==0" class="btn btn-sm btn-primary" @click="modalActive = true,addM=false,newM=false,location=true,editstatus(loc,loc.id),this.$store.state.IdEditLocation=loc.id">
-                                      <font-awesome-icon icon="fa-solid fa-plus" />
+                                      <font-awesome-icon icon="fa-solid fa-plus" />retourner
                                     </button>
                                     <button v-if="loc.status==1" class="btn btn-sm btn-secondary">rembourser
                                     </button>
@@ -263,7 +263,7 @@ export default {
             .then(resp => {
                 this.isLoading=false
                 this.stocks = resp.data
-                this.$store.state.vides=resp.data
+                this.$store.state.Allvides=resp.data
            
             })
             .catch(err => {

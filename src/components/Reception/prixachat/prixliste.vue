@@ -2,7 +2,7 @@
     <div>
             <div>    
                 <div class="d-md-flex m-3 justify-content-between" >
-                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditAdresse=null">
+                    <button class="btn btn-info mt-2 ml-5 ajout" @click="modalActive = true,$store.state.IdEditprice=null">
                         <font-awesome-icon icon="fa-solid fa-plus-circle" />
                         Nouveau prix
                       </button>                
@@ -128,7 +128,7 @@
                  })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        api.delete("Address/"+ id)
+                        api.get("deleteprice",{params:{product_id:id}})
                     .then(resp => {
                     this.prix = resp.data
                     Swal.fire('suppression avec succès ', '', 'success')
