@@ -139,7 +139,6 @@ export default {
             })
                 }
             });
-           
             
         },
         confirmer(id) {

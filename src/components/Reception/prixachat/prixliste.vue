@@ -7,7 +7,7 @@
                         Nouveau prix
                       </button>                
                  </div>  
-                    <modal-component :modalActive="modalActive" @close="modalActive = !modalActive,fetchData()">
+                    <modal-component :modalActive="modalActive" @close="modalActive = !modalActive">
                         <add-form  @close="modalActive = !modalActive,fetchData()"/>
                     </modal-component>
             </div>
@@ -100,19 +100,13 @@
     
     
         methods:{
-            getall()
-            {
-    
-            },
             fetchData() {
                 this.isLoading=true
-                console.log(this.$store.state.token)
+                
               api.get("getprix").then(resp => {
                 this.isLoading=false
                     this.prix = resp.data
-                    this.$store.state.adresses=resp.data
-                  
-            
+                    this.$store.state.price=resp.data
                 })
                 .catch(err => {
                     

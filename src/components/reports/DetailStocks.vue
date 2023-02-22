@@ -112,57 +112,29 @@
                                                 </tr>
 
 											</thead>
-                                            <tbody v-if="stokD.length!=0">
-                                                <tr v-for="pro in products" :key="pro.id">
-                                                   <td scope="col">{{ pro.products.name }}</td>
+                                            <tbody>
+                                                <tr v-for="pro in result" :key="pro.id">
+                                                   <td scope="col">{{ pro.product_name }}</td>
                                                    <td>
-                                                <div>
+                                                     <div v-if="  dateT >= (pro.date_created.substr(0, 10))">
                                                 
-                                                    <div  v-for="det in initialstock"  :key="det.id" >
-                                                        <div v-if="det.id === pro.product_id">
-                                                           {{  det.stockinitial }}
-                                                        </div>     
+                                                           {{ pro.stinit}}
                                                     </div>
-                                                </div>
-                                                
-                                                    <!--<div v-if="(pro.updated_at.substr(0, 10))!==dateT  ">
-                                                            {{  pro.plein }}
-                                                    </div>-->
                                                     
                                        
-                                                   </td>
+                                                    </td>
+                                                   <td>{{  pro.vente }}</td>
                                                    <td>
-                                                    <div v-for="det in ventes" :key="det.id">
-                                                        <span v-if="det.id == pro.product_id">
-                                                            {{  det.vente }}
-
-                                                        </span>
-                                                    </div>
+                                                   
+                                                     {{  pro.reception }}
 
                                                    </td>
-                                                   <td>
-                                                    <div v-for="det in receptions" :key="det.id">
-                                                        <span v-if="det.id == pro.product_id" >
-                                                            {{  det.reception }}
-
-                                                        </span>
-                                     
-   
-                                                    </div>
-
+                                                   <td >
+                                                    <div v-if="(pro.date_created.substr(0, 10))<=dateT">
                                                     
-                                                   </td>
-                                                   <td>
-                                                    <div>
-                                                    
-                                                    <div v-for="det in finalstock" :key="det.id">
-                                                        <span v-if="det.id == pro.product_id " >
-                                                            {{  det.stockfinal }}
-
-                                                        </span>
-   
+                                                            {{  pro.stf }}
                                                     </div>
-                                                </div>
+
                                                     
                                                  <!---<div v-show="(pro.updated_at.substr(0, 10))!==dateT  || (pro.updated_at)==null">
                                                             {{  pro.plein }}
@@ -219,6 +191,7 @@ export default {
             ventes:[],
             receptions:[],
             sample:[],
+            result: [ ]
         }
     },
     mounted(){
@@ -334,10 +307,10 @@ export default {
                         }
                     }
                   
-                });
-                
+                }); 
                 
             });
+            
 
                 this.stockfinal = [...new Map(this.b.map(item =>
                                  [item.id, item])).values()];
@@ -367,6 +340,56 @@ export default {
                this.receptions=reception.filter(function(itm, i, a) {
                             return i == a.indexOf(itm);
                         });
+
+
+                        let result=[]
+                this.result=[]
+                this.products.forEach(element => {
+                    this.result.push({id:element.product_id,stinit:element.plein,stf:element.plein,vente:"",reception:"",product_name:element.products.name,date_created:element.date})
+                   // result.push({id:element.product_id,stinit:element.plein,stf:element.plein,vente:"",reception:"",product_name:element.products.name})
+                 
+                });
+                
+                this.result.forEach(element => {
+                    this.stockinitial.forEach(element1 => {
+                        
+                                       
+                            if(element1.id==element.id )
+                        {
+                            element.stinit=element1.stockinitial 
+                        }  
+                    });
+                    this.stockfinal.forEach(element3 => {
+                            if(element3.id==element.id)
+                        {
+                           
+                            element.stf=element3.stockfinal
+                                
+                            
+                        }
+
+                        });
+                       this.ventes.forEach(element4 => {
+                        if(element4.id==element.id)
+                        {
+                            element.vente=element4.vente
+
+                        }
+                   
+                    });
+                     this.receptions.forEach(element5 => {
+                        if(element5.id==element.id)
+                        {
+                            element.reception=element5.reception
+
+                        }
+                });
+                    
+                
+                    
+                });
+                console.log(this.result)
+                console.log(result)
      
             
           

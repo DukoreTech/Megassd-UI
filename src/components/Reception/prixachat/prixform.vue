@@ -13,7 +13,7 @@
 
         <div>
           <div class="">Product</div>
-            <select  v-model="form.product_id" aria-placeholder="Adresse" id="adresse" required="required" class="form-select">
+            <select  v-model="form.product_id" :disabled="this.$store.state.IdEditprice!==null" aria-placeholder="Adresse" id="adresse" required="required" class="form-select">
               <option v-for="product in products" :value="product.id" :key="product.id" selected>
               {{ product.name }}
               </option>
@@ -108,18 +108,44 @@
         },
         saveInformation() {
           //if (this.form[ "zone"]=="") return; 
+          let result= []
     
           this.loading=true
+          
+          
     
            if(this.$store.state.IdEditprice==null){
-                 
+            this.$store.state.price.forEach(element => {
+            if(element.id=this.form.product_id)
+            {
+              result.push(element)
+
+            }
+            
+          });
+          if(result.length>0)
+          {
+            this.loading=false
+            Swal.fire({
+                   icon: 'info',
+                   title: 'oups',
+                   text: 'vous avez déja definit un prix pour ce produit',  
+                  });
+                  this.form.product_id=""
+              this.form.prix=""
+                  
+
+          }
+          else{
+          
             api.get("createprix",{params:{product_id:this.form.product_id,prix:this.form.prix}}
               )
             .then((resp) => {
               this.loading=false
-              this.prix = resp.data;
-              this.form = {} 
-              this.$store.state.price=resp.data
+             this.prix = resp.data;
+             this.form={}
+               
+             // this.$store.state.price=resp.data
               Swal.fire({
                    icon: 'success',
                    title: 'Ajouter',
@@ -132,7 +158,7 @@
               console.error(err.response.data.errors);
               this.errors = err.response.data.errors;
             });
-           }else{
+           }}else{
             this.loading=true
              api.get("updateprix",
              {params:{id:this.$store.state.IdEditprice,product_id:this.form.product_id,prix:this.form.prix}})
